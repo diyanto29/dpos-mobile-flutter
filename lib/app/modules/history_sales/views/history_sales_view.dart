@@ -3,6 +3,7 @@ import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 
 import 'package:get/get.dart';
 import 'package:warmi/app/modules/history_sales/views/all_history.dart';
+import 'package:warmi/app/modules/wigets/layouts/home/drawer_cashier.dart';
 import 'package:warmi/core/globals/global_color.dart';
 import 'package:warmi/core/globals/global_string.dart';
 import 'package:warmi/core/utils/thema.dart';
@@ -16,6 +17,13 @@ class HistorySalesView extends GetWidget<HistorySalesController> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: MyColor.colorGrey,
+        appBar: AppBar(
+          backgroundColor: MyColor.colorPrimary,
+          title: Text('Riwayat Penjualan',),
+          automaticallyImplyLeading: controller.auth.value.roleName=="Pemilik Toko" ? false : true,
+
+        ),
+        drawer: controller.auth.value.roleName=="Pemilik Toko" ? null : DrawerCustom(),
        body: Column(
          children: [
            // Container(

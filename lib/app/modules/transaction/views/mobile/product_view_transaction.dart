@@ -13,7 +13,8 @@ import 'package:warmi/core/globals/global_color.dart';
 
 class ProductTransactionView extends GetWidget<ProductController> {
   final formatCurrency = new NumberFormat.currency(locale: "id_ID", symbol: "", decimalDigits: 0);
-  final cartController = Get.find<CartController>();
+  final cartController =  Get.isRegistered<CartController>()
+      ? Get.find<CartController>() :Get.put(CartController());
   final transactionController = Get.find<TransactionController>();
 
 

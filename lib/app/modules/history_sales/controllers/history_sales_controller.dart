@@ -5,6 +5,7 @@ import 'package:external_path/external_path.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:warmi/app/data/datalocal/session/auth_session_manager.dart';
 import 'package:warmi/app/data/datasource/transactions/transaction_source_data_remote.dart';
 import 'package:warmi/app/data/models/transactions/transaction_model.dart';
 import 'package:warmi/app/modules/owner/settings/controllers/printer_controller.dart';
@@ -34,6 +35,7 @@ class HistorySalesController extends GetxController with SingleGetTickerProvider
       ? Get.find<PrinterController>() :Get.put(PrinterController());
 
   ScreenshotController screenshotController=ScreenshotController();
+  Rx<AuthSessionManager> auth=AuthSessionManager().obs;
 
 
 

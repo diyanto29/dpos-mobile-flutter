@@ -51,40 +51,43 @@ class _CheckoutCashlessViewState extends State<CheckoutCashlessView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("${data.paymentmethodtypealias}"),
-                    GetBuilder<TransactionController>(builder: (logic) {
-                      return GridView.count(
-                        primary: true,
-                        shrinkWrap: true,
-                        childAspectRatio: 14 / 9,
-                        physics: NeverScrollableScrollPhysics(),
-                        crossAxisCount: 3,
-                        children: data.paymentMethod!.map((e) =>
-                            Visibility(
-                              visible: e.status == "Active"
-                                  ? true
-                                  : false,
-                              child: InkWell(
-                                onTap: () => conTransaction.setPaymentMethod(payment_method: e),
-                                child: Card(
-                                  borderOnForeground: true,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5),
-                                      side: e.paymentmethodid == conTransaction.paymentMethod.value.paymentmethodid ? BorderSide(color: MyColor.colorPrimary) : BorderSide.none
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: CachedNetworkImage(
-                                      imageUrl:
-                                      "${e.paymentmethodlogo}",
-                                      height: 50,
-                                      width: 80,
+                    LayoutBuilder(builder: (context,constraints){
+                      return   GetBuilder<TransactionController>(builder: (logic) {
+                        return GridView.count(
+                          primary: true,
+                          shrinkWrap: true,
+                          childAspectRatio:  constraints.maxWidth>=600 ? 8.3/2.5 :  14 / 9,
+                          physics: NeverScrollableScrollPhysics(),
+                          crossAxisCount: 3,
+                          children: data.paymentMethod!.map((e) =>
+                              Visibility(
+                                visible: e.status == "Active"
+                                    ? true
+                                    : false,
+                                child: InkWell(
+                                  onTap: () => conTransaction.setPaymentMethod(payment_method: e),
+                                  child: Card(
+                                    borderOnForeground: true,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5),
+                                        side: e.paymentmethodid == conTransaction.paymentMethod.value.paymentmethodid ? BorderSide(color: MyColor.colorPrimary) : BorderSide.none
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: CachedNetworkImage(
+                                        imageUrl:
+                                        "${e.paymentmethodlogo}",
+                                        height: 50,
+                                        width: 80,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ),).toList(),
-                      );
+                              ),).toList(),
+                        );
+                      });
                     })
+
                   ],
                 ),
               ),

@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:warmi/app/data/datalocal/session/auth_session_manager.dart';
 import 'package:warmi/app/data/datasource/product/product_remote_data_source.dart';
 import 'package:warmi/app/data/datasource/transactions/transaction_source_data_remote.dart';
 
@@ -61,6 +62,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
   RxInt indexCheckout = 0.obs;
   RxString title = "List Kontak".obs;
   DataTransaction? detailTransaction;
+  Rx<AuthSessionManager> auth=AuthSessionManager().obs;
 
   @override
   void onInit() {

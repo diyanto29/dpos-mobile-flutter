@@ -19,7 +19,7 @@ class SettingController extends GetxController{
 
   launchWhatsApp() async {
     final link = WhatsAppUnilink(
-      phoneNumber: '+6285624277920',
+      phoneNumber: '+6285624277920',  
       text: "Hai DPOS, Saya ingin bertanya...",
     );
     await launch('$link');

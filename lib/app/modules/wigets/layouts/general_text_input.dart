@@ -28,45 +28,47 @@ class GeneralTextInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TextField(
-          onTap: onClick,
-          textInputAction: textInputAction,
-          controller: controller,
-          keyboardType: keyboardType,
-          readOnly: readOnly,
-          maxLines: maxLines,
-          autofocus: autoFocus,
-          decoration: InputDecoration(
-            focusedBorder: OutlineInputBorder(
-              borderSide:
-              const BorderSide(color: MyColor.colorPrimary, width: 2.0),
-              borderRadius: BorderRadius.circular(borderRadius),
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TextField(
+            onTap: onClick,
+            textInputAction: textInputAction,
+            controller: controller,
+            keyboardType: keyboardType,
+            readOnly: readOnly,
+            maxLines: maxLines,
+            autofocus: autoFocus,
+            decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderSide:
+                const BorderSide(color: MyColor.colorPrimary, width: 2.0),
+                borderRadius: BorderRadius.circular(borderRadius),
+              ),
+              border: OutlineInputBorder(
+                borderSide:
+                const BorderSide(color: MyColor.colorPrimary, width: 2.0),
+                borderRadius: BorderRadius.circular(borderRadius),
+              ),
+              hintText: "$labelTextInputBox",
+
             ),
-            border: OutlineInputBorder(
-              borderSide:
-              const BorderSide(color: MyColor.colorPrimary, width: 2.0),
-              borderRadius: BorderRadius.circular(borderRadius),
-            ),
-            hintText: "$labelTextInputBox",
-            
           ),
-        ),
-        SizedBox(
-          height: 5,
-        ),
-        Text(
-          "   * $descTextInputBox",
-          style: GoogleFonts.droidSans(
-              fontStyle: FontStyle.italic, color: MyColor.colorBlackT50),
-        ),
-        SizedBox(
-          height: paddingBottom,
-        ),
-      ],
+          // SizedBox(
+          //   height: 5,
+          // ),
+          Text(
+            "   * $descTextInputBox",
+            style: GoogleFonts.droidSans(
+                fontStyle: FontStyle.italic, color: MyColor.colorBlackT50,fontSize: 12),
+          ),
+          // SizedBox(
+          //   height: paddingBottom,
+          // ),
+        ],
+      ),
     );
   }
 }

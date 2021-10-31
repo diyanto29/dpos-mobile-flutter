@@ -7,6 +7,7 @@ import 'package:warmi/app/modules/transaction/controllers/cart_controller.dart';
 import 'package:warmi/app/modules/transaction/controllers/transaction_controller.dart';
 import 'package:warmi/app/modules/transaction/views/mobile/product_view_transaction.dart';
 import 'package:warmi/app/modules/wigets/layouts/dialog/bottom_dialog_cart.dart';
+import 'package:warmi/app/modules/wigets/layouts/home/drawer_cashier.dart';
 import 'package:warmi/app/routes/app_pages.dart';
 import 'package:warmi/core/globals/global_color.dart';
 
@@ -33,7 +34,11 @@ class _TransactionViewState extends State<TransactionView> {
       appBar: AppBar(
         backgroundColor: MyColor.colorPrimary,
         title: Text('Penjualan',),
+        automaticallyImplyLeading: controller.auth.value.roleName=="Pemilik Toko" ? false : true,
+
       ),
+      drawer: controller.auth.value.roleName=="Pemilik Toko" ? null : DrawerCustom(),
+
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,

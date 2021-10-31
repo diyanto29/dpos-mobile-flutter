@@ -35,8 +35,9 @@ class SplashView extends GetWidget<SplashController> {
                   ))),
           Center(
             child: Image.asset(
-              "assets/logo_grosir.png",
-              width: 40.w,
+              "assets/d-post.png",
+              width: 20.w,
+              fit: BoxFit.fitWidth,
             ),
           ),
           Padding(

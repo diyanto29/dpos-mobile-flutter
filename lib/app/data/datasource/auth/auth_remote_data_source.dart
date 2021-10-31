@@ -13,6 +13,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:image/image.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:warmi/app/data/datalocal/session/auth_session_manager.dart';
+import 'package:warmi/app/data/models/auth_cashier/auth_cashier.dart';
 import 'package:warmi/app/modules/wigets/layouts/dialog/dialog_snackbar.dart';
 import 'package:warmi/app/routes/app_pages.dart';
 import 'package:warmi/core/errors/exceptions.dart';
@@ -104,6 +105,82 @@ class AuthRemoteDataSource extends BaseDio{
     }
   }
 
+
+  Future<ResponseMessage> loginAuthCashier({String? username,String? password}) async {
+    GetStorage box=GetStorage();
+    print("a");
+    try{
+      Map<String, dynamic> data = {
+        "phone_number": username,
+        "pin": password,
+      };
+
+      Response response=await dio.post("${MyString.loginCashier}",data: jsonEncode(data));
+
+      if(response.data['status']){
+        AuthCashier authCashier=AuthCashier.fromJson(response.data);
+        var data = response.data['data'];
+        var dataDetailUser = response.data['data']['detail_user'];
+        box.write("token", data['token']);
+
+        //session detail user
+        box.write(MyString.USER_ID, authCashier.data!.detailUser!.employeid);
+        box.write(MyString.USER_FULLNAME, authCashier.data!.detailUser!.name);
+        box.write(MyString.USER_NO_HP, authCashier.data!.detailUser!.phonenumber);
+        box.write(MyString.USER_EMAIL, '');
+        box.write(MyString.USER_USERNAME, authCashier.data!.detailUser!.name);
+        box.write(MyString.USER_PHOTO, '');
+        box.write(MyString.STORE_COUNT, 1);
+
+        //session role user
+        box.write(MyString.ROLE_ID, '');
+
+        box.write(MyString.ROLE_NAME, 'kasir');
+
+        //checking id owner
+        box.write(MyString.USER_ID_OWNER, authCashier.data!.detailUser!.userid);
+
+
+
+        //user type account
+        if(dataDetailUser['user_type']!=null){
+          box.write(MyString.STATUS_CODE_ID, dataDetailUser['user_type']['STATUS_CODE_ID'].toString());
+          box.write(MyString.STATUS_NAME, dataDetailUser['user_type']['STATUS_NAME']);
+          box.write(MyString.EXPIRED_DATE, dataDetailUser['EXPIRED_DATE']);
+        }
+
+        //sessiojn store
+        if(authCashier.data!.detailUser!.store!.length>0){
+          _downloadFile(authCashier.data!.detailUser!.store![0].owner!.business!.businesslogo!,'logo').then((value) {
+            print(value.path);
+          });
+        }
+
+
+        //session bussines
+        box.write(MyString.BUSINESS_ID, '');
+        box.write(MyString.BUSINESS_NAME, '');
+        box.write(MyString.BUSINESS_CATEGORY_ID, '');
+        box.write(MyString.BUSINESS_CATEGORY_NAME,'');
+        box.write(MyString.BUSINESS_CREW_TOTAL,'');
+        box.write(MyString.BUSINESS_BRANCH, '');
+        box.write(MyString.BUSINESS_WEBSITE_ID, '').toString();
+        box.write(MyString.BUSINESS_CONTACT,'');
+
+        Get.offAllNamed(Routes.CHOOSE_STORE,arguments: authCashier);
+
+        showSnackBar(snackBarType: SnackBarType.SUCCESS,title: "Login",message:  'Selamat Datang '+authCashier.data!.detailUser!.name!);
+        return ResponseMessage(message: response.data['message'], status: response.data['status'],data: authCashier);
+      }else{
+        showSnackBar(snackBarType: SnackBarType.ERROR,title: "Login",message: response.data['message']);
+        return ResponseMessage(message: response.data['message'], status: response.data['status']);
+      }
+    }on DioError catch(e){
+      print(e);
+       return ResponseMessage(message: 'Erorr Dari Server', status: false);
+    }
+  }
+
   Future<ResponseMessage> updatePassword({String? password}) async {
     try {
       AuthSessionManager auth = AuthSessionManager();
@@ -136,6 +213,14 @@ class AuthRemoteDataSource extends BaseDio{
 
     //
     File file = new File('$dir/$filename'+'.png');
+    await Permission.storage.request().then((value) async{
+      if(value.isGranted){
+        await file.writeAsBytes(bytes);
+        Image image2 = decodeJpg(file.readAsBytesSync());
+        Image thumbnail = copyResize(image2, width: 250,height: 250);
+        File('$dir/logo.png').writeAsBytesSync(encodePng(thumbnail));
+      }
+    });
     if (await Permission.storage.isGranted) {
       await file.writeAsBytes(bytes);
       Image image2 = decodeJpg(file.readAsBytesSync());

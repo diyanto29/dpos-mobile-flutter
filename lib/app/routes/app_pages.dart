@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:warmi/app/modules/choose_store/view/choose_store_view.dart';
 import 'package:warmi/app/modules/history_sales/views/detail_history_view.dart';
 import 'package:warmi/app/modules/history_sales/views/history_sales_view.dart';
 import 'package:warmi/app/modules/home/views/home_view.dart';
@@ -31,6 +32,7 @@ import 'package:warmi/app/modules/transaction/views/mobile/checkout_view.dart';
 import 'package:warmi/app/modules/transaction/views/mobile/customer_view.dart';
 import 'package:warmi/app/modules/transaction/views/mobile/transaction_success_view.dart';
 import 'package:warmi/app/modules/transaction/views/mobile/transaction_view.dart';
+import 'package:warmi/app/modules/transaction/views/table/checkout_table_view.dart';
 import 'package:warmi/di/depedency_injection.dart';
 
 part 'app_routes.dart';
@@ -159,6 +161,18 @@ class AppPages {
       name: _Paths.INDEX_TRANSACTION,
       page: () => IndexTransaction(),
       transition: Transition.zoom,
+      binding: LazyBindings(),
+    ),
+    GetPage(
+      name: _Paths.CHECKOUT_TABLET,
+      page: () => CheckOutTableView(),
+      transition: Transition.leftToRightWithFade,
+      binding: LazyBindings(),
+    ),
+    GetPage(
+      name: _Paths.CHOOSE_STORE,
+      page: () => ChooseStoreView(),
+      transition: Transition.leftToRightWithFade,
       binding: LazyBindings(),
     ),
   ];

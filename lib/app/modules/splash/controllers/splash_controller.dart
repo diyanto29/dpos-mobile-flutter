@@ -39,6 +39,8 @@ class SplashController extends GetxController {
       if(box.hasData(MyString.USER_ID)){
         if(box.read(MyString.ROLE_NAME).toString().toLowerCase().contains('pemilik toko')){
           Get.offAllNamed(Routes.NAVIGATION);
+        }else{
+          Get.offAllNamed(Routes.INDEX_TRANSACTION);
         }
       }else{
         Get.offAllNamed(Routes.LOGIN_CHOOISE);

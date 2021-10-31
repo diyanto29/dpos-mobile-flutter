@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:warmi/app/modules/choose_store/controller/choose_store_controller.dart';
 import 'package:warmi/app/modules/history_sales/controllers/history_sales_controller.dart';
 import 'package:warmi/app/modules/login/controllers/login_controller.dart';
 import 'package:warmi/app/modules/login_employee/controllers/login_employee_controller.dart';
@@ -48,5 +49,6 @@ class LazyBindings extends Bindings {
     Get.lazyPut<CustomerController>(() => CustomerController());
     Get.lazyPut<ProfileController>(() => ProfileController());
     Get.lazyPut<LoginEmployeeController>(() => LoginEmployeeController());
+    Get.lazyPut<ChooseStoreController>(() => ChooseStoreController());
   }
 }

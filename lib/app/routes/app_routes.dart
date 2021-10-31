@@ -37,6 +37,8 @@ abstract class Routes {
   static const PROFILE_VIEW = _Paths.PROFILE_VIEW;
   static const LOGIN_EMPLOYEE = _Paths.LOGIN_EMPLOYEE;
   static const INDEX_TRANSACTION = _Paths.INDEX_TRANSACTION;
+  static const CHECKOUT_TABLET = _Paths.CHECKOUT_TABLET;
+  static const CHOOSE_STORE = _Paths.CHOOSE_STORE;
 }
 
 abstract class _Paths {
@@ -73,4 +75,6 @@ abstract class _Paths {
   static const PROFILE_VIEW = '/profile-view';
   static const LOGIN_EMPLOYEE = '/login-employee';
   static const INDEX_TRANSACTION = '/index-transaction';
+  static const CHECKOUT_TABLET = '/checkout-tablet';
+  static const CHOOSE_STORE = '/choose-store';
 }

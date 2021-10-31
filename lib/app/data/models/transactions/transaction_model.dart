@@ -330,7 +330,7 @@ class Created_by {
       this.userid,});
 
   Created_by.fromJson(dynamic json) {
-    userfullname = json['USER_FULLNAME'];
+    userfullname = json['USER_ID'] ==null ?  json['NAME'] :  json['USER_FULLNAME'];
     userid = json['USER_ID'];
   }
   String? userfullname;

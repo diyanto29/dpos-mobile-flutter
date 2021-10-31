@@ -30,7 +30,7 @@ class TransactionRemoteDataSource extends BaseDio {
       double? transactionPay,
       double? transactionReceived,
       String? customerPartnerID,
-        String? transactionNoted,
+      String? transactionNoted,
       List<CartModel>? listCart}) async {
     try {
       List<dynamic> listProduct = [];
@@ -70,8 +70,8 @@ class TransactionRemoteDataSource extends BaseDio {
       });
 
       Map<dynamic, dynamic> data = {
-        if(auth.roleName=="Pemilik Toko") "user_id": "${auth.userId}" else "user_id" : null,
-        if(auth.roleName=="Pemilik Toko") "employe_id": null else "user_id" : "${auth.userId}",
+        if (auth.roleName == "Pemilik Toko") "user_id": "${auth.userId}" else "user_id": null,
+        if (auth.roleName != "Pemilik Toko") "employe_id": "${auth.userId}" else "user_id": null,
         "store_id": "${auth.storeId}",
         "transaction_note": transactionNoted,
         "transaction_date": dateTransaction,
@@ -89,7 +89,7 @@ class TransactionRemoteDataSource extends BaseDio {
       };
       print(jsonEncode(data));
       response = await dio.post(MyString.storeTransaction, data: jsonEncode(data), options: options);
-      return ResponseMessage(message: response!.data['message'], status: response!.data['status'],data:response!.data['data']);
+      return ResponseMessage(message: response!.data['message'], status: response!.data['status'], data: response!.data['data']);
     } on DioError catch (e) {
       print(e);
       throw ServerException();
@@ -99,7 +99,10 @@ class TransactionRemoteDataSource extends BaseDio {
   Future<TransactionModel> getTransaction({bool userID = false, String? statusTransaction, String? statusPayment}) async {
     try {
       response = await dio.get("${MyString.getTransaction}",
-          queryParameters: {"store_id": "${auth.storeId}", if (auth.roleName.toString() != "Pemilik Toko") "user_id": "${auth.userId}", if (statusTransaction != null) "transaction_status": "$statusTransaction", if (statusPayment != null) "transaction_payment_status": "${statusPayment}"},
+          queryParameters: {"store_id": "${auth.storeId}",
+            if (auth.roleName.toString() != "Pemilik Toko") "employe_id": "${auth.userId}",
+            if (statusTransaction != null) "transaction_status": "$statusTransaction", if (statusPayment != null)
+              "transaction_payment_status": "${statusPayment}"},
           options: options);
       await APICacheManager().addCacheData(APICacheDBModel(key: 'API_TRANSACTION_MODEL', syncData: jsonEncode(response!.data)));
       return TransactionModel.fromJson(response!.data);
@@ -111,22 +114,12 @@ class TransactionRemoteDataSource extends BaseDio {
     }
   }
 
-  Future<ResponseMessage> changeStatusTransaction(
-      {
-        String? paymentMethodID,
-        String? paymentMethodStatus,
-        String? transactionPaymentDate,
-        String? transactionStatus,
-        double? transactionPay,
-        String? transactionID,
-        double? transactionReceived,
-        List<CartModel>? listCart}) async {
+  Future<ResponseMessage> changeStatusTransaction({String? paymentMethodID, String? paymentMethodStatus, String? transactionPaymentDate, String? transactionStatus, double? transactionPay, String? transactionID, double? transactionReceived, List<CartModel>? listCart}) async {
     try {
       Map<dynamic, dynamic> data = {
-        if(auth.roleName=="Pemilik Toko") "user_id": "${auth.userId}" else "user_id" : null,
-        if(auth.roleName=="Pemilik Toko") "employe_id": null else "user_id" : "${auth.userId}",
+        if (auth.roleName == "Pemilik Toko") "user_id": "${auth.userId}" else "user_id": null,
+        if (auth.roleName == "Pemilik Toko") "employe_id": null else "user_id": "${auth.userId}",
         "store_id": "${auth.storeId}",
-
         "transaction_payment_method_id": paymentMethodID,
         "transaction_payment_status": paymentMethodStatus,
         "transaction_payment_date": transactionPaymentDate,
@@ -137,7 +130,7 @@ class TransactionRemoteDataSource extends BaseDio {
       };
       print(jsonEncode(data));
       response = await dio.post(MyString.changeStatusTransaction, data: jsonEncode(data), options: options);
-      return ResponseMessage(message: response!.data['message'], status: response!.data['status'],data: response!.data['data']);
+      return ResponseMessage(message: response!.data['message'], status: response!.data['status'], data: response!.data['data']);
     } on DioError catch (e) {
       print(e);
       throw ServerException();

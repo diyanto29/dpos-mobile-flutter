@@ -25,7 +25,6 @@ dependencies:
   lint: ^1.7.2
   carousel_slider: ^4.0.0
   custom_navigation_bar: ^0.8.2
-
   flutter_iconly: ^1.0.2
   flutter_statusbarcolor_ns: ^0.3.0-nullsafety
   cached_network_image: ^3.1.0

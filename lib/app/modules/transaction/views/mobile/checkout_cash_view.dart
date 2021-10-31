@@ -24,136 +24,299 @@ class _CheckoutCashViewState extends State<CheckoutCashView> {
   var conTransaction = Get.find<TransactionController>();
   var conCart = Get.find<CartController>();
 
-
-
-@override
+  @override
   void initState() {
-    conTransaction.cashC.value.text="Rp 0";
+    conTransaction.cashC.value.text = "Rp 0";
     conTransaction.is20(false);
     conTransaction.is50(false);
     conTransaction.is100(false);
     conTransaction.isPassed(false);
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return ListView(
-        children: [
-          SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Flexible(
-                child: Container(height: 45, width: Get.width * 0.6, child: GeneralButton(
-                    color: conTransaction.is20.value ? MyColor.colorGreen : MyColor.colorPrimary,
-                    label: '20.000', onPressed: () {
-                  conTransaction.is20.value = !conTransaction.is20.value;
-                  conTransaction.getPayMoney20();
-                }, fontSize: 18.sp)),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Flexible(
-                child: Container(height: 45, width: Get.width * 0.6, child: GeneralButton(
-                    color: conTransaction.is50.value ? MyColor.colorGreen : MyColor.colorPrimary,
-                    label: '50.000', onPressed: () {
-                  conTransaction.is50.value = !conTransaction.is50.value;
-                  conTransaction.getPayMoney50();
-                }, fontSize: 18.sp)),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Flexible(
-                child: Container(height: 45, width: Get.width * 0.6, child: GeneralButton(
-                    color: conTransaction.is100.value ? MyColor.colorGreen : MyColor.colorPrimary,
-                    label: '100.000', onPressed: () {
-                  conTransaction.is100.value = !conTransaction.is100.value;
-                  conTransaction.getPayMoney100();
-                }, fontSize: 18.sp)),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Flexible(
-                child: Container(height: 45, width: Get.width * 0.6, child: GeneralButton(
-                    color: conTransaction.isPassed.value ? MyColor.colorGreen : MyColor.colorPrimary,
-                    label: 'Uang Pass', onPressed: () {
-                  conTransaction.isPassed.value = !conTransaction.isPassed.value;
-                  conTransaction.getMoneyPassed(conCart.totalShopping.value);
-                }, fontSize: 18.sp)),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          Text(
-            "Uang Terima",
-            style: blackTextTitle.copyWith(fontWeight: FontWeight.normal, fontSize: 16.sp),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          TextField(
-            controller: conTransaction.cashC.value,
-            keyboardType: TextInputType.number,
-            style: GoogleFonts.roboto(fontSize: 20.sp),
-            inputFormatters: [
-              WhitelistingTextInputFormatter.digitsOnly,
-              CurrencyPtBrInputFormatter(maxDigits: 10, currency: "Rp "),
-            ],
-            onChanged: (v) {
-              print(v);
-              conTransaction.is20(false);
-              conTransaction.is50(false);
-              conTransaction.is100(false);
-              conTransaction.isPassed(false);
-              conTransaction.pay( double.tryParse(conTransaction.cashC.value.text
-                  .split(" ")
-                  .last
-                  .replaceAll(".", "")));
-              conTransaction.getCashReceived();
-            },
-            decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: MyColor.colorPrimary, width: 2.0),
-                  borderRadius: BorderRadius.circular(10),
+    return
+      LayoutBuilder(builder: (context, constraints) {
+        if (constraints.maxWidth < 600) {
+          return Obx(() {
+            return ListView(
+              children: [
+                SizedBox(
+                  height: 10,
                 ),
-                border: OutlineInputBorder(
-                  borderSide: const BorderSide(color: MyColor.colorPrimary, width: 2.0),
-                  borderRadius: BorderRadius.circular(10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      child: Container(
+                          height: 45,
+                          width: Get.width * 0.6,
+                          child: GeneralButton(
+                              borderRadius: 10,
+                              color: conTransaction.is20.value ? MyColor.colorGreen : MyColor.colorPrimary,
+                              label: '20.000',
+                              onPressed: () {
+                                conTransaction.is20.value = !conTransaction.is20.value;
+                                conTransaction.getPayMoney20();
+                              },
+                              fontSize: 18.sp)),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Flexible(
+                      child: Container(
+                          height: 45,
+                          width: Get.width * 0.6,
+                          child: GeneralButton(
+                              borderRadius: 10,
+                              color: conTransaction.is50.value ? MyColor.colorGreen : MyColor.colorPrimary,
+                              label: '50.000',
+                              onPressed: () {
+                                conTransaction.is50.value = !conTransaction.is50.value;
+                                conTransaction.getPayMoney50();
+                              },
+                              fontSize: 18.sp)),
+                    ),
+                  ],
                 ),
-                hintText: "Rp 0",
-                labelStyle: GoogleFonts.droidSans(color: Colors.grey)),
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          Text(
-            "Total Kembalian",
-            style: blackTextTitle.copyWith(fontWeight: FontWeight.normal),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Text(
-            "Rp ${formatCurrency.format(conTransaction.cashReceived.value)}",
-            style: blackTextTitle.copyWith(fontSize: 23.sp),
-          ),
-        ],
-      );
-    });
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      child: Container(
+                          height: 45,
+                          width: Get.width * 0.6,
+                          child: GeneralButton(
+                              borderRadius: 10,
+                              color: conTransaction.is100.value ? MyColor.colorGreen : MyColor.colorPrimary,
+                              label: '100.000',
+                              onPressed: () {
+                                conTransaction.is100.value = !conTransaction.is100.value;
+                                conTransaction.getPayMoney100();
+                              },
+                              fontSize: 18.sp)),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Flexible(
+                      child: Container(
+                          height: 45,
+                          width: Get.width * 0.6,
+                          child: GeneralButton(
+                              borderRadius: 10,
+                              color: conTransaction.isPassed.value ? MyColor.colorGreen : MyColor.colorPrimary,
+                              label: 'Uang Pass',
+                              onPressed: () {
+                                conTransaction.isPassed.value = !conTransaction.isPassed.value;
+                                conTransaction.getMoneyPassed(conCart.totalShopping.value);
+                              },
+                              fontSize: 18.sp)),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  "Uang Terima",
+                  style: blackTextTitle.copyWith(fontWeight: FontWeight.normal, fontSize: 16.sp),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                TextField(
+                  controller: conTransaction.cashC.value,
+                  keyboardType: TextInputType.number,
+                  style: GoogleFonts.roboto(fontSize: 18.sp),
+                  inputFormatters: [
+                    WhitelistingTextInputFormatter.digitsOnly,
+                    CurrencyPtBrInputFormatter(maxDigits: 10, currency: "Rp "),
+                  ],
+                  onChanged: (v) {
+                    print(v);
+                    conTransaction.is20(false);
+                    conTransaction.is50(false);
+                    conTransaction.is100(false);
+                    conTransaction.isPassed(false);
+                    conTransaction.pay(double.tryParse(conTransaction.cashC.value.text
+                        .split(" ")
+                        .last
+                        .replaceAll(".", "")));
+                    conTransaction.getCashReceived();
+                  },
+                  decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: MyColor.colorPrimary, width: 2.0),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: const BorderSide(color: MyColor.colorPrimary, width: 2.0),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      hintText: "Rp 0",
+                      labelStyle: GoogleFonts.droidSans(color: Colors.grey)),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  "Total Kembalian",
+                  style: blackTextTitle.copyWith(fontWeight: FontWeight.normal),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  "Rp ${formatCurrency.format(conTransaction.cashReceived.value)}",
+                  style: blackTextTitle.copyWith(fontSize: 23.sp),
+                ),
+
+              ],
+            );
+          });
+        } else {
+          return Obx(() {
+            return ListView(
+              children: [
+                SizedBox(
+                  height: 3,
+                ),
+                Text(
+                  "Uang Terima",
+                  style: blackTextTitle.copyWith(fontWeight: FontWeight.normal, fontSize: 16.sp),
+                ),
+                TextField(
+                  controller: conTransaction.cashC.value,
+                  keyboardType: TextInputType.number,
+                  style: GoogleFonts.roboto(fontSize: 18.sp),
+                  inputFormatters: [
+                    WhitelistingTextInputFormatter.digitsOnly,
+                    CurrencyPtBrInputFormatter(maxDigits: 10, currency: "Rp "),
+                  ],
+                  onChanged: (v) {
+                    print(v);
+                    conTransaction.is20(false);
+                    conTransaction.is50(false);
+                    conTransaction.is100(false);
+                    conTransaction.isPassed(false);
+                    conTransaction.pay(double.tryParse(conTransaction.cashC.value.text
+                        .split(" ")
+                        .last
+                        .replaceAll(".", "")));
+                    conTransaction.getCashReceived();
+                  },
+                  decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: MyColor.colorPrimary, width: 2.0),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: const BorderSide(color: MyColor.colorPrimary, width: 2.0),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      hintText: "Rp 0",
+                      labelStyle: GoogleFonts.droidSans(color: Colors.grey)),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      child: Container(
+                          height: 45,
+                          width: Get.width * 0.6,
+                          child: GeneralButton(
+                              borderRadius: 10,
+                              color: conTransaction.is20.value ? MyColor.colorGreen : MyColor.colorPrimary,
+                              label: '20.000',
+                              onPressed: () {
+                                conTransaction.is20.value = !conTransaction.is20.value;
+                                conTransaction.getPayMoney20();
+                              },
+                              fontSize: 18.sp)),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Flexible(
+                      child: Container(
+                          height: 45,
+                          width: Get.width * 0.6,
+                          child: GeneralButton(
+                              borderRadius: 10,
+                              color: conTransaction.is50.value ? MyColor.colorGreen : MyColor.colorPrimary,
+                              label: '50.000',
+                              onPressed: () {
+                                conTransaction.is50.value = !conTransaction.is50.value;
+                                conTransaction.getPayMoney50();
+                              },
+                              fontSize: 18.sp)),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      child: Container(
+                          height: 45,
+                          width: Get.width * 0.6,
+                          child: GeneralButton(
+                              borderRadius: 10,
+                              color: conTransaction.is100.value ? MyColor.colorGreen : MyColor.colorPrimary,
+                              label: '100.000',
+                              onPressed: () {
+                                conTransaction.is100.value = !conTransaction.is100.value;
+                                conTransaction.getPayMoney100();
+                              },
+                              fontSize: 18.sp)),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Flexible(
+                      child: Container(
+                          height: 45,
+                          width: Get.width * 0.6,
+                          child: GeneralButton(
+                              borderRadius: 10,
+                              color: conTransaction.isPassed.value ? MyColor.colorGreen : MyColor.colorPrimary,
+                              label: 'Uang Pass',
+                              onPressed: () {
+                                conTransaction.isPassed.value = !conTransaction.isPassed.value;
+                                conTransaction.getMoneyPassed(conCart.totalShopping.value);
+                              },
+                              fontSize: 18.sp)),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+
+
+              ],
+            );
+          });
+        }
+      });
   }
 }

@@ -57,7 +57,7 @@ class LoginEmployeeView extends GetWidget<LoginEmployeeController> {
                               data: ThemeData(primaryColor: MyColor.colorPrimary),
                               child: TextFormField(
                                 controller: controller.emailC,
-                                keyboardType: TextInputType.emailAddress,
+                                keyboardType: TextInputType.phone,
                                 textInputAction: TextInputAction.next,
                                 decoration: InputDecoration(
                                     labelText: "Email/No Handpone",
@@ -83,10 +83,10 @@ class LoginEmployeeView extends GetWidget<LoginEmployeeController> {
                                 child: TextFormField(
                                   controller: controller.passwordC,
                                   obscureText: controller.obscurtText.value,
-                                  keyboardType: TextInputType.visiblePassword,
+                                  keyboardType: TextInputType.number,
                                   textInputAction: TextInputAction.go,
                                   decoration: InputDecoration(
-                                      labelText: "Kata Sandi",
+                                      labelText: "Pin",
                                       focusColor: MyColor.colorPrimary,
                                       labelStyle: whiteTextFont.copyWith(color: MyColor.colorPrimary),
                                       focusedBorder: OutlineInputBorder(
@@ -172,7 +172,7 @@ class LoginEmployeeView extends GetWidget<LoginEmployeeController> {
                               data: ThemeData(primaryColor: MyColor.colorPrimary),
                               child: TextFormField(
                                 controller: controller.emailC,
-                                keyboardType: TextInputType.emailAddress,
+                                keyboardType: TextInputType.phone,
                                 textInputAction: TextInputAction.next,
                                 decoration: InputDecoration(
                                     labelText: "Email/No Handpone",
@@ -198,10 +198,10 @@ class LoginEmployeeView extends GetWidget<LoginEmployeeController> {
                                 child: TextFormField(
                                   controller: controller.passwordC,
                                   obscureText: controller.obscurtText.value,
-                                  keyboardType: TextInputType.visiblePassword,
+                                  keyboardType: TextInputType.number,
                                   textInputAction: TextInputAction.go,
                                   decoration: InputDecoration(
-                                      labelText: "Kata Sandi",
+                                      labelText: "Pin",
                                       focusColor: MyColor.colorPrimary,
                                       labelStyle: whiteTextFont.copyWith(color: MyColor.colorPrimary),
                                       focusedBorder: OutlineInputBorder(

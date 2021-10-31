@@ -5,6 +5,7 @@ class LoginChooiseController extends GetxController {
   //TODO: Implement LoginChooiseController
 
   final count = 0.obs;
+
   @override
   void onInit()async {
     print("asd");

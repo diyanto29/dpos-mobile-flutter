@@ -18,6 +18,7 @@ class MyString{
   //endpoint api
   static final getTypeBusiness=api_url_dev+"business/category";
   static final login=api_url_dev+"users/login";
+  static final loginCashier=api_url_dev+"employee/login";
   static final registerUser=api_url_dev+"register";
   static final updatePassword=api_url_dev+"users/reset_password";
 

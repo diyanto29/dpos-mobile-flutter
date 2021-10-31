@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:warmi/app/data/datasource/transactions/transaction_source_data_remote.dart';
 import 'package:warmi/app/data/models/customer/customer_model.dart';
@@ -12,6 +13,8 @@ import 'package:warmi/app/modules/transaction/controllers/transaction_controller
 import 'package:warmi/app/modules/wigets/layouts/dialog/dialog_loading.dart';
 import 'package:warmi/app/modules/wigets/layouts/dialog/dialog_question.dart';
 import 'package:warmi/app/modules/wigets/layouts/dialog/dialog_snackbar.dart';
+import 'package:warmi/app/routes/app_pages.dart';
+import 'package:warmi/core/globals/global_string.dart';
 import 'package:warmi/core/utils/enum.dart';
 
 class CartController extends GetxController {
@@ -98,7 +101,9 @@ class CartController extends GetxController {
     totalCart(0);
     totalShopping(0);
     print("asda");
-    var transC=Get.find<TransactionController>();
+    var transC=
+    Get.isRegistered<TransactionController>()
+        ? Get.find<TransactionController>() :Get.put(TransactionController());
     transC.checkProductInCart();
     listCart.forEach((element) {
       if (element.discount == null) {
@@ -301,6 +306,7 @@ class CartController extends GetxController {
 
   void storeTransaction({String? statusPaymentMethod, String? statusTransaction}) async {
     loadingBuilder();
+    var box=GetStorage();
     await TransactionRemoteDataSource()
         .storeTransaction(
             customerPartnerID: customer.value.customerpartnerid,
@@ -321,6 +327,10 @@ class CartController extends GetxController {
         Get.back();
         Get.back();
         Get.back();
+        if(box.read(MyString.ROLE_NAME)!="Pemilik Toko"){
+          Get.offAllNamed(Routes.INDEX_TRANSACTION);
+          showSnackBar(snackBarType: SnackBarType.SUCCESS, title: "Transaksi", message: 'Transaksi Berhasil Disimpan');
+        }
         showSnackBar(snackBarType: SnackBarType.SUCCESS, title: "Transaksi", message: 'Transaksi Berhasil Disimpan');
       }
     });
