@@ -350,7 +350,7 @@ class ReportView extends GetWidget<ReportController> {
                                 height: 10,
                               ),
                               GetBuilder<ReportController>(builder: (logic) {
-                                return ListView.builder(
+                                return logic.reportTransaction.value.data==null ? Container(): ListView.builder(
                                     shrinkWrap: true,
                                     itemCount: logic.reportTransaction.value.data!.products!.length > 3 ? 3 :logic.reportTransaction.value.data!.products!.length,
                                     physics: ClampingScrollPhysics(),
@@ -425,7 +425,7 @@ class ReportView extends GetWidget<ReportController> {
                                 height: 10,
                               ),
                               GetBuilder<ReportController>(builder: (logic) {
-                                return ListView.builder(
+                                 return logic.reportTransaction.value.data==null ? Container(): ListView.builder(
                                     shrinkWrap: true,
                                     itemCount: logic.reportTransaction.value.data!.paymentMethod!.length > 3 ? 3 : logic.reportTransaction.value.data!.paymentMethod!.length ,
                                     physics: ClampingScrollPhysics(),

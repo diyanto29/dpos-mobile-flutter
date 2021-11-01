@@ -34,9 +34,9 @@ class _AllHistoryState extends State<AllHistory> {
     if (widget.statusTab == "Menunggu Pembayaran") {
       controller.getTransaction(statusTransaction: "pending");
     }
-    if (widget.statusTab == "Utang") {
-      controller.getTransaction(statusPayment: "debt");
-    }
+    // if (widget.statusTab == "Utang") {
+    //   controller.getTransaction(statusPayment: "debt");
+    // }
     if (widget.statusTab == "Dibatalkan") {
       controller.getTransaction(statusPayment: "cancel");
     }

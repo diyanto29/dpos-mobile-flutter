@@ -15,6 +15,7 @@ import 'package:warmi/app/data/models/printer/printer_model.dart';
 import 'package:warmi/app/data/models/transactions/transaction_model.dart';
 import 'package:warmi/app/modules/history_sales/controllers/history_sales_controller.dart';
 import 'package:warmi/app/modules/transaction/controllers/cart_controller.dart';
+import 'package:warmi/app/modules/transaction/controllers/transaction_controller.dart';
 import 'package:warmi/app/modules/wigets/layouts/dialog/dialog_loading.dart';
 import 'package:warmi/app/modules/wigets/layouts/dialog/dialog_snackbar.dart';
 import 'package:warmi/app/modules/wigets/package/dropdown__search/dropdown_search.dart';
@@ -330,6 +331,7 @@ class PrinterController extends GetxController {
       Get.back();
       if (printTest) {
         showSnackBar(snackBarType: SnackBarType.SUCCESS, message: "Printing Success", title: "Print");
+
       } else {
         showSnackBar(snackBarType: SnackBarType.ERROR, message: "Printing Gagal! Periksa Bluetooth di kedua device anda", title: "Print");
       }
@@ -394,11 +396,32 @@ class PrinterController extends GetxController {
       Get.back();
       if (printTest) {
         showSnackBar(snackBarType: SnackBarType.SUCCESS, message: "Printing Success", title: "Print");
+        var controller = Get.isRegistered<TransactionController>()
+            ? Get.find<TransactionController>() :Get.put(TransactionController());
+
+        if (controller.isInterstitialAdReady)
+          Future.delayed(Duration(seconds: 2),(){
+            controller.interstitialAd.show();
+          });
       } else {
         showSnackBar(snackBarType: SnackBarType.ERROR, message: "Printing Gagal! Periksa Bluetooth di kedua device anda", title: "Print");
+        var controller = Get.isRegistered<TransactionController>()
+            ? Get.find<TransactionController>() :Get.put(TransactionController());
+
+        if (controller.isInterstitialAdReady)
+          Future.delayed(Duration(seconds: 2),(){
+            controller.interstitialAd.show();
+          });
       }
     } else {
       showSnackBar(snackBarType: SnackBarType.INFO, message: "Bluetooth Anda tidak Aktif", title: "Print");
+      var controller = Get.isRegistered<TransactionController>()
+          ? Get.find<TransactionController>() :Get.put(TransactionController());
+
+      if (controller.isInterstitialAdReady)
+        Future.delayed(Duration(seconds: 2),(){
+          controller.interstitialAd.show();
+        });
     }
   }
 

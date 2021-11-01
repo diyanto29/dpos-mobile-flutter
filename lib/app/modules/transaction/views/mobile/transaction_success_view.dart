@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:warmi/app/modules/transaction/controllers/cart_controller.dart';
 import 'package:warmi/app/modules/transaction/controllers/transaction_controller.dart';
 import 'package:warmi/app/modules/wigets/layouts/general_button.dart';
@@ -23,26 +24,25 @@ class TransactionSuccessView extends StatefulWidget {
 }
 
 class _TransactionSuccessViewState extends State<TransactionSuccessView> {
-  var controller=Get.find<TransactionController>();
+  var controller = Get.find<TransactionController>();
   var type;
+
   @override
   void initState() {
-     type=Get.arguments['type'];
+    type =  Get.arguments!=null ?  Get.arguments['type'] : "";
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-
-
-
     return WillPopScope(
-      onWillPop: ()async{
+      onWillPop: () async {
         Get.offAllNamed(Routes.NAVIGATION);
         return true;
       },
       child: Scaffold(
-        body: LayoutBuilder(builder: (context,constrains){
-          if(constrains.maxWidth<=600){
+        body: LayoutBuilder(builder: (context, constrains) {
+          if (constrains.maxWidth <= 600) {
             return Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
@@ -52,16 +52,18 @@ class _TransactionSuccessViewState extends State<TransactionSuccessView> {
                   SizedBox(height: 100,),
                   Center(child: Image.asset("assets/icons/check-dollar.png",)),
                   SizedBox(height: 10,),
-                  Text("Transaksi Success!",style: blackTextTitle.copyWith(fontSize: 16),),
+                  Text("Transaksi Success!", style: blackTextTitle.copyWith(fontSize: 16),),
                   SizedBox(height: 20,),
-                  if(controller.paymentMethod.value.paymentmethodid==null)Text("Kembalian Rp ${formatCurrency.format(controller.cashReceived.value)}",style: blackTextTitle.copyWith(fontSize: 20),),
-                  if(controller.paymentMethod.value.paymentmethodid!=null)Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 3),
+                  if(controller.paymentMethod.value.paymentmethodid == null)Text("Kembalian Rp ${formatCurrency.format(controller.cashReceived.value)}", style: blackTextTitle.copyWith(fontSize: 20),),
+                  if(controller.paymentMethod.value.paymentmethodid != null)Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         color: MyColor.colorPrimary
                     ),
-                    child: Text("Metode Pembayaran : ${type.toString().titleCase} - ${controller.paymentMethod.value.paymentmethodalias.toString().toUpperCase()}",style: blackTextTitle.copyWith(fontSize: 15.sp,color: Colors.white),),
+                    child: Text("Metode Pembayaran : ${type
+                        .toString()
+                        .titleCase} - ${controller.paymentMethod.value.paymentmethodalias.toString().toUpperCase()}", style: blackTextTitle.copyWith(fontSize: 15.sp, color: Colors.white),),
                   ),
                   SizedBox(height: 100,),
                   Container(
@@ -70,81 +72,109 @@ class _TransactionSuccessViewState extends State<TransactionSuccessView> {
                         borderRadius: BorderRadius.circular(5)
                     ),
                     child: ListTile(
-                      onTap: ()=> controller.sendInvoice(),
+                      onTap: () => controller.sendInvoice(),
                       title: Text("Bagikan Nota Transaksi"),
                       trailing: Icon(Icons.share),
                     ),
                   ),
-                  Spacer(),
-                  GeneralButton(onPressed: ()=> controller.printNow(),label: 'Cetak Struk',),
                   SizedBox(height: 10,),
-                  GeneralButton(onPressed:  ()async{
-                    var box=GetStorage();
-                    if(box.read(MyString.ROLE_NAME)=="Pemilik Toko")
+                  GetBuilder<TransactionController>(builder: (logic) {
+                    print(logic.isBannerAdReady);
+                    return logic.isBannerAdReady ?  Container(
+                      height: controller.bannerAd.size.height.toDouble(),
+                      width: controller.bannerAd.size.width.toDouble(),
+                      child: AdWidget(ad: controller.bannerAd),
+                    ) : Container();
+                  }),
+                  Spacer(),
+                  GeneralButton(onPressed: () => controller.printNow(), label: 'Cetak Struk',),
+                  SizedBox(height: 10,),
+                  GeneralButton(onPressed: () async {
+                    if (controller.isInterstitialAdReady)
+                      Future.delayed(Duration(seconds: 2),(){
+                        controller.interstitialAd.show();
+                      });
+                    var box = GetStorage();
+                    if (box.read(MyString.ROLE_NAME) == "Pemilik Toko")
                       Get.offAllNamed(Routes.NAVIGATION);
                     else
                       Get.offAllNamed(Routes.INDEX_TRANSACTION);
-                  },label: 'Transaksi Baru',color: MyColor.colorGreen,),
+                  }, label: 'Transaksi Baru', color: MyColor.colorGreen,),
 
                 ],
               ),
             );
-          }else{
+          } else {
             return Padding(
               padding: const EdgeInsets.all(20.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                 Flexible(
-                   flex: 6,
-                   child: Column(
-                     children: [
-                       SizedBox(height: 100,),
-                       Center(child: Image.asset("assets/icons/check-dollar.png",)),
-                       SizedBox(height: 10,),
-                       Text("Transaksi Success!",style: blackTextTitle.copyWith(fontSize: 16),),
-                       SizedBox(height: 20,),
-                       if(controller.paymentMethod.value.paymentmethodid==null)Text("Kembalian Rp ${formatCurrency.format(controller.cashReceived.value)}",style: blackTextTitle.copyWith(fontSize: 20),),
-                       if(controller.paymentMethod.value.paymentmethodid!=null)Container(
-                         padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 3),
-                         decoration: BoxDecoration(
-                             borderRadius: BorderRadius.circular(5),
-                             color: MyColor.colorPrimary
-                         ),
-                         child: Text("Metode Pembayaran : ${type.toString().titleCase} - ${controller.paymentMethod.value.paymentmethodalias.toString().toUpperCase()}",style: blackTextTitle.copyWith(fontSize: 15.sp,color: Colors.white),),
-                       ),
-                     ],
-                   ),
-                 ),
+                  Flexible(
+                    flex: 6,
+                    child: Column(
+                      children: [
+                        SizedBox(height: 100,),
+                        Center(child: Image.asset("assets/icons/check-dollar.png",)),
+                        SizedBox(height: 10,),
+                        Text("Transaksi Success!", style: blackTextTitle.copyWith(fontSize: 16),),
+                        SizedBox(height: 20,),
+                        if(controller.paymentMethod.value.paymentmethodid == null)Text("Kembalian Rp ${formatCurrency.format(controller.cashReceived.value)}", style: blackTextTitle.copyWith(fontSize: 20),),
+                        if(controller.paymentMethod.value.paymentmethodid != null)Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: MyColor.colorPrimary
+                          ),
+                          child: Text("Metode Pembayaran : ${type
+                              .toString()
+                              .titleCase} - ${controller.paymentMethod.value.paymentmethodalias.toString().toUpperCase()}", style: blackTextTitle.copyWith(fontSize: 15.sp, color: Colors.white),),
+                        ),
+                      ],
+                    ),
+                  ),
                   Flexible(
                       flex: 6,
                       child: Column(children: [
-                    SizedBox(height: 100,),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: MyColor.colorBlack5,
-                          borderRadius: BorderRadius.circular(5)
-                      ),
-                      child: ListTile(
-                        onTap: ()=> controller.sendInvoice(),
-                        title: Text("Bagikan Nota Transaksi"),
-                        trailing: Icon(Icons.share),
-                      ),
-                    ),
+                        SizedBox(height: 100,),
+                        Container(
+                          decoration: BoxDecoration(
+                              color: MyColor.colorBlack5,
+                              borderRadius: BorderRadius.circular(5)
+                          ),
+                          child: ListTile(
+                            onTap: () => controller.sendInvoice(),
+                            title: Text("Bagikan Nota Transaksi"),
+                            trailing: Icon(Icons.share),
+                          ),
+                        ),
+
+                        SizedBox(height: 15,),
+                        GetBuilder<TransactionController>(builder: (logic) {
+                          return logic.isBannerAdReady ?  Container(
+                            height: controller.bannerAd.size.height.toDouble(),
+                            width: controller.bannerAd.size.width.toDouble(),
+                            child: AdWidget(ad: controller.bannerAd),
+                          ) : Container();
+                        }),
                         SizedBox(height: 100,),
 
-                    GeneralButton(onPressed: ()=> controller.printNow(),label: 'Cetak Struk',),
-                    SizedBox(height: 10,),
-                    GeneralButton(onPressed: ()async{
-                      var box=GetStorage();
-                      if(box.read(MyString.ROLE_NAME)=="Pemilik Toko")
-                        Get.offAllNamed(Routes.NAVIGATION);
+                        GeneralButton(onPressed: () => controller.printNow(), label: 'Cetak Struk',),
+                        SizedBox(height: 10,),
+                        GeneralButton(onPressed: () async {
+                          if (controller.isInterstitialAdReady)
+                            Future.delayed(Duration(seconds: 2),(){
+                              controller.interstitialAd.show();
+                            });
+                          var box = GetStorage();
+                          if (box.read(MyString.ROLE_NAME) == "Pemilik Toko")
+                            Get.offAllNamed(Routes.NAVIGATION);
                           else
-                        Get.offAllNamed(Routes.INDEX_TRANSACTION);
-                    },label: 'Transaksi Baru',color: MyColor.colorGreen,),
+                            Get.offAllNamed(Routes.INDEX_TRANSACTION);
+                        }, label: 'Transaksi Baru', color: MyColor.colorGreen,),
 
-                  ],))
+                      ],))
 
                 ],
               ),

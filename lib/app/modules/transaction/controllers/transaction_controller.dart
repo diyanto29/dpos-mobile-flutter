@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:in_app_update/in_app_update.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -30,6 +32,8 @@ import 'package:warmi/app/modules/wigets/package/screenshoot/screenshot.dart';
 import 'package:warmi/app/routes/app_pages.dart';
 import 'package:warmi/core/globals/global_color.dart';
 import 'package:warmi/core/globals/global_string.dart';
+import 'package:warmi/core/utils/admob_helpers.dart';
+import 'package:warmi/core/utils/admob_helpers.dart';
 import 'package:warmi/core/utils/enum.dart';
 import 'package:warmi/core/utils/thema.dart';
 import 'package:warmi/main.dart';
@@ -65,6 +69,13 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
   DataTransaction? detailTransaction;
   Rx<AuthSessionManager> auth = AuthSessionManager().obs;
   AppUpdateInfo? _updateInfo;
+  late BannerAd bannerAd;
+
+  bool isBannerAdReady = false;
+
+  late InterstitialAd interstitialAd;
+
+  bool isInterstitialAdReady = false;
 
   Future<void> checkForUpdate() async {
     InAppUpdate.checkForUpdate().then((info) {
@@ -80,9 +91,48 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
     });
   }
 
+  Future<void> initAdmob() async {
+    var box =GetStorage();
+    print("Success Load loadad");
+    // if(box.read(MyString.STATUS_NAME)=="FREE") {
+     bannerAd = BannerAd(
+       // Change Banner Size According to Ur Need
+         size: AdSize.mediumRectangle,
+         adUnitId: AdmobHelpers.bannerAdUnitId,
+         listener: BannerAdListener(onAdLoaded: (_) {
+           isBannerAdReady = true;
+           print("Success Load Admon");
+           update();
+         }, onAdFailedToLoad: (ad, LoadAdError error) {
+           print("Failed to Load A Banner Ad${error.message}");
+           isBannerAdReady = false;
+
+           ad.dispose();
+           update();
+         }),
+         request: AdRequest())
+       ..load();
+    //Interstitial Ads
+    InterstitialAd.load(
+        adUnitId: AdmobHelpers.interstitialAdUnitId,
+        request: AdRequest(),
+        adLoadCallback: InterstitialAdLoadCallback(onAdLoaded: (ad) {
+          this.interstitialAd = ad;
+          isInterstitialAdReady = true;
+          update();
+        }, onAdFailedToLoad: (LoadAdError error) {
+          print("failed to Load Interstitial Ad ${error.message}");
+        }));
+   // }
+
+
+
+  }
+
   @override
   void onInit() {
-    checkForUpdate();
+    // checkForUpdate();
+    initAdmob();
     discountController.getDiscountDataSource();
     Get.lazyPut<CartController>(() => CartController());
     tabController = TabController(vsync: this, length: tabs.length);
@@ -98,6 +148,11 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
   void dispose() {
     tabController.dispose();
     tabControllerCheckout.dispose();
+    var box =GetStorage();
+    // if(box.read(MyString.STATUS_NAME)=="FREE"){
+      bannerAd.dispose();
+      interstitialAd.dispose();
+    // }
     super.dispose();
   }
 

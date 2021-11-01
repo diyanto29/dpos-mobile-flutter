@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -16,6 +17,7 @@ final formatCurrency = new NumberFormat.currency(locale: "id_ID", symbol: "", de
 void main() async {
   LazyBindings().dependencies();
   await GetStorage.init();
+  MobileAds.instance.initialize();
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
   initializeDateFormatting("id-ID");

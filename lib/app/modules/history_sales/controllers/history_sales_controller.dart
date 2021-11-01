@@ -21,7 +21,7 @@ class HistorySalesController extends GetxController with SingleGetTickerProvider
      Tab(text: "Semua"),
      Tab(text: "Lunas"),
      Tab(text: "Menunggu Pembayaran"),
-     Tab(text: "Utang"),
+     // Tab(text: "Utang"),
      Tab(text: "Dibatalkan"),
   ];
 

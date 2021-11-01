@@ -99,9 +99,11 @@ class HistorySalesView extends GetWidget<HistorySalesController> {
                      return AllHistory(statusTab: tab.text!,);
                    } else if (tab.text == "Menunggu Pembayaran") {
                      return AllHistory(statusTab: tab.text!,);
-                   } else if (tab.text == "Utang") {
-                     return AllHistory(statusTab: tab.text!,);
-                   } else if (tab.text == "Dibatalkan") {
+                   }
+    // else if (tab.text == "Utang") {
+                   //   return AllHistory(statusTab: tab.text!,);
+                   // }
+                   else if (tab.text == "Dibatalkan") {
                      return AllHistory(statusTab: tab.text!,);
                    }  else {
                      return Container();
