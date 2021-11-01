@@ -13,7 +13,7 @@ import '../controllers/history_sales_controller.dart';
 class HistorySalesView extends GetWidget<HistorySalesController> {
   @override
   Widget build(BuildContext context) {
-    FlutterStatusbarcolor.setStatusBarColor(MyColor.colorPrimary);
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: MyColor.colorGrey,

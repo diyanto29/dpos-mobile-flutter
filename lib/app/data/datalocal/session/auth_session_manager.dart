@@ -45,11 +45,14 @@ class AuthSessionManager {
     if(box.hasData(MyString.EXPIRED_DATE)){
       expiredDate = box.read(MyString.EXPIRED_DATE);
     }
+    if(box.hasData(MyString.STORE_ID)){
+      storeId = box.read(MyString.STORE_ID);
+      storeName = box.read(MyString.STORE_NAME);
+    }
 
 
 
-    storeId = box.read(MyString.STORE_ID);
-    storeName = box.read(MyString.STORE_NAME);
+
     businessId = box.read(MyString.BUSINESS_ID);
     businessName = box.read(MyString.BUSINESS_NAME);
     storeCount = box.read(MyString.STORE_COUNT);

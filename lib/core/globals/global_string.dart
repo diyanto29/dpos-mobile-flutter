@@ -53,6 +53,7 @@ class MyString{
 
   static final storeTransaction=api_url_dev+"transaction/store";
   static final getTransaction=api_url_dev+"transaction";
+  static final getReportTransaction=api_url_dev+"transaction/report_transaction";
   static final changeStatusTransaction=api_url_dev+"transaction/change_status_payment";
 
   //employees

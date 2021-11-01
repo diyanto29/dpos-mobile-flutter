@@ -143,10 +143,10 @@ class AuthRemoteDataSource extends BaseDio{
 
 
         //user type account
-        if(dataDetailUser['user_type']!=null){
-          box.write(MyString.STATUS_CODE_ID, dataDetailUser['user_type']['STATUS_CODE_ID'].toString());
-          box.write(MyString.STATUS_NAME, dataDetailUser['user_type']['STATUS_NAME']);
-          box.write(MyString.EXPIRED_DATE, dataDetailUser['EXPIRED_DATE']);
+        if(dataDetailUser['store'][0]['owner']['user_type']!=null){
+          box.write(MyString.STATUS_CODE_ID,dataDetailUser['store'][0]['owner']['user_type']['STATUS_CODE_ID'].toString());
+          box.write(MyString.STATUS_NAME,dataDetailUser['store'][0]['owner']['user_type']['STATUS_NAME']);
+          box.write(MyString.EXPIRED_DATE,dataDetailUser['store'][0]['owner']['EXPIRED_DATE']);
         }
 
         //sessiojn store

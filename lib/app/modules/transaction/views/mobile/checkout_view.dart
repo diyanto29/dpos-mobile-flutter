@@ -89,12 +89,13 @@ class CheckoutView extends GetWidget<TransactionController> {
       bottomNavigationBar: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
           child: GeneralButton(onPressed: (){
+            print("asda");
             if(type=="cart"){
               controller.storeTransaction();
             }else{
               controller.changeStatusTransaction(dataTransaction: data);
             }
-          },label: 'lanjut',)),
+          },label: 'Lanjut',)),
     );
   }
 }

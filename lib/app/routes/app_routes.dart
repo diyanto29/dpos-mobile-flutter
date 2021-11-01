@@ -39,6 +39,8 @@ abstract class Routes {
   static const INDEX_TRANSACTION = _Paths.INDEX_TRANSACTION;
   static const CHECKOUT_TABLET = _Paths.CHECKOUT_TABLET;
   static const CHOOSE_STORE = _Paths.CHOOSE_STORE;
+  static const DETAIL_REPORT_SELLING_PRODUCT = _Paths.DETAIL_REPORT_SELLING_PRODUCT;
+  static const DETAIL_REPORT_PAYMENT_METHOD = _Paths.DETAIL_REPORT_PAYMENT_METHOD;
 }
 
 abstract class _Paths {
@@ -77,4 +79,6 @@ abstract class _Paths {
   static const INDEX_TRANSACTION = '/index-transaction';
   static const CHECKOUT_TABLET = '/checkout-tablet';
   static const CHOOSE_STORE = '/choose-store';
+  static const DETAIL_REPORT_SELLING_PRODUCT = '/detail-report-selling-product';
+  static const DETAIL_REPORT_PAYMENT_METHOD = '/detail-report-payment-method';
 }

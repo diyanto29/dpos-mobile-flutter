@@ -4,6 +4,7 @@ import 'package:api_cache_manager/utils/cache_manager.dart';
 import 'package:dio/dio.dart';
 import 'package:warmi/app/data/datalocal/session/auth_session_manager.dart';
 import 'package:warmi/app/data/models/product/cart.dart';
+import 'package:warmi/app/data/models/report_transaction/report_tranasaction.dart';
 import 'package:warmi/app/data/models/transactions/transaction_model.dart';
 import 'package:warmi/core/errors/exceptions.dart';
 import 'package:warmi/core/globals/global_string.dart';
@@ -70,8 +71,10 @@ class TransactionRemoteDataSource extends BaseDio {
       });
 
       Map<dynamic, dynamic> data = {
-        if (auth.roleName == "Pemilik Toko") "user_id": "${auth.userId}" else "user_id": null,
-        if (auth.roleName != "Pemilik Toko") "employe_id": "${auth.userId}" else "user_id": null,
+        if (auth.roleName == "Pemilik Toko") "user_id": "${auth.userId}",
+        if (auth.roleName == "Pemilik Toko") "employe_id": null,
+        if (auth.roleName != "Pemilik Toko") "employe_id": "${auth.userId}",
+        if (auth.roleName != "Pemilik Toko") "user_id": null,
         "store_id": "${auth.storeId}",
         "transaction_note": transactionNoted,
         "transaction_date": dateTransaction,
@@ -99,10 +102,7 @@ class TransactionRemoteDataSource extends BaseDio {
   Future<TransactionModel> getTransaction({bool userID = false, String? statusTransaction, String? statusPayment}) async {
     try {
       response = await dio.get("${MyString.getTransaction}",
-          queryParameters: {"store_id": "${auth.storeId}",
-            if (auth.roleName.toString() != "Pemilik Toko") "employe_id": "${auth.userId}",
-            if (statusTransaction != null) "transaction_status": "$statusTransaction", if (statusPayment != null)
-              "transaction_payment_status": "${statusPayment}"},
+          queryParameters: {"store_id": "${auth.storeId}", if (auth.roleName.toString() != "Pemilik Toko") "employe_id": "${auth.userId}", if (statusTransaction != null) "transaction_status": "$statusTransaction", if (statusPayment != null) "transaction_payment_status": "${statusPayment}"},
           options: options);
       await APICacheManager().addCacheData(APICacheDBModel(key: 'API_TRANSACTION_MODEL', syncData: jsonEncode(response!.data)));
       return TransactionModel.fromJson(response!.data);
@@ -134,6 +134,35 @@ class TransactionRemoteDataSource extends BaseDio {
     } on DioError catch (e) {
       print(e);
       throw ServerException();
+    }
+  }
+
+  Future<ReportTranasaction> getReportTransaction({String? startDate, String? dueDate, String type = 'monthly'}) async {
+    try {
+      Map<dynamic, dynamic> data = {
+        "user_id": "${auth.userIdOwner}",
+        if (type == "custom") "type_report": "custom",
+        if (type == "custom") "start_date": startDate,
+        if (type == "custom") "due_date": dueDate,
+        if (type != "custom") "type_report": type,
+      };
+      response = await dio.post("${MyString.getReportTransaction}", data: jsonEncode(data), options: options);
+      if (type != "custom")
+        await APICacheManager().addCacheData(APICacheDBModel(key: 'API_REPORT_TRANSACTION_MONTHLY_MODEL', syncData: jsonEncode(response!.data)));
+      else
+        await APICacheManager().addCacheData(APICacheDBModel(key: 'API_REPORT_TRANSACTION_MODEL', syncData: jsonEncode(response!.data)));
+      return ReportTranasaction.fromJson(response!.data);
+    } on DioError catch (e) {
+      print(e);
+      var cacheData;
+      if (type != "custom")
+        if(await APICacheManager().isAPICacheKeyExist("API_REPORT_TRANSACTION_MONTHLY_MODEL"))
+        cacheData = await APICacheManager().getCacheData('API_REPORT_TRANSACTION_MONTHLY_MODEL');
+      else
+        if(await APICacheManager().isAPICacheKeyExist("API_REPORT_TRANSACTION_MODEL"))
+        cacheData = await APICacheManager().getCacheData('API_REPORT_TRANSACTION_MODEL');
+      var result = ReportTranasaction.fromJson(jsonDecode(cacheData.syncData));
+      return result;
     }
   }
 }

@@ -58,9 +58,17 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 30,
-            ),
+           LayoutBuilder(builder: (context,constrain){
+             if(constrain.maxWidth>=600){
+            return   SizedBox(
+                 height: 20,
+               );
+             }else{
+              return  SizedBox(
+                 height: 30,
+               );
+             }
+           }),
             Container(
               height: 60,
               width: double.infinity,

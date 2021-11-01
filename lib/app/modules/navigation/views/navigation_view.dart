@@ -1,16 +1,20 @@
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 
 import 'package:get/get.dart';
+import 'package:warmi/core/globals/global_color.dart';
 import 'package:warmi/core/globals/global_color.dart';
 import 'package:warmi/core/globals/global_string.dart';
 
 import '../controllers/navigation_controller.dart';
 
 class NavigationView extends GetWidget<NavigationController> {
+
   @override
   Widget build(BuildContext context) {
+    FlutterStatusbarcolor.setStatusBarColor(MyColor.colorPrimary);
     return Scaffold(
 
       body: Obx(() {

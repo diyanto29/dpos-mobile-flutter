@@ -44,12 +44,12 @@ class HomeView extends GetWidget<HomeController> {
                   height: 23.h,
                   width: double.infinity,
                   decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10.0), bottomRight: Radius.circular(10)), color: MyColor.colorPrimary.withOpacity(controller.scrollOpacity.value)
-                      // gradient: LinearGradient(colors: [
-                      //   MyColor.colorPrimary,
-                      //   MyColor.colorOrangeLight,
-                      //   MyColor.colorOrangeLight,
-                      // ], begin: Alignment.bottomCenter),
-                      ),
+                    // gradient: LinearGradient(colors: [
+                    //   MyColor.colorPrimary,
+                    //   MyColor.colorOrangeLight,
+                    //   MyColor.colorOrangeLight,
+                    // ], begin: Alignment.bottomCenter),
+                  ),
                 );
               }),
             ),
@@ -61,61 +61,61 @@ class HomeView extends GetWidget<HomeController> {
                   child: controller.scrollOpacity.value < 1.0
                       ? Container()
                       : Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Flexible(
-                              child: InkWell(
-                                onTap: () => showBottomSheetOutlet(),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.keyboard_arrow_down_rounded,
-                                          color: MyColor.colorWhite,
-                                        ),
-                                        Text(
-                                          "Toko Anda",
-                                          style: whiteTextTitle.copyWith(fontSize: 14.sp),
-                                        ),
-                                      ],
-                                    ),
-                                    Text(
-                                      " ${navigationC.auth.value.storeName.titleCase}",
-                                      style: whiteTextTitle.copyWith(fontWeight: FontWeight.bold),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Flexible(
-                                child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Flexible(
+                        child: InkWell(
+                          onTap: () => showBottomSheetOutlet(),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Icon(
-                                    IconlyLight.notification,
+                                    Icons.keyboard_arrow_down_rounded,
                                     color: MyColor.colorWhite,
                                   ),
-                                  SizedBox(
-                                    width: 15,
+                                  Text(
+                                    "Toko Anda",
+                                    style: whiteTextTitle.copyWith(fontSize: 14.sp),
                                   ),
-                                  Icon(
-                                    IconlyLight.logout,
-                                    color: MyColor.colorWhite,
-                                  )
                                 ],
                               ),
-                            ))
-                          ],
-                        ));
+                              Text(
+                                " ${navigationC.auth.value.storeName.titleCase}",
+                                style: whiteTextTitle.copyWith(fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  IconlyLight.notification,
+                                  color: MyColor.colorWhite,
+                                ),
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                Icon(
+                                  IconlyLight.logout,
+                                  color: MyColor.colorWhite,
+                                )
+                              ],
+                            ),
+                          ))
+                    ],
+                  ));
             }),
             Positioned(
                 top: 8.h,
@@ -160,25 +160,27 @@ class HomeView extends GetWidget<HomeController> {
                         SizedBox(
                           height: 10,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            CardHeaderHome(
-                              colorBackground: MyColor.colorBlue.withOpacity(0.2),
-                              imgUrl: "assets/icons/receive_dollar.png",
-                              textCard: "Rp. 1,000,000",
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            CardHeaderHome(
-                              colorBackground: MyColor.colorOrange.withOpacity(0.2),
-                              imgUrl: "assets/icons/purchase_order.png",
-                              textCard: "670 Orders",
-                            )
-                          ],
-                        ),
+                        GetBuilder<HomeController>(builder: (logic) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              CardHeaderHome(
+                                colorBackground: MyColor.colorBlue.withOpacity(0.2),
+                                imgUrl: "assets/icons/receive_dollar.png",
+                                textCard: "Rp. ${formatCurrency.format(controller.reportTranasaction.value.data==null ?0 : controller.reportTranasaction.value.data!.totalBenefit )}",
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              CardHeaderHome(
+                                colorBackground: MyColor.colorOrange.withOpacity(0.2),
+                                imgUrl: "assets/icons/purchase_order.png",
+                                textCard: "${controller.reportTranasaction.value.data==null ?0 : controller.reportTranasaction.value.data!.totalTransaction} Orders",
+                              )
+                            ],
+                          );
+                        }),
                         SizedBox(
                           height: 10,
                         ),
@@ -345,36 +347,44 @@ class HomeView extends GetWidget<HomeController> {
                           return historySalesC.loadingState == LoadingState.loading
                               ? Center(child: CircularProgressIndicator())
                               : historySalesC.listTransaction.length == 0
-                                  ? Center(
-                                      child: Text("Data Kosong"),
-                                    )
-                                  : ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: historySalesC.listTransaction.length > 3 ? 3 : historySalesC.listTransaction.length,
-                                      physics: ClampingScrollPhysics(),
-                                      itemBuilder: (c, i) {
-                                        var data = historySalesC.listTransaction[i];
-                                        return Padding(
-                                          padding: const EdgeInsets.only(bottom: 8),
-                                          child: CardOrder(
-                                            orderClick: () => Get.toNamed(Routes.DETAIL_HISTORY_TRANSACTION, arguments: data),
-                                            orderStore: Image.asset(
-                                              "assets/food.png",
-                                              height: 100,
-                                            ),
-                                            orderNumber: "${data.transactionid!.split('-')[0]}",
-                                            outlet: "${data.outlet!.storename.toString().titleCase}",
-                                            totalOrders: "Rp. ${formatCurrency.format(int.tryParse(data.transactiontotal!))}",
-                                            qtyOrders: "${data.detailCount}",
-                                            orderColorStatus: data.transactionstatus!.contains("pending") ? MyColor.colorRedFlatDark : MyColor.colorPrimary,
-                                            noted: data.transactionstatus!.contains("pending") ? data.transactionnote : null,
-                                            orderDate: "${DateFormat('dd MMM yyyy', 'id-ID').format(DateTime.parse(data.createdAt!))}",
-                                            orderStatus: "${data.transactionstatus.toString().titleCase}",
-                                            cashier: data.createdBy == null ? "asdad" : "${data.createdBy!.userfullname.toString().titleCase}",
-                                            showCashier: true,
-                                          ),
-                                        );
-                                      });
+                              ? Center(
+                            child: Text("Data Kosong"),
+                          )
+                              : ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: historySalesC.listTransaction.length > 3 ? 3 : historySalesC.listTransaction.length,
+                              physics: ClampingScrollPhysics(),
+                              itemBuilder: (c, i) {
+                                var data = historySalesC.listTransaction[i];
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 8),
+                                  child: CardOrder(
+                                    orderClick: () => Get.toNamed(Routes.DETAIL_HISTORY_TRANSACTION, arguments: data),
+                                    orderStore: Image.asset(
+                                      "assets/food.png",
+                                      height: 100,
+                                    ),
+                                    orderNumber: "${data.transactionid!.split('-')[0]}",
+                                    outlet: "${data.outlet!
+                                        .storename
+                                        .toString()
+                                        .titleCase}",
+                                    totalOrders: "Rp. ${formatCurrency.format(int.tryParse(data.transactiontotal!))}",
+                                    qtyOrders: "${data.detailCount}",
+                                    orderColorStatus: data.transactionstatus!.contains("pending") ? MyColor.colorRedFlatDark : MyColor.colorPrimary,
+                                    noted: data.transactionstatus!.contains("pending") ? data.transactionnote : null,
+                                    orderDate: "${DateFormat('dd MMM yyyy', 'id-ID').format(DateTime.parse(data.createdAt!))}",
+                                    orderStatus: "${data.transactionstatus
+                                        .toString()
+                                        .titleCase}",
+                                    cashier: data.createdBy == null ? "asdad" : "${data.createdBy!
+                                        .userfullname
+                                        .toString()
+                                        .titleCase}",
+                                    showCashier: true,
+                                  ),
+                                );
+                              });
                         }),
                       ],
                     ),
@@ -387,66 +397,66 @@ class HomeView extends GetWidget<HomeController> {
                   left: controller.scrollOpacity.value < 1.0 ? 0 : MyString.DEFAULT_PADDING,
                   child: controller.scrollOpacity.value < 1.0
                       ? Container(
-                          height: 60,
-                          padding: EdgeInsets.only(left: 20, top: 10, right: 10),
-                          decoration: BoxDecoration(color: MyColor.colorWhite, boxShadow: [BoxShadow(color: MyColor.colorBlackT50, offset: Offset(0, 3), blurRadius: 3)]),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Flexible(
-                                child: InkWell(
-                                  onTap: () => showBottomSheetOutlet(),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.keyboard_arrow_down_rounded,
-                                            color: MyColor.colorBlack,
-                                          ),
-                                          Text(
-                                            "Toko Anda",
-                                            style: blackTextFont.copyWith(fontSize: 14.sp),
-                                          ),
-                                        ],
-                                      ),
-                                      Text(
-                                        " ${navigationC.auth.value.storeName}",
-                                        style: blackTextFont.copyWith(fontWeight: FontWeight.bold),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Flexible(
-                                  child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
+                    height: 60,
+                    padding: EdgeInsets.only(left: 20, top: 10, right: 10),
+                    decoration: BoxDecoration(color: MyColor.colorWhite, boxShadow: [BoxShadow(color: MyColor.colorBlackT50, offset: Offset(0, 3), blurRadius: 3)]),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Flexible(
+                          child: InkWell(
+                            onTap: () => showBottomSheetOutlet(),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Icon(
-                                      IconlyLight.notification,
+                                      Icons.keyboard_arrow_down_rounded,
                                       color: MyColor.colorBlack,
                                     ),
-                                    SizedBox(
-                                      width: 15,
+                                    Text(
+                                      "Toko Anda",
+                                      style: blackTextFont.copyWith(fontSize: 14.sp),
                                     ),
-                                    Icon(
-                                      IconlyLight.logout,
-                                      color: MyColor.colorBlack,
-                                    )
                                   ],
                                 ),
-                              ))
-                            ],
+                                Text(
+                                  " ${navigationC.auth.value.storeName}",
+                                  style: blackTextFont.copyWith(fontWeight: FontWeight.bold),
+                                )
+                              ],
+                            ),
                           ),
-                        )
+                        ),
+                        Flexible(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    IconlyLight.notification,
+                                    color: MyColor.colorBlack,
+                                  ),
+                                  SizedBox(
+                                    width: 15,
+                                  ),
+                                  Icon(
+                                    IconlyLight.logout,
+                                    color: MyColor.colorBlack,
+                                  )
+                                ],
+                              ),
+                            ))
+                      ],
+                    ),
+                  )
                       : Container());
             }),
           ],

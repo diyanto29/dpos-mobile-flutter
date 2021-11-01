@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'package:warmi/app/data/datalocal/session/auth_session_manager.dart';
 import 'package:warmi/app/modules/history_sales/views/history_sales_view.dart';
 
@@ -13,9 +14,27 @@ class NavigationController extends GetxController {
   final indexNavigation = 0.obs;
   var auth = AuthSessionManager().obs;
   final List<Widget> pageList = [HomeView(), HistorySalesView(), ReportView(), SettingView()];
+  AppUpdateInfo? _updateInfo;
+
+  Future<void> checkForUpdate() async {
+    InAppUpdate.checkForUpdate().then((info) {
+
+        _updateInfo = info;
+
+
+      if (_updateInfo!.updateAvailability == UpdateAvailability.updateAvailable) {
+        InAppUpdate.performImmediateUpdate().catchError((e) {
+          print(e);
+        });
+      }
+    }).catchError((e) {
+      print(e);
+    });
+  }
 
   @override
   void onInit() {
+    checkForUpdate();
     auth(AuthSessionManager());
     super.onInit();
   }

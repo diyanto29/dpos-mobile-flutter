@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
@@ -62,10 +63,26 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
   RxInt indexCheckout = 0.obs;
   RxString title = "List Kontak".obs;
   DataTransaction? detailTransaction;
-  Rx<AuthSessionManager> auth=AuthSessionManager().obs;
+  Rx<AuthSessionManager> auth = AuthSessionManager().obs;
+  AppUpdateInfo? _updateInfo;
+
+  Future<void> checkForUpdate() async {
+    InAppUpdate.checkForUpdate().then((info) {
+      _updateInfo = info;
+
+      if (_updateInfo!.updateAvailability == UpdateAvailability.updateAvailable) {
+        InAppUpdate.performImmediateUpdate().catchError((e) {
+          print(e);
+        });
+      }
+    }).catchError((e) {
+      print(e);
+    });
+  }
 
   @override
   void onInit() {
+    checkForUpdate();
     discountController.getDiscountDataSource();
     Get.lazyPut<CartController>(() => CartController());
     tabController = TabController(vsync: this, length: tabs.length);
@@ -94,6 +111,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
     searchC.refresh();
     listSearchProduct.refresh();
   }
+
   void checkProductInCart() async {
     var cartC = Get.find<CartController>();
     if (cartC.listCart.length > 0) {
@@ -112,7 +130,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
 
   void scanBarcode() async {
     String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode("#ff6666", 'Batal', true, ScanMode.BARCODE);
-    if(barcodeScanRes!="-1"){
+    if (barcodeScanRes != "-1") {
       searchC.value.text = barcodeScanRes;
       getSearchProduct(barcodeScanRes);
     }
@@ -220,6 +238,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
         showSnackBar(snackBarType: SnackBarType.INFO, title: "Pembayaran", message: "Pembayaran Kurang ${formatCurrency.format(calc)}");
       } else {
         loadingBuilder();
+        print("asdas");
         await TransactionRemoteDataSource()
             .storeTransaction(
                 customerPartnerID: conCart.customer.value.customerpartnerid,
@@ -264,7 +283,13 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
           }
         });
       });
-
+      if (paymentMethod.value.paymentmethodid == null) {
+        pass = {
+          "type": "Cash",
+          "from": "cart",
+          "cash_received": cashReceived,
+        };
+      }
       loadingBuilder();
       await TransactionRemoteDataSource()
           .storeTransaction(

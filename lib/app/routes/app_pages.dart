@@ -12,6 +12,8 @@ import 'package:warmi/app/modules/owner/outlet/views/outlet_view.dart';
 import 'package:warmi/app/modules/owner/product/views/add_product.dart';
 import 'package:warmi/app/modules/owner/product/views/edit_product.dart';
 import 'package:warmi/app/modules/owner/product/views/product_view.dart';
+import 'package:warmi/app/modules/owner/report/views/detail_report_payment_method.dart';
+import 'package:warmi/app/modules/owner/report/views/detail_report_penjualan_product.dart';
 import 'package:warmi/app/modules/owner/settings/views/add_discount_view.dart';
 import 'package:warmi/app/modules/owner/settings/views/change_password_view.dart';
 import 'package:warmi/app/modules/owner/settings/views/discount_view.dart';
@@ -172,6 +174,18 @@ class AppPages {
     GetPage(
       name: _Paths.CHOOSE_STORE,
       page: () => ChooseStoreView(),
+      transition: Transition.leftToRightWithFade,
+      binding: LazyBindings(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_REPORT_SELLING_PRODUCT,
+      page: () => DetailReportSellingProduct(),
+      transition: Transition.leftToRightWithFade,
+      binding: LazyBindings(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_REPORT_PAYMENT_METHOD,
+      page: () => DetailReportPaymentMethod(),
       transition: Transition.leftToRightWithFade,
       binding: LazyBindings(),
     ),
