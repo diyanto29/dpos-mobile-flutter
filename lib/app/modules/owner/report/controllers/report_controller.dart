@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:warmi/app/data/datasource/transactions/transaction_source_data_remote.dart';
-import 'package:warmi/app/data/models/report_transaction/report_tranasaction.dart';
+import 'package:warmi/app/data/models/report_transaction/report_transaction.dart';
+
+import 'package:warmi/core/utils/enum.dart';
 
 class ReportController extends GetxController {
   TextEditingController controllerDate = TextEditingController();
-  Rx<ReportTranasaction> reportTransaction=ReportTranasaction().obs;
+  Rx<ReportTransaction> reportTransaction=ReportTransaction().obs;
+  Rx<LoadingState> loadingState = LoadingState.loading.obs;
 
   @override
   void onInit() {
@@ -25,9 +28,11 @@ class ReportController extends GetxController {
   }
 
   void getReportTransaction({String? startDate,String? dueDate})async{
+    loadingState(LoadingState.loading);
     await TransactionRemoteDataSource().getReportTransaction(startDate: startDate,dueDate: dueDate,type: "custom").then((value) {
       reportTransaction(value);
       controllerDate.text=DateFormat("dd MMMM yyyy", 'id-iD').format(DateTime.parse(startDate!))+ " - " + DateFormat("dd MMMM yyyy", 'id-iD').format(DateTime.parse(dueDate!));
+      loadingState(LoadingState.empty);
       update();
     });
   }

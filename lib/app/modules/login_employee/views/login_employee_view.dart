@@ -65,11 +65,11 @@ class LoginEmployeeView extends GetWidget<LoginEmployeeController> {
                                     labelStyle: whiteTextFont.copyWith(color: MyColor.colorPrimary),
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(color: MyColor.colorPrimary, width: 2.0),
-                                      borderRadius: BorderRadius.circular(25.0),
+                                      borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     border: OutlineInputBorder(
                                       borderSide: const BorderSide(color: MyColor.colorPrimary, width: 2.0),
-                                      borderRadius: BorderRadius.circular(25.0),
+                                      borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     prefixIcon: Icon(Icons.account_circle)),
                               ),
@@ -91,11 +91,11 @@ class LoginEmployeeView extends GetWidget<LoginEmployeeController> {
                                       labelStyle: whiteTextFont.copyWith(color: MyColor.colorPrimary),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: const BorderSide(color: MyColor.colorPrimary, width: 2.0),
-                                        borderRadius: BorderRadius.circular(25.0),
+                                        borderRadius: BorderRadius.circular(10.0),
                                       ),
                                       border: OutlineInputBorder(
                                         borderSide: const BorderSide(color: MyColor.colorPrimary, width: 2.0),
-                                        borderRadius: BorderRadius.circular(25.0),
+                                        borderRadius: BorderRadius.circular(10.0),
                                       ),
                                       suffixIcon: IconButton(
                                         onPressed: () {
@@ -110,9 +110,9 @@ class LoginEmployeeView extends GetWidget<LoginEmployeeController> {
                             Spacer(),
                             Container(
                                 height: 6.5.h,
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(25.0)),
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0)),
                                 width: double.infinity,
-                                child: ElevatedButton(onPressed: () => controller.login(), style: ElevatedButton.styleFrom(primary: MyColor.colorPrimary, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0))), child: Text("Masuk")))
+                                child: ElevatedButton(onPressed: () => controller.login(), style: ElevatedButton.styleFrom(primary: MyColor.colorPrimary, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0))), child: Text("Masuk")))
                           ],
                         )),
                     Obx(() => controller.loadingState.value == LoadingState.loading
@@ -180,11 +180,11 @@ class LoginEmployeeView extends GetWidget<LoginEmployeeController> {
                                     labelStyle: whiteTextFont.copyWith(color: MyColor.colorPrimary),
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(color: MyColor.colorPrimary, width: 2.0),
-                                      borderRadius: BorderRadius.circular(25.0),
+                                      borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     border: OutlineInputBorder(
                                       borderSide: const BorderSide(color: MyColor.colorPrimary, width: 2.0),
-                                      borderRadius: BorderRadius.circular(25.0),
+                                      borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     prefixIcon: Icon(Icons.account_circle)),
                               ),
@@ -206,11 +206,11 @@ class LoginEmployeeView extends GetWidget<LoginEmployeeController> {
                                       labelStyle: whiteTextFont.copyWith(color: MyColor.colorPrimary),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: const BorderSide(color: MyColor.colorPrimary, width: 2.0),
-                                        borderRadius: BorderRadius.circular(25.0),
+                                        borderRadius: BorderRadius.circular(10.0),
                                       ),
                                       border: OutlineInputBorder(
                                         borderSide: const BorderSide(color: MyColor.colorPrimary, width: 2.0),
-                                        borderRadius: BorderRadius.circular(25.0),
+                                        borderRadius: BorderRadius.circular(10.0),
                                       ),
                                       suffixIcon: IconButton(
                                         onPressed: () {
@@ -227,9 +227,9 @@ class LoginEmployeeView extends GetWidget<LoginEmployeeController> {
                             ),
                             Container(
                                 height: 5.5.w,
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(25.0)),
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0)),
                                 width: double.infinity,
-                                child: ElevatedButton(onPressed: () => controller.login(), style: ElevatedButton.styleFrom(primary: MyColor.colorPrimary, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0))), child: Text("Masuk")))
+                                child: ElevatedButton(onPressed: () => controller.login(), style: ElevatedButton.styleFrom(primary: MyColor.colorPrimary, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0))), child: Text("Masuk")))
                           ],
                         ),
                       ),

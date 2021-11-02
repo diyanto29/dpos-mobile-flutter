@@ -7,6 +7,7 @@ import 'package:warmi/app/modules/owner/report/controllers/report_controller.dar
 import 'package:warmi/app/modules/wigets/layouts/dialog/bottom_dialog_outlet.dart';
 import 'package:warmi/app/routes/app_pages.dart';
 import 'package:warmi/core/globals/global_color.dart';
+import 'package:warmi/core/utils/enum.dart';
 import 'package:warmi/core/utils/thema.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:warmi/main.dart';
@@ -189,8 +190,8 @@ class ReportView extends GetWidget<ReportController> {
                                         SizedBox(
                                           height: 6,
                                         ),
-                                        logic.reportTransaction.value.data == null ? CircularProgressIndicator() : Text(
-                                          "Rp. ${formatCurrency.format(logic.reportTransaction.value.data!.totalIncomeTransaction!)}",
+                                        logic.loadingState==LoadingState.loading ?  CircularProgressIndicator() :  logic.reportTransaction.value.data == null ? Text("Rp 0",style: blackTextFont,) : Text(
+                                          "Rp. ${formatCurrency.format(logic.reportTransaction.value.data!.ringkasanTransaksi!.totalAll!)}",
                                           style: blackTextTitle,
                                         ),
                                       ],
@@ -202,14 +203,14 @@ class ReportView extends GetWidget<ReportController> {
                                       crossAxisAlignment: CrossAxisAlignment.end,
                                       children: [
                                         Text(
-                                          "Uang Diterima",
+                                          "Transaksi Cash",
                                           style: blackTextFont,
                                         ),
                                         SizedBox(
                                           height: 6,
                                         ),
-                                        logic.reportTransaction.value.data == null ? CircularProgressIndicator() : Text(
-                                          "Rp. ${formatCurrency.format(logic.reportTransaction.value.data!.totalIncomeTransaction!)}",
+                                        logic.loadingState==LoadingState.loading ?  CircularProgressIndicator() :  logic.reportTransaction.value.data == null ? Text("Rp 0",style: blackTextFont,): Text(
+                                          "Rp. ${formatCurrency.format(logic.reportTransaction.value.data!.ringkasanTransaksi!.totalCash!)}",
                                           style: blackTextTitle,
                                         ),
                                       ],
@@ -236,8 +237,8 @@ class ReportView extends GetWidget<ReportController> {
                                         SizedBox(
                                           height: 6,
                                         ),
-                                        logic.reportTransaction.value.data == null ? CircularProgressIndicator() : Text(
-                                          "- Rp. ${formatCurrency.format(logic.reportTransaction.value.data!.totalDiscount!)}",
+                                        logic.loadingState==LoadingState.loading ?  CircularProgressIndicator() :  logic.reportTransaction.value.data == null ? Text("Rp 0",style: blackTextFont,) : Text(
+                                          "- Rp. ${formatCurrency.format(logic.reportTransaction.value.data!.ringkasanTransaksi!.allDisc!)}",
                                           style: blackTextTitle,
                                         ),
                                       ],
@@ -255,8 +256,9 @@ class ReportView extends GetWidget<ReportController> {
                                         SizedBox(
                                           height: 6,
                                         ),
-                                        Text(
-                                          "- Rp. 0",
+                                    logic.loadingState==LoadingState.loading ?  CircularProgressIndicator() :  logic.reportTransaction.value.data == null ? Text("Rp 0",style: blackTextFont,) :  Text(
+
+                                          "- Rp ${formatCurrency.format((logic.reportTransaction.value.data!.ringkasanTransaksi!.cancel!))}",
                                           style: blackTextTitle,
                                         ),
                                       ],
@@ -283,8 +285,8 @@ class ReportView extends GetWidget<ReportController> {
                                         SizedBox(
                                           height: 6,
                                         ),
-                                        logic.reportTransaction.value.data == null ? CircularProgressIndicator() : Text(
-                                          "Rp. ${formatCurrency.format((logic.reportTransaction.value.data!.totalBenefit! - logic.reportTransaction.value.data!.totalDiscount!))}",
+                                       logic.loadingState==LoadingState.loading ?  CircularProgressIndicator() :  logic.reportTransaction.value.data == null ? Text("Rp 0",style: blackTextFont,) : Text(
+                                          "Rp. ${formatCurrency.format((logic.reportTransaction.value.data!.ringkasanTransaksi!.neto!))}",
                                           style: blackTextTitle,
                                         ),
                                       ],
@@ -296,14 +298,14 @@ class ReportView extends GetWidget<ReportController> {
                                       crossAxisAlignment: CrossAxisAlignment.end,
                                       children: [
                                         Text(
-                                          "Pesanan",
+                                          "Total Transaksi",
                                           style: blackTextFont,
                                         ),
                                         SizedBox(
                                           height: 6,
                                         ),
                                         logic.reportTransaction.value.data == null ? CircularProgressIndicator() : Text(
-                                          "${logic.reportTransaction.value.data!.totalTransaction.toString()}",
+                                          "${logic.reportTransaction.value.data!.ringkasanTransaksi!.success}",
                                           style: blackTextTitle,
                                         ),
                                       ],
@@ -352,13 +354,13 @@ class ReportView extends GetWidget<ReportController> {
                               GetBuilder<ReportController>(builder: (logic) {
                                 return logic.reportTransaction.value.data==null ? Container(): ListView.builder(
                                     shrinkWrap: true,
-                                    itemCount: logic.reportTransaction.value.data!.products!.length > 3 ? 3 :logic.reportTransaction.value.data!.products!.length,
+                                    itemCount: logic.reportTransaction.value.data!.penjualanProduk!.length > 3 ? 3 :logic.reportTransaction.value.data!.penjualanProduk!.length,
                                     physics: ClampingScrollPhysics(),
                                     itemBuilder: (c, i) {
-                                      var data = logic.reportTransaction.value.data!.products![i];
+                                      var data = logic.reportTransaction.value.data!.penjualanProduk![i];
                                       return ListTile(
                                         title: Text(
-                                          "${data.productname
+                                          "${data.name
                                               .toString()
                                               .titleCase}",
                                           style: blackTextFont,
@@ -370,15 +372,15 @@ class ReportView extends GetWidget<ReportController> {
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            // Text(
-                                            //   "Rp.100.000",
-                                            //   style: blackTextTitle,
-                                            // ),
-                                            // SizedBox(
-                                            //   height: 2,
-                                            // ),
                                             Text(
-                                              "${data.productsold} Terjual",
+                                              "Rp ${formatCurrency.format((data.sum!))}",
+                                              style: blackTextTitle,
+                                            ),
+                                            SizedBox(
+                                              height: 2,
+                                            ),
+                                            Text(
+                                              "${data.count} Terjual",
                                               style: blackTextTitle,
                                             ),
                                           ],
@@ -433,7 +435,7 @@ class ReportView extends GetWidget<ReportController> {
                                       var data=logic.reportTransaction.value.data!.paymentMethod![i];
                                       return ListTile(
                                         title: Text(
-                                          "${data.paymentMethod.toString().titleCase}",
+                                          "${data.paymentMethodAlias.toString().titleCase}",
                                           style: blackTextFont,
                                         ),
                                         subtitle: Divider(
@@ -444,14 +446,14 @@ class ReportView extends GetWidget<ReportController> {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              "Rp. ${formatCurrency.format(int.tryParse(data.nominalTransaction!))}",
+                                              "Rp. ${formatCurrency.format(data.total)}",
                                               style: blackTextTitle,
                                             ),
                                             SizedBox(
                                               height: 2,
                                             ),
                                             Text(
-                                              "${data.totalTransaction} Transaksi",
+                                              "${data.count} Transaksi",
                                               style: blackTextTitle,
                                             ),
                                           ],

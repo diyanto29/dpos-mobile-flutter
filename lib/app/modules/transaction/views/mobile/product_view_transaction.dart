@@ -60,7 +60,7 @@ class ProductTransactionView extends GetWidget<ProductController> {
                                     borderRadius: BorderRadius.circular(100),
                                     child: CachedNetworkImage(
                                       imageUrl: "${controller.listProduct[i].productPhoto}",
-                                      fit: BoxFit.fitWidth,
+                                      fit: BoxFit.cover,
                                       width: 60,
                                       height: 60,
                                       placeholder: (c, s) =>
@@ -166,7 +166,7 @@ class ProductTransactionView extends GetWidget<ProductController> {
                                     borderRadius: BorderRadius.circular(100),
                                     child: CachedNetworkImage(
                                       imageUrl: "${transactionController.listSearchProduct[i].productPhoto}",
-                                      fit: BoxFit.fitWidth,
+                                      fit: BoxFit.cover,
                                       width: 60,
                                       height: 60,
                                       placeholder: (c, s) =>

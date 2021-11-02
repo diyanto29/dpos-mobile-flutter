@@ -296,30 +296,33 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                 );
 
               }),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20.0,top: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Flexible(
-                        flex: 3,
-                        child: Text(
-                          "Diskon",
-                          style: blackTextFont,
-                        ),),
+              Visibility(
+                visible: data.transactionpriceoffvoucher!=null ? true : false,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 20.0,top: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Flexible(
+                          flex: 3,
+                          child: Text(
+                            "Diskon",
+                            style: blackTextFont,
+                          ),),
 
-                    Flexible(child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          "- Rp ${formatCurrency.format(int.tryParse(data.transactionpriceoffvoucher ?? "0"))}",
-                          style: blackTextTitle.copyWith(color: MyColor.colorRedFlat),
-                        )
-                      ],
-                    ))
-                  ],
+                      Flexible(child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            "- Rp ${formatCurrency.format(int.tryParse(data.transactionpriceoffvoucher ?? "0"))}",
+                            style: blackTextTitle.copyWith(color: MyColor.colorRedFlat),
+                          )
+                        ],
+                      ))
+                    ],
+                  ),
                 ),
               ),
 
@@ -427,7 +430,7 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                       "Cetak",
                       style: GoogleFonts.droidSans(fontSize: 16),
                     ),
-                    style: ElevatedButton.styleFrom(elevation: 1, primary: MyColor.colorPrimary, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))),
+                    style: ElevatedButton.styleFrom(elevation: 1, primary: MyColor.colorPrimary, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                     onPressed: () {
                       controller.testPrint(data);
                     },
@@ -447,7 +450,7 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                             "Bayar Sekarang",
                             style: GoogleFonts.droidSans(fontSize: 16),
                           ),
-                          style: ElevatedButton.styleFrom(elevation: 1, primary: MyColor.colorRedFlatDark, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))),
+                          style: ElevatedButton.styleFrom(elevation: 1, primary: MyColor.colorRedFlatDark, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                           onPressed: () => controller.checkoutNow(data),
                         ),
                       ),
@@ -461,7 +464,7 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                             "Kirim",
                             style: GoogleFonts.droidSans(fontSize: 16),
                           ),
-                          style: ElevatedButton.styleFrom(elevation: 1, primary: MyColor.colorRedFlatDark, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))),
+                          style: ElevatedButton.styleFrom(elevation: 1, primary: MyColor.colorRedFlatDark, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                           onPressed: () => controller.sendInvoice(id: data.transactionid),
                         ),
                       ),

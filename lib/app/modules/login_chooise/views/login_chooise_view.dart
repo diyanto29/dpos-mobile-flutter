@@ -50,17 +50,17 @@ class LoginChooiseView extends GetWidget<LoginChooiseController> {
                 children: [
                   Container(
                       height: Device.orientation == Orientation.portrait ? 7.h : 5.w,
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(25.0)),
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0)),
                       width: double.infinity,
-                      child: ElevatedButton(onPressed: () => Get.toNamed(Routes.LOGIN), style: ElevatedButton.styleFrom(primary: MyColor.colorPrimary, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0))), child: Text("Masuk Sbg. Pemilik"))),
+                      child: ElevatedButton(onPressed: () => Get.toNamed(Routes.LOGIN), style: ElevatedButton.styleFrom(primary: MyColor.colorPrimary, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0))), child: Text("Masuk Sbg. Pemilik"))),
                   SizedBox(
                     height: 3.h,
                   ),
                   Container(
                       height: Device.orientation == Orientation.portrait ? 7.h : 5.w,
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(25.0)),
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0)),
                       width: double.infinity,
-                      child: ElevatedButton(onPressed: () => Get.toNamed(Routes.LOGIN_EMPLOYEE), style: ElevatedButton.styleFrom(primary: MyColor.colorPrimary, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0))), child: Text("Masuk Sbg. Kasir"))),
+                      child: ElevatedButton(onPressed: () => Get.toNamed(Routes.LOGIN_EMPLOYEE), style: ElevatedButton.styleFrom(primary: MyColor.colorPrimary, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0))), child: Text("Masuk Sbg. Kasir"))),
                 ],
               ),
             )

@@ -43,6 +43,9 @@ class _EditProductViewState extends State<EditProductView> {
     controller.conQty.value.text=product.productStok!;
     controller.conSKU.value.text=product.productSku!;
     controller.conBarcode.value.text=product.productBarcode!;
+    controller.priceProduct(product.productPrice!);
+    controller.priceModal(int.tryParse(product.productPriceModal ?? "0"));
+
     controller.conPrice.value.text="Rp "+formatCurrency.format(product.productPrice!);
     controller.conModal.value.text="Rp "+formatCurrency.format(int.parse(product.productPriceModal=="" ? '0' : product.productPriceModal));
     controller.toggleSwitchDetailProduct(product.productPhoto!.isNotEmpty ? true:false);
@@ -186,7 +189,7 @@ class _EditProductViewState extends State<EditProductView> {
                         .replaceAll(".", "")));
                   },
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                       labelText: "Harga Jual",
                       labelStyle: GoogleFonts.droidSans(color: Colors.grey)),
                 ),
@@ -303,7 +306,7 @@ class _EditProductViewState extends State<EditProductView> {
                                 .replaceAll(".", "")));
                           },
                           decoration: InputDecoration(
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                               labelText: "Harga Modal",
                               labelStyle: GoogleFonts.droidSans(color: Colors.grey)),
                         ),
@@ -333,7 +336,7 @@ class _EditProductViewState extends State<EditProductView> {
                                 onPressed: () => controller.scanBarcode(),
                                 icon: Icon(IconlyLight.work),
                               ),
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                               labelText: "Barcode",
                               labelStyle: GoogleFonts.droidSans(color: Colors.grey)),
                         ),
@@ -391,7 +394,7 @@ class _EditProductViewState extends State<EditProductView> {
                     style: ElevatedButton.styleFrom(
                         elevation: 1,
                         primary: MyColor.colorPrimary,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                     onPressed: () => controller.createOrUpdateProduct(idProduct: product.productId),
                   ),
                 ),
@@ -410,7 +413,7 @@ class _EditProductViewState extends State<EditProductView> {
                     style: ElevatedButton.styleFrom(
                         elevation: 1,
                         primary: MyColor.colorRedFlatDark,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                     onPressed: () => controller.deleteProductDataSource(id: product.productId),
                   ),
                 ),

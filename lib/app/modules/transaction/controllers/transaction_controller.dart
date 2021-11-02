@@ -68,6 +68,20 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
   RxString title = "List Kontak".obs;
   DataTransaction? detailTransaction;
   Rx<AuthSessionManager> auth = AuthSessionManager().obs;
+
+  List<DataTransaction> listTransaction = [];
+  void getTransaction({String? statusTransaction})async{
+    if(listTransaction.isNotEmpty) listTransaction.clear();
+    await TransactionRemoteDataSource().getTransaction(statusTransaction: "pending").then((value) {
+      listTransaction=value.data!;
+
+    });
+
+
+    update();
+  }
+
+
   AppUpdateInfo? _updateInfo;
   late BannerAd bannerAd;
 
@@ -132,6 +146,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
   @override
   void onInit() {
     // checkForUpdate();
+    getTransaction();
     initAdmob();
     discountController.getDiscountDataSource();
     Get.lazyPut<CartController>(() => CartController());
@@ -286,6 +301,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
 
   void storeTransaction() async {
     var conCart = Get.find<CartController>();
+    var conProd = Get.find<ProductController>();
 
     if (paymentMethod.value.paymentmethodid == null) {
       double calc = pay.value - conCart.totalShopping.value;
@@ -311,6 +327,10 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
           Get.back();
 
           if (value.status) {
+            conCart.listCart.clear();
+            productController.listProduct.forEach((element) {
+              element.productInCart=false;
+            });
             Map<dynamic, dynamic> pass;
             pass = {
               "type": "cash",
@@ -321,10 +341,13 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
 
             Get.toNamed(Routes.TRANSACTION_SUCCESS, arguments: pass);
             printerC.printTicketPurchase(dataTransaction: detailTransaction);
+          }else{
+            showSnackBar(snackBarType: SnackBarType.INFO,title: "Transaksi",message: value.message.split("=>").last);
           }
         });
       }
-    } else {
+    }
+    else {
       var paymentC = Get.find<PaymentMethodController>();
       Map<dynamic, dynamic> pass = {};
       paymentC.listPaymentMethod.forEach((element) {
@@ -361,11 +384,19 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
               transactionStatus: "success")
           .then((value) {
         Get.back();
-        if (value.status) {
-          detailTransaction = DataTransaction.fromJson(value.data);
 
+        if (value.status) {
+          conCart.listCart.clear();
+          detailTransaction = DataTransaction.fromJson(value.data);
+          productController.listProduct.forEach((element) {
+            element.productInCart=false;
+          });
           Get.toNamed(Routes.TRANSACTION_SUCCESS, arguments: pass);
           printerC.printTicketPurchase(dataTransaction: detailTransaction);
+
+
+        }else{
+          showSnackBar(snackBarType: SnackBarType.INFO,title: "Transaksi",message: value.message.split("=>").last);
         }
       });
     }

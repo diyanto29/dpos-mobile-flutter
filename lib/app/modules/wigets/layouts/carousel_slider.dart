@@ -24,9 +24,8 @@ class CarouselSliderCustom extends StatelessWidget {
                 .toList(),
             carouselController: controller.carouselController,
             options: CarouselOptions(
-                height: 150.0,
+                height: 110.0,
                 autoPlay: true,
-
                 enlargeCenterPage: true,
                 viewportFraction: 1,
                 onPageChanged: (index, reason) {

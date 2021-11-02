@@ -23,7 +23,7 @@ class GeneralTextInput extends StatelessWidget {
       this.paddingBottom = 20.0,
       this.keyboardType,
       this.readOnly = false,
-      this.textInputAction = TextInputAction.next, this.borderRadius=25, this.maxLines=1, this.onClick, this.autoFocus=false})
+      this.textInputAction = TextInputAction.next, this.borderRadius=10, this.maxLines=1, this.onClick, this.autoFocus=false})
       : super(key: key);
 
   @override

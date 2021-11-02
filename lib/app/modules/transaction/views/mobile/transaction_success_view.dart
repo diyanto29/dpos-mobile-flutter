@@ -81,7 +81,7 @@ class _TransactionSuccessViewState extends State<TransactionSuccessView> {
                   GetBuilder<TransactionController>(builder: (logic) {
                     print(logic.isBannerAdReady);
                     return logic.isBannerAdReady ?  Container(
-                      height: controller.bannerAd.size.height.toDouble(),
+                      height: 60,
                       width: controller.bannerAd.size.width.toDouble(),
                       child: AdWidget(ad: controller.bannerAd),
                     ) : Container();
@@ -131,6 +131,14 @@ class _TransactionSuccessViewState extends State<TransactionSuccessView> {
                               .toString()
                               .titleCase} - ${controller.paymentMethod.value.paymentmethodalias.toString().toUpperCase()}", style: blackTextTitle.copyWith(fontSize: 15.sp, color: Colors.white),),
                         ),
+                        SizedBox(height: 10,),
+                        GetBuilder<TransactionController>(builder: (logic) {
+                          return logic.isBannerAdReady ?  Container(
+                            height:60,
+                            width: controller.bannerAd.size.width.toDouble(),
+                            child: AdWidget(ad: controller.bannerAd),
+                          ) : Container();
+                        }),
                       ],
                     ),
                   ),
@@ -149,16 +157,7 @@ class _TransactionSuccessViewState extends State<TransactionSuccessView> {
                             trailing: Icon(Icons.share),
                           ),
                         ),
-
-                        SizedBox(height: 15,),
-                        GetBuilder<TransactionController>(builder: (logic) {
-                          return logic.isBannerAdReady ?  Container(
-                            height: controller.bannerAd.size.height.toDouble(),
-                            width: controller.bannerAd.size.width.toDouble(),
-                            child: AdWidget(ad: controller.bannerAd),
-                          ) : Container();
-                        }),
-                        SizedBox(height: 100,),
+                        SizedBox(height: 20,),
 
                         GeneralButton(onPressed: () => controller.printNow(), label: 'Cetak Struk',),
                         SizedBox(height: 10,),

@@ -168,7 +168,7 @@ class HomeView extends GetWidget<HomeController> {
                               CardHeaderHome(
                                 colorBackground: MyColor.colorBlue.withOpacity(0.2),
                                 imgUrl: "assets/icons/receive_dollar.png",
-                                textCard: "Rp. ${formatCurrency.format(controller.reportTranasaction.value.data==null ?0 : controller.reportTranasaction.value.data!.totalBenefit )}",
+                                textCard: "Rp. ${formatCurrency.format(controller.reportTranasaction.value.data==null ?0 : controller.reportTranasaction.value.data!.ringkasanTransaksi!.totalAll )}",
                               ),
                               SizedBox(
                                 width: 10,
@@ -176,7 +176,7 @@ class HomeView extends GetWidget<HomeController> {
                               CardHeaderHome(
                                 colorBackground: MyColor.colorOrange.withOpacity(0.2),
                                 imgUrl: "assets/icons/purchase_order.png",
-                                textCard: "${controller.reportTranasaction.value.data==null ?0 : controller.reportTranasaction.value.data!.totalTransaction} Orders",
+                                textCard: "${controller.reportTranasaction.value.data==null ?0 : controller.reportTranasaction.value.data!.ringkasanTransaksi!.success} Orders",
                               )
                             ],
                           );
@@ -311,7 +311,7 @@ class HomeView extends GetWidget<HomeController> {
                                         onPressed: () => Get.toNamed(Routes.DISCOUNT),
                                         icon: 'assets/icons/discount.png',
                                         colorBackground: MyColor.colorOrange,
-                                        labelIcon: 'Diskon',
+                                        labelIcon: 'DFiskon',
                                       ),
                                       CardButtonAction(
                                         onPressed: () => Get.toNamed(Routes.OUTLET_ONLINE),
@@ -344,18 +344,18 @@ class HomeView extends GetWidget<HomeController> {
                           height: 15,
                         ),
                         GetBuilder<HistorySalesController>(builder: (logic) {
-                          return historySalesC.loadingState == LoadingState.loading
+                          return historySalesC.loadingStateLast == LoadingState.loading
                               ? Center(child: CircularProgressIndicator())
-                              : historySalesC.listTransaction.length == 0
+                              : historySalesC.listTransactionLast.length == 0
                               ? Center(
                             child: Text("Data Kosong"),
                           )
                               : ListView.builder(
                               shrinkWrap: true,
-                              itemCount: historySalesC.listTransaction.length > 3 ? 3 : historySalesC.listTransaction.length,
+                              itemCount: historySalesC.listTransactionLast.length > 3 ? 3 : historySalesC.listTransactionLast.length,
                               physics: ClampingScrollPhysics(),
                               itemBuilder: (c, i) {
-                                var data = historySalesC.listTransaction[i];
+                                var data = historySalesC.listTransactionLast[i];
                                 return Padding(
                                   padding: const EdgeInsets.only(bottom: 8),
                                   child: CardOrder(

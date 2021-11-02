@@ -53,7 +53,7 @@ class ProductCategoryController extends GetxController {
             Get.back();
             Get.back();
             showSnackBar(
-                snackBarType: SnackBarType.WARNING,
+                snackBarType: SnackBarType.SUCCESS,
                 title: 'Kategori Produk',
                 message: 'Data Berhasil Disimpan');
           }else{

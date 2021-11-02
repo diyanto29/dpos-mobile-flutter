@@ -12,7 +12,7 @@ class GeneralButton extends StatelessWidget {
   final double? fontSize;
   final double? borderRadius;
 
-  const GeneralButton({Key? key, required this.label, required this.onPressed, this.height=54, this.width=double.infinity, this.color=MyColor.colorPrimary, this.fontSize, this.borderRadius=25}) : super(key: key);
+  const GeneralButton({Key? key, required this.label, required this.onPressed, this.height=54, this.width=double.infinity, this.color=MyColor.colorPrimary, this.fontSize, this.borderRadius=10}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

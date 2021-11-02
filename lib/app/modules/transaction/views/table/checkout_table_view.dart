@@ -31,8 +31,8 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
   @override
   void initState() {
 
-     type = Get.arguments['from'];
-     data = Get.arguments['data'] != null ? Get.arguments['data'] as DataTransaction : null;
+     type =Get.arguments != null ? Get.arguments['from'] : "cart";
+     data =Get.arguments != null ? Get.arguments['data'] != null ? Get.arguments['data'] as DataTransaction : null :null ;
     super.initState();
   }
   @override

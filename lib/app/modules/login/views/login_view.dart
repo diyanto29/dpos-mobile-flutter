@@ -68,12 +68,12 @@ class LoginView extends GetWidget<LoginController> {
                                       focusedBorder: OutlineInputBorder(
                                         borderSide:
                                         const BorderSide(color: MyColor.colorPrimary, width: 2.0),
-                                        borderRadius: BorderRadius.circular(25.0),
+                                        borderRadius: BorderRadius.circular(10.0),
                                       ),
                                       border: OutlineInputBorder(
                                         borderSide:
                                         const BorderSide(color: MyColor.colorPrimary, width: 2.0),
-                                        borderRadius: BorderRadius.circular(25.0),
+                                        borderRadius: BorderRadius.circular(10.0),
                                       ),
                                       prefixIcon: Icon(Icons.account_circle)
                                   ),
@@ -99,12 +99,12 @@ class LoginView extends GetWidget<LoginController> {
                                         focusedBorder: OutlineInputBorder(
                                           borderSide:
                                           const BorderSide(color: MyColor.colorPrimary, width: 2.0),
-                                          borderRadius: BorderRadius.circular(25.0),
+                                          borderRadius: BorderRadius.circular(10.0),
                                         ),
                                         border: OutlineInputBorder(
                                           borderSide:
                                           const BorderSide(color: MyColor.colorPrimary, width: 2.0),
-                                          borderRadius: BorderRadius.circular(25.0),
+                                          borderRadius: BorderRadius.circular(10.0),
                                         ),
                                         suffixIcon: IconButton(
                                           onPressed: () {
@@ -123,13 +123,13 @@ class LoginView extends GetWidget<LoginController> {
                               Spacer(),
                               Container(
                                   height: 6.5.h,
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(25.0)),
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0)),
                                   width: double.infinity,
                                   child: ElevatedButton(onPressed: () => controller.login(),
                                       style: ElevatedButton.styleFrom(
                                           primary: MyColor.colorPrimary,
                                           shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(25.0)
+                                              borderRadius: BorderRadius.circular(10.0)
                                           )
                                       ),
                                       child: Text("Masuk")))
@@ -202,12 +202,12 @@ class LoginView extends GetWidget<LoginController> {
                                     focusedBorder: OutlineInputBorder(
                                       borderSide:
                                       const BorderSide(color: MyColor.colorPrimary, width: 2.0),
-                                      borderRadius: BorderRadius.circular(25.0),
+                                      borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     border: OutlineInputBorder(
                                       borderSide:
                                       const BorderSide(color: MyColor.colorPrimary, width: 2.0),
-                                      borderRadius: BorderRadius.circular(25.0),
+                                      borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     prefixIcon: Icon(Icons.account_circle)
                                 ),
@@ -233,12 +233,12 @@ class LoginView extends GetWidget<LoginController> {
                                       focusedBorder: OutlineInputBorder(
                                         borderSide:
                                         const BorderSide(color: MyColor.colorPrimary, width: 2.0),
-                                        borderRadius: BorderRadius.circular(25.0),
+                                        borderRadius: BorderRadius.circular(10.0),
                                       ),
                                       border: OutlineInputBorder(
                                         borderSide:
                                         const BorderSide(color: MyColor.colorPrimary, width: 2.0),
-                                        borderRadius: BorderRadius.circular(25.0),
+                                        borderRadius: BorderRadius.circular(10.0),
                                       ),
                                       suffixIcon: IconButton(
                                         onPressed: () {
@@ -257,13 +257,13 @@ class LoginView extends GetWidget<LoginController> {
                            SizedBox(height: 10.w,),
                             Container(
                                 height: 5.5.w,
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(25.0)),
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0)),
                                 width: double.infinity,
                                 child: ElevatedButton(onPressed: () => controller.login(),
                                     style: ElevatedButton.styleFrom(
                                         primary: MyColor.colorPrimary,
                                         shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(25.0)
+                                            borderRadius: BorderRadius.circular(10.0)
                                         )
                                     ),
                                     child: Text("Masuk")))

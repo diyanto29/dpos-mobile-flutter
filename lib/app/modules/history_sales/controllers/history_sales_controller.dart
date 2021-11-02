@@ -43,7 +43,7 @@ class HistorySalesController extends GetxController with SingleGetTickerProvider
   @override
   void onInit() {
     tabController = TabController(vsync: this, length: tabs.length);
-
+  getTransactionLast();
     super.onInit();
   }
 
@@ -66,8 +66,10 @@ class HistorySalesController extends GetxController with SingleGetTickerProvider
 
 
   List<DataTransaction> listTransaction = [];
+  List<DataTransaction> listTransactionLast = [];
 
   LoadingState loadingState = LoadingState.loading;
+  LoadingState loadingStateLast = LoadingState.loading;
 
   void getTransaction({String? statusTransaction,String? statusPayment})async{
     loadingState=LoadingState.loading;
@@ -80,6 +82,19 @@ class HistorySalesController extends GetxController with SingleGetTickerProvider
     loadingState=LoadingState.empty;
     update();
   }
+
+
+  void getTransactionLast({String? statusTransaction,String? statusPayment})async{
+
+
+    await TransactionRemoteDataSource().getTransaction(statusPayment: statusPayment,statusTransaction: statusTransaction).then((value) {
+      listTransactionLast=value.data!;
+    });
+    loadingStateLast=LoadingState.empty;
+    update();
+  }
+
+
 
   RxInt subTotal=0.obs;
 

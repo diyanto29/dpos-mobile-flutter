@@ -111,7 +111,7 @@ class ProductView extends GetWidget<ProductController> {
                                               child: CachedNetworkImage(
                                                 imageUrl:
                                                 "${controller.listSearchProduct[i].productPhoto}",
-                                                fit: BoxFit.fitWidth,
+                                                fit: BoxFit.cover,
                                                 width: 60,
                                                 height: 60,
                                                 placeholder: (c, s) => Center(
@@ -226,7 +226,7 @@ class ProductView extends GetWidget<ProductController> {
                                                           child: CachedNetworkImage(
                                                             imageUrl:
                                                                 "${controller.listProduct[i].productPhoto}",
-                                                            fit: BoxFit.fitWidth,
+                                                            fit: BoxFit.cover,
                                                             width: 60,
                                                             height: 60,
                                                             placeholder: (c, s) => Center(

@@ -336,12 +336,12 @@ class DropdownSearchState<T> extends State<DropdownSearch<T?>> {
         focusedBorder: OutlineInputBorder(
           borderSide:
            BorderSide(color: MyColor.colorPrimary, width: 2.0),
-          borderRadius: BorderRadius.circular(25.0),
+          borderRadius: BorderRadius.circular(10),
         ),
         border: OutlineInputBorder(
           borderSide:
            BorderSide(color: MyColor.colorPrimary, width: 2.0),
-          borderRadius: BorderRadius.circular(25.0),
+          borderRadius: BorderRadius.circular(10),
         ),
         suffixIcon:
         widget.showAsSuffixIcons ? _manageTrailingIcons(data) : null,

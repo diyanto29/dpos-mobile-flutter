@@ -48,9 +48,9 @@ class DetailReportPaymentMethod extends GetWidget<ReportController> {
                   rows: logic.reportTransaction.value.data!.paymentMethod!
                       .map<DataRow>((e) => DataRow(
                             cells: <DataCell>[
-                              DataCell(Text("${e.paymentMethod}")),
-                              DataCell(Text("${e.totalTransaction}")),
-                              DataCell(Text("${formatCurrency.format(int.tryParse(e.nominalTransaction!))}")),
+                              DataCell(Text("${e.paymentMethodAlias}")),
+                              DataCell(Text("${e.count}")),
+                              DataCell(Text("${formatCurrency.format(e.total)}")),
                             ],
                           ))
                       .toList()),

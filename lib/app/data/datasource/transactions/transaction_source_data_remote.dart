@@ -4,7 +4,7 @@ import 'package:api_cache_manager/utils/cache_manager.dart';
 import 'package:dio/dio.dart';
 import 'package:warmi/app/data/datalocal/session/auth_session_manager.dart';
 import 'package:warmi/app/data/models/product/cart.dart';
-import 'package:warmi/app/data/models/report_transaction/report_tranasaction.dart';
+import 'package:warmi/app/data/models/report_transaction/report_transaction.dart';
 import 'package:warmi/app/data/models/transactions/transaction_model.dart';
 import 'package:warmi/core/errors/exceptions.dart';
 import 'package:warmi/core/globals/global_string.dart';
@@ -44,16 +44,21 @@ class TransactionRemoteDataSource extends BaseDio {
               discount = item.subTotal! * (int.parse(item.discount!.discountPercent!) / 100);
               afterDiscount = item.subTotal! - discount;
             } else {
-              double discount = item.subTotal! * (int.parse(item.discount!.discountPercent!) / 100);
+               discount = item.subTotal! * (int.parse(item.discount!.discountPercent!) / 100);
               if (discount >= double.parse(item.discount!.discountMaxPriceOff!)) {
+                discount=double.parse(item.discount!.discountMaxPriceOff!);
                 afterDiscount = (item.subTotal! - double.parse(item.discount!.discountMaxPriceOff!));
               } else {
                 afterDiscount = item.subTotal! - discount;
               }
             }
+          }else{
+            discount=double.tryParse(item.discount!.discountMaxPriceOff!)!;
+            afterDiscount= afterDiscount = item.subTotal! - discount;
           }
         }
 
+          // print(item.discount!.discountMaxPriceOff!);
         listProduct.add({
           "product_id": "${item.dataProduct!.productId}",
           "product_qty": item.qty,
@@ -63,12 +68,13 @@ class TransactionRemoteDataSource extends BaseDio {
           "sub_total": item.subTotal,
           "discount": item.discount == null
               ? null
-              : item.discount!.discountType == "price"
-                  ? item.discount!.discountMaxPriceOff
-                  : discount,
+              : item.discount!.discountType == "percent"
+                  ? discount
+                  : item.discount!.discountMaxPriceOff,
           "price_after_discount": afterDiscount
         });
       });
+
 
       Map<dynamic, dynamic> data = {
         if (auth.roleName == "Pemilik Toko") "user_id": "${auth.userId}",
@@ -137,7 +143,7 @@ class TransactionRemoteDataSource extends BaseDio {
     }
   }
 
-  Future<ReportTranasaction> getReportTransaction({String? startDate, String? dueDate, String type = 'monthly'}) async {
+  Future<ReportTransaction> getReportTransaction({String? startDate, String? dueDate, String type = 'monthly'}) async {
     try {
       Map<dynamic, dynamic> data = {
         "user_id": "${auth.userIdOwner}",
@@ -151,7 +157,7 @@ class TransactionRemoteDataSource extends BaseDio {
         await APICacheManager().addCacheData(APICacheDBModel(key: 'API_REPORT_TRANSACTION_MONTHLY_MODEL', syncData: jsonEncode(response!.data)));
       else
         await APICacheManager().addCacheData(APICacheDBModel(key: 'API_REPORT_TRANSACTION_MODEL', syncData: jsonEncode(response!.data)));
-      return ReportTranasaction.fromJson(response!.data);
+      return ReportTransaction.fromJson(response!.data);
     } on DioError catch (e) {
       print(e);
       var cacheData;
@@ -161,7 +167,7 @@ class TransactionRemoteDataSource extends BaseDio {
       else
         if(await APICacheManager().isAPICacheKeyExist("API_REPORT_TRANSACTION_MODEL"))
         cacheData = await APICacheManager().getCacheData('API_REPORT_TRANSACTION_MODEL');
-      var result = ReportTranasaction.fromJson(jsonDecode(cacheData.syncData));
+      var result = ReportTransaction.fromJson(jsonDecode(cacheData.syncData));
       return result;
     }
   }
