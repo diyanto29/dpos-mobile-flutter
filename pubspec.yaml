@@ -7,11 +7,10 @@ environment:
   sdk: '>=2.12.0 <3.0.0'
 dependencies:
   cupertino_icons: ^1.0.2
-  get: 4.2.4
   flutter:
     sdk: flutter
   dio: ^4.0.0
-  data_connection_checker: ^0.3.4
+  #  data_connection_checker: ^0.3.4
   recase: ^4.0.0
   api_cache_manager: ^1.0.2
   line_icons: ^2.0.1
@@ -28,7 +27,7 @@ dependencies:
   carousel_slider: ^4.0.0
   custom_navigation_bar: ^0.8.2
   flutter_iconly: ^1.0.2
-  flutter_statusbarcolor_ns: ^0.3.0-nullsafety
+  flutter_statusbarcolor_ns: ^0.4.0
   cached_network_image: ^3.1.0
   image_picker: ^0.8.2
   external_path: ^1.0.1
@@ -42,10 +41,11 @@ dependencies:
   device_info_plus: ^3.1.0
   package_info: ^2.0.2
   flutter_barcode_scanner: ^2.0.0
-#  image_downloader: ^0.30.0
-#  screenshot: ^1.2.3
+  #  image_downloader: ^0.30.0
+  #  screenshot: ^1.2.3
   equatable: ^2.0.3
   share_plus: ^3.0.4
+  get: ^4.3.8
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -58,5 +58,11 @@ flutter_icons:
 flutter:
   uses-material-design: true
   assets:
-  - assets/
-  - assets/icons/
+    - assets/
+    - assets/icons/
+
+# remove package data_connection_checker
+# package in_app_update only android
+# package external_path only android
+# package print_bluetooth_thermal only android
+# package flutter_barcode_scanner minimum deployment target to 12
