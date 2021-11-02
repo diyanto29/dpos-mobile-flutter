@@ -6,14 +6,14 @@
     <string>Camera permission is required for barcode scanning.</string>
     <key>NSPhotoLibraryUsageDescription</key>
     <key>GADApplicationIdentifier</key>
-    <string>ca-app-pub-4602657974905060~9816958967</string>
+    <string>ca-app-pub-4602657974905060~8938760053</string>
     <key>SKAdNetworkItems</key>
-      <array>
-        <dict>
-          <key>SKAdNetworkIdentifier</key>
-          <string>cstr6suwn9.skadnetwork</string>
-        </dict>
-      </array>
+            <array>
+                <dict>
+                    <key>SKAdNetworkIdentifier</key>
+                    <string>cstr6suwn9.skadnetwork</string>
+                </dict>
+            </array>
     <key>LSApplicationQueriesSchemes</key>
     <array>
       <string>https</string>
