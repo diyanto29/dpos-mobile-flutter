@@ -38,7 +38,7 @@ class _CheckoutCashViewState extends State<CheckoutCashView> {
   Widget build(BuildContext context) {
     return
       LayoutBuilder(builder: (context, constraints) {
-        if (constraints.maxWidth < 600) {
+        if (constraints.maxWidth > 600) {
           return Obx(() {
             return ListView(
               children: [

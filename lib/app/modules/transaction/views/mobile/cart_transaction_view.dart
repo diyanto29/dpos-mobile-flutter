@@ -10,12 +10,14 @@ import 'package:warmi/app/modules/transaction/controllers/cart_controller.dart';
 import 'package:warmi/app/modules/transaction/controllers/transaction_controller.dart';
 import 'package:warmi/app/modules/wigets/layouts/dialog/bottom_dialog_contact.dart';
 import 'package:warmi/app/modules/wigets/layouts/dialog/dialog_noted.dart';
+import 'package:warmi/app/modules/wigets/layouts/dialog/dialog_snackbar.dart';
 import 'package:warmi/app/modules/wigets/layouts/general_button.dart';
 import 'package:warmi/app/modules/wigets/package/corolize_text_avatar/colorize_text_avatar.dart';
 import 'package:warmi/app/routes/app_pages.dart';
 import 'package:warmi/core/globals/global_color.dart';
 import 'package:warmi/core/globals/global_string.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:warmi/core/utils/enum.dart';
 
 class CardTransactionView extends StatefulWidget {
   const CardTransactionView({Key? key}) : super(key: key);
@@ -447,7 +449,12 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                         "from" : "cart",
                         "data" : null
                       };
-                      Get.toNamed(Routes.CHECKOUT_PAGE,arguments: data);
+                      if(cartController.listCart.isEmpty){
+                        showSnackBar(snackBarType: SnackBarType.INFO,message: "Keranjang Masih Kosong",title: "Transaksi");
+                      }else{
+                        Get.toNamed(Routes.CHECKOUT_PAGE,arguments: data);
+                      }
+
                     },
                     width: 45.w,
                   ),

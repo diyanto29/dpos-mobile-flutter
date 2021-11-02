@@ -33,6 +33,13 @@ class ChooseStoreController extends GetxController{
     var box=GetStorage();
     box.write(MyString.STORE_ID, dataOutlet.storeId);
     box.write(MyString.STORE_NAME, dataOutlet.storeName);
+    String? address;
+    if (dataOutlet.address != null) {
+      address = "Kec. ${dataOutlet.address!.addressSubdistrictName} ${dataOutlet.address!.addressType}. "
+          "${dataOutlet.address!.addressCityName} - "
+          "${dataOutlet.address!.addressProvinceName}";
+    }
+    box.write(MyString.STORE_ADDRESS, address);
     Get.offAllNamed(Routes.INDEX_TRANSACTION);
   }
 }

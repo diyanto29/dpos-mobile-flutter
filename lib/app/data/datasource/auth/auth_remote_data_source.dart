@@ -22,26 +22,21 @@ import 'package:warmi/core/network/base_dio.dart';
 import 'package:warmi/core/network/response_message.dart';
 import 'package:warmi/core/utils/enum.dart';
 
-class AuthRemoteDataSource extends BaseDio{
-
+class AuthRemoteDataSource extends BaseDio {
   Options? options;
 
-
-
-
-
-  Future<bool> loginAuth({String? username,String? password}) async {
-    GetStorage box=GetStorage();
+  Future<bool> loginAuth({String? username, String? password}) async {
+    GetStorage box = GetStorage();
     print("a");
-    try{
+    try {
       Map<String, dynamic> data = {
         "username": username,
         "user_password": password,
       };
 
-      Response response=await dio.post("${MyString.login}",data: jsonEncode(data));
+      Response response = await dio.post("${MyString.login}", data: jsonEncode(data));
       print(response.data);
-      if(response.data['status']){
+      if (response.data['status']) {
         var data = response.data['data'];
         var dataDetailUser = response.data['data']['detail_user'];
         box.write("token", data['token']);
@@ -62,10 +57,8 @@ class AuthRemoteDataSource extends BaseDio{
         //checking id owner
         box.write(MyString.USER_ID_OWNER, dataDetailUser['USER_ID']);
 
-
-
         //user type account
-        if(dataDetailUser['user_type']!=null){
+        if (dataDetailUser['user_type'] != null) {
           box.write(MyString.STATUS_CODE_ID, dataDetailUser['user_type']['STATUS_CODE_ID'].toString());
           box.write(MyString.STATUS_NAME, dataDetailUser['user_type']['STATUS_NAME']);
           box.write(MyString.EXPIRED_DATE, dataDetailUser['EXPIRED_DATE']);
@@ -74,7 +67,17 @@ class AuthRemoteDataSource extends BaseDio{
         //sessiojn store
         box.write(MyString.STORE_ID, dataDetailUser['store'][0]['STORE_ID'].toString());
         box.write(MyString.STORE_NAME, dataDetailUser['store'][0]['STORE_NAME']);
-        _downloadFile(dataDetailUser['business']['BUSINESS_LOGO'],'logo').then((value) {
+        if (dataDetailUser['store'][0]['address'] != null) {
+          var dataAddress = dataDetailUser['store'][0]['address'];
+          var address = "Kec. ${dataAddress['ADDRESS_SUBDISTRICT_NAME']} ${dataAddress['ADDRESS_TYPE']}. "
+              "${dataAddress['ADDRESS_CITY_NAME']} - "
+              "${dataAddress['ADDRESS_PROVINCE_NAME']}";
+          box.write(MyString.STORE_ADDRESS, address);
+        } else {
+          box.write(MyString.STORE_ADDRESS, "-");
+        }
+
+        _downloadFile(dataDetailUser['business']['BUSINESS_LOGO'], 'logo').then((value) {
           print(value.path);
         });
 
@@ -82,43 +85,40 @@ class AuthRemoteDataSource extends BaseDio{
         box.write(MyString.BUSINESS_ID, dataDetailUser['business']['BUSINESS_ID'].toString());
         box.write(MyString.BUSINESS_NAME, dataDetailUser['business']['BUSINESS_NAME']);
         box.write(MyString.BUSINESS_CATEGORY_ID, dataDetailUser['business']['BUSINESS_CATEGORY_ID'].toString());
-        box.write(MyString.BUSINESS_CATEGORY_NAME,dataDetailUser['business']['category']['BUSINESS_CATEGORY_NAME']);
-        box.write(MyString.BUSINESS_CREW_TOTAL,dataDetailUser['business']['BUSINESS_CREW_TOTAL']);
+        box.write(MyString.BUSINESS_CATEGORY_NAME, dataDetailUser['business']['category']['BUSINESS_CATEGORY_NAME']);
+        box.write(MyString.BUSINESS_CREW_TOTAL, dataDetailUser['business']['BUSINESS_CREW_TOTAL']);
         box.write(MyString.BUSINESS_BRANCH, dataDetailUser['business']['BUSINESS_BRANCH']);
         box.write(MyString.BUSINESS_WEBSITE_ID, dataDetailUser['business']['BUSINESS_WEBSITE_ID']).toString();
-        box.write(MyString.BUSINESS_CONTACT,dataDetailUser['business']['BUSINESS_CONTACT']);
+        box.write(MyString.BUSINESS_CONTACT, dataDetailUser['business']['BUSINESS_CONTACT']);
 
         Get.offAllNamed(Routes.NAVIGATION);
 
-        showSnackBar(snackBarType: SnackBarType.SUCCESS,title: "Login",message:  'Selamat Datang '+dataDetailUser['USER_FULLNAME']);
+        showSnackBar(snackBarType: SnackBarType.SUCCESS, title: "Login", message: 'Selamat Datang ' + dataDetailUser['USER_FULLNAME']);
 
         return true;
-      }else{
-        showSnackBar(snackBarType: SnackBarType.ERROR,title: "Login",message: response.data['message']);
+      } else {
+        showSnackBar(snackBarType: SnackBarType.ERROR, title: "Login", message: response.data['message']);
         return false;
       }
-
-
-    }on DioError catch(e){
+    } on DioError catch (e) {
       print(e);
       return false;
     }
   }
 
-
-  Future<ResponseMessage> loginAuthCashier({String? username,String? password}) async {
-    GetStorage box=GetStorage();
+  Future<ResponseMessage> loginAuthCashier({String? username, String? password}) async {
+    GetStorage box = GetStorage();
     print("a");
-    try{
+    try {
       Map<String, dynamic> data = {
         "phone_number": username,
         "pin": password,
       };
 
-      Response response=await dio.post("${MyString.loginCashier}",data: jsonEncode(data));
+      Response response = await dio.post("${MyString.loginCashier}", data: jsonEncode(data));
 
-      if(response.data['status']){
-        AuthCashier authCashier=AuthCashier.fromJson(response.data);
+      if (response.data['status']) {
+        AuthCashier authCashier = AuthCashier.fromJson(response.data);
         var data = response.data['data'];
         var dataDetailUser = response.data['data']['detail_user'];
         box.write("token", data['token']);
@@ -140,59 +140,51 @@ class AuthRemoteDataSource extends BaseDio{
         //checking id owner
         box.write(MyString.USER_ID_OWNER, authCashier.data!.detailUser!.userid);
 
-
-
         //user type account
-        if(dataDetailUser['store'][0]['owner']['user_type']!=null){
-          box.write(MyString.STATUS_CODE_ID,dataDetailUser['store'][0]['owner']['user_type']['STATUS_CODE_ID'].toString());
-          box.write(MyString.STATUS_NAME,dataDetailUser['store'][0]['owner']['user_type']['STATUS_NAME']);
-          box.write(MyString.EXPIRED_DATE,dataDetailUser['store'][0]['owner']['EXPIRED_DATE']);
+        if (dataDetailUser['store'][0]['owner']['user_type'] != null) {
+          box.write(MyString.STATUS_CODE_ID, dataDetailUser['store'][0]['owner']['user_type']['STATUS_CODE_ID'].toString());
+          box.write(MyString.STATUS_NAME, dataDetailUser['store'][0]['owner']['user_type']['STATUS_NAME']);
+          box.write(MyString.EXPIRED_DATE, dataDetailUser['store'][0]['owner']['EXPIRED_DATE']);
         }
 
         //sessiojn store
-        if(authCashier.data!.detailUser!.store!.length>0){
-          _downloadFile(authCashier.data!.detailUser!.store![0].owner!.business!.businesslogo!,'logo').then((value) {
+        if (authCashier.data!.detailUser!.store!.length > 0) {
+          _downloadFile(authCashier.data!.detailUser!.store![0].owner!.business!.businesslogo!, 'logo').then((value) {
             print(value.path);
           });
         }
-
 
         //session bussines
         box.write(MyString.BUSINESS_ID, '');
         box.write(MyString.BUSINESS_NAME, '');
         box.write(MyString.BUSINESS_CATEGORY_ID, '');
-        box.write(MyString.BUSINESS_CATEGORY_NAME,'');
-        box.write(MyString.BUSINESS_CREW_TOTAL,'');
+        box.write(MyString.BUSINESS_CATEGORY_NAME, '');
+        box.write(MyString.BUSINESS_CREW_TOTAL, '');
         box.write(MyString.BUSINESS_BRANCH, '');
         box.write(MyString.BUSINESS_WEBSITE_ID, '').toString();
-        box.write(MyString.BUSINESS_CONTACT,'');
+        box.write(MyString.BUSINESS_CONTACT, '');
 
-        Get.offAllNamed(Routes.CHOOSE_STORE,arguments: authCashier);
+        Get.offAllNamed(Routes.CHOOSE_STORE, arguments: authCashier);
 
-        showSnackBar(snackBarType: SnackBarType.SUCCESS,title: "Login",message:  'Selamat Datang '+authCashier.data!.detailUser!.name!);
-        return ResponseMessage(message: response.data['message'], status: response.data['status'],data: authCashier);
-      }else{
-        showSnackBar(snackBarType: SnackBarType.ERROR,title: "Login",message: response.data['message']);
+        showSnackBar(snackBarType: SnackBarType.SUCCESS, title: "Login", message: 'Selamat Datang ' + authCashier.data!.detailUser!.name!);
+        return ResponseMessage(message: response.data['message'], status: response.data['status'], data: authCashier);
+      } else {
+        showSnackBar(snackBarType: SnackBarType.ERROR, title: "Login", message: response.data['message']);
         return ResponseMessage(message: response.data['message'], status: response.data['status']);
       }
-    }on DioError catch(e){
+    } on DioError catch (e) {
       print(e);
-       return ResponseMessage(message: 'Erorr Dari Server', status: false);
+      return ResponseMessage(message: 'Erorr Dari Server', status: false);
     }
   }
 
   Future<ResponseMessage> updatePassword({String? password}) async {
     try {
       AuthSessionManager auth = AuthSessionManager();
-      Map<String,dynamic> data={
-        "id" : "${auth.userId}",
-        "user_password" : "$password"
-      };
-      response = await dio.post("${MyString.updatePassword}",
-          data: jsonEncode(data),
-          queryParameters: {"owner_id": "${auth.userId}"}, options: options);
+      Map<String, dynamic> data = {"id": "${auth.userId}", "user_password": "$password"};
+      response = await dio.post("${MyString.updatePassword}", data: jsonEncode(data), queryParameters: {"owner_id": "${auth.userId}"}, options: options);
 
-      return ResponseMessage(message: response!.data['message'], status: response!.data['code']==200 ? true :false);
+      return ResponseMessage(message: response!.data['message'], status: response!.data['code'] == 200 ? true : false);
     } on DioError catch (e) {
       print(e);
       return ResponseMessage(message: 'Erorr On API', status: response!.data['status']);
@@ -200,46 +192,43 @@ class AuthRemoteDataSource extends BaseDio{
   }
 
   static var httpClient = new HttpClient();
+
   Future<File> _downloadFile(String url, String filename) async {
     print(url);
-    var box=GetStorage();
+    var box = GetStorage();
     final ByteData imageData = await NetworkAssetBundle(Uri.parse(url)).load("");
     final Uint8List bytes = imageData.buffer.asUint8List();
     var dir;
     await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS).then((value) {
-      dir=value;
+      dir = value;
     });
-    box.write(MyString.BUSINESS_LOGO,'$dir/$filename'+'.png');
+    box.write(MyString.BUSINESS_LOGO, '$dir/$filename' + '.png');
 
     //
-    File file = new File('$dir/$filename'+'.png');
-    await Permission.storage.request().then((value) async{
-      if(value.isGranted){
+    File file = new File('$dir/$filename' + '.png');
+    await Permission.storage.request().then((value) async {
+      if (value.isGranted) {
         await file.writeAsBytes(bytes);
         Image image2 = decodeJpg(file.readAsBytesSync());
-        Image thumbnail = copyResize(image2, width: 250,height: 250);
+        Image thumbnail = copyResize(image2, width: 250, height: 250);
         File('$dir/logo.png').writeAsBytesSync(encodePng(thumbnail));
       }
     });
     if (await Permission.storage.isGranted) {
       await file.writeAsBytes(bytes);
       Image image2 = decodeJpg(file.readAsBytesSync());
-      Image thumbnail = copyResize(image2, width: 250,height: 250);
+      Image thumbnail = copyResize(image2, width: 250, height: 250);
       File('$dir/logo.png').writeAsBytesSync(encodePng(thumbnail));
     }
 
     return file;
   }
 
-
-  Future<ResponseMessage> updateUser(
-      {String? name,
-        String? email,
-        String? phoneNumber}) async {
+  Future<ResponseMessage> updateUser({String? name, String? email, String? phoneNumber}) async {
     try {
       AuthSessionManager auth = AuthSessionManager();
       options = new Options(headers: {"Authorization": "Bearer ${auth.token}"});
-      GetStorage box=GetStorage();
+      GetStorage box = GetStorage();
       response = await dio.post("${MyString.updateUsers}",
           data: {
             "user_fullname": "$name",
@@ -249,17 +238,13 @@ class AuthRemoteDataSource extends BaseDio{
             "user_id": "${auth.userIdOwner}",
           },
           options: options);
-      if(response!.statusCode==201){
+      if (response!.statusCode == 201) {
         box.write(MyString.USER_FULLNAME, name);
         box.write(MyString.USER_NO_HP, phoneNumber);
         box.write(MyString.USER_EMAIL, email);
         box.write(MyString.USER_USERNAME, name);
-
       }
-      return ResponseMessage(
-          message: response!.data['message'],
-          status: response!.data['status'],
-          data: response!.data['data']);
+      return ResponseMessage(message: response!.data['message'], status: response!.data['status'], data: response!.data['data']);
     } on DioError catch (e) {
       print(e);
       return throw ServerException();

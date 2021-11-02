@@ -460,7 +460,7 @@ class PrinterController extends GetxController {
         ),
         linesAfter: 1);
 
-    bytes += generator.text(box.read(MyString.STORE_ADDRESS), styles: PosStyles(align: PosAlign.center));
+    bytes += generator.text(box.read(MyString.STORE_ADDRESS)==null ? "-" : box.read(MyString.STORE_ADDRESS), styles: PosStyles(align: PosAlign.center));
     bytes += generator.text('Whatsapp: ${box.read(MyString.BUSINESS_CONTACT)}', styles: PosStyles(align: PosAlign.center));
 
     bytes += generator.hr();

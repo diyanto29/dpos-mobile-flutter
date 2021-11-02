@@ -16,7 +16,8 @@ class ReportController extends GetxController {
   }
 
   void init() {
-    var startDate=DateFormat("yyyy-MM-dd", 'id-iD').format(DateTime.now());
+    var date="${DateTime.now().year}-${DateTime.now().month}-01";
+    var startDate=DateFormat("yyyy-MM-dd", 'id-iD').format(DateTime.parse(date));
     var endDate=DateFormat("yyyy-MM-dd", 'id-iD').format(DateTime.now().add(Duration(days: 30)));
     controllerDate.text = DateFormat("dd MMMM yyyy", 'id-iD').format(DateTime.now()) + " - " + DateFormat("dd MMMM yyyy", 'id-iD').format(DateTime.now().add(Duration(days: 30)));
     getReportTransaction(startDate: startDate,dueDate: endDate);

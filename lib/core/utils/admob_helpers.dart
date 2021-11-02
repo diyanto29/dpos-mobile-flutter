@@ -5,7 +5,7 @@ class AdmobHelpers {
     if (Platform.isAndroid) {
       return 'ca-app-pub-4602657974905060/9625387278';
     } else if (Platform.isIOS) {
-      return 'ca-app-pub-3940256099942544/2934735716';
+      return 'ca-app-pub-4602657974905060/3686433372';
     } else {
       throw UnsupportedError("unsupported Platform");
     }
@@ -15,7 +15,7 @@ class AdmobHelpers {
     if (Platform.isAndroid) {
       return 'ca-app-pub-4602657974905060/5180899323';
     } else if (Platform.isIOS) {
-      return 'ca-app-pub-3940256099942544/4411468910';
+      return 'ca-app-pub-4602657974905060/4807943356';
     } else {
       throw UnsupportedError("unsupported Platform");
     }

@@ -15,6 +15,7 @@ import 'package:warmi/app/modules/transaction/controllers/transaction_controller
 import 'package:warmi/app/modules/transaction/views/mobile/product_view_transaction.dart';
 import 'package:warmi/app/modules/wigets/layouts/dialog/bottom_dialog_cart.dart';
 import 'package:warmi/app/modules/wigets/layouts/dialog/dialog_noted.dart';
+import 'package:warmi/app/modules/wigets/layouts/dialog/dialog_snackbar.dart';
 import 'package:warmi/app/modules/wigets/layouts/general_button.dart';
 import 'package:warmi/app/modules/wigets/layouts/home/drawer_cashier.dart';
 import 'package:warmi/app/modules/wigets/package/corolize_text_avatar/colorize_text_avatar.dart';
@@ -22,6 +23,7 @@ import 'package:warmi/app/modules/wigets/package/corolize_text_avatar/src/colori
 import 'package:warmi/app/routes/app_pages.dart';
 import 'package:warmi/core/globals/global_color.dart';
 import 'package:warmi/core/globals/global_string.dart';
+import 'package:warmi/core/utils/enum.dart';
 
 import 'package:warmi/core/utils/thema.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -184,7 +186,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                       child: Obx(() {
                         return transactionController.searchC.value.text.isEmpty
                             ? GridView.builder(
-                                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 150, childAspectRatio: 2 / 2.4, crossAxisSpacing: 10, mainAxisSpacing: 10),
+                                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 150, childAspectRatio: 2 / 2.6, crossAxisSpacing: 10, mainAxisSpacing: 10),
                                 itemCount: controller.listProduct.length,
                                 shrinkWrap: true,
                                 padding: EdgeInsets.symmetric(horizontal: 10),
@@ -215,7 +217,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                     width: double.infinity,
                                                     placeholder: (c, s) => Center(child: CircularProgressIndicator()),
                                                     errorWidget: (context, s, o) => TextAvatar(
-                                                      shape: Shape.Circular,
+                                                      shape: Shape.Rectangle,
                                                       size: 30,
                                                       fontSize: 16.sp,
                                                       fontWeight: FontWeight.w600,
@@ -231,7 +233,8 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                 Text(
                                                   "${controller.listProduct[i].productName}",
                                                   style: TextStyle(fontWeight: FontWeight.w400, fontSize: 12),
-                                                  overflow: TextOverflow.ellipsis,
+                                                  textAlign: TextAlign.center,
+                                                  overflow: TextOverflow.visible,
                                                 ),
                                                 SizedBox(
                                                   height: 4,
@@ -355,7 +358,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                         width: double.infinity,
                                                         placeholder: (c, s) => Center(child: CircularProgressIndicator()),
                                                         errorWidget: (context, s, o) => TextAvatar(
-                                                          shape: Shape.Circular,
+                                                          shape: Shape.Rectangle,
                                                           size: 30,
                                                           fontSize: 16.sp,
                                                           fontWeight: FontWeight.w600,
@@ -371,7 +374,8 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                     Text(
                                                       "${transactionController.listSearchProduct[i].productName}",
                                                       style: TextStyle(fontWeight: FontWeight.w400, fontSize: 12),
-                                                      overflow: TextOverflow.ellipsis,
+                                                      textAlign: TextAlign.center,
+                                                      overflow: TextOverflow.visible,
                                                     ),
                                                     SizedBox(
                                                       height: 4,
@@ -807,7 +811,11 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                               borderRadius: 5,
                                               onPressed: () {
                                                 Map<dynamic, dynamic> data = {"from": "cart", "data": null};
-                                                Get.toNamed(Routes.CHECKOUT_TABLET, arguments: data);
+                                                if(cartController.listCart.isEmpty){
+                                                  showSnackBar(snackBarType: SnackBarType.INFO,message: "Keranjang Masih Kosong",title: "Transaksi");
+                                                }else{
+                                                  Get.toNamed(Routes.CHECKOUT_TABLET, arguments: data);
+                                                }
                                               },
                                               height: 45,
                                             ),
