@@ -67,3 +67,5 @@ flutter:
 # package external_path only android
 # package print_bluetooth_thermal only android
 # package flutter_barcode_scanner minimum deployment target to 12
+#      <string>ca-app-pub-4602657974905060~9816958967</string>
+
