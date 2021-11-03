@@ -94,6 +94,18 @@ class DrawerCustom extends StatelessWidget {
                     dense: true,
 
                   ),
+                  ListTile(
+                    onTap: (){
+                      Get.toNamed(Routes.PRINTER_PAGE);
+
+                    },
+                    leading: Icon(Icons.print,color: Colors.deepOrange,),
+                    title: Text("Printer Setting",style: GoogleFonts.roboto
+                      (fontWeight: FontWeight.bold),),
+                    trailing: Icon(Icons.keyboard_arrow_right,color: Colors.black,),
+                    dense: true,
+
+                  ),
 
                   ListTile(
                     onTap: ()=>controllerSetting.logOut() ,

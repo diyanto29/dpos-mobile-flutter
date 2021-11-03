@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:warmi/app/modules/history_sales/controllers/history_sales_controller.dart';
+import 'package:warmi/app/modules/history_sales/controllers/history_sales_controller.dart';
+import 'package:warmi/app/modules/history_sales/controllers/history_sales_controller.dart';
 import 'package:warmi/app/modules/transaction/controllers/cart_controller.dart';
 import 'package:warmi/app/modules/transaction/controllers/transaction_controller.dart';
 import 'package:warmi/app/modules/wigets/layouts/general_button.dart';
@@ -25,6 +28,8 @@ class TransactionSuccessView extends StatefulWidget {
 
 class _TransactionSuccessViewState extends State<TransactionSuccessView> {
   var controller = Get.find<TransactionController>();
+  var historyC = Get.isRegistered<HistorySalesController>()
+      ? Get.find<HistorySalesController>() :Get.put(HistorySalesController());
   var type;
 
   @override
@@ -90,6 +95,7 @@ class _TransactionSuccessViewState extends State<TransactionSuccessView> {
                   GeneralButton(onPressed: () => controller.printNow(), label: 'Cetak Struk',),
                   SizedBox(height: 10,),
                   GeneralButton(onPressed: () async {
+                    historyC.getTransactionLast();
                     if (controller.isInterstitialAdReady)
                       Future.delayed(Duration(seconds: 2),(){
                         controller.interstitialAd.show();
@@ -162,6 +168,7 @@ class _TransactionSuccessViewState extends State<TransactionSuccessView> {
                         GeneralButton(onPressed: () => controller.printNow(), label: 'Cetak Struk',),
                         SizedBox(height: 10,),
                         GeneralButton(onPressed: () async {
+                          historyC.getTransactionLast();
                           if (controller.isInterstitialAdReady)
                             Future.delayed(Duration(seconds: 2),(){
                               controller.interstitialAd.show();

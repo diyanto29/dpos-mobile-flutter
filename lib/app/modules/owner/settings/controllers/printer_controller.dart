@@ -351,6 +351,9 @@ class PrinterController extends GetxController {
     await PrinterRemoteDataSource().storePrinter(printerName: printerName, printerId: printerId, paperType: paperType, printerIp: printerIp, printerMac: printerMac).then((value) {
       Get.back();
       Get.back();
+      box.write(MyString.DEFAULT_PRINTER, printerMac);
+      box.write(MyString.PRINTER_PAPER, paperType);
+      box.write(MyString.PRINTER_TYPE, "bluetooth");
       if (value.status) getPrinterRemoteDataSource();
       showSnackBar(snackBarType: SnackBarType.SUCCESS, title: "Printer", message: value.message);
     });
@@ -541,6 +544,13 @@ class PrinterController extends GetxController {
       ]);
     }
     bytes += generator.feed(2);
+    var footer;
+    if(box.hasData(MyString.FOOTER_TEXT)){
+      footer=box.read(MyString.FOOTER_TEXT);
+    }else{
+      footer="Terima Kasih berbelanja";
+      box.write(MyString.FOOTER_TEXT, footer);
+    }
     bytes += generator.text(box.read(MyString.FOOTER_TEXT), styles: PosStyles(align: PosAlign.center, height: PosTextSize.size1, width: PosTextSize.size1, bold: true));
 
     bytes += generator.feed(2);

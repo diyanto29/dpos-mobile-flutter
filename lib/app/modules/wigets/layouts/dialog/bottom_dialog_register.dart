@@ -204,13 +204,10 @@ class _BottomDialogRegisterState extends State<BottomDialogRegister> {
                           height: 15,
                         ),
                         registerC.listCity.length == 0
-                            ? DropdownSearch(
-                                hint: "Pilih Kabupaten",
-                                mode: Mode.BOTTOM_SHEET,
-                                autoFocusSearchBox: true,
-                                showSearchBox: true,
-                                items: [],
-                              )
+                            ?  GeneralTextInput( keyboardType: TextInputType
+                            .number, labelTextInputBox:  "Pilih Kabupaten",
+                            readOnly: true
+                            , descTextInputBox:  "   * Pilih Kabupaten Anda")
                             : Obx(() {
                                 return DropdownSearch<City?>(
                                   hint: "Pilih Kabupaten",
@@ -231,7 +228,7 @@ class _BottomDialogRegisterState extends State<BottomDialogRegister> {
                         SizedBox(
                           height: 5,
                         ),
-                        Text(
+                        if( registerC.listCity.length>0)    Text(
                           "   * Pilih Kabupaten Anda",
                           style: GoogleFonts.droidSans(fontStyle: FontStyle.italic, color: MyColor.colorBlackT50),
                         ),
@@ -239,13 +236,8 @@ class _BottomDialogRegisterState extends State<BottomDialogRegister> {
                           height: 15,
                         ),
                         registerC.listSubDistrict.length == 0
-                            ? DropdownSearch(
-                                hint: "Pilih Kecamatan",
-                                mode: Mode.BOTTOM_SHEET,
-                                autoFocusSearchBox: true,
-                                showSearchBox: true,
-                                items: [],
-                              )
+                            ?  GeneralTextInput(readOnly: true,keyboardType:
+                        TextInputType.number, labelTextInputBox:  "Pilih Kecamatan", descTextInputBox: "* Pilih Kecamatan Anda")
                             : DropdownSearch<Subdistrict?>(
                                 hint: "Pilih Kecamatan",
                                 mode: Mode.BOTTOM_SHEET,
@@ -261,7 +253,7 @@ class _BottomDialogRegisterState extends State<BottomDialogRegister> {
                         SizedBox(
                           height: 5,
                         ),
-                        Text(
+                        if(registerC.listSubDistrict.length>0)    Text(
                           "   * Pilih Kecamatan Anda",
                           style: GoogleFonts.droidSans(fontStyle: FontStyle.italic, color: MyColor.colorBlackT50),
                         ),

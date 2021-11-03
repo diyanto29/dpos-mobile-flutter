@@ -102,6 +102,8 @@ class AuthRemoteDataSource extends BaseDio {
       }
     } on DioError catch (e) {
       print(e);
+      showSnackBar(snackBarType: SnackBarType.ERROR, title: "Login", message:
+      "Username atau password salah");
       return false;
     }
   }

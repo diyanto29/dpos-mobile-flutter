@@ -90,6 +90,12 @@ class OutletController extends GetxController {
       showSnackBar(snackBarType: SnackBarType.INFO, title: 'Outlet', message: "Nama Wajib diisi");
       return;
     }
+    if (toggleSwitchOutlet.value && selectedProvince.value!.provinceId==null) {
+      showSnackBar(snackBarType: SnackBarType.INFO, title: 'Outlet', message:
+      "Atur Alamat Toko Anda");
+      return;
+    }
+
     loadingBuilder();
     await OutletRemoteDataSource()
         .insertOrUpdateStore(
@@ -99,13 +105,16 @@ class OutletController extends GetxController {
             desc: descC.value.text,
             operationStart: timeOpenC.value.text,
             operationClose: timeCloseC.value.text,
-            address: new Address(
+            address: selectedProvince.value!.provinceId==null ? null : new
+            Address(
                 addressAlias: detailAddressC.value.text,
                 addressPoscode: postalCodeC.value.text,
                 addressNoTelp: '-',
                 addressType: selectedCity.value!.type,
-                addressProvinceId: int.parse(province.provinceId!),
-                addressProvinceName: province.province,
+                addressProvinceId: int.parse(selectedProvince.value!
+                    .provinceId!),
+                addressProvinceName:selectedProvince.value!
+                    .province,
                 addressCityId: int.parse(selectedCity.value!.cityId!),
                 addressCityName: selectedCity.value!.cityName,
                 addressSubdistrictId: int.parse(selectedSubDistrict.value!.subdistrictId!),
@@ -113,18 +122,21 @@ class OutletController extends GetxController {
         .then((value) {
       nameC.value.text = "";
       descC.value.text = "";
-      selectedCity(null);
-      selectedSubDistrict(null);
-      selectedProvince(null);
+      selectedCity.value= new City();
+      selectedSubDistrict(new Subdistrict());
+      selectedProvince(new Province());
       timeCloseC.value.text = "";
       timeOpenC.value.text = "";
       postalCodeC.value.text = "";
       detailAddressC.value.text = "";
+      toggleSwitchOutlet(false);
+      Get.back();
       if (value.status) {
         getOutletDataSource();
         Get.back();
-        Get.back();
-        showSnackBar(snackBarType: SnackBarType.WARNING, title: 'Outlet', message: 'Data Berhasil Disimpan');
+
+        showSnackBar(snackBarType: SnackBarType.SUCCESS, title: 'Outlet', message: ''
+            'Data Berhasil Disimpan');
       } else {
         showSnackBar(snackBarType: SnackBarType.ERROR, title: 'Outlet', message: "${value.message}");
       }

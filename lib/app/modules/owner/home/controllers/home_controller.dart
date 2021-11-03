@@ -1,12 +1,16 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:warmi/app/data/datasource/transactions/transaction_source_data_remote.dart';
 
 import 'package:warmi/app/data/models/report_transaction/report_transaction.dart';
 import 'package:warmi/app/modules/history_sales/controllers/history_sales_controller.dart';
+import 'package:warmi/app/modules/wigets/layouts/dialog/dialog_question.dart';
+import 'package:warmi/app/routes/app_pages.dart';
+import 'package:warmi/core/globals/global_string.dart';
 
 class HomeController extends GetxController{
 
@@ -40,6 +44,13 @@ class HomeController extends GetxController{
     await TransactionRemoteDataSource().getReportTransaction(startDate: startDate,dueDate: endDate,type: "custom").then((value) {
       reportTranasaction(value);
       update();
+    });
+  }
+  void logOut(){
+    var box=GetStorage();
+    showDialogQuestion(title: 'Keluar', message: 'Apakah Anda Yakin ? ', clickYes: (){
+      box.remove(MyString.USER_ID);
+      Get.offAllNamed(Routes.LOGIN_CHOOISE);
     });
   }
 

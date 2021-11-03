@@ -131,13 +131,12 @@ class OutletFormInput extends GetWidget<OutletController> {
                         SizedBox(
                           height: 15,
                         ),
-                        controller.listCity.length == 0 ? DropdownSearch(
-                          hint: "Pilih Kabupaten",
-                          mode: Mode.BOTTOM_SHEET,
-                          autoFocusSearchBox: true,
-                          showSearchBox: true,
-                          items: [],
-                        ) :
+                        controller.listCity.length == 0 ? GeneralTextInput(
+                            readOnly: true,
+                            keyboardType: TextInputType.number,
+                            labelTextInputBox:
+                             "Pilih Kabupaten",
+                            descTextInputBox: "* Pilih Kabupaten Anda") :
                         Obx(() {
                           return DropdownSearch<City?>(
                             hint: "Pilih Kabupaten",
@@ -166,13 +165,12 @@ class OutletFormInput extends GetWidget<OutletController> {
                         SizedBox(
                           height: 15,
                         ),
-                    controller.listSubDistrict.length==0?    DropdownSearch(
-                          hint: "Pilih Kecamatan",
-                          mode: Mode.BOTTOM_SHEET,
-                          autoFocusSearchBox: true,
-                          showSearchBox: true,
-                          items: [],
-                        ):
+                    controller.listSubDistrict.length==0?    GeneralTextInput(
+                        readOnly: true,
+                        keyboardType: TextInputType.number,
+                        labelTextInputBox:
+                        "Pilih Kecamatan",
+                        descTextInputBox: "* Pilih Kecamatan Anda"):
                     DropdownSearch<Subdistrict?>(
                       hint: "Pilih Kecamatan",
                       mode: Mode.BOTTOM_SHEET,

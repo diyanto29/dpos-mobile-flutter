@@ -311,7 +311,7 @@ class HomeView extends GetWidget<HomeController> {
                                         onPressed: () => Get.toNamed(Routes.DISCOUNT),
                                         icon: 'assets/icons/discount.png',
                                         colorBackground: MyColor.colorOrange,
-                                        labelIcon: 'DFiskon',
+                                        labelIcon: 'Diskon',
                                       ),
                                       CardButtonAction(
                                         onPressed: () => Get.toNamed(Routes.OUTLET_ONLINE),
@@ -447,10 +447,11 @@ class HomeView extends GetWidget<HomeController> {
                                   SizedBox(
                                     width: 15,
                                   ),
-                                  Icon(
+                                  IconButton(icon: Icon(
                                     IconlyLight.logout,
                                     color: MyColor.colorBlack,
-                                  )
+                                  ),onPressed: ()=> ()=>controller.logOut(),),
+
                                 ],
                               ),
                             ))

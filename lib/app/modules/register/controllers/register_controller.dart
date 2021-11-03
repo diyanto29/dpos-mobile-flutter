@@ -106,16 +106,18 @@ class RegisterController extends GetxController {
     loadingBuilder();
     await RegisterRemoteDataSource().register(
       postalCode: postalCodeC.value.text,
-      province: selectedProvince.value,
+      province: toggleSwitchBusiness.value==false ? null :selectedProvince
+          .value,
       password: passwordC.text,
       phoneNumber: noHpC.text,
       email: emailC.text,
       addressDetail: detailAddressC.value.text,
       business: typeBusiness.value,
       businessName: businessNameC.text,
-      city: selectedCity.value,
+      city:toggleSwitchBusiness.value==false ? null: selectedCity.value,
       fullName: fullNameC.text,
-      subdistrict: selectedSubDistrict.value,
+      subdistrict: toggleSwitchBusiness.value==false ? null :
+      selectedSubDistrict.value,
       username: noHpC.text,
     );
   }

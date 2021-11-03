@@ -21,7 +21,7 @@ class PaymentMethodRemoteDataSource extends BaseDio {
   Future<PaymentMethodChannel> getPaymentMethod() async {
     try {
       response = await dio.get("${MyString.getPaymentMehtod}",
-          queryParameters: {"user_id": "${auth.userId}"}, options: options);
+          queryParameters: {"user_id": "${auth.userIdOwner}"}, options: options);
       await APICacheManager().addCacheData(APICacheDBModel(
           key: 'API_PAYMENT_METHOD', syncData: jsonEncode(response!.data)));
       return PaymentMethodChannel.fromJson(response!.data);
