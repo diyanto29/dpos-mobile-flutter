@@ -186,6 +186,7 @@ class _BottomDialogRegisterState extends State<BottomDialogRegister> {
                                 onChanged: (p) {
                                   registerC.selectedCity(null);
                                   registerC.province = p!;
+                                  registerC.selectedProvince.value = p;
                                   registerC.getCity(p.provinceId);
                                   registerC.listSubDistrict.clear();
                                 },

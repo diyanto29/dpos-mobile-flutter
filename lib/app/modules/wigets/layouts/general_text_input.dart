@@ -64,9 +64,9 @@ class GeneralTextInput extends StatelessWidget {
             style: GoogleFonts.droidSans(
                 fontStyle: FontStyle.italic, color: MyColor.colorBlackT50,fontSize: 12),
           ),
-          // SizedBox(
-          //   height: paddingBottom,
-          // ),
+          SizedBox(
+            height: paddingBottom,
+          ),
         ],
       ),
     );

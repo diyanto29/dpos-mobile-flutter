@@ -1,7 +1,8 @@
 class MyString{
 
   //BaseUrl
-  static final String api_url_dev="http://apiddev.mudahkan.com/v1/";
+  static final String api_url_dev="http://apidprod.mudahkan.com/v1/";
+  // static final String api_url_dev="http://apiddev.mudahkan.com/v1/";
   // static final String api_url_dev="http://192.168.100.36:8080/v1/";
   // static final String api_url_dev="http://192.168.109.95:8080/v1/";
   static const String api_siskohat =

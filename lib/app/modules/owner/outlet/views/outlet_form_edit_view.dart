@@ -86,7 +86,7 @@ class _OutletFormEditState extends State<OutletFormEdit> {
               "Simpan",
               style: GoogleFonts.droidSans(fontSize: 16),
             ),
-            style: ElevatedButton.styleFrom(elevation: 1, primary: MyColor.colorPrimary, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))),
+            style: ElevatedButton.styleFrom(elevation: 1, primary: MyColor.colorPrimary, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
             onPressed: () => controller.createOrupdate(storeId: widget.dataOutlet!.storeId),
           )),
       body: MediaQuery.removePadding(

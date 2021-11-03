@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:warmi/app/data/datasource/product/category_product_remote_data_source.dart';
 import 'package:warmi/app/data/models/product/category_product.dart';
+import 'package:warmi/app/modules/owner/product/controllers/product_controller.dart';
 import 'package:warmi/app/modules/wigets/layouts/dialog/dialog_loading.dart';
 import 'package:warmi/app/modules/wigets/layouts/dialog/dialog_snackbar.dart';
 import 'package:warmi/core/utils/enum.dart';
@@ -56,6 +57,10 @@ class ProductCategoryController extends GetxController {
                 snackBarType: SnackBarType.SUCCESS,
                 title: 'Kategori Produk',
                 message: 'Data Berhasil Disimpan');
+            nameCategoryProductC.text="";
+            update();
+            var productC = Get.isRegistered<ProductController>() ? Get.find<ProductController>() : Get.put(ProductController());
+            listCategoryProduct.refresh();
           }else{
             showSnackBar(
                 snackBarType: SnackBarType.ERROR,

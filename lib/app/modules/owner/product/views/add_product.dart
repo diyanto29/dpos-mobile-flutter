@@ -9,8 +9,10 @@ import 'package:warmi/app/data/models/product/category_product.dart';
 import 'package:warmi/app/data/models/product/satuan_product.dart';
 import 'package:warmi/app/modules/owner/product/controllers/product_controller.dart';
 import 'package:warmi/app/modules/owner/settings/controllers/product_category_controller.dart';
+import 'package:warmi/app/modules/wigets/layouts/general_button.dart';
 import 'package:warmi/app/modules/wigets/layouts/general_text_input.dart';
 import 'package:warmi/app/modules/wigets/package/dropdown__search/dropdown_search.dart';
+import 'package:warmi/app/routes/app_pages.dart';
 import 'package:warmi/core/globals/global_color.dart';
 import 'package:warmi/core/globals/global_string.dart';
 import 'package:warmi/core/utils/format_currency.dart';
@@ -69,10 +71,22 @@ class AddProductView extends GetWidget<ProductController> {
                   height: 20,
                 ),
                 categoryC.listCategoryProduct.length == 0
-                    ? DropdownSearch(
+                    ?
+                DropdownSearch(
                         hint: "Pilih Kategori Produk",
                         mode: Mode.DIALOG,
                         showSearchBox: true,
+                        emptyBuilder: (c,i){
+                          return Center(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 50),
+                              child: GeneralButton(label: 'Tambah Kategori', onPressed: (){
+                                Get.back();
+                                Get.toNamed(Routes.PRODUCT_CATEGORY);
+                              }),
+                            ),
+                          );
+                        },
                         dropdownBuilderSupportsNullItem: true,
                         items: [],
                       )
@@ -80,8 +94,10 @@ class AddProductView extends GetWidget<ProductController> {
                         hint: "Pilih Kategori Produk",
                         mode: Mode.BOTTOM_SHEET,
                         showSearchBox: true,
+
                         itemAsString: (s) => s!.categoryName.toString(),
                         dropdownBuilderSupportsNullItem: true,
+
                         items: categoryC.listCategoryProduct,
                         onChanged: (v) {
                           controller.categoryProduct = v;
@@ -147,7 +163,7 @@ class AddProductView extends GetWidget<ProductController> {
                         .replaceAll(".", "")));
                   },
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                       labelText: "Harga Jual",
                       labelStyle: GoogleFonts.droidSans(color: Colors.grey)),
                 ),
@@ -260,7 +276,7 @@ class AddProductView extends GetWidget<ProductController> {
                                 .replaceAll(".", "")));
                           },
                           decoration: InputDecoration(
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                               labelText: "Harga Modal",
                               labelStyle: GoogleFonts.droidSans(color: Colors.grey)),
                         ),
@@ -290,7 +306,7 @@ class AddProductView extends GetWidget<ProductController> {
                                 onPressed: () => controller.scanBarcode(),
                                 icon: Icon(IconlyLight.work),
                               ),
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                               labelText: "Barcode",
                               labelStyle: GoogleFonts.droidSans(color: Colors.grey)),
                         ),
@@ -338,7 +354,7 @@ class AddProductView extends GetWidget<ProductController> {
             style: ElevatedButton.styleFrom(
                 elevation: 1,
                 primary: MyColor.colorPrimary,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
             onPressed: () => controller.createOrUpdateProduct()
           )),
     );

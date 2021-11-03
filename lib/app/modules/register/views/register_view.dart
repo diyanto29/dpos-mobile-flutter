@@ -93,12 +93,12 @@ class RegisterView extends GetWidget<RegisterController> {
                                   focusedBorder: OutlineInputBorder(
                                     borderSide:
                                         const BorderSide(color: MyColor.colorPrimary, width: 2.0),
-                                    borderRadius: BorderRadius.circular(25.0),
+                                    borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   border: OutlineInputBorder(
                                     borderSide:
                                         const BorderSide(color: MyColor.colorPrimary, width: 2.0),
-                                    borderRadius: BorderRadius.circular(25.0),
+                                    borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   suffixIcon: IconButton(
                                     onPressed: () {

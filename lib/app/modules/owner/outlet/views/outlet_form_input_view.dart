@@ -37,7 +37,7 @@ class OutletFormInput extends GetWidget<OutletController> {
             style: ElevatedButton.styleFrom(
                 elevation: 1,
                 primary: MyColor.colorPrimary,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
             onPressed: () => controller.createOrupdate(),
           )),
       body: MediaQuery.removePadding(

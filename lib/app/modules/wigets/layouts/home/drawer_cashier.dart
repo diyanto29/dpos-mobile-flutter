@@ -83,6 +83,17 @@ class DrawerCustom extends StatelessWidget {
                     dense: true,
 
                   ),
+                  ListTile(
+                    onTap: (){
+                      Get.toNamed(Routes.OUTLET_ONLINE);
+
+                    },
+                    leading: Icon(Icons.store,color: Colors.deepOrange,),
+                    title: Text("Toko Online",style: GoogleFonts.roboto(fontWeight: FontWeight.bold),),
+                    trailing: Icon(Icons.keyboard_arrow_right,color: Colors.black,),
+                    dense: true,
+
+                  ),
 
                   ListTile(
                     onTap: ()=>controllerSetting.logOut() ,

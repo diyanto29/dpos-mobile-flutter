@@ -2,10 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:line_icons/line_icon.dart';
 import 'package:warmi/app/modules/owner/product/controllers/product_controller.dart';
 import 'package:warmi/app/modules/transaction/controllers/cart_controller.dart';
 import 'package:warmi/app/modules/transaction/controllers/transaction_controller.dart';
+import 'package:warmi/app/modules/wigets/layouts/general_button.dart';
 import 'package:warmi/app/modules/wigets/package/corolize_text_avatar/colorize_text_avatar.dart';
 import 'package:warmi/app/routes/app_pages.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -13,18 +16,21 @@ import 'package:warmi/core/globals/global_color.dart';
 
 class ProductTransactionView extends GetWidget<ProductController> {
   final formatCurrency = new NumberFormat.currency(locale: "id_ID", symbol: "", decimalDigits: 0);
-  final cartController =  Get.isRegistered<CartController>()
-      ? Get.find<CartController>() :Get.put(CartController());
+  final cartController = Get.isRegistered<CartController>()
+      ? Get.find<CartController>() : Get.put(CartController());
   final transactionController = Get.find<TransactionController>();
 
 
   @override
   Widget build(BuildContext context) {
-
     controller.checkProductInCart();
     return Obx(() {
-      return transactionController.searchC.value.text.isEmpty  ?
-      ListView.builder(
+      return transactionController.searchC.value.text.isEmpty ?
+      controller.listProduct.length == 0
+          ? Center(
+        child:  GeneralButton(label: 'Tambah Data',onPressed: ()=> Get.toNamed(Routes.ADD_PRODUCT),height: 40,width: 150,),
+      )
+          : ListView.builder(
           itemCount: controller.listProduct.length,
           shrinkWrap: true,
           padding: EdgeInsets.symmetric(horizontal: 10),
@@ -39,7 +45,13 @@ class ProductTransactionView extends GetWidget<ProductController> {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
-                  onTap: () => cartController.addCart(controller.listProduct[i]),
+                  onTap: () {
+                    if(controller.listProduct[i].productInCart){
+                      cartController.deleteCartFormListProduct(controller.listProduct[i]);
+                    }else{
+                      cartController.addCart(controller.listProduct[i]);
+                    }
+                  },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
@@ -65,15 +77,16 @@ class ProductTransactionView extends GetWidget<ProductController> {
                                       height: 60,
                                       placeholder: (c, s) =>
                                           Center(child: CircularProgressIndicator()),
-                                      errorWidget: (context, s, o) => TextAvatar(
-                                        shape: Shape.Circular,
-                                        size: 30,
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w600,
-                                        upperCase: true,
-                                        numberLetters: 3,
-                                        text: "${controller.listProduct[i].productName}",
-                                      ),
+                                      errorWidget: (context, s, o) =>
+                                          TextAvatar(
+                                            shape: Shape.Circular,
+                                            size: 30,
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w600,
+                                            upperCase: true,
+                                            numberLetters: 3,
+                                            text: "${controller.listProduct[i].productName}",
+                                          ),
                                     ),
                                   ),
                                   SizedBox(
@@ -87,7 +100,7 @@ class ProductTransactionView extends GetWidget<ProductController> {
                                         Text(
                                           "${controller.listProduct[i].productName}",
                                           style:
-                                              TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                         SizedBox(
@@ -98,7 +111,7 @@ class ProductTransactionView extends GetWidget<ProductController> {
                                               borderRadius: BorderRadius.circular(10),
                                               color: Colors.green),
                                           padding:
-                                              EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                                          EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                                           child: Text(
                                             controller.listProduct[i].productStokStatus == "true"
                                                 ? "${controller.listProduct[i].productStok} ${controller.listProduct[i].productUnitId}"
@@ -112,13 +125,68 @@ class ProductTransactionView extends GetWidget<ProductController> {
                                 ],
                               ),
                             ),
-                            Flexible(
-                              flex: 2,
-                              child: Text(
-                                "Rp. ${formatCurrency.format(controller.listProduct[i].productPrice)}",
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                            )
+
+                            ...cartController.listCart.map((element) {
+                              if (controller.listProduct[i].productInCart && element.dataProduct == controller.listProduct[i])
+                                return Flexible(
+                                  flex: 2,
+                                  child: GetBuilder<CartController>(
+                                      builder: (logic) {
+                                        return Container(
+                                          height: 38,
+                                          width: 120,
+                                          margin: EdgeInsets.only(top: 10, left: 10, right: 10),
+                                          padding: EdgeInsets.symmetric(horizontal: 3),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(10),
+                                            color: MyColor.colorSilver,
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              InkWell(
+                                                onTap: () => cartController.removeQty(element),
+                                                child: Container(
+                                                  child: LineIcon.minus(
+                                                    color: Colors.red,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                child: Center(
+                                                  child: FittedBox(
+                                                    child: Text(
+                                                      // "${data.listCart[i].qty}",
+                                                      "${element.qty}",
+                                                      style: GoogleFonts.roboto(fontSize: 16, color: Colors.black),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              InkWell(
+                                                onTap: () => cartController.addQty(element),
+                                                child: Container(
+                                                  child: LineIcon.plus(
+                                                    color: Colors.green,
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        );
+                                      }),
+                                );
+                              else
+                                return Container();
+                            }).toList(),
+                            if(!controller.listProduct[i].productInCart)
+                              Flexible(
+                                flex: 2,
+                                child: Text(
+                                  "Rp. ${formatCurrency.format(controller.listProduct[i].productPrice)}",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                              )
                           ],
                         ),
                       ],
@@ -128,7 +196,7 @@ class ProductTransactionView extends GetWidget<ProductController> {
               ),
             );
           }) :
-      transactionController.listSearchProduct.length==0 ?
+      transactionController.listSearchProduct.length == 0 ?
       Center(child: Text("Produk Kosong"),) :
       ListView.builder(
           itemCount: transactionController.listSearchProduct.length,
@@ -171,15 +239,16 @@ class ProductTransactionView extends GetWidget<ProductController> {
                                       height: 60,
                                       placeholder: (c, s) =>
                                           Center(child: CircularProgressIndicator()),
-                                      errorWidget: (context, s, o) => TextAvatar(
-                                        shape: Shape.Circular,
-                                        size: 30,
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w600,
-                                        upperCase: true,
-                                        numberLetters: 3,
-                                        text: "${transactionController.listSearchProduct[i].productName}",
-                                      ),
+                                      errorWidget: (context, s, o) =>
+                                          TextAvatar(
+                                            shape: Shape.Circular,
+                                            size: 30,
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w600,
+                                            upperCase: true,
+                                            numberLetters: 3,
+                                            text: "${transactionController.listSearchProduct[i].productName}",
+                                          ),
                                     ),
                                   ),
                                   SizedBox(
@@ -233,7 +302,7 @@ class ProductTransactionView extends GetWidget<ProductController> {
                 ),
               ),
             );
-          }) ;
+          });
     });
   }
 }

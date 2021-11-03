@@ -101,9 +101,7 @@ class CartController extends GetxController {
     totalCart(0);
     totalShopping(0);
     print("asda");
-    var transC=
-    Get.isRegistered<TransactionController>()
-        ? Get.find<TransactionController>() :Get.put(TransactionController());
+    var transC = Get.isRegistered<TransactionController>() ? Get.find<TransactionController>() : Get.put(TransactionController());
     transC.checkProductInCart();
     listCart.forEach((element) {
       if (element.discount == null) {
@@ -142,7 +140,6 @@ class CartController extends GetxController {
         if (int.parse(dataDiscount!.discountMaxPriceOff!) >= totalCart.value) {
           totalShopping.value = 0;
         } else {
-
           double? a = double.tryParse(dataDiscount!.discountMaxPriceOff!);
           totalShopping.value = totalCart.value - a!;
         }
@@ -170,10 +167,12 @@ class CartController extends GetxController {
           element.qty = element.qty! - 1;
           element.subTotal = element.qty! * element.dataProduct!.productPrice!;
           listCart.refresh();
+          update();
         }
       });
     }
     getSubTotal();
+    update();
 
     return listCart;
   }
@@ -184,6 +183,7 @@ class CartController extends GetxController {
         element.qty = element.qty! + 1;
         element.subTotal = element.qty! * element.dataProduct!.productPrice!;
         listCart.refresh();
+        update();
       }
     });
     getSubTotal();
@@ -289,7 +289,32 @@ class CartController extends GetxController {
             }
           }
           productController.listProduct.refresh();
+          productController.listSearchProduct.refresh();
         });
+
+    return listCart;
+  }
+
+  Future<List<CartModel>> deleteCartFormListProduct(DataProduct dataProduct) async {
+    for (var product in productController.listProduct) {
+      if (product == dataProduct) {
+        product.productInCart = false;
+      }
+    }
+    CartModel? cartModel;
+    for (var cart in listCart) {
+      if (cart.dataProduct == dataProduct) {
+        cartModel=cart;
+
+      }
+    }
+    listCart.remove(cartModel);
+    listCart.refresh();
+
+    getSubTotal();
+
+    productController.listProduct.refresh();
+    productController.listSearchProduct.refresh();
 
     return listCart;
   }
@@ -306,7 +331,7 @@ class CartController extends GetxController {
 
   void storeTransaction({String? statusPaymentMethod, String? statusTransaction}) async {
     loadingBuilder();
-    var box=GetStorage();
+    var box = GetStorage();
     await TransactionRemoteDataSource()
         .storeTransaction(
             customerPartnerID: customer.value.customerpartnerid,
@@ -327,7 +352,7 @@ class CartController extends GetxController {
         Get.back();
         Get.back();
         Get.back();
-        if(box.read(MyString.ROLE_NAME)!="Pemilik Toko"){
+        if (box.read(MyString.ROLE_NAME) != "Pemilik Toko") {
           Get.offAllNamed(Routes.INDEX_TRANSACTION);
           showSnackBar(snackBarType: SnackBarType.SUCCESS, title: "Transaksi", message: 'Transaksi Berhasil Disimpan');
         }
