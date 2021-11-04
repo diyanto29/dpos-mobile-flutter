@@ -65,6 +65,12 @@ class RegisterRemoteDataSource extends BaseDio{
 
        response=await dio.post("${MyString.registerUser}",data: jsonEncode(data));
       print(response!.data);
+      if(response!.data['status']==null){
+        Get.back();
+        showSnackBar(snackBarType: SnackBarType.ERROR,title: "Login",message:
+        response!.data['error']+" Sudah Digunakan");
+        return false;
+      }
       if(response!.data['status']){
         var data = response!.data['data'];
         var dataDetailUser = response!.data['data']['detail_user'];
@@ -115,6 +121,7 @@ class RegisterRemoteDataSource extends BaseDio{
 
         return true;
       }else{
+        Get.back();
         showSnackBar(snackBarType: SnackBarType.ERROR,title: "Login",message: response!.data['message']);
         return false;
       }
@@ -122,7 +129,10 @@ class RegisterRemoteDataSource extends BaseDio{
 
     }on DioError catch(e){
       print(e);
+      showSnackBar(snackBarType: SnackBarType.ERROR, title: "Login",
+          message:"Erorr Dari Api");
       return false;
+
     }
   }
 }

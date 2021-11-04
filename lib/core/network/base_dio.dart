@@ -1,4 +1,7 @@
 
+import 'dart:io';
+
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'cache_logging.dart';
 import 'logging_interceptor.dart';
@@ -19,6 +22,11 @@ class BaseDio{
     );
 
     var dio = Dio(options);
+    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+        (HttpClient client) {
+      client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+      return client;
+    };
 
     dio.interceptors..add(CacheInterceptor())
       ..add(LoggingInterceptors(dio));

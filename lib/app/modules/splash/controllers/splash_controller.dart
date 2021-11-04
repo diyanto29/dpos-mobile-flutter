@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:warmi/app/data/datasource/business/business_data_source.dart';
 import 'package:warmi/app/routes/app_pages.dart';
@@ -7,10 +8,27 @@ import 'package:warmi/core/globals/global_string.dart';
 
 class SplashController extends GetxController {
 
+  AppUpdateInfo? _updateInfo;
 
+  Future<void> checkForUpdate() async {
+    InAppUpdate.checkForUpdate().then((info) {
+
+      _updateInfo = info;
+
+
+      if (_updateInfo!.updateAvailability == UpdateAvailability.updateAvailable) {
+        InAppUpdate.performImmediateUpdate().catchError((e) {
+          print(e);
+        });
+      }
+    }).catchError((e) {
+      print(e);
+    });
+  }
   @override
   void onInit() async{
     print("init");
+    checkForUpdate();
     await Permission.storage.request();
      BusinessDataSource().getTypeBusiness();
 

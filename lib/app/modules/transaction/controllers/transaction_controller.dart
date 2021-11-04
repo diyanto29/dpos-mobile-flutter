@@ -69,6 +69,8 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
   DataTransaction? detailTransaction;
   Rx<AuthSessionManager> auth = AuthSessionManager().obs;
 
+
+
   List<DataTransaction> listTransaction = [];
   void getTransaction({String? statusTransaction})async{
     if(listTransaction.isNotEmpty) listTransaction.clear();
@@ -145,7 +147,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
 
   @override
   void onInit() {
-    // checkForUpdate();
+    checkForUpdate();
     getTransaction();
     initAdmob();
     discountController.getDiscountDataSource();

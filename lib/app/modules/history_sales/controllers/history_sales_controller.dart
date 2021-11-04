@@ -15,41 +15,45 @@ import 'package:warmi/app/modules/wigets/package/screenshoot/screenshot.dart';
 import 'package:warmi/app/routes/app_pages.dart';
 import 'package:warmi/core/utils/enum.dart';
 
-class HistorySalesController extends GetxController with SingleGetTickerProviderMixin {
+class HistorySalesController extends GetxController
+    with SingleGetTickerProviderMixin {
   //TODO: Implement HistorySalesController
   final List<Tab> tabs = <Tab>[
-     Tab(text: "Semua"),
-     Tab(text: "Lunas"),
-     Tab(text: "Menunggu Pembayaran"),
-     // Tab(text: "Utang"),
-     Tab(text: "Dibatalkan"),
+    Tab(text: "Semua"),
+    Tab(text: "Lunas"),
+    Tab(text: "Menunggu Pembayaran"),
+    // Tab(text: "Utang"),
+    Tab(text: "Dibatalkan"),
   ];
 
   late TabController tabController;
   PageController controllerPage =
-  PageController(keepPage: false, initialPage: 0);
+      PageController(keepPage: false, initialPage: 0);
   RxInt initialIndex = 0.obs;
   RxInt index = 0.obs;
 
   var printerC = Get.isRegistered<PrinterController>()
-      ? Get.find<PrinterController>() :Get.put(PrinterController());
+      ? Get.find<PrinterController>()
+      : Get.put(PrinterController());
+  var transactionC = Get.isRegistered<TransactionController>()
+      ? Get.find<TransactionController>()
+      : Get.put(TransactionController());
 
-  ScreenshotController screenshotController=ScreenshotController();
-  Rx<AuthSessionManager> auth=AuthSessionManager().obs;
-
-
+  ScreenshotController screenshotController = ScreenshotController();
+  Rx<AuthSessionManager> auth = AuthSessionManager().obs;
 
   final count = 0.obs;
+
   @override
   void onInit() {
     tabController = TabController(vsync: this, length: tabs.length);
-  getTransactionLast();
+    transactionC.initAdmob();
+    getTransactionLast();
     super.onInit();
   }
 
   @override
   void onReady() {
-
     super.onReady();
   }
 
@@ -61,9 +65,8 @@ class HistorySalesController extends GetxController with SingleGetTickerProvider
 
   @override
   void onClose() {}
+
   void increment() => count.value++;
-
-
 
   List<DataTransaction> listTransaction = [];
   List<DataTransaction> listTransactionLast = [];
@@ -71,78 +74,72 @@ class HistorySalesController extends GetxController with SingleGetTickerProvider
   LoadingState loadingState = LoadingState.loading;
   LoadingState loadingStateLast = LoadingState.loading;
 
-  void getTransaction({String? statusTransaction,String? statusPayment})async{
-    loadingState=LoadingState.loading;
+  void getTransaction(
+      {String? statusTransaction, String? statusPayment}) async {
+    loadingState = LoadingState.loading;
 
-    if(listTransaction.isNotEmpty) listTransaction.clear();
+    if (listTransaction.isNotEmpty) listTransaction.clear();
 
-    await TransactionRemoteDataSource().getTransaction(statusPayment: statusPayment,statusTransaction: statusTransaction).then((value) {
-      listTransaction=value.data!;
+    await TransactionRemoteDataSource()
+        .getTransaction(
+            statusPayment: statusPayment, statusTransaction: statusTransaction)
+        .then((value) {
+      listTransaction = value.data!;
     });
-    loadingState=LoadingState.empty;
+    loadingState = LoadingState.empty;
     update();
   }
 
-
-  void getTransactionLast({String? statusTransaction,String? statusPayment})async{
-
-
-    await TransactionRemoteDataSource().getTransaction(statusPayment: statusPayment,statusTransaction: statusTransaction).then((value) {
-      listTransactionLast=value.data!;
+  void getTransactionLast(
+      {String? statusTransaction, String? statusPayment}) async {
+    await TransactionRemoteDataSource()
+        .getTransaction(
+            statusPayment: statusPayment, statusTransaction: statusTransaction)
+        .then((value) {
+      listTransactionLast = value.data!;
     });
-    loadingStateLast=LoadingState.empty;
+    loadingStateLast = LoadingState.empty;
     update();
   }
 
+  RxInt subTotal = 0.obs;
 
-
-  RxInt subTotal=0.obs;
-
-  void getSubtotal(DataTransaction dataTransaction)async{
+  void getSubtotal(DataTransaction dataTransaction) async {
     subTotal(0);
     dataTransaction.detail!.forEach((element) {
-      subTotal.value= (subTotal.value+ int.tryParse(element.detailtransactionsubtotal.toString())!)  - (int.tryParse(element.detailtransactionsubtotal!)! - element.priceafterdiscount!);
-
+      subTotal.value = (subTotal.value +
+              int.tryParse(element.detailtransactionsubtotal.toString())!) -
+          (int.tryParse(element.detailtransactionsubtotal!)! -
+              element.priceafterdiscount!);
     });
     print(subTotal.value);
   }
 
-  void testPrint(DataTransaction dataTransaction)async{
+  void testPrint(DataTransaction dataTransaction) async {
     printerC.printTicketPurchase(dataTransaction: dataTransaction);
   }
 
-  void sendInvoice({String? id})async{
-    screenshotController.capture().then((Uint8List? image) async{
+  void sendInvoice({String? id}) async {
+    screenshotController.capture().then((Uint8List? image) async {
       var dir;
-      await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_PICTURES).then((value) {
-        dir=value;
+      await ExternalPath.getExternalStoragePublicDirectory(
+              ExternalPath.DIRECTORY_PICTURES)
+          .then((value) {
+        dir = value;
       });
-      File file = new File('$dir/$id'+'.png');
+      File file = new File('$dir/$id' + '.png');
       await file.writeAsBytes(image!);
-      Share.shareFiles(['$dir/$id'+'.png'], text: '$id');
-
-
-
+      Share.shareFiles(['$dir/$id' + '.png'], text: '$id');
     }).catchError((onError) {
       print(onError);
     });
   }
 
-
-  void checkoutNow(DataTransaction dataTransaction)async{
-    var checkoutC=Get.find<TransactionController>();
+  void checkoutNow(DataTransaction dataTransaction) async {
+    var checkoutC = Get.find<TransactionController>();
     var cartC = Get.find<CartController>();
     cartC.totalShopping(double.tryParse(dataTransaction.transactiontotal!));
-    Map<dynamic,dynamic> data={
-      "from" : "history",
-      "data" : dataTransaction
-    };
-    Get.toNamed(Routes.CHECKOUT_PAGE,arguments: data);
+    Map<dynamic, dynamic> data = {"from": "history", "data": dataTransaction};
+    Get.toNamed(Routes.CHECKOUT_PAGE, arguments: data);
   }
-
-
-
-
-
-
 }

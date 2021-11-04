@@ -107,10 +107,10 @@ class HomeView extends GetWidget<HomeController> {
                                 SizedBox(
                                   width: 15,
                                 ),
-                                Icon(
+                                IconButton(onPressed: ()=>controller.logOut(), icon: Icon(
                                   IconlyLight.logout,
                                   color: MyColor.colorWhite,
-                                )
+                                ))
                               ],
                             ),
                           ))
