@@ -555,7 +555,7 @@ class PrinterController extends GetxController {
 
     bytes += generator.feed(2);
     bytes += generator.text("Power By DPOS", styles: PosStyles(align: PosAlign.center, fontType: PosFontType.fontA, bold: true));
-
+    bytes += generator.drawer();
     bytes += generator.cut();
     return bytes;
   }
