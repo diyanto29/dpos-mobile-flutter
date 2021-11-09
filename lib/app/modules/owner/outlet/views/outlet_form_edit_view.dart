@@ -55,6 +55,9 @@ class _OutletFormEditState extends State<OutletFormEdit> {
               cityName: data.address!.addressCityName,
               type: data.address!.addressType,
               postalCode: data.address!.addressPoscode);
+          controller.getProvince();
+          controller.getCity(data.address!.addressProvinceId.toString());
+          controller.getSubDistrict(data.address!.addressCityId.toString());
 
           controller.selectedSubDistrict.value = new Subdistrict(
             province: data.address!.addressProvinceName,
@@ -183,6 +186,7 @@ class _OutletFormEditState extends State<OutletFormEdit> {
                                 maxHeight: Get.height * 0.7,
                                 onChanged: (p) {
                                   controller.selectedCity(null);
+                                  controller.selectedProvince.value=p;
                                   controller.province = p!;
                                   controller.getCity(p.provinceId);
                                   controller.listSubDistrict.clear();

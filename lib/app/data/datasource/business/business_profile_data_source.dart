@@ -17,14 +17,18 @@ class BusinessProfileDataSource extends BaseDio {
     try {
       print('aini');
       response = await dio.get("${MyString.getBusinessUser}",
-          options: Options(headers: {"Authorization": "Bearer ${authSessionManager.token}"}));
-      await APICacheManager().addCacheData(APICacheDBModel(key: 'API_BUSINESS_USER', syncData: jsonEncode(response!.data)));
+          queryParameters: {"user_id": "${authSessionManager.userIdOwner}"},
+          options: Options(headers: {
+            "Authorization": "Bearer ${authSessionManager.token}"
+          }));
+      await APICacheManager().addCacheData(APICacheDBModel(
+          key: 'API_BUSINESS_USER', syncData: jsonEncode(response!.data)));
       return response!.data;
     } on DioError catch (e) {
-
-      var isCacheExist = await APICacheManager().isAPICacheKeyExist('API_BUSINESS_USER');
-      var cacheData=await APICacheManager().getCacheData('API_BUSINESS_USER');
-      var result= TypeBusinessModel.fromJson(jsonDecode(cacheData.syncData));
+      var isCacheExist =
+          await APICacheManager().isAPICacheKeyExist('API_BUSINESS_USER');
+      var cacheData = await APICacheManager().getCacheData('API_BUSINESS_USER');
+      var result = TypeBusinessModel.fromJson(jsonDecode(cacheData.syncData));
       return result.data;
     }
   }
@@ -39,11 +43,10 @@ class BusinessProfileDataSource extends BaseDio {
       File? pathLogo,
       String? fileName}) async {
     try {
-
       var formData;
 
-      if(pathLogo!=null){
-      formData=  FormData.fromMap({
+      if (pathLogo != null) {
+        formData = FormData.fromMap({
           "id": "${authSessionManager.businessId}",
           "name": "$businessName",
           "category_id": "${typeBusiness.businessCategoryId}",
@@ -52,10 +55,12 @@ class BusinessProfileDataSource extends BaseDio {
           "branch": "$branch",
           "contact": "$contact",
           "logo": await MultipartFile.fromFile(pathLogo.path,
-              filename: pathLogo.path.isNotEmpty ? pathLogo.path.split('/').last : '...'),
+              filename: pathLogo.path.isNotEmpty
+                  ? pathLogo.path.split('/').last
+                  : '...'),
         });
-      }else{
-       formData= FormData.fromMap({
+      } else {
+        formData = FormData.fromMap({
           "id": "${authSessionManager.businessId}",
           "name": "$businessName",
           "category_id": "${typeBusiness.businessCategoryId}",
@@ -67,11 +72,13 @@ class BusinessProfileDataSource extends BaseDio {
         });
       }
 
-      response = await dio.post("${MyString.updateBusiness}", data: formData,
-      options: Options(
-        contentType: 'application/json;multipart/form-data',
-        headers: {"Authorization": "Bearer ${authSessionManager.token}"}
-      ));
+      response = await dio.post("${MyString.updateBusiness}",
+          data: formData,
+          options: Options(
+              contentType: 'application/json;multipart/form-data',
+              headers: {
+                "Authorization": "Bearer ${authSessionManager.token}"
+              }));
       return true;
     } on DioError catch (e) {
       print(e);

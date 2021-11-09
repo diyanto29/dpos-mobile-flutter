@@ -90,7 +90,8 @@ class OutletController extends GetxController {
       showSnackBar(snackBarType: SnackBarType.INFO, title: 'Outlet', message: "Nama Wajib diisi");
       return;
     }
-    if (toggleSwitchOutlet.value && selectedProvince.value!.provinceId==null) {
+    if (toggleSwitchOutlet.value && selectedProvince.value!
+        .provinceId==null) {
       showSnackBar(snackBarType: SnackBarType.INFO, title: 'Outlet', message:
       "Atur Alamat Toko Anda");
       return;

@@ -49,7 +49,7 @@ class DetailReportSellingProduct extends GetWidget<ReportController> {
                             cells: <DataCell>[
                               DataCell(Text("${e.name}")),
                               DataCell(Text("${e.count}")),
-                              DataCell(Text("${formatCurrency.format(e.sum! *e.count!)}")),
+                              DataCell(Text("${formatCurrency.format(e.sum!)}")),
                             ],
                           ))
                       .toList()),

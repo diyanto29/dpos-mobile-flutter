@@ -12,7 +12,29 @@ import 'package:warmi/core/globals/global_color.dart';
 import 'package:warmi/core/globals/global_string.dart';
 import 'package:warmi/core/utils/thema.dart';
 
-class OutletFormInput extends GetWidget<OutletController> {
+class OutletFormInput extends StatefulWidget {
+
+  @override
+  State<OutletFormInput> createState() => _OutletFormInputState();
+}
+
+class _OutletFormInputState extends State<OutletFormInput> {
+  var controller=Get.find<OutletController>();
+
+  @override
+  void initState() {
+   controller.nameC.value.text = "";
+   controller.descC.value.text = "";
+   controller.selectedCity.value= new City();
+   controller.selectedSubDistrict(new Subdistrict());
+   controller.selectedProvince(new Province());
+   controller.timeCloseC.value.text = "";
+   controller.timeOpenC.value.text = "";
+   controller.postalCodeC.value.text = "";
+   controller.detailAddressC.value.text = "";
+   controller.toggleSwitchOutlet(false);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,6 +134,7 @@ class OutletFormInput extends GetWidget<OutletController> {
                             onChanged: (p) {
                               controller.selectedCity(null);
                               controller.province = p!;
+                              controller.selectedProvince.value=p;
                               controller.getCity(p.provinceId);
                               controller.listSubDistrict.clear();
 
@@ -212,5 +235,4 @@ class OutletFormInput extends GetWidget<OutletController> {
           )),
     );
   }
-
 }
