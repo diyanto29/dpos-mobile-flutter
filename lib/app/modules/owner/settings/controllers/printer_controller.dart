@@ -372,9 +372,8 @@ class PrinterController extends GetxController {
   //print invoice form sales
   void printTicketPurchase({DataTransaction? dataTransaction}) async {
     final bool result = await PrintBluetoothThermal.bluetoothEnabled;
-    print("Asdasd");
     if (result) {
-      loadingBuilder();
+      // loadingBuilder();
       bool printTest = true;
 
       await PrintBluetoothThermal.disconnect;
@@ -395,7 +394,7 @@ class PrinterController extends GetxController {
         }
       }
 
-      Get.back();
+      // Get.back();
       if (printTest) {
         showSnackBar(snackBarType: SnackBarType.SUCCESS, message: "Printing Success", title: "Print");
         var controller = Get.isRegistered<TransactionController>()

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:warmi/app/data/datasource/auth/auth_remote_data_source.dart';
 import 'package:warmi/app/modules/wigets/layouts/dialog/dialog_loading.dart';
@@ -14,9 +15,20 @@ import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 class SettingController extends GetxController{
   RxDouble scrollOpacity=1.0.obs;
   Rx<TextEditingController> passwordC = TextEditingController().obs;
+  PackageInfo? packageInfo;
 
 
 
+@override
+void onInit()async{
+  checkPackage();
+  super.onInit();
+}
+
+void checkPackage()async{
+  packageInfo= await PackageInfo.fromPlatform();
+  update();
+}
   launchWhatsApp() async {
     final link = WhatsAppUnilink(
       phoneNumber: '+6285624277920',  
@@ -41,7 +53,7 @@ class SettingController extends GetxController{
 
     final Uri emailLaunchUri = Uri(
       scheme: 'mailto',
-      path: 'grosircenter.itsolution@gmail.com',
+      path: 'emailmudahkan@gmail.com',
       query: encodeQueryParameters(<String, String>{
         'subject': 'Kami Butuh Bantuan nih'
       }),
@@ -50,7 +62,7 @@ class SettingController extends GetxController{
     launch(emailLaunchUri.toString());
   }
   launchWebsite()async{
-    await canLaunch('https://grosircenter.com/');
+    await canLaunch('https://mudahkan.com/');
   }
 
   void updatePassword()async{

@@ -165,11 +165,13 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
   void dispose() {
     tabController.dispose();
     tabControllerCheckout.dispose();
+    listSearchProduct.clear();
+    listTransaction.clear();
     var box =GetStorage();
-    // if(box.read(MyString.STATUS_NAME)=="FREE"){
+    if(box.read(MyString.STATUS_NAME)=="FREE"){
       bannerAd.dispose();
       interstitialAd.dispose();
-    // }
+    }
     super.dispose();
   }
 

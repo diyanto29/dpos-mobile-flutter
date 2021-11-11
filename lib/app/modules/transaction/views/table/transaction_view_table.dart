@@ -43,9 +43,18 @@ class TransactionViewTable extends StatefulWidget {
 class _TransactionViewTableState extends State<TransactionViewTable> {
   final transactionController = Get.find<TransactionController>();
   var controller = Get.put(ProductController());
-  var cartController = Get.find<CartController>();
+  var cartController = Get.isRegistered<CartController>()
+      ? Get.find<CartController>()
+      : Get.put(CartController());
   var navC = Get.find<NavigationController>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  @override
+  void dispose() {
+    controller.listProduct.forEach((element) {
+      element.productInCart=false;
+    });
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -219,7 +228,23 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                     elevation: 0.4,
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                                     child: InkWell(
-                                      onTap: () => cartController.addCart(controller.listProduct[i]),
+                                      onTap: (){
+                                        if (controller.listProduct[i].productInCart) {
+                                          cartController.deleteCartFormListProduct(
+                                              controller.listProduct[i]);
+                                        } else {
+                                          if (controller.listProduct[i].productStokStatus ==
+                                              "true" &&
+                                              controller.listProduct[i].productStok == "0")
+                                            showSnackBar(
+                                                snackBarType: SnackBarType.WARNING,
+                                                message: "Stok Produk Kosong",
+                                                title: "Produk");
+                                          else
+                                            cartController
+                                                .addCart(controller.listProduct[i]);
+                                        }
+                                      },
                                       child: Stack(
                                         children: [
                                           Positioned(
@@ -363,7 +388,27 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                     elevation: 0.4,
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                                     child: InkWell(
-                                      onTap: () => cartController.addCart(transactionController.listSearchProduct[i]),
+                                      onTap: () {
+                                        if (transactionController
+                                            .listSearchProduct[i].productInCart) {
+                                          cartController.deleteCartFormListProduct(
+                                              transactionController.listSearchProduct[i]);
+                                        } else {
+                                          if (transactionController.listSearchProduct[i]
+                                              .productStokStatus ==
+                                              "true" &&
+                                              transactionController
+                                                  .listSearchProduct[i].productStok ==
+                                                  "0")
+                                            showSnackBar(
+                                                snackBarType: SnackBarType.WARNING,
+                                                message: "Stok Produk Kosong",
+                                                title: "Produk");
+                                          else
+                                            cartController.addCart(
+                                                transactionController.listSearchProduct[i]);
+                                        }
+                                      },
                                       child: Stack(
                                         children: [
                                           Positioned(

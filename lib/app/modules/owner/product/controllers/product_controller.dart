@@ -46,9 +46,25 @@ class ProductController extends GetxController {
 
    @override
   void onReady() {
-    // print("Hallo");
+    print("Hallo");
+     listProduct.forEach((element) {
+       element.productInCart=false;
+     });
+     update();
     super.onReady();
   }
+
+  @override
+  void dispose() {
+    listProduct.forEach((element) {
+      element.productInCart=false;
+    });
+    update();
+    super.dispose();
+  }
+
+
+
 
 
   @override
@@ -60,6 +76,10 @@ class ProductController extends GetxController {
     getProduct();
     super.onInit();
   }
+
+
+
+
 
 
 

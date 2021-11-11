@@ -14,7 +14,7 @@ import 'package:warmi/core/globals/global_color.dart';
 import 'package:warmi/core/globals/global_string.dart';
 
 //bottomsheet about me
-Future<dynamic> dialogBottomAboutMe() {
+Future<dynamic> dialogBottomAboutMe({required String version}) {
   return Get.bottomSheet(
       Container(
         height: 300,
@@ -35,7 +35,7 @@ Future<dynamic> dialogBottomAboutMe() {
               icon: "assets/icons/info.png",
               textButton: "Versi Aplikasi",
               subtitle: true,
-              textSubtitle: "1.0.0",
+              textSubtitle: version,
               borderRadius: 10,
               sizeIcon: 35,
             ),
@@ -117,7 +117,7 @@ Future<dynamic> dialogBottomCallMe() {
               icon: "assets/icons/email_box.png",
               textButton: "Email",
               subtitle: true,
-              textSubtitle: 'grosirceneter.itsolution@gmail.com',
+              textSubtitle: 'emailmudahkan@gmail.com',
               borderRadius: 10,
               sizeIcon: 35,
             ),
@@ -129,7 +129,7 @@ Future<dynamic> dialogBottomCallMe() {
               icon: "assets/icons/internet.png",
               textButton: "Website",
               subtitle: true,
-              textSubtitle: 'grosircenter.com',
+              textSubtitle: 'mudahkan.com',
               borderRadius: 10,
               sizeIcon: 35,
             ),
