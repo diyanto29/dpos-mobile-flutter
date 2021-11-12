@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:warmi/app/data/datasource/business/business_data_source.dart';
 import 'package:warmi/app/data/datasource/business/business_profile_data_source.dart';
@@ -10,6 +11,7 @@ import 'package:warmi/app/data/models/business/business_profile.dart';
 import 'package:warmi/app/data/models/business/type_business.dart';
 import 'package:warmi/app/modules/wigets/layouts/dialog/dialog_snackbar.dart';
 import 'package:warmi/core/globals/global_color.dart';
+import 'package:warmi/core/globals/global_string.dart';
 import 'package:warmi/core/utils/enum.dart';
 
 class SetupBusinessController extends GetxController {
@@ -110,6 +112,7 @@ class SetupBusinessController extends GetxController {
   }
 
   void updateBusinessProfile() async {
+    var box=GetStorage();
     Get.dialog(Container(
         height: 50,
         width: 50,
@@ -117,6 +120,7 @@ class SetupBusinessController extends GetxController {
         child: CircularProgressIndicator(
           color: MyColor.colorPrimary,
         )));
+
 
     await BusinessProfileDataSource().updateBusinessProfile(
         businessName: businessNameC.text,
@@ -132,10 +136,12 @@ class SetupBusinessController extends GetxController {
                 : '...'
             : "...").then((value) {
               if(value){
+                if(image!=null)
+                  box.write(MyString.BUSINESS_LOGO, image!.path);
                 Get.back();
                 Get.back();
                 showSnackBar(snackBarType: SnackBarType.SUCCESS,
-                title: 'Warmi',message: 'Berhasil Disimpan');
+                title: 'DPOS',message: 'Berhasil Disimpan');
               }
     });
 

@@ -349,6 +349,8 @@ class CartController extends GetxController {
         .then((value) {
       Get.back();
       if (value.status) {
+        transactionController.getTransaction();
+
         Get.back();
         Get.back();
         Get.back();

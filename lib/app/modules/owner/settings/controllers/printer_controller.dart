@@ -456,10 +456,10 @@ class PrinterController extends GetxController {
     bytes += generator.text(auth.storeName,
         styles: PosStyles(
           align: PosAlign.center,
-          height: PosTextSize.size2,
-          width: PosTextSize.size2,
+          height: PosTextSize.size1,
+          width: PosTextSize.size1,
         ),
-        linesAfter: 1);
+        linesAfter: 0);
 
     bytes += generator.text(box.read(MyString.STORE_ADDRESS)==null ? "-" : box.read(MyString.STORE_ADDRESS), styles: PosStyles(align: PosAlign.center));
     bytes += generator.text('Whatsapp: ${box.read(MyString.BUSINESS_CONTACT)}', styles: PosStyles(align: PosAlign.center));
@@ -470,23 +470,22 @@ class PrinterController extends GetxController {
       PosColumn(text: DateFormat("HH:mm:ss", "id-ID").format(DateTime.parse(dataTransaction.createdAt!)), width: 6, styles: PosStyles(align: PosAlign.right, height: PosTextSize.size1, width: PosTextSize.size1)),
     ]);
     bytes += generator.row([
-      PosColumn(text: "No. Transaksi", width: 6, styles: PosStyles(align: PosAlign.left, bold: true)),
-      PosColumn(text: dataTransaction.transactionid!.split('-')[0], width: 6, styles: PosStyles(align: PosAlign.right, bold: true, height: PosTextSize.size8)),
+      PosColumn(text: "No. Transaksi", width: 6, styles: PosStyles(align: PosAlign.left)),
+      PosColumn(text: dataTransaction.transactionid!.split('-')[0], width: 6, styles: PosStyles(align: PosAlign.right, height: PosTextSize.size1)),
     ]);
     bytes += generator.row([
-      PosColumn(text: "Kasir", width: 6, styles: PosStyles(align: PosAlign.left, bold: true)),
-      PosColumn(text: dataTransaction.createdBy!.userfullname!, width: 6, styles: PosStyles(align: PosAlign.right, bold: true, height: PosTextSize.size8)),
+      PosColumn(text: "Kasir", width: 6, styles: PosStyles(align: PosAlign.left)),
+      PosColumn(text: dataTransaction.createdBy!.userfullname!, width: 6, styles: PosStyles(align: PosAlign.right, height: PosTextSize.size1)),
     ]);
 
     bytes += generator.row([
-      PosColumn(text: "Metode Pembayaran", width: 6, styles: PosStyles(align: PosAlign.left, bold: true)),
+      PosColumn(text: "Metode Pembayaran", width: 6, styles: PosStyles(align: PosAlign.left)),
       PosColumn(
           text: dataTransaction.paymentMethod == null ? 'Cash' : "${dataTransaction.paymentMethod!.type!.paymentmethodtypename.toString().titleCase} -  ${dataTransaction.paymentMethod!.paymentmethodname.toString().capitalize}",
           width: 6,
-          styles: PosStyles(align: PosAlign.right, bold: true, height: PosTextSize.size8)),
+          styles: PosStyles(align: PosAlign.right, height: PosTextSize.size1)),
     ]);
     bytes += generator.hr();
-
     dataTransaction.detail!.forEach((item) {
       bytes += generator.text(item.product!.productname,
           styles: PosStyles(
@@ -511,8 +510,6 @@ class PrinterController extends GetxController {
         ]);
       }
     });
-
-    bytes += generator.hr();
     bytes += generator.row([
       PosColumn(text: "Sub Total", width: 6, styles: PosStyles(align: PosAlign.left)),
       PosColumn(text: "${formatCurrency.format(historyC.subTotal.value)}", width: 6, styles: PosStyles(align: PosAlign.right, height: PosTextSize.size1)),
@@ -528,7 +525,7 @@ class PrinterController extends GetxController {
     }
     bytes += generator.hr();
     bytes += generator.row([
-      PosColumn(text: "Total Bayar", width: 6, styles: PosStyles(align: PosAlign.left)),
+      PosColumn(text: "Total Bayar", width: 6, styles: PosStyles(align: PosAlign.left,width: PosTextSize.size1,height: PosTextSize.size1)),
       PosColumn(text: "${formatCurrency.format(int.tryParse(dataTransaction.transactiontotal ?? "0"))}", width: 6, styles: PosStyles(align: PosAlign.right, height: PosTextSize.size1)),
     ]);
     if (dataTransaction.paymentMethod == null) {
@@ -536,13 +533,11 @@ class PrinterController extends GetxController {
         PosColumn(text: "Bayar", width: 6, styles: PosStyles(align: PosAlign.left)),
         PosColumn(text: "${formatCurrency.format(int.tryParse(dataTransaction.transactionpay ?? "0"))}", width: 6, styles: PosStyles(align: PosAlign.right, height: PosTextSize.size1)),
       ]);
-      bytes += generator.hr();
       bytes += generator.row([
         PosColumn(text: "Kembalian", width: 6, styles: PosStyles(align: PosAlign.left)),
         PosColumn(text: "${formatCurrency.format(int.tryParse(dataTransaction.transactionreceived ?? "0"))}", width: 6, styles: PosStyles(align: PosAlign.right, height: PosTextSize.size1)),
       ]);
     }
-    bytes += generator.feed(2);
     var footer;
     if(box.hasData(MyString.FOOTER_TEXT)){
       footer=box.read(MyString.FOOTER_TEXT);
@@ -551,8 +546,6 @@ class PrinterController extends GetxController {
       box.write(MyString.FOOTER_TEXT, footer);
     }
     bytes += generator.text(box.read(MyString.FOOTER_TEXT), styles: PosStyles(align: PosAlign.center, height: PosTextSize.size1, width: PosTextSize.size1, bold: true));
-
-    bytes += generator.feed(2);
     bytes += generator.text("Power By DPOS", styles: PosStyles(align: PosAlign.center, fontType: PosFontType.fontA, bold: true));
     bytes += generator.drawer();
     bytes += generator.cut();

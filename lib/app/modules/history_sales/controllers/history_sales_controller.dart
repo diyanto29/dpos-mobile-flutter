@@ -136,8 +136,13 @@ class HistorySalesController extends GetxController
   }
 
   void checkoutNow(DataTransaction dataTransaction) async {
-    var checkoutC = Get.find<TransactionController>();
-    var cartC = Get.find<CartController>();
+    var checkoutC = Get.isRegistered<TransactionController>()
+        ? Get.find<TransactionController>()
+        : Get.put(TransactionController());
+    var cartC =Get.isRegistered<CartController>()
+        ? Get.find<CartController>()
+        : Get.put(CartController());
+
     cartC.totalShopping(double.tryParse(dataTransaction.transactiontotal!));
     Map<dynamic, dynamic> data = {"from": "history", "data": dataTransaction};
     Get.toNamed(Routes.CHECKOUT_PAGE, arguments: data);
