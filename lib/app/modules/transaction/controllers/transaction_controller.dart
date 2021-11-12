@@ -181,6 +181,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
       listSearchProduct(value.data);
       loadingState(LoadingState.empty);
       checkProductInCart();
+
     });
     searchC.refresh();
     listSearchProduct.refresh();

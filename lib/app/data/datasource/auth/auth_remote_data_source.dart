@@ -212,14 +212,14 @@ class AuthRemoteDataSource extends BaseDio {
       if (value.isGranted) {
         await file.writeAsBytes(bytes);
         Image image2 = decodeJpg(file.readAsBytesSync());
-        Image thumbnail = copyResize(image2, width: 250, height: 250);
+        Image thumbnail = copyResize(image2, width: 150, height: 150);
         File('$dir/logo.png').writeAsBytesSync(encodePng(thumbnail));
       }
     });
     if (await Permission.storage.isGranted) {
       await file.writeAsBytes(bytes);
       Image image2 = decodeJpg(file.readAsBytesSync());
-      Image thumbnail = copyResize(image2, width: 250, height: 250);
+      Image thumbnail = copyResize(image2, width: 150, height: 150);
       File('$dir/logo.png').writeAsBytesSync(encodePng(thumbnail));
     }
 

@@ -1,9 +1,12 @@
 import 'dart:io';
 
+import 'package:external_path/external_path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:image/image.dart' as img;
+
 import 'package:image_picker/image_picker.dart';
 import 'package:warmi/app/data/datasource/business/business_data_source.dart';
 import 'package:warmi/app/data/datasource/business/business_profile_data_source.dart';
@@ -134,10 +137,19 @@ class SetupBusinessController extends GetxController {
             ? image!.path.isEmpty
                 ? image!.path.split('/').last
                 : '...'
-            : "...").then((value) {
+            : "...").then((value) async{
               if(value){
                 if(image!=null)
-                  box.write(MyString.BUSINESS_LOGO, image!.path);
+                 {
+                   var dir;
+                   await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS).then((value) {
+                     dir = value;
+                   });
+                   img.Image image2 = img.decodeJpg(image!.readAsBytesSync());
+                   img.Image thumbnail = img.copyResize(image2, width: 150, height: 150);
+                   File('$dir/logo.png').writeAsBytesSync(img.encodePng(thumbnail));
+                   box.write(MyString.BUSINESS_LOGO, '$dir/logo.png');
+                 }
                 Get.back();
                 Get.back();
                 showSnackBar(snackBarType: SnackBarType.SUCCESS,
