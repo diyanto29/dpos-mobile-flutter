@@ -146,7 +146,16 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                     borderSide: BorderSide(width: 1, color: MyColor.colorPrimary),
                                   ),
                                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: MyColor.colorGrey, width: 0.1)),
-                                  suffixIcon: Icon(
+                                  suffixIcon:transactionController.searchC.value.text.isNotEmpty
+                                      ? IconButton(onPressed: () {
+                                    setState(() {
+                                      transactionController.searchC.value.text="";
+                                    });
+                                  }, icon: Icon(
+                                    Icons.cancel,
+                                    color: Colors.grey[400],
+                                  ))
+                                      : Icon(
                                     Icons.search,
                                     color: Colors.grey[400],
                                   )),
