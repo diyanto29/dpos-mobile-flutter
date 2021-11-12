@@ -17,7 +17,7 @@ class BaseDio{
 
     final options = BaseOptions(
       connectTimeout: 5000,
-      receiveTimeout: 3000,
+      receiveTimeout: 5000,
       contentType:  "application/json;charset=utf-8",
     );
 

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,10 +21,41 @@ import 'package:warmi/core/utils/format_currency.dart';
 import 'package:warmi/core/utils/thema.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class AddProductView extends GetWidget<ProductController> {
+class AddProductView extends StatefulWidget {
+  @override
+  State<AddProductView> createState() => _AddProductViewState();
+}
+
+class _AddProductViewState extends State<AddProductView> {
+  var controller = Get.find<ProductController>();
+  final categoryC = Get.put(ProductCategoryController());
+
+  @override
+  void initState() {
+    controller.conName.value.text = "";
+    controller.conPrice.value.text = "";
+    controller.conQty.value.text = "";
+    controller.conOutlet.value.text = "";
+    controller.conSKU.value.text = "";
+    controller.conDesc.value.text = "";
+    controller.conModal.value.text = "";
+    controller.conBarcode.value.text = "";
+    controller.toggleSwitchStock(false);
+
+    controller.toggleSwitchDetailProduct(false);
+    setState(() {
+      controller.image = null;
+      controller.priceProduct(0);
+      controller.priceModal(0);
+      controller.satuanProduct = null;
+      controller.categoryProduct = null;
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final categoryC = Get.put(ProductCategoryController());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyColor.colorPrimary,
@@ -33,11 +66,13 @@ class AddProductView extends GetWidget<ProductController> {
             removeTop: true,
             context: context,
             child: ListView(
-              padding: EdgeInsets.symmetric(horizontal: MyString.DEFAULT_PADDING, vertical: 10),
+              padding: EdgeInsets.symmetric(
+                  horizontal: MyString.DEFAULT_PADDING, vertical: 10),
               children: [
                 GeneralTextInput(
-                  controller: controller.conName.value,
-                    labelTextInputBox: 'Nama Produk', descTextInputBox: 'Masukan Nama Produk'),
+                    controller: controller.conName.value,
+                    labelTextInputBox: 'Nama Produk',
+                    descTextInputBox: 'Masukan Nama Produk'),
                 controller.listUnitProduct.length == 0
                     ? DropdownSearch(
                         hint: "Pilih Satuan Produk",
@@ -71,19 +106,21 @@ class AddProductView extends GetWidget<ProductController> {
                   height: 20,
                 ),
                 categoryC.listCategoryProduct.length == 0
-                    ?
-                DropdownSearch(
+                    ? DropdownSearch(
                         hint: "Pilih Kategori Produk",
                         mode: Mode.DIALOG,
                         showSearchBox: true,
-                        emptyBuilder: (c,i){
+                        emptyBuilder: (c, i) {
                           return Center(
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 50),
-                              child: GeneralButton(label: 'Tambah Kategori', onPressed: (){
-                                Get.back();
-                                Get.toNamed(Routes.PRODUCT_CATEGORY);
-                              }),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 50),
+                              child: GeneralButton(
+                                  label: 'Tambah Kategori',
+                                  onPressed: () {
+                                    Get.back();
+                                    Get.toNamed(Routes.PRODUCT_CATEGORY);
+                                  }),
                             ),
                           );
                         },
@@ -94,10 +131,8 @@ class AddProductView extends GetWidget<ProductController> {
                         hint: "Pilih Kategori Produk",
                         mode: Mode.BOTTOM_SHEET,
                         showSearchBox: true,
-
                         itemAsString: (s) => s!.categoryName.toString(),
                         dropdownBuilderSupportsNullItem: true,
-
                         items: categoryC.listCategoryProduct,
                         onChanged: (v) {
                           controller.categoryProduct = v;
@@ -121,7 +156,8 @@ class AddProductView extends GetWidget<ProductController> {
                     children: [
                       Text(
                         "Atur Stok Produk",
-                        style: GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 3.2.w),
+                        style: GoogleFonts.roboto(
+                            fontWeight: FontWeight.bold, fontSize: 3.2.w),
                       ),
                       Switch.adaptive(
                         value: controller.toggleSwitchStock.value,
@@ -147,6 +183,145 @@ class AddProductView extends GetWidget<ProductController> {
                             descTextInputBox: 'cth. 10'),
                       ],
                     )),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Atur Varian  Produk",
+                        style: GoogleFonts.roboto(
+                            fontWeight: FontWeight.bold, fontSize: 3.2.w),
+                      ),
+                      Switch.adaptive(
+                        value: controller.toggleSwitchVariant.value,
+                        activeColor: MyColor.colorPrimary,
+                        onChanged: (v) {
+                          controller.toggleSwitchVariant(v);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                Visibility(
+                    visible: controller.toggleSwitchVariant.value,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        GeneralButton(
+                            label: 'Tambah Varian',
+                            onPressed: () => openDialogVariant()),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        ...List.generate(3, (index) => Card(
+                          child: ExpansionTile(
+                            title: Text("Variant 1"),
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text("Stok Varian",style: blackTextTitle,),
+                                      SizedBox(height: 3,),
+                                      Text("Tersedia",style: blackTextFont,)
+                                    ],
+                                  ),
+
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text("Harga Varian",style: blackTextTitle,),
+                                      SizedBox(height: 3,),
+                                      Text("Rp 10.000",style: blackTextFont,)
+                                    ],
+                                  ),
+                                ],
+                              )
+                            ],
+                            expandedAlignment: Alignment.centerLeft,
+                            childrenPadding: const EdgeInsets.all(8),
+                          ),
+                        ))
+                      ],
+                    )),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Atur Harga Grosir",
+                        style: GoogleFonts.roboto(
+                            fontWeight: FontWeight.bold, fontSize: 3.2.w),
+                      ),
+                      Switch.adaptive(
+                        value: controller.toggleSwitchWholesale.value,
+                        activeColor: MyColor.colorPrimary,
+                        onChanged: (v) {
+                          controller.toggleSwitchWholesale(v);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                Visibility(
+                    visible: controller.toggleSwitchWholesale.value,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        GeneralButton(
+                            label: 'Tambah Harga Grosir',
+                            onPressed: () => openDialogHargaGrosir()),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        ...List.generate(3, (index) => Card(
+                          child: ExpansionTile(
+                            title: Text("Variant 1"),
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text("Stok Varian",style: blackTextTitle,),
+                                      SizedBox(height: 3,),
+                                      Text("Tersedia",style: blackTextFont,)
+                                    ],
+                                  ),
+
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text("Harga Varian",style: blackTextTitle,),
+                                      SizedBox(height: 3,),
+                                      Text("Rp 10.000",style: blackTextFont,)
+                                    ],
+                                  ),
+                                ],
+                              )
+                            ],
+                            expandedAlignment: Alignment.centerLeft,
+                            childrenPadding: const EdgeInsets.all(8),
+                          ),
+                        ))
+                      ],
+                    )),
+                SizedBox(height: 10,),
                 TextField(
                   controller: controller.conPrice.value,
                   keyboardType: TextInputType.number,
@@ -157,14 +332,16 @@ class AddProductView extends GetWidget<ProductController> {
                   ],
                   onChanged: (v) {
                     print(v);
-                    controller.priceProduct( int.parse(controller.conPrice.value.text
+                    controller.priceProduct(int.parse(controller
+                        .conPrice.value.text
                         .split(" ")
                         .last
                         .replaceAll(".", "")));
                   },
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                      labelText: "Harga Jual",
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      labelText: "Harga Jual Normal",
                       labelStyle: GoogleFonts.droidSans(color: Colors.grey)),
                 ),
                 SizedBox(
@@ -173,7 +350,8 @@ class AddProductView extends GetWidget<ProductController> {
                 Text(
                   "* Contoh. Rp. 50.000",
                   style: GoogleFonts.droidSans(
-                      fontStyle: FontStyle.italic, color: MyColor.colorBlackT50),
+                      fontStyle: FontStyle.italic,
+                      color: MyColor.colorBlackT50),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -189,8 +367,8 @@ class AddProductView extends GetWidget<ProductController> {
                           children: [
                             Text(
                               "Isi Detail Produk",
-                              style:
-                                  GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 3.3.w),
+                              style: GoogleFonts.roboto(
+                                  fontWeight: FontWeight.bold, fontSize: 3.3.w),
                             ),
                             SizedBox(
                               height: 2,
@@ -222,7 +400,8 @@ class AddProductView extends GetWidget<ProductController> {
                       children: [
                         Container(
                           decoration: DottedDecoration(
-                              borderRadius: BorderRadius.circular(10), shape: Shape.box),
+                              borderRadius: BorderRadius.circular(10),
+                              shape: Shape.box),
                           padding: EdgeInsets.all(10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -240,8 +419,10 @@ class AddProductView extends GetWidget<ProductController> {
                                       width: 80,
                                     ),
                               ElevatedButton(
-                                  style: ElevatedButton.styleFrom(primary: MyColor.colorPrimary),
-                                  onPressed: () => controller.showBottomSheetImage(),
+                                  style: ElevatedButton.styleFrom(
+                                      primary: MyColor.colorPrimary),
+                                  onPressed: () =>
+                                      controller.showBottomSheetImage(),
                                   child: Text(
                                     "Photo",
                                     style: GoogleFonts.droidSans(),
@@ -267,18 +448,22 @@ class AddProductView extends GetWidget<ProductController> {
                           style: GoogleFonts.roboto(),
                           inputFormatters: [
                             WhitelistingTextInputFormatter.digitsOnly,
-                            CurrencyPtBrInputFormatter(maxDigits: 10, currency: "Rp "),
+                            CurrencyPtBrInputFormatter(
+                                maxDigits: 10, currency: "Rp "),
                           ],
                           onChanged: (v) {
-                           controller.priceModal( int.parse(controller.conModal.value.text
+                            controller.priceModal(int.parse(controller
+                                .conModal.value.text
                                 .split(" ")
                                 .last
                                 .replaceAll(".", "")));
                           },
                           decoration: InputDecoration(
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10)),
                               labelText: "Harga Modal",
-                              labelStyle: GoogleFonts.droidSans(color: Colors.grey)),
+                              labelStyle:
+                                  GoogleFonts.droidSans(color: Colors.grey)),
                         ),
                         SizedBox(
                           height: 10,
@@ -286,29 +471,31 @@ class AddProductView extends GetWidget<ProductController> {
                         Text(
                           "* Contoh. Rp. 50.000",
                           style: GoogleFonts.droidSans(
-                              fontStyle: FontStyle.italic, color: MyColor.colorBlackT50),
+                              fontStyle: FontStyle.italic,
+                              color: MyColor.colorBlackT50),
                         ),
                         SizedBox(
                           height: 20,
                         ),
                         GeneralTextInput(
-                          controller: controller.conSKU.value,
-                            labelTextInputBox: 'SKU Produk', descTextInputBox: 'Masukan Nomor SKU'),
+                            controller: controller.conSKU.value,
+                            labelTextInputBox: 'SKU Produk',
+                            descTextInputBox: 'Masukan Nomor SKU'),
                         TextField(
                           controller: controller.conBarcode.value,
                           keyboardType: TextInputType.emailAddress,
                           style: GoogleFonts.roboto(),
-                          onChanged: (v) {
-
-                          },
+                          onChanged: (v) {},
                           decoration: InputDecoration(
                               suffixIcon: IconButton(
                                 onPressed: () => controller.scanBarcode(),
                                 icon: Icon(IconlyLight.work),
                               ),
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10)),
                               labelText: "Barcode",
-                              labelStyle: GoogleFonts.droidSans(color: Colors.grey)),
+                              labelStyle:
+                                  GoogleFonts.droidSans(color: Colors.grey)),
                         ),
                         SizedBox(
                           height: 10,
@@ -316,7 +503,8 @@ class AddProductView extends GetWidget<ProductController> {
                         Text(
                           "* Scan Barcode",
                           style: GoogleFonts.droidSans(
-                              fontStyle: FontStyle.italic, color: MyColor.colorBlackT50),
+                              fontStyle: FontStyle.italic,
+                              color: MyColor.colorBlackT50),
                         ),
                         // SizedBox(
                         //   height: 20,
@@ -347,16 +535,102 @@ class AddProductView extends GetWidget<ProductController> {
           height: 50,
           width: double.infinity,
           child: ElevatedButton(
-            child: Text(
-              "Simpan",
-              style: GoogleFonts.droidSans(fontSize: 16),
-            ),
-            style: ElevatedButton.styleFrom(
-                elevation: 1,
-                primary: MyColor.colorPrimary,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-            onPressed: () => controller.createOrUpdateProduct()
-          )),
+              child: Text(
+                "Simpan",
+                style: GoogleFonts.droidSans(fontSize: 16),
+              ),
+              style: ElevatedButton.styleFrom(
+                  elevation: 1,
+                  primary: MyColor.colorPrimary,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10))),
+              onPressed: () => controller.createOrUpdateProduct())),
     );
+  }
+
+  Future openDialogVariant() {
+    return Get.defaultDialog(
+        title: "Tambah Varian",
+        radius: 10,
+        barrierDismissible: false,
+        contentPadding: const EdgeInsets.all(8),
+        content: StatefulBuilder(builder: (context, setState) {
+          return Column(
+            children: [
+              GeneralTextInput(
+                  controller: controller.conNameVariant.value,
+                  keyboardType: TextInputType.number,
+                  textInputAction: TextInputAction.next,
+                  labelTextInputBox: 'Nama Varian',
+                  descTextInputBox: 'cth. Putih'),
+              GeneralTextInput(
+                  controller: controller.conPriceVariant.value,
+                  keyboardType: TextInputType.number,
+                  textInputAction: TextInputAction.next,
+                  labelTextInputBox: 'Harga',
+                  descTextInputBox: 'cth. 10.000'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    "Atur Stok Produk",
+                    style: GoogleFonts.roboto(
+                        fontWeight: FontWeight.bold, fontSize: 3.2.w),
+                  ),
+                  Switch.adaptive(
+                    value: controller.toggleSwitchStockVariant.value,
+                    activeColor: MyColor.colorPrimary,
+                    onChanged: (v) {
+                      setState(() {
+                        controller.toggleSwitchStockVariant(v);
+                      });
+                    },
+                  ),
+                ],
+              ),
+              Visibility(
+                  visible: controller.toggleSwitchStockVariant.value,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GeneralTextInput(
+                          controller: controller.conQtyVariant.value,
+                          keyboardType: TextInputType.number,
+                          textInputAction: TextInputAction.next,
+                          labelTextInputBox: 'Stok Varian',
+                          descTextInputBox: 'cth. 10'),
+                    ],
+                  )),
+            ],
+          );
+        }));
+  }
+  Future openDialogHargaGrosir() {
+    return Get.defaultDialog(
+        title: "Tambah Harga Grosir",
+        radius: 10,
+        barrierDismissible: false,
+        contentPadding: const EdgeInsets.all(8),
+        content: StatefulBuilder(builder: (context, setState) {
+          return Column(
+            children: [
+              GeneralTextInput(
+                  controller: controller.conPriceWholesale.value,
+                  keyboardType: TextInputType.number,
+                  textInputAction: TextInputAction.next,
+                  labelTextInputBox: 'Nama Grosir',
+                  descTextInputBox: 'cth. Putih'),
+              GeneralTextInput(
+                  controller: controller.conPriceWholesale.value,
+                  keyboardType: TextInputType.number,
+                  textInputAction: TextInputAction.next,
+                  labelTextInputBox: 'Harga',
+                  descTextInputBox: 'cth. 10.000'),
+
+            ],
+          );
+        }));
   }
 }

@@ -23,11 +23,11 @@ class ProductController extends GetxController {
   Rx<LoadingState> loadingState = LoadingState.loading.obs;
   Rx<TextEditingController> searchC = TextEditingController().obs;
 
+  //Product Controller
   Rx<bool> toggleSwitchStock = false.obs;
   Rx<bool> toggleSwitchDetailProduct = false.obs;
   File? image;
   final picker = ImagePicker();
-
   RxInt priceProduct = 0.obs;
   RxInt priceModal = 0.obs;
   Rx<TextEditingController> conName = TextEditingController().obs;
@@ -40,6 +40,19 @@ class ProductController extends GetxController {
   Rx<TextEditingController> conBarcode = TextEditingController().obs;
   SatuanProduct? satuanProduct;
   CategoryProduct? categoryProduct;
+
+  //variant controller
+  Rx<bool> toggleSwitchStockVariant = false.obs;
+  Rx<bool> toggleSwitchVariant= false.obs;
+  Rx<TextEditingController> conPriceVariant = TextEditingController().obs;
+  Rx<TextEditingController> conNameVariant = TextEditingController().obs;
+  Rx<TextEditingController> conQtyVariant = TextEditingController().obs;
+
+  //variabel grosir
+
+  Rx<bool> toggleSwitchWholesale= false.obs;
+  Rx<TextEditingController> conPriceWholesale= TextEditingController().obs;
+  Rx<TextEditingController> conNameWholesale = TextEditingController().obs;
 
 
 
@@ -56,6 +69,7 @@ class ProductController extends GetxController {
 
   @override
   void dispose() {
+    print("disponse");
     listProduct.forEach((element) {
       element.productInCart=false;
     });

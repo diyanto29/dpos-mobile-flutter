@@ -7,16 +7,14 @@ import 'package:warmi/app/routes/app_pages.dart';
 import 'package:warmi/core/globals/global_string.dart';
 
 class SplashController extends GetxController {
-
   AppUpdateInfo? _updateInfo;
 
   Future<void> checkForUpdate() async {
     InAppUpdate.checkForUpdate().then((info) {
-
       _updateInfo = info;
 
-
-      if (_updateInfo!.updateAvailability == UpdateAvailability.updateAvailable) {
+      if (_updateInfo!.updateAvailability ==
+          UpdateAvailability.updateAvailable) {
         InAppUpdate.performImmediateUpdate().catchError((e) {
           print(e);
         });
@@ -25,13 +23,13 @@ class SplashController extends GetxController {
       print(e);
     });
   }
+
   @override
-  void onInit() async{
+  void onInit() async {
     print("init");
     checkForUpdate();
     await Permission.storage.request();
-     BusinessDataSource().getTypeBusiness();
-
+    BusinessDataSource().getTypeBusiness();
     checkSessionLogin();
     super.onInit();
   }
@@ -41,31 +39,31 @@ class SplashController extends GetxController {
     print("hg");
     super.onReady();
   }
+
   @override
   void dispose() {
-
     super.dispose();
   }
 
   @override
   void onClose() {}
 
-
-  Future<void> checkSessionLogin()async{
-    GetStorage box=GetStorage();
-    Future.delayed(Duration(seconds: 1),(){
-      if(box.hasData(MyString.USER_ID)){
-        if(box.read(MyString.ROLE_NAME).toString().toLowerCase().contains('pemilik toko')){
+  Future<void> checkSessionLogin() async {
+    GetStorage box = GetStorage();
+    Future.delayed(Duration(seconds: 1), () {
+      if (box.hasData(MyString.USER_ID)) {
+        if (box
+            .read(MyString.ROLE_NAME)
+            .toString()
+            .toLowerCase()
+            .contains('pemilik toko')) {
           Get.offAllNamed(Routes.NAVIGATION);
-        }else{
+        } else {
           Get.offAllNamed(Routes.INDEX_TRANSACTION);
         }
-      }else{
+      } else {
         Get.offAllNamed(Routes.LOGIN_CHOOISE);
       }
-
     });
   }
-
-
 }
