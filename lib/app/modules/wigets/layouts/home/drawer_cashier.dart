@@ -78,7 +78,7 @@ class DrawerCustom extends StatelessWidget {
 
                     },
                     leading: Icon(Icons.receipt_long,color: Colors.deepOrange,),
-                    title: Text("Riwayat Penjualan",style: GoogleFonts.roboto(fontWeight: FontWeight.bold),),
+                    title: Text('riwayat_penjualan'.tr,style: GoogleFonts.roboto(fontWeight: FontWeight.bold),),
                     trailing: Icon(Icons.keyboard_arrow_right,color: Colors.black,),
                     dense: true,
 
@@ -110,7 +110,7 @@ class DrawerCustom extends StatelessWidget {
                   ListTile(
                     onTap: ()=>controllerSetting.logOut() ,
                     leading: Icon(Icons.exit_to_app,color: Colors.deepOrange,),
-                    title: Text("Keluar",style: GoogleFonts.roboto(fontWeight: FontWeight.bold),),
+                    title: Text('keluar'.tr,style: GoogleFonts.roboto(fontWeight: FontWeight.bold),),
                     trailing: Icon(Icons.keyboard_arrow_right,color: Colors.black,),
                     dense: true,
 

@@ -23,7 +23,7 @@ class EmployeesView extends GetWidget<EmployeesController> {
         appBar: AppBar(
           backgroundColor: MyColor.colorPrimary,
           title: Text(
-            'Kelola Karyawan',
+            'kelola_karyawan'.tr,
             style: whiteTextTitle,
           ),
           actions: [IconButton(onPressed: () => showBottomDialogEmployees(), icon: Icon(IconlyBold.plus))],
@@ -42,7 +42,7 @@ class EmployeesView extends GetWidget<EmployeesController> {
                     controller.searchEmployees(v);
                   },
                   decoration: InputDecoration(
-                      hintText: "Cari Karyawan disini...",
+                      hintText: 'cari_karyawan'.tr + '...',
                       hintStyle: TextStyle(fontSize: 12, color: Colors.grey[600]),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -64,7 +64,7 @@ class EmployeesView extends GetWidget<EmployeesController> {
                       ? Center(child: CircularProgressIndicator())
                       : controller.listEmployees.length == 0
                           ? Center(
-                              child: Text("Data Kosong"),
+                              child: Text('data_kosong'.tr),
                             )
                           : controller.searchC.value.text.isNotEmpty
                               ? controller.listSearchEmployees.length == 0
@@ -88,8 +88,8 @@ class EmployeesView extends GetWidget<EmployeesController> {
                                             trailing: IconButton(
                                               onPressed: () {
                                                 showDialogQuestion(
-                                                    title: 'Hapus',
-                                                    message: 'Apakah Anda Yakin?',
+                                                    title: 'hapus'.tr,
+                                                    message: 'apakah_anda_yakin'.tr + ' ?',
                                                     clickYes: () {
                                                       Get.back();
                                                       controller.deleteEmployees(data.employeid.toString());
@@ -147,8 +147,8 @@ class EmployeesView extends GetWidget<EmployeesController> {
                                         trailing: IconButton(
                                           onPressed: () {
                                             showDialogQuestion(
-                                                title: 'Hapus',
-                                                message: 'Apakah Anda Yakin?',
+                                                title: 'hapus'.tr,
+                                                message: 'apakah_anda_yakin'.tr + ' ?',
                                                 clickYes: () {
                                                   Get.back();
                                                   controller.deleteEmployees(data.employeid.toString());

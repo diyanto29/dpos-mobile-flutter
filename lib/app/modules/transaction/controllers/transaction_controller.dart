@@ -49,8 +49,8 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
   var discountController = Get.put(DiscountController());
   var printerC = Get.isRegistered<PrinterController>() ? Get.find<PrinterController>() : Get.put(PrinterController());
   final List<Tab> tabs = <Tab>[
-    Tab(text: "Semua"),
-    Tab(text: "Paket"),
+    Tab(text: 'semua'.tr),
+    Tab(text: 'paket'.tr),
   ];
 
   final List<Tab> tabsCheckout = <Tab>[
@@ -542,7 +542,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
                   children: [
                     Flexible(
                         child: Text(
-                      "Catatan",
+                      'catatan'.tr,
                       style: blackTextTitle.copyWith(fontSize: 14.sp),
                     )),
                     Flexible(
@@ -561,7 +561,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
                   children: [
                     Flexible(
                         child: Text(
-                      "Waktu",
+                      'waktu'.tr,
                       style: blackTextTitle.copyWith(fontSize: 14.sp),
                     )),
                     Flexible(
@@ -580,7 +580,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
                   children: [
                     Flexible(
                         child: Text(
-                      "Metode Pembayaran",
+                          'metode_pembayaran'.tr,
                       style: blackTextTitle.copyWith(fontSize: 14.sp),
                     )),
                     Flexible(
@@ -599,7 +599,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
                   children: [
                     Flexible(
                         child: Text(
-                      "Status Pembayaran",
+                          'status_pembayaran'.tr,
                       style: blackTextTitle.copyWith(fontSize: 14.sp),
                     )),
                     Flexible(
@@ -618,7 +618,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
                   children: [
                     Flexible(
                         child: Text(
-                      "Kasir",
+                          'kasir'.tr,
                       style: blackTextTitle.copyWith(fontSize: 14.sp),
                     )),
                     Flexible(
@@ -638,7 +638,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
                     children: [
                       Flexible(
                           child: Text(
-                        "Pelanggan",
+                            'pelanggan'.tr,
                         style: blackTextTitle.copyWith(fontSize: 14.sp),
                       )),
                       Flexible(
@@ -804,7 +804,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
                   children: [
                     Flexible(
                       child: Text(
-                        "Total Bayar",
+                        'total_bayar'.tr,
                         style: blackTextFont,
                       ),
                     ),
@@ -829,7 +829,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
                         children: [
                           Flexible(
                               child: Text(
-                            "Bayar",
+                            'bayar'.tr,
                             style: blackTextFont,
                           )),
                           Flexible(
@@ -852,7 +852,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
                         children: [
                           Flexible(
                               child: Text(
-                            "Kembalian",
+                                'kembalian'.tr,
                             style: blackTextFont,
                           )),
                           Flexible(

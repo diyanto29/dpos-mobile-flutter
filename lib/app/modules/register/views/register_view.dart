@@ -66,7 +66,7 @@ class RegisterView extends GetWidget<RegisterController> {
                       children: [
                         GeneralTextInput(
                           controller: controller.fullNameC,
-                            labelTextInputBox: "Nama Lengkap", descTextInputBox: "Cth. Diyanto"),
+                            labelTextInputBox: 'nama_lengkap'.tr, descTextInputBox: "Cth. Diyanto"),
                         GeneralTextInput(
                           controller: controller.emailC,
                             textInputAction: TextInputAction.next,

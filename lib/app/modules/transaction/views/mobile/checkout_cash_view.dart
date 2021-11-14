@@ -451,7 +451,7 @@ class _CheckoutCashViewState extends State<CheckoutCashView> {
               height: 15,
             ),
             Text(
-              "Total Kembalian",
+              'total_kembalian'.tr,
               style: blackTextTitle.copyWith(fontWeight: FontWeight.normal),
             ),
             SizedBox(

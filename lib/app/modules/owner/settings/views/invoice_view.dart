@@ -16,49 +16,88 @@ class InvoiceView extends GetWidget<InvoiceController> {
       appBar: AppBar(
         backgroundColor: MyColor.colorPrimary,
         title: Text(
-          'Struk Nota',
+          'struk_pembelian'.tr,
           style: whiteTextTitle,
         ),
-
       ),
       body: Obx(() {
         return ListView(
           padding: const EdgeInsets.all(20),
           children: [
-            Text("Header", style: blackTextTitle.copyWith(fontSize: 20),),
-            SizedBox(height: 10,),
+            Text(
+              "Header",
+              style: blackTextTitle.copyWith(fontSize: 20),
+            ),
+            SizedBox(
+              height: 10,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Flexible(child: Text("Tampilkan Logo Bisnis Anda", style: blackTextTitle,)),
-                Flexible(child: Switch.adaptive(value: controller.logo.value, onChanged: (v) {
-                  controller.logo(v);
-                }, activeColor: MyColor.colorPrimary,)),
+                Flexible(
+                    child: Text(
+                  'tampilkan_logo_bisnis_anda'.tr,
+                  style: blackTextTitle,
+                )),
+                Flexible(
+                    child: Switch.adaptive(
+                  value: controller.logo.value,
+                  onChanged: (v) {
+                    controller.logo(v);
+                  },
+                  activeColor: MyColor.colorPrimary,
+                )),
               ],
             ),
-            Divider(thickness: 0.5,),
-            SizedBox(height: 25,),
-            Text("Footer", style: blackTextTitle.copyWith(fontSize: 20),),
-            SizedBox(height: 10,),
+            Divider(
+              thickness: 0.5,
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            Text(
+              "Footer",
+              style: blackTextTitle.copyWith(fontSize: 20),
+            ),
+            SizedBox(
+              height: 10,
+            ),
             GeneralTextInput(
               controller: controller.controllerFooter.value,
-              labelTextInputBox: 'Catatan Kaki', descTextInputBox: "Masukan Catatan Kaki", maxLines: 5, borderRadius: 10,),
-            SizedBox(height: 10,),
+              labelTextInputBox: '',
+              descTextInputBox: 'masukkan_catatan_kaki'.tr,
+              maxLines: 5,
+              borderRadius: 10,
+            ),
+            SizedBox(
+              height: 10,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Flexible(child: Column(
+                Flexible(
+                    child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Tampilkan Logo Dpos", style: blackTextTitle,),
-                    Text("(Hanya Bisa Dimatikan oleh Member Premium)", style: blackTextFont,)
+                    Text(
+                      "Tampilkan Logo Dpos",
+                      style: blackTextTitle,
+                    ),
+                    Text(
+                      '(' + 'hanya_bisa_dimatikan_oleh_member_premium'.tr + ')',
+                      style: blackTextFont,
+                    )
                   ],
                 )),
-
-                Flexible(child: Switch.adaptive(value: controller.logoDpos.value, onChanged: (v) {}, activeColor: MyColor.colorPrimary,)),
+                Flexible(
+                    child: Switch.adaptive(
+                  value: controller.logoDpos.value,
+                  onChanged: (v) {},
+                  activeColor: MyColor.colorPrimary,
+                )),
               ],
             ),
           ],
@@ -70,15 +109,16 @@ class InvoiceView extends GetWidget<InvoiceController> {
           width: double.infinity,
           child: ElevatedButton(
             child: Text(
-              "Simpan",
+              'simpan'.tr,
               style: GoogleFonts.droidSans(fontSize: 16),
             ),
             style: ElevatedButton.styleFrom(
                 elevation: 1,
                 primary: MyColor.colorPrimary,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25))),
             onPressed: () {
-            controller.storeInvoice();
+              controller.storeInvoice();
             },
           )),
     );

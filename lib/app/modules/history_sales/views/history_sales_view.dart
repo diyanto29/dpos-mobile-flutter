@@ -19,7 +19,7 @@ class HistorySalesView extends GetWidget<HistorySalesController> {
         backgroundColor: MyColor.colorGrey,
         appBar: AppBar(
           backgroundColor: MyColor.colorPrimary,
-          title: Text('Riwayat Penjualan',),
+          title: Text('riwayat_penjualan'.tr,),
           automaticallyImplyLeading: controller.auth.value.roleName=="Pemilik Toko" ? false : true,
 
         ),
@@ -93,17 +93,17 @@ class HistorySalesView extends GetWidget<HistorySalesController> {
                  },
                  controller: controller.controllerPage,
                  children: controller.tabs.map<Widget>((Tab tab) {
-                   if (tab.text == "Semua") {
-                     return AllHistory(statusTab: "Semua",);
-                   } else if (tab.text == "Lunas") {
+                   if (tab.text == 'semua'.tr) {
+                     return AllHistory(statusTab: 'semua'.tr,);
+                   } else if (tab.text == 'lunas'.tr) {
                      return AllHistory(statusTab: tab.text!,);
-                   } else if (tab.text == "Menunggu Pembayaran") {
+                   } else if (tab.text == 'menunggu_pembayaran'.tr) {
                      return AllHistory(statusTab: tab.text!,);
                    }
     // else if (tab.text == "Utang") {
                    //   return AllHistory(statusTab: tab.text!,);
                    // }
-                   else if (tab.text == "Dibatalkan") {
+                   else if (tab.text == 'pembatalan'.tr) {
                      return AllHistory(statusTab: tab.text!,);
                    }  else {
                      return Container();

@@ -75,7 +75,7 @@ class _EditProductViewState extends State<EditProductView> {
               children: [
                 GeneralTextInput(
                     controller: controller.conName.value,
-                    labelTextInputBox: 'Nama Produk', descTextInputBox: 'Masukan Nama Produk'),
+                    labelTextInputBox: 'nama_produk'.tr, descTextInputBox: 'masukkan_nama_produk'.tr),
                 controller.listUnitProduct.length == 0
                     ? DropdownSearch(
                   hint: "Pilih Satuan Produk",
@@ -388,7 +388,7 @@ class _EditProductViewState extends State<EditProductView> {
 
                   child: ElevatedButton(
                     child: Text(
-                      "Simpan",
+                      'simpan'.tr,
                       style: GoogleFonts.droidSans(fontSize: 16),
                     ),
                     style: ElevatedButton.styleFrom(
@@ -407,7 +407,7 @@ class _EditProductViewState extends State<EditProductView> {
 
                   child: ElevatedButton(
                     child: Text(
-                      "Hapus",
+                      'hapus'.tr,
                       style: GoogleFonts.droidSans(fontSize: 16),
                     ),
                     style: ElevatedButton.styleFrom(

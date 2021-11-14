@@ -45,7 +45,7 @@ class LoginEmployeeController extends GetxController {
       await AuthRemoteDataSource().loginAuthCashier(username: emailC.text, password: passwordC.text).then((value) {
         Get.back();
         if (!value.status) {
-          showSnackBar(snackBarType: SnackBarType.ERROR, title: 'Login', message: 'Pin/No Hanphone tidak valid');
+          showSnackBar(snackBarType: SnackBarType.ERROR, title: 'Login', message: 'PIN/No Hanphone tidak valid');
           return true;
         } else {
           showSnackBar(snackBarType: SnackBarType.ERROR, title: 'Login', message: value.message);

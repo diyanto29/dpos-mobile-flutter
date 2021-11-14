@@ -1,7 +1,6 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:warmi/core/globals/global_color.dart';
+import 'package:get/get.dart';
 
 class CardOrder extends StatelessWidget {
   final String? orderNumber;
@@ -17,13 +16,26 @@ class CardOrder extends StatelessWidget {
   final String? noted;
   final bool? showCashier;
 
-  const CardOrder({Key? key, this.orderNumber, this.orderStatus, this.orderColorStatus, this.orderDate, this.orderStore, this.outlet, this.totalOrders, this.qtyOrders, this.orderClick, this.cashier, this.showCashier=false, this.noted}) : super(key: key);
+  const CardOrder(
+      {Key? key,
+      this.orderNumber,
+      this.orderStatus,
+      this.orderColorStatus,
+      this.orderDate,
+      this.orderStore,
+      this.outlet,
+      this.totalOrders,
+      this.qtyOrders,
+      this.orderClick,
+      this.cashier,
+      this.showCashier = false,
+      this.noted})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return  Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10)
-      ),
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       elevation: 1,
       child: InkWell(
         onTap: orderClick,
@@ -35,49 +47,44 @@ class CardOrder extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Flexible(
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment:
-                        CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
                         children: [
-                          Row(
-                            children: [
-                              Text(
-                                "Order#$orderNumber",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14),
-                              ),
-                              Icon(
-                                Icons.arrow_forward_ios,
-                                size: 15,
-                                color: MyColor.colorPrimary,
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 4,
-                          ),
                           Text(
-                            "$orderDate",
+                            "Order#$orderNumber",
                             style: TextStyle(
-                                color: Colors.grey, fontSize: 12),
+                                fontWeight: FontWeight.bold, fontSize: 14),
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            size: 15,
+                            color: MyColor.colorPrimary,
                           )
                         ],
-                      )),
+                      ),
+                      SizedBox(
+                        height: 4,
+                      ),
+                      Text(
+                        "$orderDate",
+                        style: TextStyle(color: Colors.grey, fontSize: 12),
+                      )
+                    ],
+                  )),
                   Flexible(
                     child: Container(
                       alignment: Alignment.center,
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 6),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                       decoration: BoxDecoration(
-                          borderRadius:
-                          BorderRadius.circular(5),
+                          borderRadius: BorderRadius.circular(5),
                           color: orderColorStatus),
                       child: Text(
                         "$orderStatus",
@@ -97,12 +104,10 @@ class CardOrder extends StatelessWidget {
                 height: 4,
               ),
               Row(
-                mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Flexible(
-                      child: orderStore),
+                  Flexible(child: orderStore),
                   SizedBox(
                     width: 10,
                   ),
@@ -113,67 +118,52 @@ class CardOrder extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment:
-                            CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                "Toko Penjual",
-                                style: TextStyle(
-                                    fontWeight:
-                                    FontWeight.bold),
+                                'toko'.tr,
+                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                               Text(
                                 "$outlet",
-                                style: TextStyle(
-                                    fontWeight:
-                                    FontWeight.bold),
+                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
-                          SizedBox(height: 10,),
+                          SizedBox(
+                            height: 10,
+                          ),
                           Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment:
-                            CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                "Total Bayar",
-                                style: TextStyle(
-                                    fontWeight:
-                                    FontWeight.bold),
+                                'total_bayar'.tr,
+                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-
                               Text(
                                 "$totalOrders",
-                                style: TextStyle(
-                                    fontWeight:
-                                    FontWeight.bold),
+                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
 
                           // Divider(thickness: 1,),
-                          SizedBox(height: 10,),
+                          SizedBox(
+                            height: 10,
+                          ),
                           Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment:
-                            CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                "Jumlah yang dibeli",
-                                style: TextStyle(
-                                    fontWeight:
-                                    FontWeight.bold),
+                                'jumlah_yg_dibeli'.tr,
+                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                "$qtyOrders Produk",
-                                style: TextStyle(
-                                    fontWeight:
-                                    FontWeight.bold),
+                                "$qtyOrders" + ' ' + 'produk'.tr,
+                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
@@ -181,16 +171,19 @@ class CardOrder extends StatelessWidget {
                       ))
                 ],
               ),
-              showCashier! ? Divider(thickness: 1,) : Container(),
+              showCashier!
+                  ? Divider(
+                      thickness: 1,
+                    )
+                  : Container(),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  showCashier! ? Text("Kasir :  $cashier") : Container(),
-                  if(noted!=null) Text("Cat. :  $noted")
+                  showCashier! ? Text('kasir'.tr + ' : ' + "$cashier") : Container(),
+                  if (noted != null) Text("Cat. :  $noted")
                 ],
               )
-
             ],
           ),
         ),

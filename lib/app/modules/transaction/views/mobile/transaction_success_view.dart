@@ -59,14 +59,14 @@ class _TransactionSuccessViewState extends State<TransactionSuccessView> {
                   SizedBox(height: 10,),
                   Text("Transaksi Success!", style: blackTextTitle.copyWith(fontSize: 16),),
                   SizedBox(height: 20,),
-                  if(controller.paymentMethod.value.paymentmethodid == null)Text("Kembalian Rp ${formatCurrency.format(controller.cashReceived.value)}", style: blackTextTitle.copyWith(fontSize: 20),),
+                  if(controller.paymentMethod.value.paymentmethodid == null)Text('kembalian'.tr + " Rp ${formatCurrency.format(controller.cashReceived.value)}", style: blackTextTitle.copyWith(fontSize: 20),),
                   if(controller.paymentMethod.value.paymentmethodid != null)Container(
                     padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         color: MyColor.colorPrimary
                     ),
-                    child: Text("Metode Pembayaran : ${type
+                    child: Text('metode_pembayaran'.tr + ' : ' + "${type
                         .toString()
                         .titleCase} - ${controller.paymentMethod.value.paymentmethodalias.toString().toUpperCase()}", style: blackTextTitle.copyWith(fontSize: 15.sp, color: Colors.white),),
                   ),
@@ -92,7 +92,7 @@ class _TransactionSuccessViewState extends State<TransactionSuccessView> {
                     ) : Container();
                   }),
                   Spacer(),
-                  GeneralButton(onPressed: () => controller.printNow(), label: 'Cetak Struk',),
+                  GeneralButton(onPressed: () => controller.printNow(), label: 'cetak_struk'.tr,),
                   SizedBox(height: 10,),
                   GeneralButton(onPressed: () async {
                     historyC.getTransactionLast();
@@ -126,14 +126,14 @@ class _TransactionSuccessViewState extends State<TransactionSuccessView> {
                         SizedBox(height: 10,),
                         Text("Transaksi Success!", style: blackTextTitle.copyWith(fontSize: 16),),
                         SizedBox(height: 20,),
-                        if(controller.paymentMethod.value.paymentmethodid == null)Text("Kembalian Rp ${formatCurrency.format(controller.cashReceived.value)}", style: blackTextTitle.copyWith(fontSize: 20),),
+                        if(controller.paymentMethod.value.paymentmethodid == null)Text('kembalian'.tr + " Rp ${formatCurrency.format(controller.cashReceived.value)}", style: blackTextTitle.copyWith(fontSize: 20),),
                         if(controller.paymentMethod.value.paymentmethodid != null)Container(
                           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
                               color: MyColor.colorPrimary
                           ),
-                          child: Text("Metode Pembayaran : ${type
+                          child: Text('metode_pembayaran'.tr + ' : ' + "${type
                               .toString()
                               .titleCase} - ${controller.paymentMethod.value.paymentmethodalias.toString().toUpperCase()}", style: blackTextTitle.copyWith(fontSize: 15.sp, color: Colors.white),),
                         ),
@@ -165,7 +165,7 @@ class _TransactionSuccessViewState extends State<TransactionSuccessView> {
                         ),
                         SizedBox(height: 20,),
 
-                        GeneralButton(onPressed: () => controller.printNow(), label: 'Cetak Struk',),
+                        GeneralButton(onPressed: () => controller.printNow(), label: 'cetak_struk'.tr,),
                         SizedBox(height: 10,),
                         GeneralButton(onPressed: () async {
                           historyC.getTransactionLast();

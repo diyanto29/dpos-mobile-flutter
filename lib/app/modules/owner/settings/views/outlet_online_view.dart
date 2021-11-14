@@ -33,65 +33,96 @@ class OutletOnlineView extends GetWidget<OutletController> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 20,),
-
+            SizedBox(
+              height: 20,
+            ),
             Expanded(
                 child: controller.loadingState == LoadingState.loading
                     ? Center(child: CircularProgressIndicator())
                     : controller.listOutlet.length == 0
-                    ? Center(
-                  child: Text("Data Kosong"),
-                )
-
-                    : ListView.builder(
-                    itemCount: controller.listOutlet.length,
-                    shrinkWrap: true,
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    physics: ClampingScrollPhysics(),
-                    itemBuilder: (c, i) {
-                      var data = controller.listOutlet[i];
-                      return Card(
-                        elevation: 0.1,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                        child: ExpansionTile(
-                          title: Text(data.storeName.toString().titleCase,style: blackTextTitle,),
-                          expandedAlignment: Alignment.centerLeft,
-                          childrenPadding: const EdgeInsets.all(8),
-                          initiallyExpanded: i==0 ? true : false,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: MyColor.colorBlack5
+                        ? Center(
+                            child: Text('data_kosong'.tr),
+                          )
+                        : ListView.builder(
+                            itemCount: controller.listOutlet.length,
+                            shrinkWrap: true,
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            physics: ClampingScrollPhysics(),
+                            itemBuilder: (c, i) {
+                              var data = controller.listOutlet[i];
+                              return Card(
+                                elevation: 0.1,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: ExpansionTile(
+                                  title: Text(
+                                    data.storeName.toString().titleCase,
+                                    style: blackTextTitle,
                                   ),
-                                  child: Text("http://dpos.mudahkan.com/${data.storeName}"),
+                                  expandedAlignment: Alignment.centerLeft,
+                                  childrenPadding: const EdgeInsets.all(8),
+                                  initiallyExpanded: i == 0 ? true : false,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 10),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              color: MyColor.colorBlack5),
+                                          child: Text(
+                                              "http://dpos.mudahkan.com/${data.storeName}"),
+                                        ),
+                                        Flexible(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              Flexible(
+                                                  child: IconButton(
+                                                      onPressed: () => controller
+                                                          .copyToClipboard(
+                                                              "http://dpos.mudahkan.com/${data.storeName!.replaceAll(' ', '%20')}"),
+                                                      icon: Icon(Icons.copy))),
+                                              Flexible(
+                                                  child: IconButton(
+                                                      onPressed: () => controller
+                                                          .shareWebsite(
+                                                              "http://dpos.mudahkan.com/${data.storeName!.replaceAll(' ', '%20')}",
+                                                              data.storeName
+                                                                  .toString()),
+                                                      icon: Icon(
+                                                        Icons.share,
+                                                        color: MyColor
+                                                            .colorPrimary,
+                                                      ))),
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'desc_tokoonline'.tr,
+                                          style: blackTextFont.copyWith(
+                                              fontStyle: FontStyle.italic,
+                                              fontSize: 10),
+                                        ),
+                                      ],
+                                    )
+                                  ],
                                 ),
-                                Flexible(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Flexible(child: IconButton(onPressed: ()=> controller.copyToClipboard("http://dpos.mudahkan.com/${data.storeName!.replaceAll(' ', '%20')}"), icon: Icon(Icons.copy))),
-                                      Flexible(child: IconButton(onPressed: ()=> controller.shareWebsite("http://dpos.mudahkan.com/${data.storeName!.replaceAll(' ', '%20')}", data.storeName.toString()), icon: Icon(Icons.share,color:MyColor.colorPrimary,))),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text("Ini Merupakan Halaman Landing Page dari Toko anda",style: blackTextFont.copyWith(fontStyle: FontStyle.italic,fontSize: 10),),
-                              ],
-                            )
-                          ],
-                        ),
-                      );
-                    })),
+                              );
+                            })),
           ],
         );
       }),

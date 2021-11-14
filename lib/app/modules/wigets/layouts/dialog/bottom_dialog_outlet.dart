@@ -75,7 +75,7 @@ class _BottomDialogOutletState extends State<BottomDialogOutlet> {
                             onTap: (){
                               showDialogQuestion(
                                   title: 'Ganti Toko',
-                                  message: 'Apakah Anda Yakin?',
+                                  message: 'apakah_anda_yakin'.tr + ' ?',
                                   clickYes: () {
                                     Get.back();
                                     controller.changeOutlet(dataOutlet: data);
@@ -88,7 +88,7 @@ class _BottomDialogOutletState extends State<BottomDialogOutlet> {
                               onChanged: (v) {
                                 showDialogQuestion(
                                     title: 'Ganti Toko',
-                                    message: 'Apakah Anda Yakin?',
+                                    message: 'apakah_anda_yakin'.tr + ' ?',
                                     clickYes: () {
                                       Get.back();
                                       controller.changeOutlet(dataOutlet: data);

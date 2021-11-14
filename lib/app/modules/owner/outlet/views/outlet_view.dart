@@ -24,7 +24,7 @@ class OutletView extends GetWidget<OutletController> {
       appBar: AppBar(
         backgroundColor: MyColor.colorPrimary,
         title: Text(
-          'Kelola Outlet',
+          'kelola_toko'.tr,
           style: whiteTextTitle,
         ),
         actions: [IconButton(onPressed: () => Get.toNamed(Routes.ADD_OUTLET), icon: Icon(IconlyBold.plus))],
@@ -43,7 +43,7 @@ class OutletView extends GetWidget<OutletController> {
                 },
                 style: TextStyle(height: 0.9, fontSize: 14),
                 decoration: InputDecoration(
-                    hintText: "Cari Toko disini...",
+                    hintText: 'cari_toko'.tr + '...',
                     hintStyle: TextStyle(fontSize: 12, color: Colors.grey[600]),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -65,7 +65,7 @@ class OutletView extends GetWidget<OutletController> {
                     ? Center(child: CircularProgressIndicator())
                     : controller.listOutlet.length == 0
                         ? Center(
-                            child: Text("Data Kosong"),
+                            child: Text('data_kosong'.tr),
                           )
                         : controller.searchC.value.text.isNotEmpty
                             ? controller.listSearchOutlet.length == 0
@@ -89,8 +89,8 @@ class OutletView extends GetWidget<OutletController> {
                                           trailing: IconButton(
                                             onPressed: () {
                                               showDialogQuestion(
-                                                  title: 'Hapus',
-                                                  message: 'Apakah Anda Yakin?',
+                                                  title: 'hapus'.tr,
+                                                  message: 'apakah_anda_yakin'.tr + ' ?',
                                                   clickYes: () {
                                                     Get.back();
                                                     controller.deleteOutlet(data.storeId.toString());
@@ -152,8 +152,8 @@ class OutletView extends GetWidget<OutletController> {
                                       trailing: IconButton(
                                         onPressed: () {
                                           showDialogQuestion(
-                                              title: 'Hapus',
-                                              message: 'Apakah Anda Yakin?',
+                                              title: 'hapus'.tr,
+                                              message: 'apakah_anda_yakin'.tr + ' ?',
                                               clickYes: () {
                                                 Get.back();
                                                 controller.deleteOutlet(data.storeId.toString());

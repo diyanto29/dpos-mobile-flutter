@@ -42,7 +42,7 @@ class ProductCategoryController extends GetxController {
     if (nameCategoryProductC.text.isEmpty) {
       showSnackBar(
           snackBarType: SnackBarType.WARNING,
-          title: 'Kategori Produk',
+          title: 'kategori_produk'.tr,
           message: 'Nama Wajib Diisi');
       return;
     }
@@ -55,7 +55,7 @@ class ProductCategoryController extends GetxController {
             Get.back();
             showSnackBar(
                 snackBarType: SnackBarType.SUCCESS,
-                title: 'Kategori Produk',
+                title: 'kategori_produk'.tr,
                 message: 'Data Berhasil Disimpan');
             nameCategoryProductC.text="";
             update();
@@ -64,7 +64,7 @@ class ProductCategoryController extends GetxController {
           }else{
             showSnackBar(
                 snackBarType: SnackBarType.ERROR,
-                title: 'Kategori Produk',
+                title: 'kategori_produk'.tr,
                 message: "${value.message}");
           }
 

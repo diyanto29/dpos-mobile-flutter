@@ -93,7 +93,7 @@ class OutletController extends GetxController {
     if (toggleSwitchOutlet.value && selectedProvince.value!
         .provinceId==null) {
       showSnackBar(snackBarType: SnackBarType.INFO, title: 'Outlet', message:
-      "Atur Alamat Toko Anda");
+      'atur_alamat_toko_anda'.tr);
       return;
     }
 

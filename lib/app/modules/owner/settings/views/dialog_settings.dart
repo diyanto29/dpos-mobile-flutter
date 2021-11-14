@@ -103,7 +103,7 @@ Future<dynamic> dialogBottomCallMe() {
               trailing: false,
               axisSpacing: true,
               icon: "assets/icons/call.png",
-              textButton: "Nomor Handphone",
+              textButton: 'nomor_telp'.tr,
               subtitle: true,
               textSubtitle: '0856-2427-7920',
               borderRadius: 10,
@@ -172,7 +172,7 @@ Future<dynamic> dialogBottomAddCategoryProduct() {
                 controller: categoryC.nameCategoryProductC,
                   labelTextInputBox: 'Nama Kategori', descTextInputBox: 'Masukan Kategori Produk'),
               Spacer(),
-              GeneralButton(label: 'Simpan', onPressed: () => categoryC.createOrUpdateCategoryProductDataSource())
+              GeneralButton(label: 'simpan'.tr, onPressed: () => categoryC.createOrUpdateCategoryProductDataSource())
             ],
           ),
         ),
@@ -215,10 +215,10 @@ Future<dynamic> dialogBottomAddTypeOrder({TypeOrder? data}) {
                   textInputAction: TextInputAction.done,
                   controller: typeOrderC.nameTypeOrderC,
                   labelTextInputBox: 'Tipe Pesanan',
-                  descTextInputBox: 'Masukan Nama Tipe Pesanan'),
+                  descTextInputBox: 'masukkan_nama_tipe_pesanan'.tr),
               Spacer(),
               GeneralButton(
-                  label: 'Simpan',
+                  label: 'simpan'.tr,
                   onPressed: () => typeOrderC.createOrUpdateTypeOrderDataSource("${data?.orderTypeId.toString()}"))
             ],
           ),

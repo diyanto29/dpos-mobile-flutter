@@ -43,7 +43,7 @@ class TypeOrderView extends GetWidget<TypeOrderController> {
                   },
                   style: TextStyle(height: 0.9, fontSize: 14),
                   decoration: InputDecoration(
-                      hintText: "Cari Tipe Pesanan disini...",
+                      hintText: 'cari_tipe_pesanan'.tr + '...',
                       hintStyle: TextStyle(fontSize: 12, color: Colors.grey[600]),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -67,7 +67,7 @@ class TypeOrderView extends GetWidget<TypeOrderController> {
                       ? Center(child: CircularProgressIndicator())
                       : controller.listTypeOrder.length == 0
                           ? Center(
-                              child: Text("Data Kosong"),
+                              child: Text('data_kosong'.tr),
                             )
                           : controller.searchC.value.text.isNotEmpty
                               ? controller.listSearchTypeOrder.length == 0
@@ -90,7 +90,7 @@ class TypeOrderView extends GetWidget<TypeOrderController> {
                                             contentPadding: EdgeInsets.all(8),
                                             trailing: IconButton(
                                               onPressed: () => showDialogQuestion(
-                                                  title: 'Hapus',
+                                                  title: 'hapus'.tr,
                                                   message: 'Anda Yakin ?',
                                                   clickYes: () {
                                                     controller.deleteTypeOrderDataSource(controller
@@ -134,7 +134,7 @@ class TypeOrderView extends GetWidget<TypeOrderController> {
                                         contentPadding: EdgeInsets.all(8),
                                         trailing: IconButton(
                                           onPressed: () => showDialogQuestion(
-                                              title: 'Hapus',
+                                              title: 'hapus'.tr,
                                               message: 'Anda Yakin ?',
                                               clickYes: () {
                                                 controller.deleteTypeOrderDataSource(

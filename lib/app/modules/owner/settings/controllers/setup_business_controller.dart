@@ -44,14 +44,19 @@ class SetupBusinessController extends GetxController {
 
   void initialization() {
     businessNameC.text = businessProfile.value.data!.businessName ?? '';
-    websiteNameC.text = businessProfile.value.data!.businessWebsiteName=="null" ? '' :businessProfile.value.data!.businessWebsiteName.toString();
+    websiteNameC.text =
+        businessProfile.value.data!.businessWebsiteName == "null"
+            ? ''
+            : businessProfile.value.data!.businessWebsiteName.toString();
     contactC.text = businessProfile.value.data!.businessContact ?? '';
-    totalCrew(businessProfile.value.data!.businessCrewTotal ?? 'Jumlah Karyawan');
+    totalCrew(
+        businessProfile.value.data!.businessCrewTotal ?? 'Jumlah Karyawan');
     totalBranch(businessProfile.value.data!.businessBranch ?? 'Jumlah Outlet');
   }
 
   Future getImage(ImageSource imageSource) async {
-    final pickedFile = await picker.getImage(source: imageSource, imageQuality: 20);
+    final pickedFile =
+        await picker.getImage(source: imageSource, imageQuality: 20);
 
     if (pickedFile != null) {
       image = File(pickedFile.path);
@@ -97,8 +102,10 @@ class SetupBusinessController extends GetxController {
       businessProfile(BusinessProfileModel.fromJson(value));
       print(businessProfile.value.data!.category!.businessCategoryName);
       typeBusiness.value = new TypeBusiness(
-          businessCategoryId: businessProfile.value.data!.category!.businessCategoryId,
-          businessCategoryName: businessProfile.value.data!.category!.businessCategoryName);
+          businessCategoryId:
+              businessProfile.value.data!.category!.businessCategoryId,
+          businessCategoryName:
+              businessProfile.value.data!.category!.businessCategoryName);
       print(businessProfile.value.data!.businessName);
       initialization();
     });

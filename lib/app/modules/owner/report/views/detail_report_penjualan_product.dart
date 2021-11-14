@@ -14,7 +14,7 @@ class DetailReportSellingProduct extends GetWidget<ReportController> {
       appBar: AppBar(
         backgroundColor: MyColor.colorPrimary,
         title: Text(
-          "Detail Penjualan",
+          'detail_penjualan'.tr,
         ),
       ),
       body: GetBuilder<ReportController>(builder: (logic) {
@@ -29,12 +29,12 @@ class DetailReportSellingProduct extends GetWidget<ReportController> {
                   columns: <DataColumn>[
                     DataColumn(
                       label: Flexible(
-                        child: Text("Nama Produk"),
+                        child: Text('nama_produk'.tr),
                       ),
                     ),
                     DataColumn(
                       label: Text(
-                        'Terjual',
+                        'terjual'.tr,
                       ),
                     ),
                     DataColumn(

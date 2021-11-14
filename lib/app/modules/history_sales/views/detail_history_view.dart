@@ -77,7 +77,7 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                 children: [
                   Flexible(
                       child: Text(
-                    "Catatan",
+                    'catatan'.tr,
                     style: blackTextTitle.copyWith(fontSize: 14.sp),
                   )),
                   Flexible(
@@ -96,7 +96,7 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                 children: [
                   Flexible(
                       child: Text(
-                    "Waktu",
+                    'waktu'.tr,
                     style: blackTextTitle.copyWith(fontSize: 14.sp),
                   )),
                   Flexible(
@@ -115,7 +115,7 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                 children: [
                   Flexible(
                       child: Text(
-                    "Metode Pembayaran",
+                        'metode_pembayaran'.tr,
                     style: blackTextTitle.copyWith(fontSize: 14.sp),
                   )),
                   Flexible(
@@ -134,7 +134,7 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                 children: [
                   Flexible(
                       child: Text(
-                    "Status Pembayaran",
+                    'status_pembayaran'.tr,
                     style: blackTextTitle.copyWith(fontSize: 14.sp),
                   )),
                   Flexible(
@@ -153,7 +153,7 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                 children: [
                   Flexible(
                       child: Text(
-                    "Kasir",
+                    'kasir'.tr,
                     style: blackTextTitle.copyWith(fontSize: 14.sp),
                   )),
                   Flexible(
@@ -173,7 +173,7 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                   children: [
                     Flexible(
                         child: Text(
-                      "Pelanggan",
+                      'pelanggan'.tr,
                       style: blackTextTitle.copyWith(fontSize: 14.sp),
                     )),
                     Flexible(
@@ -339,7 +339,7 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                 children: [
                   Flexible(
                     child: Text(
-                      "Total Bayar",
+                      'total_bayar'.tr,
                       style: blackTextFont,
                     ),
                   ),
@@ -364,7 +364,7 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                       children: [
                         Flexible(
                             child: Text(
-                          "Bayar",
+                          'bayar'.tr,
                           style: blackTextFont,
                         )),
                         Flexible(
@@ -387,7 +387,7 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                       children: [
                         Flexible(
                             child: Text(
-                          "Kembalian",
+                          'kembalian'.tr,
                           style: blackTextFont,
                         )),
                         Flexible(
@@ -427,7 +427,7 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                   width: double.infinity,
                   child: ElevatedButton(
                     child: Text(
-                      "Cetak",
+                      'cetak'.tr,
                       style: GoogleFonts.droidSans(fontSize: 16),
                     ),
                     style: ElevatedButton.styleFrom(elevation: 1, primary: MyColor.colorPrimary, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
@@ -447,7 +447,7 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                         width: double.infinity,
                         child: ElevatedButton(
                           child: Text(
-                            "Bayar Sekarang",
+                            'bayar_sekarang'.tr,
                             style: GoogleFonts.droidSans(fontSize: 16),
                           ),
                           style: ElevatedButton.styleFrom(elevation: 1, primary: MyColor.colorRedFlatDark, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
@@ -461,7 +461,7 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                         width: double.infinity,
                         child: ElevatedButton(
                           child: Text(
-                            "Kirim",
+                            'kirim'.tr,
                             style: GoogleFonts.droidSans(fontSize: 16),
                           ),
                           style: ElevatedButton.styleFrom(elevation: 1, primary: MyColor.colorRedFlatDark, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),

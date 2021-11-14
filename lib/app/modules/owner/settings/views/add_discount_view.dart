@@ -23,41 +23,37 @@ class AddDiscountView extends StatefulWidget {
 
 class _AddDiscountViewState extends State<AddDiscountView> {
   var controller = Get.find<DiscountController>();
-   DataDiscount? discount;
-
-
+  DataDiscount? discount;
 
   @override
   void initState() {
     discount = Get.arguments;
-    if (discount!=null) {
+    if (discount != null) {
       controller.conName.value.text = discount!.discountName!;
       print(discount!.discountType);
-      if(discount!.discountType=="percent"){
+      if (discount!.discountType == "percent") {
         controller.value(2);
-        controller.conPercent.value.text=discount!.discountPercent!;
-        controller.conDiscountMax.value.text="Rp " + formatCurrency.format(int.parse(discount!.discountMaxPriceOff!));
-      }else{
-     controller.value(1);
-     controller.conDiscount.value.text="Rp " + formatCurrency.format(int.parse(discount!.discountMaxPriceOff!));
+        controller.conPercent.value.text = discount!.discountPercent!;
+        controller.conDiscountMax.value.text = "Rp " +
+            formatCurrency.format(int.parse(discount!.discountMaxPriceOff!));
+      } else {
+        controller.value(1);
+        controller.conDiscount.value.text = "Rp " +
+            formatCurrency.format(int.parse(discount!.discountMaxPriceOff!));
       }
-
-    }else{
-
-    }
+    } else {}
     super.initState();
   }
 
   @override
   void dispose() {
     controller.value(null);
-    controller.conName.value.text="";
-    controller.conPercent.value.text="";
-    controller.conDiscount.value.text="";
-    controller.conDiscountMax.value.text="";
+    controller.conName.value.text = "";
+    controller.conPercent.value.text = "";
+    controller.conDiscount.value.text = "";
+    controller.conDiscountMax.value.text = "";
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -81,9 +77,9 @@ class _AddDiscountViewState extends State<AddDiscountView> {
               GeneralTextInput(
                   controller: controller.conName.value,
                   labelTextInputBox: 'Nama Diskon',
-                  descTextInputBox: 'Masukan Nama Diskon'),
+                  descTextInputBox: 'masukkan_nama_diskon'.tr),
               Text(
-                "Nilai Diskon",
+                'nilai_diskon'.tr,
                 style: GoogleFonts.roboto(),
               ),
               SizedBox(
@@ -216,10 +212,9 @@ class _AddDiscountViewState extends State<AddDiscountView> {
                   height: 45,
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(horizontal: 10),
-
-                  child:ElevatedButton(
+                  child: ElevatedButton(
                     child: Text(
-                      "Simpan",
+                      'simpan'.tr,
                       style: GoogleFonts.droidSans(fontSize: 16),
                     ),
                     style: ElevatedButton.styleFrom(
@@ -228,33 +223,37 @@ class _AddDiscountViewState extends State<AddDiscountView> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(25))),
                     onPressed: () => controller.createDiscount(
-                        id: discount!=null ? discount!.discountId! : null
-                    ),
+                        id: discount != null ? discount!.discountId! : null),
                   ),
                 ),
               ),
-              SizedBox(width: 10,),
+              SizedBox(
+                width: 10,
+              ),
               Visibility(
-                visible: discount!=null  ?true : false,
+                visible: discount != null ? true : false,
                 child: Flexible(
                   child: Container(
                     height: 45,
                     width: double.infinity,
-
                     child: ElevatedButton(
                       child: Text(
-                        "Hapus",
+                        'hapus'.tr,
                         style: GoogleFonts.droidSans(fontSize: 16),
                       ),
                       style: ElevatedButton.styleFrom(
                           elevation: 1,
                           primary: MyColor.colorRedFlatDark,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25))),
                       onPressed: () {
-                        showDialogQuestion(title: 'Hapus', message: 'Apakah Anda Yakin?', clickYes: (){
-                          Get.back();
-                          controller.deleteDiscount(discount!.discountId!);
-                        });
+                        showDialogQuestion(
+                            title: 'hapus'.tr,
+                            message: 'apakah_anda_yakin'.tr + ' ?',
+                            clickYes: () {
+                              Get.back();
+                              controller.deleteDiscount(discount!.discountId!);
+                            });
                       },
                     ),
                   ),

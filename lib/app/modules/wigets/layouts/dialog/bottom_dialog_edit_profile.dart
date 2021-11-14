@@ -45,18 +45,18 @@ class BottomDialogEditProfile extends StatelessWidget {
              GeneralTextInput(
                  controller: controller.nameC,
                  keyboardType: TextInputType.visiblePassword,
-                 labelTextInputBox: 'Nama Lengkap', descTextInputBox: 'Nama Lengkap'),
+                 labelTextInputBox: 'nama_lengkap'.tr, descTextInputBox: 'nama_lengkap'.tr),
              GeneralTextInput(
                  controller: controller.phoneNumberC,
                  textInputAction: TextInputAction.next,
                  keyboardType: TextInputType.phone,
-                 labelTextInputBox: 'Nomor Telp', descTextInputBox: 'Nomor Telp'),
+                 labelTextInputBox: 'nomor_telp'.tr, descTextInputBox: 'nomor_telp'.tr),
              GeneralTextInput(
                  controller: controller.emailC,
                  labelTextInputBox: 'Email (Opsional)', descTextInputBox: 'Email Pengguna'),
               SizedBox(height: 10,),
               GeneralButton(
-                  label: 'Simpan', onPressed: ()=> controller.updateUser())
+                  label: 'simpan'.tr, onPressed: ()=> controller.updateUser())
             ],
           ),
         );

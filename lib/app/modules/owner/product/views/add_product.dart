@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -66,13 +64,11 @@ class _AddProductViewState extends State<AddProductView> {
             removeTop: true,
             context: context,
             child: ListView(
-              padding: EdgeInsets.symmetric(
-                  horizontal: MyString.DEFAULT_PADDING, vertical: 10),
+              padding: EdgeInsets.symmetric(horizontal: MyString.DEFAULT_PADDING, vertical: 10),
               children: [
                 GeneralTextInput(
-                    controller: controller.conName.value,
-                    labelTextInputBox: 'Nama Produk',
-                    descTextInputBox: 'Masukan Nama Produk'),
+                  controller: controller.conName.value,
+                    labelTextInputBox: 'nama_produk'.tr, descTextInputBox: 'masukkan_nama_produk'.tr),
                 controller.listUnitProduct.length == 0
                     ? DropdownSearch(
                         hint: "Pilih Satuan Produk",
@@ -106,21 +102,19 @@ class _AddProductViewState extends State<AddProductView> {
                   height: 20,
                 ),
                 categoryC.listCategoryProduct.length == 0
-                    ? DropdownSearch(
+                    ?
+                DropdownSearch(
                         hint: "Pilih Kategori Produk",
                         mode: Mode.DIALOG,
                         showSearchBox: true,
-                        emptyBuilder: (c, i) {
+                        emptyBuilder: (c,i){
                           return Center(
                             child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 50),
-                              child: GeneralButton(
-                                  label: 'Tambah Kategori',
-                                  onPressed: () {
-                                    Get.back();
-                                    Get.toNamed(Routes.PRODUCT_CATEGORY);
-                                  }),
+                              padding: const EdgeInsets.symmetric(horizontal: 50),
+                              child: GeneralButton(label: 'Tambah Kategori', onPressed: (){
+                                Get.back();
+                                Get.toNamed(Routes.PRODUCT_CATEGORY);
+                              }),
                             ),
                           );
                         },
@@ -131,8 +125,10 @@ class _AddProductViewState extends State<AddProductView> {
                         hint: "Pilih Kategori Produk",
                         mode: Mode.BOTTOM_SHEET,
                         showSearchBox: true,
+
                         itemAsString: (s) => s!.categoryName.toString(),
                         dropdownBuilderSupportsNullItem: true,
+
                         items: categoryC.listCategoryProduct,
                         onChanged: (v) {
                           controller.categoryProduct = v;
@@ -156,8 +152,7 @@ class _AddProductViewState extends State<AddProductView> {
                     children: [
                       Text(
                         "Atur Stok Produk",
-                        style: GoogleFonts.roboto(
-                            fontWeight: FontWeight.bold, fontSize: 3.2.w),
+                        style: GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 3.2.w),
                       ),
                       Switch.adaptive(
                         value: controller.toggleSwitchStock.value,
@@ -183,145 +178,6 @@ class _AddProductViewState extends State<AddProductView> {
                             descTextInputBox: 'cth. 10'),
                       ],
                     )),
-                // Padding(
-                //   padding: const EdgeInsets.all(8.0),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //     crossAxisAlignment: CrossAxisAlignment.center,
-                //     children: [
-                //       Text(
-                //         "Atur Varian  Produk",
-                //         style: GoogleFonts.roboto(
-                //             fontWeight: FontWeight.bold, fontSize: 3.2.w),
-                //       ),
-                //       Switch.adaptive(
-                //         value: controller.toggleSwitchVariant.value,
-                //         activeColor: MyColor.colorPrimary,
-                //         onChanged: (v) {
-                //           controller.toggleSwitchVariant(v);
-                //         },
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                // Visibility(
-                //     visible: controller.toggleSwitchVariant.value,
-                //     child: Column(
-                //       mainAxisAlignment: MainAxisAlignment.start,
-                //       crossAxisAlignment: CrossAxisAlignment.start,
-                //       children: [
-                //         GeneralButton(
-                //             label: 'Tambah Varian',
-                //             onPressed: () => openDialogVariant()),
-                //         SizedBox(
-                //           height: 15,
-                //         ),
-                //         ...List.generate(3, (index) => Card(
-                //           child: ExpansionTile(
-                //             title: Text("Variant 1"),
-                //             children: [
-                //               Row(
-                //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //                 crossAxisAlignment: CrossAxisAlignment.end,
-                //                 children: [
-                //                   Column(
-                //                     mainAxisAlignment: MainAxisAlignment.start,
-                //                     crossAxisAlignment: CrossAxisAlignment.start,
-                //                     children: [
-                //                       Text("Stok Varian",style: blackTextTitle,),
-                //                       SizedBox(height: 3,),
-                //                       Text("Tersedia",style: blackTextFont,)
-                //                     ],
-                //                   ),
-                //
-                //                   Column(
-                //                     mainAxisAlignment: MainAxisAlignment.end,
-                //                     crossAxisAlignment: CrossAxisAlignment.end,
-                //                     children: [
-                //                       Text("Harga Varian",style: blackTextTitle,),
-                //                       SizedBox(height: 3,),
-                //                       Text("Rp 10.000",style: blackTextFont,)
-                //                     ],
-                //                   ),
-                //                 ],
-                //               )
-                //             ],
-                //             expandedAlignment: Alignment.centerLeft,
-                //             childrenPadding: const EdgeInsets.all(8),
-                //           ),
-                //         ))
-                //       ],
-                //     )),
-                // Padding(
-                //   padding: const EdgeInsets.all(8.0),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //     crossAxisAlignment: CrossAxisAlignment.center,
-                //     children: [
-                //       Text(
-                //         "Atur Harga Grosir",
-                //         style: GoogleFonts.roboto(
-                //             fontWeight: FontWeight.bold, fontSize: 3.2.w),
-                //       ),
-                //       Switch.adaptive(
-                //         value: controller.toggleSwitchWholesale.value,
-                //         activeColor: MyColor.colorPrimary,
-                //         onChanged: (v) {
-                //           controller.toggleSwitchWholesale(v);
-                //         },
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                // Visibility(
-                //     visible: controller.toggleSwitchWholesale.value,
-                //     child: Column(
-                //       mainAxisAlignment: MainAxisAlignment.start,
-                //       crossAxisAlignment: CrossAxisAlignment.start,
-                //       children: [
-                //         GeneralButton(
-                //             label: 'Tambah Harga Grosir',
-                //             onPressed: () => openDialogHargaGrosir()),
-                //         SizedBox(
-                //           height: 15,
-                //         ),
-                //         ...List.generate(3, (index) => Card(
-                //           child: ExpansionTile(
-                //             title: Text("Variant 1"),
-                //             children: [
-                //               Row(
-                //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //                 crossAxisAlignment: CrossAxisAlignment.end,
-                //                 children: [
-                //                   Column(
-                //                     mainAxisAlignment: MainAxisAlignment.start,
-                //                     crossAxisAlignment: CrossAxisAlignment.start,
-                //                     children: [
-                //                       Text("Stok Varian",style: blackTextTitle,),
-                //                       SizedBox(height: 3,),
-                //                       Text("Tersedia",style: blackTextFont,)
-                //                     ],
-                //                   ),
-                //
-                //                   Column(
-                //                     mainAxisAlignment: MainAxisAlignment.end,
-                //                     crossAxisAlignment: CrossAxisAlignment.end,
-                //                     children: [
-                //                       Text("Harga Varian",style: blackTextTitle,),
-                //                       SizedBox(height: 3,),
-                //                       Text("Rp 10.000",style: blackTextFont,)
-                //                     ],
-                //                   ),
-                //                 ],
-                //               )
-                //             ],
-                //             expandedAlignment: Alignment.centerLeft,
-                //             childrenPadding: const EdgeInsets.all(8),
-                //           ),
-                //         ))
-                //       ],
-                //     )),
-                SizedBox(height: 10,),
                 TextField(
                   controller: controller.conPrice.value,
                   keyboardType: TextInputType.number,
@@ -332,16 +188,14 @@ class _AddProductViewState extends State<AddProductView> {
                   ],
                   onChanged: (v) {
                     print(v);
-                    controller.priceProduct(int.parse(controller
-                        .conPrice.value.text
+                    controller.priceProduct( int.parse(controller.conPrice.value.text
                         .split(" ")
                         .last
                         .replaceAll(".", "")));
                   },
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      labelText: "Harga Jual Normal",
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                      labelText: "Harga Jual",
                       labelStyle: GoogleFonts.droidSans(color: Colors.grey)),
                 ),
                 SizedBox(
@@ -350,8 +204,7 @@ class _AddProductViewState extends State<AddProductView> {
                 Text(
                   "* Contoh. Rp. 50.000",
                   style: GoogleFonts.droidSans(
-                      fontStyle: FontStyle.italic,
-                      color: MyColor.colorBlackT50),
+                      fontStyle: FontStyle.italic, color: MyColor.colorBlackT50),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -367,8 +220,8 @@ class _AddProductViewState extends State<AddProductView> {
                           children: [
                             Text(
                               "Isi Detail Produk",
-                              style: GoogleFonts.roboto(
-                                  fontWeight: FontWeight.bold, fontSize: 3.3.w),
+                              style:
+                                  GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 3.3.w),
                             ),
                             SizedBox(
                               height: 2,
@@ -400,8 +253,7 @@ class _AddProductViewState extends State<AddProductView> {
                       children: [
                         Container(
                           decoration: DottedDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              shape: Shape.box),
+                              borderRadius: BorderRadius.circular(10), shape: Shape.box),
                           padding: EdgeInsets.all(10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -419,10 +271,8 @@ class _AddProductViewState extends State<AddProductView> {
                                       width: 80,
                                     ),
                               ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      primary: MyColor.colorPrimary),
-                                  onPressed: () =>
-                                      controller.showBottomSheetImage(),
+                                  style: ElevatedButton.styleFrom(primary: MyColor.colorPrimary),
+                                  onPressed: () => controller.showBottomSheetImage(),
                                   child: Text(
                                     "Photo",
                                     style: GoogleFonts.droidSans(),
@@ -448,22 +298,18 @@ class _AddProductViewState extends State<AddProductView> {
                           style: GoogleFonts.roboto(),
                           inputFormatters: [
                             WhitelistingTextInputFormatter.digitsOnly,
-                            CurrencyPtBrInputFormatter(
-                                maxDigits: 10, currency: "Rp "),
+                            CurrencyPtBrInputFormatter(maxDigits: 10, currency: "Rp "),
                           ],
                           onChanged: (v) {
-                            controller.priceModal(int.parse(controller
-                                .conModal.value.text
+                           controller.priceModal( int.parse(controller.conModal.value.text
                                 .split(" ")
                                 .last
                                 .replaceAll(".", "")));
                           },
                           decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10)),
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                               labelText: "Harga Modal",
-                              labelStyle:
-                                  GoogleFonts.droidSans(color: Colors.grey)),
+                              labelStyle: GoogleFonts.droidSans(color: Colors.grey)),
                         ),
                         SizedBox(
                           height: 10,
@@ -471,31 +317,29 @@ class _AddProductViewState extends State<AddProductView> {
                         Text(
                           "* Contoh. Rp. 50.000",
                           style: GoogleFonts.droidSans(
-                              fontStyle: FontStyle.italic,
-                              color: MyColor.colorBlackT50),
+                              fontStyle: FontStyle.italic, color: MyColor.colorBlackT50),
                         ),
                         SizedBox(
                           height: 20,
                         ),
                         GeneralTextInput(
-                            controller: controller.conSKU.value,
-                            labelTextInputBox: 'SKU Produk',
-                            descTextInputBox: 'Masukan Nomor SKU'),
+                          controller: controller.conSKU.value,
+                            labelTextInputBox: 'SKU Produk', descTextInputBox: 'Masukan Nomor SKU'),
                         TextField(
                           controller: controller.conBarcode.value,
                           keyboardType: TextInputType.emailAddress,
                           style: GoogleFonts.roboto(),
-                          onChanged: (v) {},
+                          onChanged: (v) {
+
+                          },
                           decoration: InputDecoration(
                               suffixIcon: IconButton(
                                 onPressed: () => controller.scanBarcode(),
                                 icon: Icon(IconlyLight.work),
                               ),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10)),
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                               labelText: "Barcode",
-                              labelStyle:
-                                  GoogleFonts.droidSans(color: Colors.grey)),
+                              labelStyle: GoogleFonts.droidSans(color: Colors.grey)),
                         ),
                         SizedBox(
                           height: 10,
@@ -503,8 +347,7 @@ class _AddProductViewState extends State<AddProductView> {
                         Text(
                           "* Scan Barcode",
                           style: GoogleFonts.droidSans(
-                              fontStyle: FontStyle.italic,
-                              color: MyColor.colorBlackT50),
+                              fontStyle: FontStyle.italic, color: MyColor.colorBlackT50),
                         ),
                         // SizedBox(
                         //   height: 20,
@@ -536,7 +379,7 @@ class _AddProductViewState extends State<AddProductView> {
           width: double.infinity,
           child: ElevatedButton(
               child: Text(
-                "Simpan",
+                'simpan'.tr,
                 style: GoogleFonts.droidSans(fontSize: 16),
               ),
               style: ElevatedButton.styleFrom(

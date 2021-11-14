@@ -97,7 +97,7 @@ class _OutletFormEditState extends State<OutletFormEdit> {
           width: double.infinity,
           child: ElevatedButton(
             child: Text(
-              "Simpan",
+              'simpan'.tr,
               style: GoogleFonts.droidSans(fontSize: 16),
             ),
             style: ElevatedButton.styleFrom(

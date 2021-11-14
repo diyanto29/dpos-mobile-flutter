@@ -25,7 +25,7 @@ class CheckoutView extends GetWidget<TransactionController> {
       backgroundColor: MyColor.colorBackground,
       appBar: AppBar(
         backgroundColor: MyColor.colorPrimary,
-        title: Text("Metode Pembayaran"),
+        title: Text('metode_pembayaran'.tr),
         actions: [
         ],
       ),

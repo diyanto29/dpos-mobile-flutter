@@ -277,7 +277,7 @@ class CartController extends GetxController {
   Future<List<CartModel>> deleteCart({CartModel? cartModel}) async {
     showDialogQuestion(
         title: 'Hapus Keranjang',
-        message: 'Apakah Anda Yakin?',
+        message: 'apakah_anda_yakin'.tr + ' ?',
         clickYes: () {
           Get.back();
           listCart.remove(cartModel);

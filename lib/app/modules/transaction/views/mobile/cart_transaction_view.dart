@@ -41,7 +41,7 @@ class _CardTransactionViewState extends State<CardTransactionView> {
         backgroundColor: MyColor.colorBackground,
         appBar: AppBar(
           backgroundColor: MyColor.colorPrimary,
-          title: Text("Detail Pesanan"),
+          title: Text('detail_pesanan'.tr),
           actions: [
             // TextButton(
             //   onPressed: ()=>Get.to(FormInputProductManual(),transition: Transition.zoom),
@@ -83,7 +83,7 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                                     decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(10)),
                                     child: Text(
-                                      cartController.customer.value.customerpartnername == null ? "Pelanggan" : cartController.customer.value.customerpartnername!,
+                                      cartController.customer.value.customerpartnername == null ? 'pelanggan'.tr : cartController.customer.value.customerpartnername!,
                                       style: GoogleFonts.roboto(fontSize: 12.0, color: Colors.white),
                                     ),
                                   ),
@@ -99,7 +99,7 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                                         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                                         decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(10)),
                                         child: Text(
-                                          "Hapus",
+                                          'hapus'.tr,
                                           style: GoogleFonts.roboto(fontSize: 12.0, color: Colors.white),
                                         ),
                                       ),
@@ -439,7 +439,7 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     GeneralButton(
-                      label: 'Simpan',
+                      label: 'simpan'.tr,
                       onPressed: () => showDialogNoted(title: 'Masukan Catatan',message: 'coba',clickYes: (){
                         cartController.storeTransaction();
                       }),
@@ -447,7 +447,7 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                       color: MyColor.colorBlue,
                     ),
                     GeneralButton(
-                      label: 'Bayar Sekarang',
+                      label: 'bayar_sekarang'.tr,
                       onPressed: (){
                         Map<dynamic,dynamic> data={
                           "from" : "cart",

@@ -18,12 +18,12 @@ Future<dynamic> showDialogNoted(
           controller: carC.notedC,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
-            labelTextInputBox: 'Catatan',
+            labelTextInputBox: 'catatan'.tr,
             descTextInputBox: 'No. Meja / Nama Pembeli'),
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       actions: [
-        GeneralButton(height: 45, width: double.infinity, label: 'Simpan', onPressed: clickYes),
+        GeneralButton(height: 45, width: double.infinity, label: 'simpan'.tr, onPressed: clickYes),
 
       ],
     ),

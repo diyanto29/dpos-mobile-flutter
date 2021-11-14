@@ -180,7 +180,7 @@ class SetupBusinessView extends GetWidget<SetupBusinessController> {
               width: double.infinity,
               child: ElevatedButton(
                 child: Text(
-                  "Simpan",
+                  'simpan'.tr,
                   style: GoogleFonts.droidSans(fontSize: 16),
                 ),
                 style: ElevatedButton.styleFrom(

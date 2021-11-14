@@ -11,15 +11,13 @@ import 'package:warmi/core/globals/global_string.dart';
 import '../controllers/navigation_controller.dart';
 
 class NavigationView extends GetWidget<NavigationController> {
-
   @override
   Widget build(BuildContext context) {
     FlutterStatusbarcolor.setStatusBarColor(MyColor.colorPrimary);
     return Scaffold(
-
       body: Obx(() {
         return IndexedStack(
-        index: controller.indexNavigation.value,
+          index: controller.indexNavigation.value,
           children: controller.pageList,
         );
       }),
@@ -34,20 +32,19 @@ class NavigationView extends GetWidget<NavigationController> {
           items: [
             CustomNavigationBarItem(
               icon: Icon(IconlyBold.home),
-              title: Text(MyString.homeTitleBottomNavBar),
+              title: Text('beranda'.tr),
             ),
             CustomNavigationBarItem(
               icon: Icon(IconlyBold.buy),
-              title: Text(MyString.orderTitleBottomNavBar),
+              title: Text('pesanan'.tr),
             ),
-
             CustomNavigationBarItem(
               icon: Icon(IconlyBold.document),
-              title: Text(MyString.reportTitleBottomNavBar),
+              title: Text('laporan'.tr),
             ),
             CustomNavigationBarItem(
               icon: Icon(IconlyBold.setting),
-              title: Text(MyString.profileTitleBottomNavBar),
+              title: Text('pengaturan'.tr),
             ),
           ],
           currentIndex: controller.indexNavigation.value,

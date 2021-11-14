@@ -46,7 +46,7 @@ class LoginView extends GetWidget<LoginController> {
                                 height: 5,
                               ),
                               Text(
-                                "Selamat Datang Kembali!",
+                                'selamat_datang'.tr + '!',
                                 style: blackTextFont.copyWith(
                                     fontSize: 16.sp,
                                     fontStyle: FontStyle.italic,
@@ -180,7 +180,7 @@ class LoginView extends GetWidget<LoginController> {
                               height: 5,
                             ),
                             Text(
-                              "Selamat Datang Kembali!",
+                              'selamat_datang_kembali'.tr + '!',
                               style: blackTextFont.copyWith(
                                   fontSize: 16.sp,
                                   fontStyle: FontStyle.italic,

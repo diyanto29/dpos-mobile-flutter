@@ -47,7 +47,7 @@ class ProductView extends GetWidget<ProductController> {
                   },
                   style: TextStyle(height: 0.9, fontSize: 14),
                   decoration: InputDecoration(
-                      hintText: "Cari Produk disini...",
+                      hintText: 'cari_produk_disini'.tr + '..',
                       hintStyle: TextStyle(fontSize: 12, color: Colors.grey[600]),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10)),

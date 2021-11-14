@@ -22,7 +22,7 @@ class CustomerView extends GetWidget<CustomerController> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyColor.colorPrimary,
-        title: Text('Pelanggan'),
+        title: Text('pelanggan'.tr),
       ),
       body: Obx(() {
         return Column(
@@ -38,7 +38,7 @@ class CustomerView extends GetWidget<CustomerController> {
                   controller.searchCustomer(v);
                 },
                 decoration: InputDecoration(
-                    hintText: "Cari Pelanggan disini...",
+                    hintText: 'cari_pelanggan_disini'.tr + '...',
                     hintStyle: TextStyle(fontSize: 12, color: Colors.grey[600]),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -60,7 +60,7 @@ class CustomerView extends GetWidget<CustomerController> {
                     ? Center(child: CircularProgressIndicator())
                     : controller.listCustomer.length == 0
                         ? Center(
-                            child: Text("Data Kosong"),
+                            child: Text('data_kosong'.tr),
                           )
                         : controller.searchC.value.text.isNotEmpty
                             ? controller.listSearchCustomer.length == 0
@@ -102,7 +102,7 @@ class CustomerView extends GetWidget<CustomerController> {
                                             ),
                                             trailing: IconButton(
                                               onPressed: () =>  showDialogQuestion(
-                                                  title: 'Hapus',
+                                                  title: 'hapus'.tr,
                                                   message: 'Anda Yakin ?',
                                                   clickYes: () {
                                                     controller.deleteCustomer(
@@ -151,7 +151,7 @@ class CustomerView extends GetWidget<CustomerController> {
                                       ),
                                       trailing: IconButton(
                                         onPressed: () =>  showDialogQuestion(
-                                            title: 'Hapus',
+                                            title: 'hapus'.tr,
                                             message: 'Anda Yakin ?',
                                             clickYes: () {
                                               controller.deleteCustomer(

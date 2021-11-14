@@ -80,7 +80,7 @@ class HomeView extends GetWidget<HomeController> {
                                     color: MyColor.colorWhite,
                                   ),
                                   Text(
-                                    "Toko Anda",
+                                    'toko_anda'.tr,
                                     style: whiteTextTitle.copyWith(fontSize: 14.sp),
                                   ),
                                 ],
@@ -154,7 +154,7 @@ class HomeView extends GetWidget<HomeController> {
                           height: 15,
                         ),
                         Text(
-                          "Pendapatan Bulanan",
+                          'pendapatan_bulanan'.tr,
                           style: blackTextTitle.copyWith(fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
@@ -188,7 +188,7 @@ class HomeView extends GetWidget<HomeController> {
                           height: 15,
                         ),
                         Text(
-                          "Menu Favorit",
+                          'menu_fav'.tr,
                           style: blackTextTitle,
                         ),
                         SizedBox(
@@ -210,43 +210,43 @@ class HomeView extends GetWidget<HomeController> {
                                     onPressed: () => Get.toNamed(Routes.INDEX_TRANSACTION),
                                     icon: 'assets/icons/new_order.png',
                                     colorBackground: MyColor.colorOrange,
-                                    labelIcon: 'Jualan',
+                                    labelIcon: 'jualan'.tr,
                                   ),
                                   CardButtonAction(
                                     onPressed: () => Get.toNamed(Routes.PRODUCT),
                                     icon: 'assets/icons/product.png',
                                     colorBackground: MyColor.colorOrange,
-                                    labelIcon: 'Produk',
+                                    labelIcon: 'produk'.tr,
                                   ),
                                   CardButtonAction(
                                     onPressed: () => Get.toNamed(Routes.OUTLET),
                                     icon: 'assets/icons/store_shop.png',
                                     colorBackground: MyColor.colorOrange,
-                                    labelIcon: 'Outlet',
+                                    labelIcon: 'outlet'.tr,
                                   ),
                                   CardButtonAction(
                                     onPressed: () => Get.toNamed(Routes.EMPLOYEES),
                                     icon: "assets/icons/employees.png",
                                     colorBackground: MyColor.colorOrange,
-                                    labelIcon: 'Karyawan',
+                                    labelIcon: 'karyawan'.tr,
                                   ),
                                   CardButtonAction(
                                     onPressed: () {},
                                     icon: 'assets/icons/shopping_promo.png',
                                     colorBackground: MyColor.colorOrange,
-                                    labelIcon: 'Pkt. Promo',
+                                    labelIcon: 'paket_promo'.tr,
                                   ),
                                   CardButtonAction(
                                     onPressed: () => Get.toNamed(Routes.DISCOUNT),
                                     icon: 'assets/icons/discount.png',
                                     colorBackground: MyColor.colorOrange,
-                                    labelIcon: 'Diskon',
+                                    labelIcon: 'diskon'.tr,
                                   ),
                                   CardButtonAction(
                                     onPressed: () => Get.toNamed(Routes.OUTLET_ONLINE),
                                     icon: 'assets/icons/mobile_order.png',
                                     colorBackground: MyColor.colorOrange,
-                                    labelIcon: 'Toko Online',
+                                    labelIcon: 'Online Order',
                                   ),
                                   CardButtonAction(
                                     onPressed: () => Get.toNamed(Routes.PRINTER_PAGE),
@@ -271,25 +271,25 @@ class HomeView extends GetWidget<HomeController> {
                                         onPressed: () => Get.toNamed(Routes.INDEX_TRANSACTION),
                                         icon: 'assets/icons/new_order.png',
                                         colorBackground: MyColor.colorOrange,
-                                        labelIcon: 'Jualan',
+                                        labelIcon: 'jualan'.tr,
                                       ),
                                       CardButtonAction(
                                         onPressed: () => Get.toNamed(Routes.PRODUCT),
                                         icon: 'assets/icons/product.png',
                                         colorBackground: MyColor.colorOrange,
-                                        labelIcon: 'Produk',
+                                        labelIcon: 'produk'.tr,
                                       ),
                                       CardButtonAction(
                                         onPressed: () => Get.toNamed(Routes.OUTLET),
                                         icon: 'assets/icons/store_shop.png',
                                         colorBackground: MyColor.colorOrange,
-                                        labelIcon: 'Outlet',
+                                        labelIcon: 'outlet'.tr,
                                       ),
                                       CardButtonAction(
                                         onPressed: () => Get.toNamed(Routes.EMPLOYEES),
                                         icon: "assets/icons/employees.png",
                                         colorBackground: MyColor.colorOrange,
-                                        labelIcon: 'Karyawan',
+                                        labelIcon: 'karyawan'.tr,
                                       ),
                                     ],
                                   ),
@@ -305,19 +305,19 @@ class HomeView extends GetWidget<HomeController> {
                                         onPressed: () {},
                                         icon: 'assets/icons/shopping_promo.png',
                                         colorBackground: MyColor.colorOrange,
-                                        labelIcon: 'Pkt. Promo',
+                                        labelIcon: 'paket_promo'.tr,
                                       ),
                                       CardButtonAction(
                                         onPressed: () => Get.toNamed(Routes.DISCOUNT),
                                         icon: 'assets/icons/discount.png',
                                         colorBackground: MyColor.colorOrange,
-                                        labelIcon: 'Diskon',
+                                        labelIcon: 'diskon'.tr,
                                       ),
                                       CardButtonAction(
                                         onPressed: () => Get.toNamed(Routes.OUTLET_ONLINE),
                                         icon: 'assets/icons/mobile_order.png',
                                         colorBackground: MyColor.colorOrange,
-                                        labelIcon: 'Toko Online',
+                                        labelIcon: 'pesanan_online'.tr,
                                       ),
                                       CardButtonAction(
                                         onPressed: () => Get.toNamed(Routes.PRINTER_PAGE),
@@ -337,7 +337,7 @@ class HomeView extends GetWidget<HomeController> {
                           height: 15,
                         ),
                         Text(
-                          "Transaksi Terakhir",
+                          'transaksi_terakhir'.tr,
                           style: blackTextTitle,
                         ),
                         SizedBox(
@@ -348,7 +348,7 @@ class HomeView extends GetWidget<HomeController> {
                               ? Center(child: CircularProgressIndicator())
                               : historySalesC.listTransactionLast.length == 0
                               ? Center(
-                            child: Text("Data Kosong"),
+                            child: Text('data_kosong'.tr),
                           )
                               : ListView.builder(
                               shrinkWrap: true,
@@ -420,7 +420,7 @@ class HomeView extends GetWidget<HomeController> {
                                       color: MyColor.colorBlack,
                                     ),
                                     Text(
-                                      "Toko Anda",
+                                      'toko_anda'.tr,
                                       style: blackTextFont.copyWith(fontSize: 14.sp),
                                     ),
                                   ],

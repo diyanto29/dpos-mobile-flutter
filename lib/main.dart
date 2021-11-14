@@ -5,36 +5,40 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+// import 'package:intl/locale.dart' as locale;
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:warmi/core/globals/app_translation.dart';
-
+import 'package:warmi/core/globals/global_string.dart';
+import 'package:warmi/core/globals/messages.dart';
+import 'package:warmi/core/utils/enum.dart';
 
 import 'app/routes/app_pages.dart';
 import 'core/globals/global_color.dart';
 import 'di/depedency_injection.dart';
 
-final formatCurrency = new NumberFormat.currency(locale: "id_ID", symbol: "", decimalDigits: 0);
+final formatCurrency =
+    new NumberFormat.currency(locale: "id_ID", symbol: "", decimalDigits: 0);
+
 void main() async {
   LazyBindings().dependencies();
   await GetStorage.init();
   MobileAds.instance.initialize();
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
-  initializeDateFormatting("id-ID");
+  var locale = Locale('id');
 
   runApp(
     ResponsiveSizer(
-      builder: (context, orientation, screenType) =>
-          GetMaterialApp(
+      builder: (context, orientation, screenType) => GetMaterialApp(
         title: "DPOS",
-        theme: ThemeData(
-          primaryColor: MyColor.colorOrangeDark
-        ),
-        translationsKeys: AppTranslation.translations,
+        theme: ThemeData(primaryColor: MyColor.colorOrangeDark),
+        // translationsKeys: AppTranslation.translations,
         themeMode: ThemeMode.dark,
         debugShowCheckedModeBanner: false,
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
+        translations: Messages(),
+        locale: locale,
       ),
     ),
   );

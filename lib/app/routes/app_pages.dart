@@ -19,6 +19,7 @@ import 'package:warmi/app/modules/owner/settings/views/change_password_view.dart
 import 'package:warmi/app/modules/owner/settings/views/discount_view.dart';
 import 'package:warmi/app/modules/owner/settings/views/employees_view.dart';
 import 'package:warmi/app/modules/owner/settings/views/invoice_view.dart';
+import 'package:warmi/app/modules/owner/settings/views/language_view.dart';
 import 'package:warmi/app/modules/owner/settings/views/outlet_online_view.dart';
 import 'package:warmi/app/modules/owner/settings/views/payment_method_view.dart';
 import 'package:warmi/app/modules/owner/settings/views/printer_view.dart';
@@ -114,6 +115,12 @@ class AppPages {
     GetPage(
       name: _Paths.INVOICE_PAGE,
       page: () => InvoiceView(),
+      transition: Transition.leftToRightWithFade,
+      binding: LazyBindings(),
+    ),
+    GetPage(
+      name: _Paths.LANGUAGE_SETTING_PAGE,
+      page: () => LanguageView(),
       transition: Transition.leftToRightWithFade,
       binding: LazyBindings(),
     ),

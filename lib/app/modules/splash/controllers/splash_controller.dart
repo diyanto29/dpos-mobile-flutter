@@ -1,10 +1,14 @@
+import 'dart:ui';
+
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:in_app_update/in_app_update.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:warmi/app/data/datasource/business/business_data_source.dart';
 import 'package:warmi/app/routes/app_pages.dart';
 import 'package:warmi/core/globals/global_string.dart';
+import 'package:warmi/core/utils/enum.dart';
 
 class SplashController extends GetxController {
   AppUpdateInfo? _updateInfo;
@@ -30,6 +34,7 @@ class SplashController extends GetxController {
     checkForUpdate();
     await Permission.storage.request();
     BusinessDataSource().getTypeBusiness();
+
     checkSessionLogin();
     super.onInit();
   }
@@ -50,6 +55,25 @@ class SplashController extends GetxController {
 
   Future<void> checkSessionLogin() async {
     GetStorage box = GetStorage();
+    print(box.hasData(MyString.DEFAULT_LANGUAGE));
+    if (box.hasData(MyString.DEFAULT_LANGUAGE)) {
+      if (box.read(MyString.DEFAULT_LANGUAGE) == LanguageEnum.english.toString()) {
+        initializeDateFormatting('en_US');
+        Get.updateLocale(Locale('en', 'US'));
+        print('INI ENGLISH');
+      } else {
+        initializeDateFormatting('id_ID');
+        Get.updateLocale(Locale('id'));
+        print('INI INDONESIA');
+      }
+      print('INI PRINT ADA DATA');
+    } else {
+      initializeDateFormatting('id_ID');
+      Get.updateLocale(Locale('id'));
+      box.write(MyString.DEFAULT_LANGUAGE, LanguageEnum.indonesia.toString());
+      print('INI INDONESIA DATA KOSONG');
+    }
+    print(box.read(MyString.DEFAULT_LANGUAGE));
     Future.delayed(Duration(seconds: 1), () {
       if (box.hasData(MyString.USER_ID)) {
         if (box

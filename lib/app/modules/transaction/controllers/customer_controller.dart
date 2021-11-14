@@ -37,7 +37,7 @@ class CustomerController extends GetxController {
       showSnackBar(
           snackBarType: SnackBarType.INFO,
           message: "Kolom harus Diisi",
-          title: "Pelanggan");
+          title: 'pelanggan'.tr);
       return;
     }
     loadingBuilder();
@@ -56,12 +56,12 @@ class CustomerController extends GetxController {
         Get.back();
         showSnackBar(
             snackBarType: SnackBarType.WARNING,
-            title: 'Pelanggan',
+            title: 'pelanggan'.tr,
             message: 'Data Berhasil Disimpan');
       } else {
         showSnackBar(
             snackBarType: SnackBarType.ERROR,
-            title: 'Pelanggan',
+            title: 'pelanggan'.tr,
             message: "${value.message}");
       }
     });
@@ -75,7 +75,7 @@ class CustomerController extends GetxController {
       if (value.status) getCustomerDataSource();
       showSnackBar(
           snackBarType: SnackBarType.SUCCESS,
-          title: "Pelanggan",
+          title: 'pelanggan'.tr,
           message: value.message);
     });
   }

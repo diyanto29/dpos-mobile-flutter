@@ -8,6 +8,7 @@ import 'package:warmi/app/modules/owner/home/controllers/home_controller.dart';
 import 'package:warmi/app/modules/owner/outlet/controllers/outlet_controller.dart';
 import 'package:warmi/app/modules/owner/product/controllers/product_controller.dart';
 import 'package:warmi/app/modules/owner/report/controllers/report_controller.dart';
+import 'package:warmi/app/modules/owner/settings/controllers/language_setting_controller.dart';
 import 'package:warmi/app/modules/owner/settings/controllers/profile_controller.dart';
 import 'package:warmi/app/modules/owner/settings/controllers/setting_controller.dart';
 import 'package:warmi/app/modules/owner/settings/controllers/discount_controller.dart';
@@ -50,5 +51,6 @@ class LazyBindings extends Bindings {
     Get.lazyPut<ProfileController>(() => ProfileController());
     Get.lazyPut<LoginEmployeeController>(() => LoginEmployeeController());
     Get.lazyPut<ChooseStoreController>(() => ChooseStoreController());
+    Get.lazyPut<LanguageSettingController>(() => LanguageSettingController());
   }
 }

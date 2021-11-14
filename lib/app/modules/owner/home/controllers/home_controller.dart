@@ -48,7 +48,7 @@ class HomeController extends GetxController{
   }
   void logOut(){
     var box=GetStorage();
-    showDialogQuestion(title: 'Keluar', message: 'Apakah Anda Yakin ? ', clickYes: (){
+    showDialogQuestion(title: 'keluar'.tr, message: 'apakah_anda_yakin'.tr + ' ?', clickYes: (){
       box.remove(MyString.USER_ID);
       Get.offAllNamed(Routes.LOGIN_CHOOISE);
     });

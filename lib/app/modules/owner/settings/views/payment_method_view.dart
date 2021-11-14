@@ -20,7 +20,7 @@ class PaymentMethodView extends GetWidget<PaymentMethodController> {
       appBar: AppBar(
         backgroundColor: MyColor.colorPrimary,
         title: Text(
-          'Metode Pembayaran',
+          'metode_pembayaran'.tr,
           style: whiteTextTitle,
         ),
       ),
@@ -30,7 +30,7 @@ class PaymentMethodView extends GetWidget<PaymentMethodController> {
           width: double.infinity,
           child: ElevatedButton(
               child: Text(
-                "Simpan",
+                'simpan'.tr,
                 style: GoogleFonts.droidSans(fontSize: 16),
               ),
               style: ElevatedButton.styleFrom(

@@ -47,7 +47,6 @@ class _BottomDialogCartState extends State<BottomDialogCart> {
                   itemBuilder: (c, i) {
                     return RadioListTile(
                         value: 'Toko Barokah',
-
                         selected: true,
                         groupValue: groupValue,
                         onChanged: (v) {},

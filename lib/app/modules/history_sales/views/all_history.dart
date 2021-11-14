@@ -25,19 +25,19 @@ class _AllHistoryState extends State<AllHistory> {
 
   @override
   void initState() {
-    if (widget.statusTab == "Semua") {
+    if (widget.statusTab == 'semua'.tr) {
       controller.getTransaction();
     }
-    if (widget.statusTab == "Lunas") {
+    if (widget.statusTab == 'lunas'.tr) {
       controller.getTransaction(statusTransaction: "success");
     }
-    if (widget.statusTab == "Menunggu Pembayaran") {
+    if (widget.statusTab == 'menunggu_pembayaran'.tr) {
       controller.getTransaction(statusTransaction: "pending");
     }
     // if (widget.statusTab == "Utang") {
     //   controller.getTransaction(statusPayment: "debt");
     // }
-    if (widget.statusTab == "Dibatalkan") {
+    if (widget.statusTab == 'pembatalan'.tr) {
       controller.getTransaction(statusPayment: "cancel");
     }
     super.initState();
@@ -49,7 +49,7 @@ class _AllHistoryState extends State<AllHistory> {
       return controller.loadingState == LoadingState.loading ?
       Center(child: CircularProgressIndicator())
           :
-      controller.listTransaction.length == 0 ? Center(child: Text("Data Kosong"),) :ListView.builder(
+      controller.listTransaction.length == 0 ? Center(child: Text('data_kosong'.tr),) :ListView.builder(
           shrinkWrap: true,
           itemCount: controller.listTransaction.length,
           physics: ClampingScrollPhysics(),

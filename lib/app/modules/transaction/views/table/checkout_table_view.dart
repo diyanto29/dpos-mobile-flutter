@@ -43,7 +43,7 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
       backgroundColor: MyColor.colorBackground,
       appBar: AppBar(
         backgroundColor: MyColor.colorPrimary,
-        title: Text("Metode Pembayaran"),
+        title: Text('metode_pembayaran'.tr),
       ),
       body: Obx(() {
         return Row(
@@ -90,7 +90,7 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                                     decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(10)),
                                     child: Text(
-                                      cartController.customer.value.customerpartnername == null ? "Pelanggan" : cartController.customer.value.customerpartnername!,
+                                      cartController.customer.value.customerpartnername == null ? 'pelanggan'.tr : cartController.customer.value.customerpartnername!,
                                       style: GoogleFonts.roboto(fontSize: 12.0, color: Colors.white),
                                     ),
                                   ),
@@ -106,7 +106,7 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                                         decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(10)),
                                         child: Text(
-                                          "Hapus",
+                                          'hapus'.tr,
                                           style: GoogleFonts.roboto(fontSize: 12.0, color: Colors.white),
                                         ),
                                       ),
@@ -398,7 +398,7 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                              crossAxisAlignment: CrossAxisAlignment.end,
                              children: [
                                Text(
-                                 "Kembalian",
+                                 'kembalian'.tr,
                                  style: blackTextTitle.copyWith(fontWeight: FontWeight.normal),
                                ),
                                SizedBox(

@@ -23,7 +23,7 @@ class ProfileController extends GetxController {
 
   void updateUser() async {
     if (nameC.value.text.isEmpty || phoneNumberC.value.text.isEmpty) {
-      showSnackBar(snackBarType: SnackBarType.INFO, message: "Kolom harus Diisi", title: "Pelanggan");
+      showSnackBar(snackBarType: SnackBarType.INFO, message: "Kolom harus Diisi", title: 'pelanggan'.tr);
       return;
     }
     loadingBuilder();

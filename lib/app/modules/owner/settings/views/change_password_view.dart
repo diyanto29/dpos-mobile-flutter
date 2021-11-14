@@ -17,7 +17,7 @@ class ChangePasswordView extends GetWidget<SettingController> {
       appBar: AppBar(
         backgroundColor: MyColor.colorPrimary,
         title: Text(
-          'Ubah Kata Sandi',
+          'ubah_kata_sandi'.tr,
           style: whiteTextTitle,
         ),
       ),
@@ -28,7 +28,7 @@ class ChangePasswordView extends GetWidget<SettingController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Membuat kata sandi membantu Anda menjaga keamanan akun D-POS",
+              'desc_katasandi'.tr,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 14, color: Colors.grey),
             ),
@@ -36,10 +36,13 @@ class ChangePasswordView extends GetWidget<SettingController> {
               height: 30,
             ),
             GeneralTextInput(
-              controller: controller.passwordC.value,
-                labelTextInputBox: 'Kata Sandi Baru', descTextInputBox: 'Masukan Kata Sandi Baru'),
+                controller: controller.passwordC.value,
+                labelTextInputBox: 'kata_sandi_baru'.tr,
+                descTextInputBox: 'masukkan_kata_sandi_baru'.tr),
             Spacer(),
-            GeneralButton(label: 'Simpan', onPressed: ()=> controller.updatePassword())
+            GeneralButton(
+                label: 'simpan'.tr,
+                onPressed: () => controller.updatePassword())
           ],
         ),
       ),

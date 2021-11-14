@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 
 import 'package:get/get.dart';
 import 'package:warmi/app/routes/app_pages.dart';
 import 'package:warmi/core/globals/global_color.dart';
-import 'package:warmi/core/globals/global_string.dart';
 import 'package:warmi/core/utils/thema.dart';
 
 import '../controllers/login_chooise_controller.dart';
@@ -37,8 +35,11 @@ class LoginChooiseView extends GetWidget<LoginChooiseController> {
             ),
             Center(
               child: Text(
-                "Selamat Datang!",
-                style: blackTextFont.copyWith(fontSize: 15.sp, fontStyle: FontStyle.italic, color: MyColor.colorPureBlack),
+                'data_kosong'.tr,
+                style: blackTextFont.copyWith(
+                    fontSize: 15.sp,
+                    fontStyle: FontStyle.italic,
+                    color: MyColor.colorPureBlack),
               ),
             ),
             SizedBox(
@@ -49,18 +50,36 @@ class LoginChooiseView extends GetWidget<LoginChooiseController> {
               child: Column(
                 children: [
                   Container(
-                      height: Device.orientation == Orientation.portrait ? 7.h : 5.w,
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0)),
+                      height: Device.orientation == Orientation.portrait
+                          ? 7.h
+                          : 5.w,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0)),
                       width: double.infinity,
-                      child: ElevatedButton(onPressed: () => Get.toNamed(Routes.LOGIN), style: ElevatedButton.styleFrom(primary: MyColor.colorPrimary, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0))), child: Text("Masuk Sbg. Pemilik"))),
+                      child: ElevatedButton(
+                          onPressed: () => Get.toNamed(Routes.LOGIN),
+                          style: ElevatedButton.styleFrom(
+                              primary: MyColor.colorPrimary,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0))),
+                          child: Text('masuk_sbg_pemilik'.tr))),
                   SizedBox(
                     height: 3.h,
                   ),
                   Container(
-                      height: Device.orientation == Orientation.portrait ? 7.h : 5.w,
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0)),
+                      height: Device.orientation == Orientation.portrait
+                          ? 7.h
+                          : 5.w,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0)),
                       width: double.infinity,
-                      child: ElevatedButton(onPressed: () => Get.toNamed(Routes.LOGIN_EMPLOYEE), style: ElevatedButton.styleFrom(primary: MyColor.colorPrimary, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0))), child: Text("Masuk Sbg. Kasir"))),
+                      child: ElevatedButton(
+                          onPressed: () => Get.toNamed(Routes.LOGIN_EMPLOYEE),
+                          style: ElevatedButton.styleFrom(
+                              primary: MyColor.colorPrimary,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0))),
+                          child: Text('masuk_sbg_kasir'.tr))),
                 ],
               ),
             )
@@ -74,13 +93,13 @@ class LoginChooiseView extends GetWidget<LoginChooiseController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Buat akun baru",
+              'buat_akun_baru'.tr,
               style: blackTextFont,
             ),
             TextButton(
                 onPressed: () => Get.toNamed(Routes.REGISTER),
                 child: Text(
-                  "disini",
+                 'disini'.tr,
                   style: blackTextFont.copyWith(color: MyColor.colorBlue),
                 ))
           ],

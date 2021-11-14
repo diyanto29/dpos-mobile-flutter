@@ -122,7 +122,7 @@ class _BottomDialogDetailPrinterState extends State<BottomDialogDetailPrinter> {
 
                           child:ElevatedButton(
                             child: Text(
-                              "Simpan",
+                              'simpan'.tr,
                               style: GoogleFonts.droidSans(fontSize: 16),
                             ),
                             style: ElevatedButton.styleFrom(
@@ -160,7 +160,7 @@ class _BottomDialogDetailPrinterState extends State<BottomDialogDetailPrinter> {
 
                           child: ElevatedButton(
                             child: Text(
-                              "Hapus",
+                              'hapus'.tr,
                               style: GoogleFonts.droidSans(fontSize: 16),
                             ),
                             style: ElevatedButton.styleFrom(

@@ -13,7 +13,7 @@ class DetailReportPaymentMethod extends GetWidget<ReportController> {
       appBar: AppBar(
         backgroundColor: MyColor.colorPrimary,
         title: Text(
-          "Detail Penjualan",
+          'detail_penjualan'.tr,
         ),
       ),
       body: GetBuilder<ReportController>(builder: (logic) {

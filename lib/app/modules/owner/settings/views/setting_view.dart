@@ -55,18 +55,13 @@ class SettingView extends GetWidget<SettingController> {
             Obx(() {
               return Positioned(
                   top: 1.h,
-                  right: controller.scrollOpacity.value < 1.0 ? 0 : MyString
-                      .DEFAULT_PADDING,
-                  left: controller.scrollOpacity.value < 1.0 ? 0 : MyString
-                      .DEFAULT_PADDING,
-                  child: controller.scrollOpacity.value < 1.0
-                      ? Container()
-                      : Container());
+                  right: controller.scrollOpacity.value < 1.0 ? 0 : MyString.DEFAULT_PADDING,
+                  left: controller.scrollOpacity.value < 1.0 ? 0 : MyString.DEFAULT_PADDING,
+                  child: controller.scrollOpacity.value < 1.0 ? Container() : Container());
             }),
             Obx(() {
               return Positioned(
-                  top: controller.scrollOpacity.value < 1.0 ? 8.h : MyString
-                      .DEFAULT_PADDING,
+                  top: controller.scrollOpacity.value < 1.0 ? 8.h : MyString.DEFAULT_PADDING,
                   right: MyString.DEFAULT_PADDING,
                   left: MyString.DEFAULT_PADDING,
                   bottom: 0,
@@ -76,8 +71,7 @@ class SettingView extends GetWidget<SettingController> {
 
                       if (scrollInfo.metrics.pixels == 0.0) {
                         controller.scrollOpacity(1.0);
-                        FlutterStatusbarcolor.setStatusBarColor(
-                            MyColor.colorPrimary);
+                        FlutterStatusbarcolor.setStatusBarColor(MyColor.colorPrimary);
                       }
                       if (scroll < 101.4604048295443 && scroll > 40.0) {
                         controller.scrollOpacity(0.6);
@@ -87,8 +81,7 @@ class SettingView extends GetWidget<SettingController> {
                       }
                       if (scroll < 269.4393643465884 && scroll > 40.0) {
                         controller.scrollOpacity(0.0);
-                        FlutterStatusbarcolor.setStatusBarColor(
-                            Colors.grey.withOpacity(0.4));
+                        FlutterStatusbarcolor.setStatusBarColor(Colors.grey.withOpacity(0.4));
                       }
 
                       return true;
@@ -119,19 +112,106 @@ class SettingView extends GetWidget<SettingController> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text("${navC.auth.value.userFullName}",
-                                      style: whiteTextFont.copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16.sp,
-                                          letterSpacing: 0.5),),
+                                    Text("${navC.auth.value.userFullName}",style: whiteTextFont.copyWith(fontWeight: FontWeight.bold,
+                                    fontSize: 16.sp,letterSpacing: 0.5),),
                                     SizedBox(height: 2,),
-                                    Text("${navC.auth.value.userNoHp}",
-                                      style: whiteTextFont.copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16.sp, letterSpacing: 0.5),)
+                                    Text("${navC.auth.value.userNoHp}",style: whiteTextFont.copyWith(fontWeight: FontWeight.bold,
+                                        fontSize: 16.sp,letterSpacing: 0.5),)
                                   ],
                                 )
                               ],
+                            ),
+                            SizedBox(
+                              height: 4.h,
+                            ),
+                            Card(
+                              elevation: 2,
+                              shadowColor: MyColor.colorGrey,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10.0, vertical: 20.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Flexible(
+                                        child: InkWell(
+                                      onTap: () => showSnackBar(
+                                          snackBarType: SnackBarType.INFO,
+                                          title: 'Warmi Info',
+                                          message: 'Fitur Masih Dalam Proses'),
+                                      child: Column(
+                                        children: [
+                                          Icon(
+                                            IconlyBold.wallet,
+                                            size: 50,
+                                            color: MyColor.colorPrimary,
+                                          ),
+                                          Text(
+                                            'riwayat'.tr,
+                                            style: blackTextTitle.copyWith(
+                                                fontSize: 14.sp),
+                                          )
+                                        ],
+                                      ),
+                                    )),
+                                    Flexible(
+                                        child: InkWell(
+                                      onTap: () =>
+                                          Get.toNamed(Routes.SETUP_BUSINESS),
+                                      child: Column(
+                                        children: [
+                                          Icon(
+                                            IconlyBold.activity,
+                                            size: 50,
+                                            color: MyColor.colorPrimary,
+                                          ),
+                                          Text(
+                                            'atur_bisnis'.tr,
+                                            style: blackTextTitle.copyWith(
+                                                fontSize: 14.sp),
+                                          )
+                                        ],
+                                      ),
+                                    )),
+                                    Flexible(
+                                        child: InkWell(
+                                      onTap: () => showSnackBar(
+                                          snackBarType: SnackBarType.INFO,
+                                          title: 'Warmi Info',
+                                          message: 'Fitur Masih Dalam Proses'),
+                                      child: Column(
+                                        children: [
+                                          Icon(
+                                            IconlyBold.upload,
+                                            size: 50,
+                                            color: MyColor.colorPrimary,
+                                          ),
+                                          Text(
+                                            "Upgrade",
+                                            style: blackTextTitle.copyWith(
+                                                fontSize: 14.sp),
+                                          )
+                                        ],
+                                      ),
+                                    ))
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              'bisnismu'.tr,
+                              style:
+                                  blackTextTitle.copyWith(letterSpacing: 0.5),
+                            ),
+                            SizedBox(
+                              height: 10,
                             ),
                             SizedBox(height: 4.h,),
                             Card(
@@ -205,13 +285,13 @@ class SettingView extends GetWidget<SettingController> {
                               onClick: () => Get.toNamed(Routes.PROFILE_VIEW),
                               statusIcon: true,
                               icon: "assets/icons/profile.png",
-                              textButton: "Data Diri",
+                              textButton: 'data_diri'.tr,
                               sizeIcon: 35,
                             ),
 
                             // MenuActionButton(
                             //   onClick: ()=> showSnackBar(snackBarType: SnackBarType.INFO,
-                            //       title: 'Info DPOS',
+                            //       title: 'Warmi Info',
                             //       message: 'Fitur Masih Dalam Proses'),
                             //   statusIcon: true,
                             //   icon: "assets/icons/bank.png",
@@ -223,12 +303,12 @@ class SettingView extends GetWidget<SettingController> {
                                   Get.toNamed(Routes.CHANGE_PASSWORD),
                               statusIcon: true,
                               icon: "assets/icons/password.png",
-                              textButton: "Ubah Kata Sandi",
+                              textButton: 'ubah_kata_sandi'.tr,
                               sizeIcon: 35,
                             ),
                             // MenuActionButton(
                             //   onClick: ()=> showSnackBar(snackBarType: SnackBarType.INFO,
-                            //       title: 'Info DPOS',
+                            //       title: 'Warmi Info',
                             //       message: 'Fitur Masih Dalam Proses'),
                             //   statusIcon: true,
                             //   icon: "assets/icons/home_address.png",
@@ -236,10 +316,10 @@ class SettingView extends GetWidget<SettingController> {
                             //   sizeIcon: 35,
                             // ),
                             MenuActionButton(
-                              onClick: () => Get.toNamed(Routes.EMPLOYEES),
+                              onClick:  () => Get.toNamed(Routes.EMPLOYEES),
                               statusIcon: true,
                               icon: "assets/icons/employees.png",
-                              textButton: "Daftar Karyawan",
+                              textButton: 'daftar_karyawan'.tr,
                               sizeIcon: 35,
                             ),
 
@@ -247,90 +327,115 @@ class SettingView extends GetWidget<SettingController> {
                               onClick: () => Get.toNamed(Routes.OUTLET),
                               statusIcon: true,
                               icon: "assets/icons/store_shop.png",
-                              textButton: "Daftar Outlet",
+                              textButton: 'daftar_toko'.tr,
                               sizeIcon: 35,
                             ),
-                            SizedBox(height: 20,),
-                            Text("Kelola Outletmu",
-                              style: blackTextTitle.copyWith(
-                                  letterSpacing: 0.5),),
-                            SizedBox(height: 10,),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              'kelola_toko'.tr,
+                              style:
+                                  blackTextTitle.copyWith(letterSpacing: 0.5),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
                             MenuActionButton(
                               onClick: () => Get.toNamed(Routes.OUTLET_ONLINE),
                               statusIcon: true,
                               icon: "assets/icons/mobile_order.png",
-                              textButton: "Toko Online",
+                              textButton: 'pesanan_online'.tr,
                               sizeIcon: 35,
                             ),
                             MenuActionButton(
-                              onClick: () =>
-                                  Get.toNamed(Routes.PRODUCT_CATEGORY),
+                              onClick: ()=> Get.toNamed(Routes.PRODUCT_CATEGORY),
                               statusIcon: true,
                               icon: "assets/icons/product.png",
                               textButton: "Kategori Produk",
                               sizeIcon: 35,
                             ),
                             MenuActionButton(
-                              onClick: () => Get.toNamed(Routes.PRODUCT),
+                              onClick:()=> Get.toNamed(Routes.PRODUCT),
                               statusIcon: true,
                               icon: "assets/icons/product.png",
                               textButton: "Kelola Produk",
                               sizeIcon: 35,
                             ),
                             MenuActionButton(
-                              onClick: () =>
-                                  showSnackBar(snackBarType: SnackBarType.INFO,
-                                      title: 'Info DPOS',
-                                      message: 'Fitur Masih Dalam Proses'),
+                              onClick: () => showSnackBar(
+                                  snackBarType: SnackBarType.INFO,
+                                  title: 'Warmi Info',
+                                  message: 'Fitur Masih Dalam Proses'),
                               statusIcon: true,
                               icon: "assets/icons/shopping_promo.png",
                               textButton: "Paket Promo",
                               sizeIcon: 35,
                             ),
                             MenuActionButton(
-                              onClick: () => Get.toNamed(Routes.DISCOUNT),
+                              onClick: ()=> Get.toNamed(Routes.DISCOUNT),
                               statusIcon: true,
                               icon: "assets/icons/discount.png",
                               textButton: "Daftar Diskon",
                               sizeIcon: 35,
                             ),
                             MenuActionButton(
-                              onClick: () => Get.toNamed(Routes.TYPE_ORDER),
+                              onClick: ()=> Get.toNamed(Routes.TYPE_ORDER),
                               statusIcon: true,
                               icon: "assets/icons/online_shoping.png",
                               textButton: "Tipe Pesanan",
                               sizeIcon: 35,
                             ),
                             MenuActionButton(
-                              onClick: () => Get.toNamed(Routes.PAYMENT_METHOD),
+                              onClick:()=> Get.toNamed(Routes.PAYMENT_METHOD),
                               statusIcon: true,
                               icon: "assets/icons/mobile_payment.png",
                               textButton: "Metode Pembayaran",
                               sizeIcon: 35,
                             ),
-                            SizedBox(height: 20,),
-                            Text("Pengaturan Aplikasi",
-                              style: blackTextTitle.copyWith(
-                                  letterSpacing: 0.5),),
-                            SizedBox(height: 10,),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              'pengaturan_aplikasi'.tr,
+                              style:
+                                  blackTextTitle.copyWith(letterSpacing: 0.5),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
                             MenuActionButton(
-                              onClick: () => Get.toNamed(Routes.PRINTER_PAGE),
+                              onClick: ()=> Get.toNamed(Routes.PRINTER_PAGE),
                               statusIcon: true,
                               icon: "assets/icons/printer.png",
                               textButton: "Printer",
                               sizeIcon: 35,
                             ),
                             MenuActionButton(
-                              onClick: () => Get.toNamed(Routes.INVOICE_PAGE),
+                              onClick: ()=> Get.toNamed(Routes.INVOICE_PAGE),
                               statusIcon: true,
                               icon: "assets/icons/purchase_order.png",
                               textButton: "Struk Pembelian",
                               sizeIcon: 35,
                             ),
-                            SizedBox(height: 20,),
-                            Text("Tentang Kami", style: blackTextTitle.copyWith(
-                                letterSpacing: 0.5),),
-                            SizedBox(height: 10,),
+                            MenuActionButton(
+                              onClick: () => Get.toNamed(Routes.LANGUAGE_SETTING_PAGE),
+                              statusIcon: true,
+                              icon: 'assets/icons/translate.png',
+                              textButton: 'pengaturan_bahasa'.tr,
+                              sizeIcon: 35,
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              'tentang_kami'.tr,
+                              style:
+                                  blackTextTitle.copyWith(letterSpacing: 0.5),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
                             MenuActionButton(
                               onClick: () => dialogBottomCallMe(),
                               statusIcon: true,
@@ -338,38 +443,37 @@ class SettingView extends GetWidget<SettingController> {
                               textButton: "Hubungi Kami",
                               sizeIcon: 35,
                             ),
-                            GetBuilder<SettingController>(
-                                builder: (logic) {
-                                  return MenuActionButton(
-                                    onClick: () =>
-                                        dialogBottomAboutMe(
-                                            version: "${controller.packageInfo!
-                                                .version}+${controller
-                                                .packageInfo!
-                                                .buildNumber}"),
-                                    statusIcon: true,
-                                    icon: "assets/icons/info.png",
-                                    textButton: "Tentang Aplikasi",
-                                    sizeIcon: 35,
-                                  );
-                                }),
                             MenuActionButton(
                               onClick: () =>
-                                  showSnackBar(snackBarType: SnackBarType.INFO,
-                                      title: 'Info DPOS',
-                                      message: 'Fitur Masih Dalam Proses'),
+                                  dialogBottomAboutMe(
+                                      version: "${controller.packageInfo!
+                                          .version}+${controller
+                                          .packageInfo!
+                                          .buildNumber}"),
+                              statusIcon: true,
+                              icon: "assets/icons/info.png",
+                              textButton: "Tentang Aplikasi",
+                              sizeIcon: 35,
+                            ),
+                            MenuActionButton(
+                              onClick: () => showSnackBar(
+                                  snackBarType: SnackBarType.INFO,
+                                  title: 'Warmi Info',
+                                  message: 'Fitur Masih Dalam Proses'),
                               statusIcon: true,
                               icon: "assets/icons/feedback.png",
-                              textButton: "Feedback",
+                              textButton: 'masukan'.tr,
                               sizeIcon: 35,
                             ),
                             SizedBox(height: 20,),
                             Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10),
-                              child: GeneralButton(label: "Keluar",
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: GeneralButton(
+                                label: 'keluar'.tr,
                                 onPressed: () => controller.logOut(),
-                                height: 45,),
+                                height: 45,
+                              ),
                             ),
                             SizedBox(height: 10,),
                           ],
@@ -381,14 +485,12 @@ class SettingView extends GetWidget<SettingController> {
             Obx(() {
               return Positioned(
                   top: 0,
-                  right: controller.scrollOpacity.value < 1.0 ? 0 : MyString
-                      .DEFAULT_PADDING,
-                  left: controller.scrollOpacity.value < 1.0 ? 0 : MyString
-                      .DEFAULT_PADDING,
+                  right: controller.scrollOpacity.value < 1.0 ? 0 : MyString.DEFAULT_PADDING,
+                  left: controller.scrollOpacity.value < 1.0 ? 0 : MyString.DEFAULT_PADDING,
                   child: controller.scrollOpacity.value < 1.0
                       ? AppBar(
                     backgroundColor: MyColor.colorWhite,
-                    leading: Padding(
+                    leading:  Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextAvatar(
                         shape: Shape.Circular,
@@ -404,15 +506,11 @@ class SettingView extends GetWidget<SettingController> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("${navC.auth.value.userFullName}",
-                          style: blackTextTitle.copyWith(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16.sp, letterSpacing: 0.5),),
+                        Text("${navC.auth.value.userFullName}",style: blackTextTitle.copyWith(fontWeight: FontWeight.bold,
+                            fontSize: 16.sp,letterSpacing: 0.5),),
                         SizedBox(height: 2,),
-                        Text("${navC.auth.value.userNoHp}",
-                          style: blackTextTitle.copyWith(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16.sp, letterSpacing: 0.5),)
+                        Text("${navC.auth.value.userNoHp}",style: blackTextTitle.copyWith(fontWeight: FontWeight.bold,
+                            fontSize: 16.sp,letterSpacing: 0.5),)
                       ],
                     ),
 
@@ -424,6 +522,7 @@ class SettingView extends GetWidget<SettingController> {
       ),
     );
   }
+
 
 
 }

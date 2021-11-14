@@ -19,11 +19,11 @@ class HistorySalesController extends GetxController
     with SingleGetTickerProviderMixin {
   //TODO: Implement HistorySalesController
   final List<Tab> tabs = <Tab>[
-    Tab(text: "Semua"),
-    Tab(text: "Lunas"),
-    Tab(text: "Menunggu Pembayaran"),
+    Tab(text: 'semua'.tr),
+    Tab(text: 'lunas'.tr),
+    Tab(text: 'menunggu_pembayaran'.tr),
     // Tab(text: "Utang"),
-    Tab(text: "Dibatalkan"),
+    Tab(text: 'pembatalan'.tr),
   ];
 
   late TabController tabController;

@@ -23,7 +23,7 @@ class ProductCategoryView extends GetWidget<ProductCategoryController> {
         appBar: AppBar(
           backgroundColor: MyColor.colorPrimary,
           title: Text(
-            'Kategori Produk',
+            'kategori_produk'.tr,
             style: whiteTextTitle,
           ),
           actions: [
@@ -46,7 +46,7 @@ class ProductCategoryView extends GetWidget<ProductCategoryController> {
                   },
                   decoration: InputDecoration(
 
-                      hintText: "Cari Kategori disini...",
+                      hintText: 'cari_kategori_produk'.tr + '...',
                       hintStyle: TextStyle(fontSize: 12, color: Colors.grey[600]),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -93,7 +93,7 @@ class ProductCategoryView extends GetWidget<ProductCategoryController> {
                             contentPadding: EdgeInsets.all(8),
                             trailing: IconButton(
                               onPressed: () => showDialogQuestion(
-                                  title: 'Hapus',
+                                  title: 'hapus'.tr,
                                   message: 'Anda Yakin ?',
                                   clickYes: () {
                                     controller.deleteCategoryProductDataSource(
@@ -137,7 +137,7 @@ class ProductCategoryView extends GetWidget<ProductCategoryController> {
                             contentPadding: EdgeInsets.all(8),
                             trailing: IconButton(
                               onPressed: () => showDialogQuestion(
-                                  title: 'Hapus',
+                                  title: 'hapus'.tr,
                                   message: 'Anda Yakin ?',
                                   clickYes: () {
                                     controller.deleteCategoryProductDataSource(

@@ -29,6 +29,7 @@ abstract class Routes {
   static const CART_TRANSACTION = _Paths.CART_TRANSACTION;
   static const CUSTOMER_PAGE = _Paths.CUSTOMER_PAGE;
   static const INVOICE_PAGE = _Paths.INVOICE_PAGE;
+  static const LANGUAGE_SETTING_PAGE = _Paths.LANGUAGE_SETTING_PAGE;
   static const PRINTER_PAGE = _Paths.PRINTER_PAGE;
   static const CHECKOUT_PAGE = _Paths.CHECKOUT_PAGE;
   static const TRANSACTION_SUCCESS = _Paths.TRANSACTION_SUCCESS;
@@ -39,8 +40,10 @@ abstract class Routes {
   static const INDEX_TRANSACTION = _Paths.INDEX_TRANSACTION;
   static const CHECKOUT_TABLET = _Paths.CHECKOUT_TABLET;
   static const CHOOSE_STORE = _Paths.CHOOSE_STORE;
-  static const DETAIL_REPORT_SELLING_PRODUCT = _Paths.DETAIL_REPORT_SELLING_PRODUCT;
-  static const DETAIL_REPORT_PAYMENT_METHOD = _Paths.DETAIL_REPORT_PAYMENT_METHOD;
+  static const DETAIL_REPORT_SELLING_PRODUCT =
+      _Paths.DETAIL_REPORT_SELLING_PRODUCT;
+  static const DETAIL_REPORT_PAYMENT_METHOD =
+      _Paths.DETAIL_REPORT_PAYMENT_METHOD;
 }
 
 abstract class _Paths {
@@ -69,6 +72,7 @@ abstract class _Paths {
   static const CART_TRANSACTION = '/cart-transaction';
   static const CUSTOMER_PAGE = '/customer-page';
   static const INVOICE_PAGE = '/invoice-page';
+  static const LANGUAGE_SETTING_PAGE = '/language-setting-page';
   static const PRINTER_PAGE = '/printer-page';
   static const CHECKOUT_PAGE = '/checkout-page';
   static const TRANSACTION_SUCCESS = '/transaction-success-page';

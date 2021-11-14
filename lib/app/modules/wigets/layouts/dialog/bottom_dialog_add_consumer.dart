@@ -58,7 +58,7 @@ class BottomDialogAddCustomer extends StatelessWidget {
                  labelTextInputBox: 'Alamat', descTextInputBox: 'Alamat Pelanggan'),
               SizedBox(height: 10,),
               GeneralButton(
-                  label: 'Simpan', onPressed: ()=> controller.createCustomer())
+                  label: 'simpan'.tr, onPressed: ()=> controller.createCustomer())
             ],
           ),
         );

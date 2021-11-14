@@ -11,15 +11,17 @@ import '../general_text_input.dart';
 class DialogEmployees extends GetWidget<EmployeesController> {
   final String? employeesID;
   final EmployeData? employeeData;
-  const DialogEmployees({Key? key,this.employeesID,this.employeeData}) : super(key: key);
+
+  const DialogEmployees({Key? key, this.employeesID, this.employeeData})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if(employeeData!=null) {
-      controller.nameC.value.text=employeeData!.name!;
-      controller.phoneNumberC.value.text=employeeData!.phonenumber!;
-      controller.pinC.value.text="******";
-      controller.addressC.value.text=employeeData!.address.toString();
+    if (employeeData != null) {
+      controller.nameC.value.text = employeeData!.name!;
+      controller.phoneNumberC.value.text = employeeData!.phonenumber!;
+      controller.pinC.value.text = "******";
+      controller.addressC.value.text = employeeData!.address.toString();
     }
     return DraggableScrollableSheet(
       expand: false,
@@ -46,7 +48,8 @@ class DialogEmployees extends GetWidget<EmployeesController> {
                     height: 5.0,
                     width: 70.0,
                     decoration: BoxDecoration(
-                        color: Colors.grey[400], borderRadius: BorderRadius.circular(10.0)),
+                        color: Colors.grey[400],
+                        borderRadius: BorderRadius.circular(10.0)),
                   ),
                 ),
                 SizedBox(
@@ -56,29 +59,33 @@ class DialogEmployees extends GetWidget<EmployeesController> {
                     controller: controller.nameC.value,
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.visiblePassword,
-                    labelTextInputBox: 'Nama',
-                    descTextInputBox: 'Masukan Nama Karyawan'),
+                    labelTextInputBox: 'nama'.tr,
+                    descTextInputBox: 'masukkan_nama_karyawan'.tr),
                 GeneralTextInput(
                     controller: controller.phoneNumberC.value,
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.phone,
-                    labelTextInputBox: 'Nomor Hanphone',
-                    descTextInputBox: 'Masukan Nomor Hanphone'),
+                    labelTextInputBox: 'nomor_telp'.tr,
+                    descTextInputBox: 'masukkan_nomor_telp'.tr),
                 GeneralTextInput(
                     controller: controller.pinC.value,
                     textInputAction: TextInputAction.done,
                     keyboardType: TextInputType.number,
-                    labelTextInputBox: 'Pin',
-                    descTextInputBox: 'Masukan Pin Masuk'),
+                    labelTextInputBox: 'PIN',
+                    descTextInputBox: 'masukkan_pin'.tr),
                 GeneralTextInput(
                     controller: controller.addressC.value,
                     textInputAction: TextInputAction.done,
                     keyboardType: TextInputType.visiblePassword,
-                    labelTextInputBox: 'Alamat',
-                    descTextInputBox: 'Masukan Alamat Karyawan Anda'),
-
-                GeneralButton(label: 'Simpan', onPressed: () => controller.storeEmployees(name: controller.nameC.value.text,
-                pin: controller.pinC.value.text,phoneNumber: controller.phoneNumberC.value.text,employeesID: employeesID))
+                    labelTextInputBox: 'alamat'.tr,
+                    descTextInputBox: 'masukkan_alamat'.tr),
+                GeneralButton(
+                    label: 'simpan'.tr,
+                    onPressed: () => controller.storeEmployees(
+                        name: controller.nameC.value.text,
+                        pin: controller.pinC.value.text,
+                        phoneNumber: controller.phoneNumberC.value.text,
+                        employeesID: employeesID))
               ],
             ),
           );
