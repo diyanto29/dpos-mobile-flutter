@@ -40,10 +40,12 @@ class HistorySalesController extends GetxController
 
   @override
   void onInit() {
+
+    setTabName();
     tabController = TabController(vsync: this, length: tabs.length);
     transactionC.initAdmob();
     getTransactionLast();
-    setTabName();
+
     super.onInit();
   }
 
@@ -70,7 +72,9 @@ class HistorySalesController extends GetxController
    // Tab(text: "Utang"),
    Tab(text: 'pembatalan'.tr),
    ];
-   update();
+
+   print('set tab histori');
+    update();
 }
 
 
