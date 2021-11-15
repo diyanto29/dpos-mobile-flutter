@@ -294,7 +294,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                 snackBarType:
                                                     SnackBarType.WARNING,
                                                 message: "Stok Produk Kosong",
-                                                title: "Produk");
+                                                title: 'produk'.tr);
                                           else
                                             cartController.addCart(
                                                 controller.listProduct[i]);
@@ -538,7 +538,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                         SnackBarType.WARNING,
                                                     message:
                                                         "Stok Produk Kosong",
-                                                    title: "Produk");
+                                                    title: 'produk'.tr);
                                               else
                                                 cartController.addCart(
                                                     transactionController

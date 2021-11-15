@@ -48,7 +48,7 @@ class DiscountView extends GetWidget<DiscountController> {
                     controller.searchDiscount(v);
                   },
                   decoration: InputDecoration(
-                      hintText: "Cari Diskon disini...",
+                      hintText: 'cari_diskon'.tr + '...',
                       hintStyle: TextStyle(fontSize: 12, color: Colors.grey[600]),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10)),

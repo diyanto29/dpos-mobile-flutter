@@ -28,10 +28,8 @@ class TransactionView extends StatefulWidget {
 class _TransactionViewState extends State<TransactionView> {
   var controller = Get.put(TransactionController());
   var cartController = Get.isRegistered<CartController>()
-      ? Get.find<CartController>() :Get.put(CartController());
-
-
-
+      ? Get.find<CartController>()
+      : Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +41,8 @@ class _TransactionViewState extends State<TransactionView> {
           title: Text(
             'penjualan'.tr,
           ),
-          automaticallyImplyLeading: controller.auth.value.roleName == "Pemilik Toko" ? false : true,
+          automaticallyImplyLeading:
+              controller.auth.value.roleName == "Pemilik Toko" ? false : true,
           actions: [
             controller.listTransaction.length == 0
                 ? IconButton(
@@ -60,7 +59,6 @@ class _TransactionViewState extends State<TransactionView> {
                     position: BadgePosition.topEnd(top: 2, end: 7),
                     animationType: BadgeAnimationType.slide,
                     badgeColor: Colors.white,
-
                     badgeContent: Text("${controller.listTransaction.length}"),
                     child: IconButton(
                       onPressed: () => Get.to(TransactionPending()),
@@ -72,62 +70,13 @@ class _TransactionViewState extends State<TransactionView> {
                   )
           ],
         ),
-        drawer: controller.auth.value.roleName == "Pemilik Toko" ? null : DrawerCustom(),
+        drawer: controller.auth.value.roleName == "Pemilik Toko"
+            ? null
+            : DrawerCustom(),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Flexible(
-                  flex: 5,
-                  child: Container(
-                    margin: const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
-                    child: TextField(
-                      controller: controller.searchC.value,
-                      style: TextStyle(height: 0.9, fontSize: 14),
-                      onChanged: (v) {
-                        controller.getSearchProduct(v);
-                      },
-                      decoration: InputDecoration(
-                          hintText: 'cari_produk_disini'.tr + '...',
-                          hintStyle: TextStyle(fontSize: 12, color: Colors.grey[600]),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            borderSide: BorderSide(width: 1, color: MyColor.colorBlackT50),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            borderSide: BorderSide(width: 1, color: MyColor.colorPrimary),
-                          ),
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.red, width: 0.1)),
-                          suffixIcon: Icon(
-                            Icons.search,
-                            color: Colors.grey[400],
-                          )),
-                    ),
-                  ),
-                ),
-                Flexible(
-                    flex: 1,
-                    child: IconButton(
-                      onPressed: () => controller.scanBarcode(),
-                      icon: LineIcon.barcode(
-                        color: MyColor.colorBlackT50,
-                      ),
-                      iconSize: 30,
-                    )),
-                Flexible(
-                    flex: 1,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: LineIcon.fileAlt(
-                        color: MyColor.colorBlackT50,
-                      ),
-                      iconSize: 30,
-                    ))
-              ],
-            ),
             Obx(() {
               return Row(
                 children: [
@@ -139,46 +88,46 @@ class _TransactionViewState extends State<TransactionView> {
                       child: TextField(
                         controller: controller.searchC.value,
                         style: TextStyle(height: 0.9, fontSize: 14),
-                        onSubmitted: (v) {
-
-                        },
+                        onSubmitted: (v) {},
                         onChanged: (v) {
                           print("asda");
                           controller.getSearchProduct(v);
                         },
                         decoration: InputDecoration(
-                            hintText: "Cari Produk disini...",
+                            hintText: 'cari_produk_disini'.tr + '...',
                             hintStyle: TextStyle(
                                 fontSize: 12, color: Colors.grey[600]),
                             enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(10)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
                               borderSide: BorderSide(
                                   width: 1, color: MyColor.colorBlackT50),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(10)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
                               borderSide: BorderSide(
                                   width: 1, color: MyColor.colorPrimary),
                             ),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                    color: Colors.red, width: 0.1)),
+                                borderSide:
+                                    BorderSide(color: Colors.red, width: 0.1)),
                             suffixIcon: controller.searchC.value.text.isNotEmpty
-                                ? IconButton(onPressed: () {
-                                 setState(() {
-                                   controller.searchC.value.text="";
-                                 });
-                            }, icon: Icon(
-                              Icons.cancel,
-                              color: Colors.grey[400],
-                            ))
+                                ? IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        controller.searchC.value.text = "";
+                                      });
+                                    },
+                                    icon: Icon(
+                                      Icons.cancel,
+                                      color: Colors.grey[400],
+                                    ))
                                 : Icon(
-                              Icons.search,
-                              color: Colors.grey[400],
-                            )),
+                                    Icons.search,
+                                    color: Colors.grey[400],
+                                  )),
                       ),
                     ),
                   ),
@@ -219,7 +168,8 @@ class _TransactionViewState extends State<TransactionView> {
                 controller.index(v);
               },
               tabs: controller.tabs,
-              labelStyle: blackTextFont.copyWith(fontSize: 12, fontWeight: FontWeight.bold),
+              labelStyle: blackTextFont.copyWith(
+                  fontSize: 12, fontWeight: FontWeight.bold),
               controller: controller.tabController,
             ),
             SizedBox(
@@ -255,11 +205,15 @@ class _TransactionViewState extends State<TransactionView> {
                             height: 45,
                             width: 45,
                             alignment: Alignment.center,
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: MyColor.colorWhite),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: MyColor.colorWhite),
                             padding: EdgeInsets.all(10),
                             child: Text(
                               "${cartController.listCart.length}",
-                              style: blackTextFont.copyWith(color: MyColor.colorPrimary, fontWeight: FontWeight.bold),
+                              style: blackTextFont.copyWith(
+                                  color: MyColor.colorPrimary,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           trailing: LineIcon.arrowCircleRight(
@@ -267,10 +221,17 @@ class _TransactionViewState extends State<TransactionView> {
                           ),
                           title: Text(
                             "Rp. ${formatCurrency.format(cartController.totalCart.value)}",
-                            style: GoogleFonts.droidSans(fontSize: 6.w, color: MyColor.colorWhite, fontWeight: FontWeight.bold),
+                            style: GoogleFonts.droidSans(
+                                fontSize: 6.w,
+                                color: MyColor.colorWhite,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
-                        style: ElevatedButton.styleFrom(elevation: 1, primary: MyColor.colorPrimary, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                        style: ElevatedButton.styleFrom(
+                            elevation: 1,
+                            primary: MyColor.colorPrimary,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10))),
                         onPressed: () => Get.toNamed(Routes.CART_TRANSACTION))),
               );
             })
@@ -281,6 +242,7 @@ class _TransactionViewState extends State<TransactionView> {
   }
 
   Future showBottomSheetOutlet() {
-    return Get.bottomSheet(BottomDialogCart(), isScrollControlled: true, elevation: 3);
+    return Get.bottomSheet(BottomDialogCart(),
+        isScrollControlled: true, elevation: 3);
   }
 }

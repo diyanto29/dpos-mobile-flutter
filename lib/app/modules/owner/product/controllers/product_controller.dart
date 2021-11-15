@@ -194,7 +194,7 @@ class ProductController extends GetxController {
       Get.back();
       showSnackBar(
           snackBarType: value.status ? SnackBarType.SUCCESS : SnackBarType.ERROR,
-          title: 'Produk',
+          title: 'produk'.tr,
           message: value.message);
     });
   }
@@ -210,7 +210,7 @@ class ProductController extends GetxController {
 
        }
 
-       showSnackBar(snackBarType: SnackBarType.ERROR,title: "Produk",message: value.message);
+       showSnackBar(snackBarType: SnackBarType.ERROR,title: 'produk'.tr,message: value.message);
      });
   }
 

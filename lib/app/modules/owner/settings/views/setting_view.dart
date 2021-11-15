@@ -41,27 +41,35 @@ class SettingView extends GetWidget<SettingController> {
                       borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(10.0),
                           bottomRight: Radius.circular(10)),
-                      color: MyColor.colorPrimary.withOpacity(
-                          controller.scrollOpacity.value)
-                    // gradient: LinearGradient(colors: [
-                    //   MyColor.colorPrimary,
-                    //   MyColor.colorOrangeLight,
-                    //   MyColor.colorOrangeLight,
-                    // ], begin: Alignment.bottomCenter),
-                  ),
+                      color: MyColor.colorPrimary
+                          .withOpacity(controller.scrollOpacity.value)
+                      // gradient: LinearGradient(colors: [
+                      //   MyColor.colorPrimary,
+                      //   MyColor.colorOrangeLight,
+                      //   MyColor.colorOrangeLight,
+                      // ], begin: Alignment.bottomCenter),
+                      ),
                 );
               }),
             ),
             Obx(() {
               return Positioned(
                   top: 1.h,
-                  right: controller.scrollOpacity.value < 1.0 ? 0 : MyString.DEFAULT_PADDING,
-                  left: controller.scrollOpacity.value < 1.0 ? 0 : MyString.DEFAULT_PADDING,
-                  child: controller.scrollOpacity.value < 1.0 ? Container() : Container());
+                  right: controller.scrollOpacity.value < 1.0
+                      ? 0
+                      : MyString.DEFAULT_PADDING,
+                  left: controller.scrollOpacity.value < 1.0
+                      ? 0
+                      : MyString.DEFAULT_PADDING,
+                  child: controller.scrollOpacity.value < 1.0
+                      ? Container()
+                      : Container());
             }),
             Obx(() {
               return Positioned(
-                  top: controller.scrollOpacity.value < 1.0 ? 8.h : MyString.DEFAULT_PADDING,
+                  top: controller.scrollOpacity.value < 1.0
+                      ? 8.h
+                      : MyString.DEFAULT_PADDING,
                   right: MyString.DEFAULT_PADDING,
                   left: MyString.DEFAULT_PADDING,
                   bottom: 0,
@@ -71,7 +79,8 @@ class SettingView extends GetWidget<SettingController> {
 
                       if (scrollInfo.metrics.pixels == 0.0) {
                         controller.scrollOpacity(1.0);
-                        FlutterStatusbarcolor.setStatusBarColor(MyColor.colorPrimary);
+                        FlutterStatusbarcolor.setStatusBarColor(
+                            MyColor.colorPrimary);
                       }
                       if (scroll < 101.4604048295443 && scroll > 40.0) {
                         controller.scrollOpacity(0.6);
@@ -81,7 +90,8 @@ class SettingView extends GetWidget<SettingController> {
                       }
                       if (scroll < 269.4393643465884 && scroll > 40.0) {
                         controller.scrollOpacity(0.0);
-                        FlutterStatusbarcolor.setStatusBarColor(Colors.grey.withOpacity(0.4));
+                        FlutterStatusbarcolor.setStatusBarColor(
+                            Colors.grey.withOpacity(0.4));
                       }
 
                       return true;
@@ -107,16 +117,30 @@ class SettingView extends GetWidget<SettingController> {
                                   numberLetters: 2,
                                   text: "${navC.auth.value.userFullName}",
                                 ),
-                                SizedBox(width: 3.w,),
+                                SizedBox(
+                                  width: 3.w,
+                                ),
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text("${navC.auth.value.userFullName}",style: whiteTextFont.copyWith(fontWeight: FontWeight.bold,
-                                    fontSize: 16.sp,letterSpacing: 0.5),),
-                                    SizedBox(height: 2,),
-                                    Text("${navC.auth.value.userNoHp}",style: whiteTextFont.copyWith(fontWeight: FontWeight.bold,
-                                        fontSize: 16.sp,letterSpacing: 0.5),)
+                                    Text(
+                                      "${navC.auth.value.userFullName}",
+                                      style: whiteTextFont.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16.sp,
+                                          letterSpacing: 0.5),
+                                    ),
+                                    SizedBox(
+                                      height: 2,
+                                    ),
+                                    Text(
+                                      "${navC.auth.value.userNoHp}",
+                                      style: whiteTextFont.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16.sp,
+                                          letterSpacing: 0.5),
+                                    )
                                   ],
                                 )
                               ],
@@ -213,74 +237,6 @@ class SettingView extends GetWidget<SettingController> {
                             SizedBox(
                               height: 10,
                             ),
-                            SizedBox(height: 4.h,),
-                            Card(
-                              elevation: 2,
-                              shadowColor: MyColor.colorGrey,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10.0, vertical: 20.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .spaceAround,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Flexible(child: InkWell(
-                                      onTap: () =>
-                                          showSnackBar(
-                                              snackBarType: SnackBarType.INFO,
-                                              title: 'Info DPOS',
-                                              message: 'Fitur Masih Dalam Proses'),
-                                      child: Column(
-                                        children: [
-                                          Icon(IconlyBold.wallet, size: 50,
-                                            color: MyColor.colorPrimary,),
-                                          Text("Riwayat",
-                                            style: blackTextTitle.copyWith(
-                                                fontSize: 14.sp),)
-                                        ],
-                                      ),
-                                    )),
-                                    Flexible(child: InkWell(
-                                      onTap: () =>
-                                          Get.toNamed(Routes.SETUP_BUSINESS),
-                                      child: Column(
-                                        children: [
-                                          Icon(IconlyBold.activity, size: 50,
-                                            color: MyColor.colorPrimary,),
-                                          Text("Atur Bisnis",
-                                            style: blackTextTitle.copyWith(
-                                                fontSize: 14.sp),)
-                                        ],
-                                      ),
-                                    )),
-                                    Flexible(child: InkWell(
-                                      onTap: () =>
-                                          showSnackBar(
-                                              snackBarType: SnackBarType.INFO,
-                                              title: 'Info DPOS',
-                                              message: 'Fitur Masih Dalam Proses'),
-                                      child: Column(
-                                        children: [
-                                          Icon(IconlyBold.upload, size: 50,
-                                            color: MyColor.colorPrimary,),
-                                          Text("Upgrade",
-                                            style: blackTextTitle.copyWith(
-                                                fontSize: 14.sp),)
-                                        ],
-                                      ),
-                                    ))
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 10,),
-                            Text("Bisnismu", style: blackTextTitle.copyWith(
-                                letterSpacing: 0.5),),
-                            SizedBox(height: 10,),
                             MenuActionButton(
                               onClick: () => Get.toNamed(Routes.PROFILE_VIEW),
                               statusIcon: true,
@@ -316,7 +272,7 @@ class SettingView extends GetWidget<SettingController> {
                             //   sizeIcon: 35,
                             // ),
                             MenuActionButton(
-                              onClick:  () => Get.toNamed(Routes.EMPLOYEES),
+                              onClick: () => Get.toNamed(Routes.EMPLOYEES),
                               statusIcon: true,
                               icon: "assets/icons/employees.png",
                               textButton: 'daftar_karyawan'.tr,
@@ -349,17 +305,18 @@ class SettingView extends GetWidget<SettingController> {
                               sizeIcon: 35,
                             ),
                             MenuActionButton(
-                              onClick: ()=> Get.toNamed(Routes.PRODUCT_CATEGORY),
+                              onClick: () =>
+                                  Get.toNamed(Routes.PRODUCT_CATEGORY),
                               statusIcon: true,
                               icon: "assets/icons/product.png",
-                              textButton: "Kategori Produk",
+                              textButton: 'kategori_produk'.tr,
                               sizeIcon: 35,
                             ),
                             MenuActionButton(
-                              onClick:()=> Get.toNamed(Routes.PRODUCT),
+                              onClick: () => Get.toNamed(Routes.PRODUCT),
                               statusIcon: true,
                               icon: "assets/icons/product.png",
-                              textButton: "Kelola Produk",
+                              textButton: 'kelola_produk'.tr,
                               sizeIcon: 35,
                             ),
                             MenuActionButton(
@@ -369,28 +326,28 @@ class SettingView extends GetWidget<SettingController> {
                                   message: 'Fitur Masih Dalam Proses'),
                               statusIcon: true,
                               icon: "assets/icons/shopping_promo.png",
-                              textButton: "Paket Promo",
+                              textButton: 'paket_promo'.tr,
                               sizeIcon: 35,
                             ),
                             MenuActionButton(
-                              onClick: ()=> Get.toNamed(Routes.DISCOUNT),
+                              onClick: () => Get.toNamed(Routes.DISCOUNT),
                               statusIcon: true,
                               icon: "assets/icons/discount.png",
-                              textButton: "Daftar Diskon",
+                              textButton: 'daftar_diskon'.tr,
                               sizeIcon: 35,
                             ),
                             MenuActionButton(
-                              onClick: ()=> Get.toNamed(Routes.TYPE_ORDER),
+                              onClick: () => Get.toNamed(Routes.TYPE_ORDER),
                               statusIcon: true,
                               icon: "assets/icons/online_shoping.png",
-                              textButton: "Tipe Pesanan",
+                              textButton: 'tipe_pesanan'.tr,
                               sizeIcon: 35,
                             ),
                             MenuActionButton(
-                              onClick:()=> Get.toNamed(Routes.PAYMENT_METHOD),
+                              onClick: () => Get.toNamed(Routes.PAYMENT_METHOD),
                               statusIcon: true,
                               icon: "assets/icons/mobile_payment.png",
-                              textButton: "Metode Pembayaran",
+                              textButton: 'metode_pembayaran'.tr,
                               sizeIcon: 35,
                             ),
                             SizedBox(
@@ -405,21 +362,22 @@ class SettingView extends GetWidget<SettingController> {
                               height: 10,
                             ),
                             MenuActionButton(
-                              onClick: ()=> Get.toNamed(Routes.PRINTER_PAGE),
+                              onClick: () => Get.toNamed(Routes.PRINTER_PAGE),
                               statusIcon: true,
                               icon: "assets/icons/printer.png",
                               textButton: "Printer",
                               sizeIcon: 35,
                             ),
                             MenuActionButton(
-                              onClick: ()=> Get.toNamed(Routes.INVOICE_PAGE),
+                              onClick: () => Get.toNamed(Routes.INVOICE_PAGE),
                               statusIcon: true,
                               icon: "assets/icons/purchase_order.png",
-                              textButton: "Struk Pembelian",
+                              textButton: 'struk_pembelian'.tr,
                               sizeIcon: 35,
                             ),
                             MenuActionButton(
-                              onClick: () => Get.toNamed(Routes.LANGUAGE_SETTING_PAGE),
+                              onClick: () =>
+                                  Get.toNamed(Routes.LANGUAGE_SETTING_PAGE),
                               statusIcon: true,
                               icon: 'assets/icons/translate.png',
                               textButton: 'pengaturan_bahasa'.tr,
@@ -440,19 +398,16 @@ class SettingView extends GetWidget<SettingController> {
                               onClick: () => dialogBottomCallMe(),
                               statusIcon: true,
                               icon: "assets/icons/online_support.png",
-                              textButton: "Hubungi Kami",
+                              textButton: 'hubungi_kami'.tr,
                               sizeIcon: 35,
                             ),
                             MenuActionButton(
-                              onClick: () =>
-                                  dialogBottomAboutMe(
-                                      version: "${controller.packageInfo!
-                                          .version}+${controller
-                                          .packageInfo!
-                                          .buildNumber}"),
+                              onClick: () => dialogBottomAboutMe(
+                                  version:
+                                      "${controller.packageInfo!.version}+${controller.packageInfo!.buildNumber}"),
                               statusIcon: true,
                               icon: "assets/icons/info.png",
-                              textButton: "Tentang Aplikasi",
+                              textButton: 'tentang_aplikasi'.tr,
                               sizeIcon: 35,
                             ),
                             MenuActionButton(
@@ -465,7 +420,9 @@ class SettingView extends GetWidget<SettingController> {
                               textButton: 'masukan'.tr,
                               sizeIcon: 35,
                             ),
-                            SizedBox(height: 20,),
+                            SizedBox(
+                              height: 20,
+                            ),
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 10),
@@ -475,7 +432,9 @@ class SettingView extends GetWidget<SettingController> {
                                 height: 45,
                               ),
                             ),
-                            SizedBox(height: 10,),
+                            SizedBox(
+                              height: 10,
+                            ),
                           ],
                         ),
                       ),
@@ -485,36 +444,51 @@ class SettingView extends GetWidget<SettingController> {
             Obx(() {
               return Positioned(
                   top: 0,
-                  right: controller.scrollOpacity.value < 1.0 ? 0 : MyString.DEFAULT_PADDING,
-                  left: controller.scrollOpacity.value < 1.0 ? 0 : MyString.DEFAULT_PADDING,
+                  right: controller.scrollOpacity.value < 1.0
+                      ? 0
+                      : MyString.DEFAULT_PADDING,
+                  left: controller.scrollOpacity.value < 1.0
+                      ? 0
+                      : MyString.DEFAULT_PADDING,
                   child: controller.scrollOpacity.value < 1.0
                       ? AppBar(
-                    backgroundColor: MyColor.colorWhite,
-                    leading:  Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextAvatar(
-                        shape: Shape.Circular,
-                        size: 40,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                        upperCase: true,
-                        numberLetters: 2,
-                        text: "${navC.auth.value.userFullName}",
-                      ),
-                    ),
-                    title: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("${navC.auth.value.userFullName}",style: blackTextTitle.copyWith(fontWeight: FontWeight.bold,
-                            fontSize: 16.sp,letterSpacing: 0.5),),
-                        SizedBox(height: 2,),
-                        Text("${navC.auth.value.userNoHp}",style: blackTextTitle.copyWith(fontWeight: FontWeight.bold,
-                            fontSize: 16.sp,letterSpacing: 0.5),)
-                      ],
-                    ),
-
-                  )
+                          backgroundColor: MyColor.colorWhite,
+                          leading: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextAvatar(
+                              shape: Shape.Circular,
+                              size: 40,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                              upperCase: true,
+                              numberLetters: 2,
+                              text: "${navC.auth.value.userFullName}",
+                            ),
+                          ),
+                          title: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "${navC.auth.value.userFullName}",
+                                style: blackTextTitle.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16.sp,
+                                    letterSpacing: 0.5),
+                              ),
+                              SizedBox(
+                                height: 2,
+                              ),
+                              Text(
+                                "${navC.auth.value.userNoHp}",
+                                style: blackTextTitle.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16.sp,
+                                    letterSpacing: 0.5),
+                              )
+                            ],
+                          ),
+                        )
                       : Container());
             }),
           ],
@@ -522,7 +496,4 @@ class SettingView extends GetWidget<SettingController> {
       ),
     );
   }
-
-
-
 }

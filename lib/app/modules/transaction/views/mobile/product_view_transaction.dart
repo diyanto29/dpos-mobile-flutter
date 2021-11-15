@@ -86,7 +86,7 @@ class _ProductTransactionViewState extends State<ProductTransactionView> {
                                 showSnackBar(
                                     snackBarType: SnackBarType.WARNING,
                                     message: "Stok Produk Kosong",
-                                    title: "Produk");
+                                    title: 'produk'.tr);
                               else
                                 cartController
                                     .addCart(controller.listProduct[i]);
@@ -306,7 +306,7 @@ class _ProductTransactionViewState extends State<ProductTransactionView> {
                                 showSnackBar(
                                     snackBarType: SnackBarType.WARNING,
                                     message: "Stok Produk Kosong",
-                                    title: "Produk");
+                                    title: 'produk'.tr);
                               else
                                 cartController.addCart(
                                     transactionController.listSearchProduct[i]);

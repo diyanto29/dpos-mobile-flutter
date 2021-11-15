@@ -25,7 +25,7 @@ class ProductView extends GetWidget<ProductController> {
         appBar: AppBar(
           backgroundColor: MyColor.colorPrimary,
           title: Text(
-            'Produk',
+            'produk'.tr,
             style: whiteTextTitle,
           ),
           actions: [

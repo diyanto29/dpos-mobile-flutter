@@ -115,6 +115,7 @@ class Messages extends Translations {
           'disini': 'Disini',
           'ringkasan': 'Ringkasan',
           'penjualan': 'Penjualan',
+          'tentang_aplikasi': 'Tentang Aplikasi',
         },
         'en_US': {
           'pendapatan_bulanan': 'Monthly Income',
@@ -227,7 +228,7 @@ class Messages extends Translations {
           'disini': 'Here',
           'ringkasan': 'Outline',
           'penjualan': 'Sale',
-
+          'tentang_aplikasi': 'About Apps',
         }
       };
 }
