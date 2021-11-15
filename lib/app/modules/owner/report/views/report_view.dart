@@ -97,8 +97,9 @@ class ReportView extends GetWidget<ReportController> {
                           firstDate: DateTime(DateTime.now().year - 5),
                           lastDate: DateTime(DateTime.now().year + 5),
                           initialDateRange: DateTimeRange(
-                            end: DateTime.now().add(Duration(days: 30)),
-                            start: DateTime.now(),
+                            end: DateTime.parse(controller.date).add(Duration(days: 30)),
+                            start: DateTime.parse(controller.date),
+                            
                           ),
                         );
                         var startDate = DateFormat("yyyy-MM-dd", 'id-iD')

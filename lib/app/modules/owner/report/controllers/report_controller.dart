@@ -11,6 +11,7 @@ class ReportController extends GetxController {
   TextEditingController controllerDate = TextEditingController();
   Rx<ReportTransaction> reportTransaction=ReportTransaction().obs;
   Rx<LoadingState> loadingState = LoadingState.loading.obs;
+  var date,startDate,endDate;
 
 
   @override
@@ -20,9 +21,9 @@ class ReportController extends GetxController {
   }
 
   void init() {
-    var date="${DateTime.now().year}-${DateTime.now().month}-01";
-    var startDate=DateFormat("yyyy-MM-dd", 'id-iD').format(DateTime.parse(date));
-    var endDate=DateFormat("yyyy-MM-dd", 'id-iD').format(DateTime.parse(startDate).add(Duration(days: 30)));
+     date="${DateTime.now().year}-${DateTime.now().month}-01";
+     startDate=DateFormat("yyyy-MM-dd", 'id-iD').format(DateTime.parse(date));
+     endDate=DateFormat("yyyy-MM-dd", 'id-iD').format(DateTime.parse(startDate).add(Duration(days: 30)));
     controllerDate.text = DateFormat("dd MMMM yyyy", 'id-iD').format(DateTime.now()) + " - " + DateFormat("dd MMMM yyyy", 'id-iD').format(DateTime.now().add(Duration(days: 30)));
     getReportTransaction(startDate: startDate,dueDate: endDate);
     update();
