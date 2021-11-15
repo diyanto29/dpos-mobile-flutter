@@ -179,7 +179,7 @@ class Messages extends Translations {
           'daftar_karyawan': 'Employee List',
           'daftar_toko': 'Outlet List',
           'kelola_toko': 'Manage Outlet',
-          'pesanan_online': 'Online Order',
+          'pesanan_online': 'Toko Online',
           'kategori_produk': 'Product Category',
           'kelola_produk': 'Manage Product',
           'daftar_diskon': 'Discount List',

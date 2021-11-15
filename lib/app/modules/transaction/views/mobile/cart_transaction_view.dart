@@ -411,9 +411,12 @@ class _CardTransactionViewState extends State<CardTransactionView> {
           return Container(
             height: 13.5.h,
             width: double.infinity,
+            margin: EdgeInsets.only(
+              bottom: 10
+            ),
             decoration: BoxDecoration(color: MyColor.colorWhite),
             // margin: EdgeInsets.symmetric(horizontal: MyString.DEFAULT_PADDING),
-            padding: EdgeInsets.all(10),
+            // padding: EdgeInsets.all(10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -438,29 +441,33 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    GeneralButton(
-                      label: 'simpan'.tr,
-                      onPressed: () => showDialogNoted(title: 'Masukan Catatan',message: 'coba',clickYes: (){
-                        cartController.storeTransaction();
-                      }),
-                      width: 45.w,
-                      color: MyColor.colorBlue,
+                    Flexible(
+                      child: GeneralButton(
+                        label: 'simpan'.tr,
+                        onPressed: () => showDialogNoted(title: 'Masukan Catatan',message: 'coba',clickYes: (){
+                          cartController.storeTransaction();
+                        }),
+                        width: 45.w,
+                        color: MyColor.colorBlue,
+                      ),
                     ),
-                    GeneralButton(
-                      label: 'bayar_sekarang'.tr,
-                      onPressed: (){
-                        Map<dynamic,dynamic> data={
-                          "from" : "cart",
-                          "data" : null
-                        };
-                        if(cartController.listCart.isEmpty){
-                          showSnackBar(snackBarType: SnackBarType.INFO,message: "Keranjang Masih Kosong",title: "Transaksi");
-                        }else{
-                          Get.toNamed(Routes.CHECKOUT_PAGE,arguments: data);
-                        }
+                    Flexible(
+                      child: GeneralButton(
+                        label: 'bayar_sekarang'.tr,
+                        onPressed: (){
+                          Map<dynamic,dynamic> data={
+                            "from" : "cart",
+                            "data" : null
+                          };
+                          if(cartController.listCart.isEmpty){
+                            showSnackBar(snackBarType: SnackBarType.INFO,message: "Keranjang Masih Kosong",title: "Transaksi");
+                          }else{
+                            Get.toNamed(Routes.CHECKOUT_PAGE,arguments: data);
+                          }
 
-                      },
-                      width: 45.w,
+                        },
+                        width: 45.w,
+                      ),
                     ),
                   ],
                 )

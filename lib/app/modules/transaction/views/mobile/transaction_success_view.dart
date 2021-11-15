@@ -49,12 +49,12 @@ class _TransactionSuccessViewState extends State<TransactionSuccessView> {
         body: LayoutBuilder(builder: (context, constrains) {
           if (constrains.maxWidth <= 600) {
             return Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.only(left: MyString.DEFAULT_PADDING,right: MyString.DEFAULT_PADDING,bottom: 5),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 100,),
+                  SizedBox(height:80,),
                   Center(child: Image.asset("assets/icons/check-dollar.png",)),
                   SizedBox(height: 10,),
                   Text("Transaksi Success!", style: blackTextTitle.copyWith(fontSize: 16),),
