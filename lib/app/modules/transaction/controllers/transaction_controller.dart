@@ -48,10 +48,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
   var listSearchProduct = List<DataProduct>.empty().obs;
   var discountController = Get.put(DiscountController());
   var printerC = Get.isRegistered<PrinterController>() ? Get.find<PrinterController>() : Get.put(PrinterController());
-  final List<Tab> tabs = <Tab>[
-    Tab(text: 'semua'.tr),
-    Tab(text: 'paket'.tr),
-  ];
+   List<Tab> tabs =[];
 
   final List<Tab> tabsCheckout = <Tab>[
     Tab(text: "Tunai"),
@@ -81,6 +78,14 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
 
 
     update();
+  }
+
+  void setTabName(){
+   tabs= <Tab>[
+      Tab(text: 'semua'.tr),
+      Tab(text: 'paket'.tr),
+    ];
+   update();
   }
 
 
@@ -149,6 +154,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
   void onInit() {
     checkForUpdate();
     getTransaction();
+    setTabName();
     initAdmob();
     discountController.getDiscountDataSource();
     Get.lazyPut<CartController>(() => CartController());
