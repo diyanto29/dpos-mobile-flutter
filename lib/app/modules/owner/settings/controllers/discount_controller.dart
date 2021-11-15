@@ -16,24 +16,21 @@ class DiscountController extends GetxController {
   TextEditingController nameCategoryProductC = TextEditingController();
   Rx<LoadingState> loadingState = LoadingState.loading.obs;
 
-  RxInt value=1.obs;
-  Rx<TextEditingController> conName=TextEditingController().obs;
-  Rx<TextEditingController> conDiscount=TextEditingController().obs;
-  Rx<TextEditingController> conDiscountMax=TextEditingController().obs;
-  Rx<TextEditingController> conPercent=TextEditingController().obs;
-  RxInt money=0.obs;
-  RxInt moneyMax=0.obs;
-
+  RxInt value = 1.obs;
+  Rx<TextEditingController> conName = TextEditingController().obs;
+  Rx<TextEditingController> conDiscount = TextEditingController().obs;
+  Rx<TextEditingController> conDiscountMax = TextEditingController().obs;
+  Rx<TextEditingController> conPercent = TextEditingController().obs;
+  RxInt money = 0.obs;
+  RxInt moneyMax = 0.obs;
 
   @override
   void onInit() {
     print('"Asdadasd');
     getDiscountDataSource();
 
-
     super.onInit();
   }
-
 
   void getDiscountDataSource() async {
     loadingState(LoadingState.loading);
@@ -44,30 +41,36 @@ class DiscountController extends GetxController {
   }
 
   void searchDiscount(String keyword) async {
-
     loadingState(LoadingState.loading);
     await listSearchDiscount(listDiscount
-        .where((item) => item.discountName.toString().toLowerCase().contains(keyword.toLowerCase()))
+        .where((item) => item.discountName
+            .toString()
+            .toLowerCase()
+            .contains(keyword.toLowerCase()))
         .toList());
     loadingState(LoadingState.empty);
   }
 
-
-  void createDiscount({String? id})async{
-
-    if(conName.value.text.isEmpty || (conDiscount.value.text.isEmpty && conPercent.value.text.isEmpty)){
-      showSnackBar(snackBarType: SnackBarType.INFO,message: "Kolom harus Diisi",title: "Diskon");
+  void createDiscount({String? id}) async {
+    if (conName.value.text.isEmpty ||
+        (conDiscount.value.text.isEmpty && conPercent.value.text.isEmpty)) {
+      showSnackBar(
+          snackBarType: SnackBarType.INFO,
+          message: "Kolom harus Diisi",
+          title: "Diskon");
       return;
     }
     loadingBuilder();
-    await DiscountRemoteDataSource().createDiscount(
-      isPercent: value==1 ? false : true,
-      name: conName.value.text,
-      maxPriceOff: money.toString(),
-      percent: conPercent.value.text.isEmpty ?  "0" : conPercent.value.text,
-      idDiscount: id
-    ).then((value) {
-      if(value.status){
+    await DiscountRemoteDataSource()
+        .createDiscount(
+            isPercent: value == 1 ? false : true,
+            name: conName.value.text,
+            maxPriceOff: money.toString(),
+            percent:
+                conPercent.value.text.isEmpty ? "0" : conPercent.value.text,
+            idDiscount: id)
+        .then((value) {
+      if (value.status) {
         getDiscountDataSource();
         Get.back();
         Get.back();
@@ -75,7 +78,7 @@ class DiscountController extends GetxController {
             snackBarType: SnackBarType.WARNING,
             title: 'Diskon',
             message: 'Data Berhasil Disimpan');
-      }else{
+      } else {
         showSnackBar(
             snackBarType: SnackBarType.ERROR,
             title: 'Diskon',
@@ -84,29 +87,25 @@ class DiscountController extends GetxController {
     });
   }
 
-
-
-  void deleteDiscount(String? id)async{
+  void deleteDiscount(String? id) async {
     loadingBuilder();
     await DiscountRemoteDataSource().deleteDiscount(id: id).then((value) {
       Get.back();
       Get.back();
-      if(value.status) getDiscountDataSource();
-      showSnackBar(snackBarType: SnackBarType.SUCCESS,title: "Diskon",message: value.message);
+      if (value.status) getDiscountDataSource();
+      showSnackBar(
+          snackBarType: SnackBarType.SUCCESS,
+          title: "Diskon",
+          message: value.message);
     });
-
   }
+
   @override
   void onReady() {
-
     super.onReady();
   }
 
   @override
   // TODO: implement onStart
   InternalFinalCallback<void> get onStart => super.onStart;
-
-
-
-
 }
