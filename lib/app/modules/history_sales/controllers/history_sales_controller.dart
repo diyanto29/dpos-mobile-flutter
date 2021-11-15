@@ -18,13 +18,7 @@ import 'package:warmi/core/utils/enum.dart';
 class HistorySalesController extends GetxController
     with SingleGetTickerProviderMixin {
   //TODO: Implement HistorySalesController
-  final List<Tab> tabs = <Tab>[
-    Tab(text: 'semua'.tr),
-    Tab(text: 'lunas'.tr),
-    Tab(text: 'menunggu_pembayaran'.tr),
-    // Tab(text: "Utang"),
-    Tab(text: 'pembatalan'.tr),
-  ];
+   List<Tab> tabs = [];
 
   late TabController tabController;
   PageController controllerPage =
@@ -49,6 +43,7 @@ class HistorySalesController extends GetxController
     tabController = TabController(vsync: this, length: tabs.length);
     transactionC.initAdmob();
     getTransactionLast();
+    setTabName();
     super.onInit();
   }
 
@@ -66,7 +61,18 @@ class HistorySalesController extends GetxController
   @override
   void onClose() {}
 
-  void increment() => count.value++;
+
+  void setTabName(){
+   tabs=<Tab>[
+   Tab(text: 'semua'.tr),
+   Tab(text: 'lunas'.tr),
+   Tab(text: 'menunggu_pembayaran'.tr),
+   // Tab(text: "Utang"),
+   Tab(text: 'pembatalan'.tr),
+   ];
+   update();
+}
+
 
   List<DataTransaction> listTransaction = [];
   List<DataTransaction> listTransactionLast = [];
