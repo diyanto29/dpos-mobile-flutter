@@ -350,6 +350,13 @@ class SettingView extends GetWidget<SettingController> {
                               textButton: 'metode_pembayaran'.tr,
                               sizeIcon: 35,
                             ),
+                            MenuActionButton(
+                              onClick: () => Get.toNamed(Routes.TAX_SERVICE_VIEW),
+                              statusIcon: true,
+                              icon: "assets/icons/tax.png",
+                              textButton: 'tax_service'.tr,
+                              sizeIcon: 35,
+                            ),
                             SizedBox(
                               height: 20,
                             ),

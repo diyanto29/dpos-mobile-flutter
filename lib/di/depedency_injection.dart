@@ -18,6 +18,7 @@ import 'package:warmi/app/modules/owner/settings/controllers/payment_method_cont
 import 'package:warmi/app/modules/owner/settings/controllers/printer_controller.dart';
 import 'package:warmi/app/modules/owner/settings/controllers/product_category_controller.dart';
 import 'package:warmi/app/modules/owner/settings/controllers/setup_business_controller.dart';
+import 'package:warmi/app/modules/owner/settings/controllers/tax_service_controller.dart';
 import 'package:warmi/app/modules/owner/settings/controllers/type_order_controller.dart';
 import 'package:warmi/app/modules/register/controllers/register_controller.dart';
 import 'package:warmi/app/modules/splash/controllers/splash_controller.dart';
@@ -52,5 +53,6 @@ class LazyBindings extends Bindings {
     Get.lazyPut<LoginEmployeeController>(() => LoginEmployeeController());
     Get.lazyPut<ChooseStoreController>(() => ChooseStoreController());
     Get.lazyPut<LanguageSettingController>(() => LanguageSettingController());
+    Get.lazyPut<TaxServiceController>(() => TaxServiceController());
   }
 }

@@ -26,6 +26,7 @@ import 'package:warmi/app/modules/owner/settings/views/printer_view.dart';
 import 'package:warmi/app/modules/owner/settings/views/product_category_view.dart';
 import 'package:warmi/app/modules/owner/settings/views/profile_view.dart';
 import 'package:warmi/app/modules/owner/settings/views/setup_business_view.dart';
+import 'package:warmi/app/modules/owner/settings/views/tax_and_service.dart';
 import 'package:warmi/app/modules/owner/settings/views/type_order_view.dart';
 import 'package:warmi/app/modules/register/views/register_view.dart';
 import 'package:warmi/app/modules/splash/views/splash_view.dart';
@@ -81,19 +82,71 @@ class AppPages {
       page: () => HistorySalesView(),
       binding: LazyBindings(),
     ),
-    GetPage(name: _Paths.SETUP_BUSINESS, page: () => SetupBusinessView(), binding: LazyBindings(), transition: Transition.zoom),
-    GetPage(name: _Paths.OUTLET, page: () => OutletView(), binding: LazyBindings(), transition: Transition.zoom),
-    GetPage(name: _Paths.ADD_OUTLET, page: () => OutletFormInput(), binding: LazyBindings(), transition: Transition.fadeIn),
-    GetPage(name: _Paths.CHANGE_PASSWORD, page: () => ChangePasswordView(), binding: LazyBindings(), transition: Transition.fadeIn),
-    GetPage(name: _Paths.EMPLOYEES, page: () => EmployeesView(), binding: LazyBindings(), transition: Transition.fadeIn),
-    GetPage(name: _Paths.PRODUCT_CATEGORY, page: () => ProductCategoryView(), binding: LazyBindings(), transition: Transition.fadeIn),
-    GetPage(name: _Paths.TYPE_ORDER, page: () => TypeOrderView(), binding: LazyBindings(), transition: Transition.fadeIn),
-    GetPage(name: _Paths.PAYMENT_METHOD, page: () => PaymentMethodView(), binding: LazyBindings(), transition: Transition.fadeIn),
-    GetPage(name: _Paths.DISCOUNT, page: () => DiscountView(), binding: LazyBindings(), transition: Transition.fadeIn),
-    GetPage(name: _Paths.ADD_DISCOUNT, page: () => AddDiscountView(), binding: LazyBindings(), transition: Transition.fadeIn),
-    GetPage(name: _Paths.PRODUCT, page: () => ProductView(), binding: LazyBindings(), transition: Transition.leftToRightWithFade),
-    GetPage(name: _Paths.ADD_PRODUCT, page: () => AddProductView(), binding: LazyBindings(), transition: Transition.leftToRightWithFade),
-    GetPage(name: _Paths.EDIT_PRODUCT, page: () => EditProductView(), binding: LazyBindings(), transition: Transition.leftToRightWithFade),
+    GetPage(
+        name: _Paths.SETUP_BUSINESS,
+        page: () => SetupBusinessView(),
+        binding: LazyBindings(),
+        transition: Transition.zoom),
+    GetPage(
+        name: _Paths.OUTLET,
+        page: () => OutletView(),
+        binding: LazyBindings(),
+        transition: Transition.zoom),
+    GetPage(
+        name: _Paths.ADD_OUTLET,
+        page: () => OutletFormInput(),
+        binding: LazyBindings(),
+        transition: Transition.fadeIn),
+    GetPage(
+        name: _Paths.CHANGE_PASSWORD,
+        page: () => ChangePasswordView(),
+        binding: LazyBindings(),
+        transition: Transition.fadeIn),
+    GetPage(
+        name: _Paths.EMPLOYEES,
+        page: () => EmployeesView(),
+        binding: LazyBindings(),
+        transition: Transition.fadeIn),
+    GetPage(
+        name: _Paths.PRODUCT_CATEGORY,
+        page: () => ProductCategoryView(),
+        binding: LazyBindings(),
+        transition: Transition.fadeIn),
+    GetPage(
+        name: _Paths.TYPE_ORDER,
+        page: () => TypeOrderView(),
+        binding: LazyBindings(),
+        transition: Transition.fadeIn),
+    GetPage(
+        name: _Paths.PAYMENT_METHOD,
+        page: () => PaymentMethodView(),
+        binding: LazyBindings(),
+        transition: Transition.fadeIn),
+    GetPage(
+        name: _Paths.DISCOUNT,
+        page: () => DiscountView(),
+        binding: LazyBindings(),
+        transition: Transition.fadeIn),
+    GetPage(
+        name: _Paths.ADD_DISCOUNT,
+        page: () => AddDiscountView(),
+        binding: LazyBindings(),
+        transition: Transition.fadeIn),
+    GetPage(
+        name: _Paths.PRODUCT,
+        page: () => ProductView(),
+        binding: LazyBindings(),
+        transition: Transition.leftToRightWithFade),
+    GetPage(
+        name: _Paths.ADD_PRODUCT,
+        page: () => AddProductView(),
+        binding: LazyBindings(),
+        transition: Transition.leftToRightWithFade),
+    GetPage(
+        name: _Paths.EDIT_PRODUCT,
+        page: () => EditProductView(),
+        binding: LazyBindings(),
+        transition: Transition.leftToRightWithFade),
     GetPage(
       name: _Paths.TRANSACTION,
       page: () => TransactionView(),
@@ -193,6 +246,12 @@ class AppPages {
     GetPage(
       name: _Paths.DETAIL_REPORT_PAYMENT_METHOD,
       page: () => DetailReportPaymentMethod(),
+      transition: Transition.leftToRightWithFade,
+      binding: LazyBindings(),
+    ),
+    GetPage(
+      name: _Paths.TAX_SERVICE_VIEW,
+      page: () => TaxAndServiceView(),
       transition: Transition.leftToRightWithFade,
       binding: LazyBindings(),
     ),

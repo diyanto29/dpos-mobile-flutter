@@ -83,7 +83,7 @@ class InvoiceView extends GetWidget<InvoiceController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Tampilkan Logo Dpos",
+                      'tampilkan_logo_dpos'.tr,
                       style: blackTextTitle,
                     ),
                     Text(

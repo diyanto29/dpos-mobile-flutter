@@ -12,11 +12,11 @@ import 'package:warmi/core/utils/enum.dart';
 
 class LanguageSettingController extends GetxController {
   Rx<LanguageEnum> languageEnum = LanguageEnum.indonesia.obs;
-  var transactionC=Get.isRegistered<TransactionController>()
+  var transactionC = Get.isRegistered<TransactionController>()
       ? Get.find<TransactionController>()
       : Get.put(TransactionController());
 
-  var historySaleC=Get.isRegistered<HistorySalesController>()
+  var historySaleC = Get.isRegistered<HistorySalesController>()
       ? Get.find<HistorySalesController>()
       : Get.put(HistorySalesController());
   var box = GetStorage();

@@ -24,6 +24,7 @@ class LanguageView extends GetWidget<LanguageSettingController> {
             child: Column(
               children: <Widget>[
                 RadioListTile(
+                  activeColor: MyColor.colorPrimary,
                   title: const Text('Indonesia'),
                   value: LanguageEnum.indonesia,
                   groupValue: controller.languageEnum.value,
@@ -33,6 +34,7 @@ class LanguageView extends GetWidget<LanguageSettingController> {
                   },
                 ),
                 RadioListTile(
+                  activeColor: MyColor.colorPrimary,
                   title: const Text('English'),
                   value: LanguageEnum.english,
                   groupValue: controller.languageEnum.value,

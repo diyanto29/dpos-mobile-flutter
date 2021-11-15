@@ -37,10 +37,11 @@ class _ProductTransactionViewState extends State<ProductTransactionView> {
     // TODO: implement initState
     super.initState();
   }
+
   @override
   void dispose() {
     controller.listProduct.forEach((element) {
-      element.productInCart=false;
+      element.productInCart = false;
     });
     super.dispose();
   }

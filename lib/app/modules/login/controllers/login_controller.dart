@@ -9,10 +9,10 @@ class LoginController extends GetxController {
 
   final count = 0.obs;
 
-  final TextEditingController emailC=TextEditingController();
-  final TextEditingController passwordC=TextEditingController();
-  RxBool  obscurtText=false.obs;
-  Rx<LoadingState> loadingState=LoadingState.empty.obs;
+  final TextEditingController emailC = TextEditingController();
+  final TextEditingController passwordC = TextEditingController();
+  RxBool obscurtText = false.obs;
+  Rx<LoadingState> loadingState = LoadingState.empty.obs;
 
   @override
   void onInit() {
@@ -26,27 +26,26 @@ class LoginController extends GetxController {
 
   @override
   void onClose() {}
+
   void increment() => count.value++;
 
-  void changeObscureText() => obscurtText.value=!obscurtText.value;
+  void changeObscureText() => obscurtText.value = !obscurtText.value;
 
-
-  Future<bool> login()async{
-    if(emailC.text.isEmpty || passwordC.text.isEmpty){
+  Future<bool> login() async {
+    if (emailC.text.isEmpty || passwordC.text.isEmpty) {
       showSnackBar(
           snackBarType: SnackBarType.ERROR,
           title: 'Login',
-          message: 'Email atau Password Kosong');
+          message: 'Email or password is empty');
       return false;
     }
 
-    if(emailC.text.isEmail || emailC.text.isPhoneNumber){
-
+    if (emailC.text.isEmail || emailC.text.isPhoneNumber) {
       loadingState(LoadingState.loading);
-      await AuthRemoteDataSource().loginAuth(username: emailC.text,password: passwordC.text);
+      await AuthRemoteDataSource()
+          .loginAuth(username: emailC.text, password: passwordC.text);
       loadingState(LoadingState.empty);
       return true;
-
     }
 
     showSnackBar(
@@ -54,6 +53,5 @@ class LoginController extends GetxController {
         title: 'Login',
         message: 'Email/No Hanphone tidak valid');
     return false;
-
   }
 }

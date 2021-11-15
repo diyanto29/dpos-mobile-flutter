@@ -23,7 +23,11 @@ class GeneralTextInput extends StatelessWidget {
       this.paddingBottom = 20.0,
       this.keyboardType,
       this.readOnly = false,
-      this.textInputAction = TextInputAction.next, this.borderRadius=10, this.maxLines=1, this.onClick, this.autoFocus=false})
+      this.textInputAction = TextInputAction.next,
+      this.borderRadius = 6,
+      this.maxLines = 1,
+      this.onClick,
+      this.autoFocus = false})
       : super(key: key);
 
   @override
@@ -44,16 +48,15 @@ class GeneralTextInput extends StatelessWidget {
             decoration: InputDecoration(
               focusedBorder: OutlineInputBorder(
                 borderSide:
-                const BorderSide(color: MyColor.colorPrimary, width: 2.0),
+                    const BorderSide(color: MyColor.colorPrimary, width: 2.0),
                 borderRadius: BorderRadius.circular(borderRadius),
               ),
               border: OutlineInputBorder(
                 borderSide:
-                const BorderSide(color: MyColor.colorPrimary, width: 2.0),
+                    const BorderSide(color: MyColor.colorPrimary, width: 2.0),
                 borderRadius: BorderRadius.circular(borderRadius),
               ),
               hintText: "$labelTextInputBox",
-
             ),
           ),
           // SizedBox(
@@ -62,7 +65,9 @@ class GeneralTextInput extends StatelessWidget {
           Text(
             "   * $descTextInputBox",
             style: GoogleFonts.droidSans(
-                fontStyle: FontStyle.italic, color: MyColor.colorBlackT50,fontSize: 12),
+                fontStyle: FontStyle.italic,
+                color: MyColor.colorBlackT50,
+                fontSize: 12),
           ),
           SizedBox(
             height: paddingBottom,
