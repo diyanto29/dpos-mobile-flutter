@@ -166,7 +166,7 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                                               children: [
                                                                 Text(
                                                                   "${cartController.listCart[i].dataProduct!.productName}",
-                                                                  style: blackTextFont.copyWith(fontSize: 12.sp),
+                                                                  style: blackTextFont.copyWith(fontSize: 14.sp),
                                                                 ),
                                                                 SizedBox(
                                                                   height: 4,
@@ -191,7 +191,7 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                                           children: [
                                                             Text(
                                                               "@ ${formatCurrency.format(cartController.listCart[i].dataProduct!.productPrice)}",
-                                                              style: blackTextFont.copyWith(fontSize: 12.sp),
+                                                              style: blackTextFont.copyWith(fontSize: 14.sp),
                                                             ),
 
 
@@ -207,7 +207,7 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                                               Text(
                                                                 "${cartController.listCart[i].discount!.discountType!.toLowerCase() == 'price' ? ' - Rp.' + formatCurrency.format(int.parse(cartController.listCart[i].discount!.discountMaxPriceOff!)) : cartController.listCart[i].discount!
                                                                     .discountPercent + '%'}",
-                                                                style: GoogleFonts.roboto(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12.sp),
+                                                                style: GoogleFonts.roboto(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 14.sp),
                                                               ),
 
                                                             ],
@@ -317,7 +317,7 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
                                         Flexible(
-                                          flex: 1,
+                                          flex: 2,
                                           child: Container(
                                             height: 40,
                                             width: 40,

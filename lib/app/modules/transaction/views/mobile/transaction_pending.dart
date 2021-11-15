@@ -18,7 +18,10 @@ class TransactionPending extends StatelessWidget {
           style: whiteTextTitle,
         ),
       ),
-      body: AllHistory(statusTab:'menunggu_pembayaran'.tr,),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: AllHistory(statusTab:'menunggu_pembayaran'.tr,),
+      ),
     );
   }
 }

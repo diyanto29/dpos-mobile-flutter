@@ -35,6 +35,7 @@ class _TransactionViewState extends State<TransactionView> {
   Widget build(BuildContext context) {
     return GetBuilder<TransactionController>(builder: (logic) {
       return Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: MyColor.colorBackground,
         appBar: AppBar(
           backgroundColor: MyColor.colorPrimary,
@@ -197,13 +198,13 @@ class _TransactionViewState extends State<TransactionView> {
                 alignment: Alignment.bottomCenter,
                 child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    height: 8.h,
+                    height: 9.h,
                     width: double.infinity,
                     child: ElevatedButton(
                         child: ListTile(
                           leading: Container(
-                            height: 45,
-                            width: 45,
+                            height: 6.h,
+                            width: 10.w,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),

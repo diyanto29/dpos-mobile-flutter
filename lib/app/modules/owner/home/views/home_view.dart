@@ -202,7 +202,7 @@ class HomeView extends GetWidget<HomeController> {
                                 crossAxisSpacing: 10,
                                 crossAxisCount: 8,
                                 physics: ClampingScrollPhysics(),
-                                // childAspectRatio: 8/5,
+                                childAspectRatio: 2/3,
 
                                 shrinkWrap: true,
                                 children: [

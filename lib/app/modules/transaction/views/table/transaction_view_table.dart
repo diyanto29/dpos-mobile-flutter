@@ -940,7 +940,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                                   style: blackTextFont
                                                                       .copyWith(
                                                                           fontSize:
-                                                                              12.sp),
+                                                                              14.sp),
                                                                 ),
                                                                 SizedBox(
                                                                   height: 4,
@@ -953,7 +953,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                                   Text(
                                                                     "Klik untuk tambah diskon",
                                                                     style: blackTextFont.copyWith(
-                                                                        fontSize: 10
+                                                                        fontSize: 12
                                                                             .sp,
                                                                         fontStyle:
                                                                             FontStyle.italic),
@@ -982,7 +982,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                                   style: blackTextFont
                                                                       .copyWith(
                                                                           fontSize:
-                                                                              12.sp),
+                                                                              14.sp),
                                                                 ),
                                                                 SizedBox(
                                                                   width: 10,
@@ -1011,7 +1011,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                                       color: Colors
                                                                           .red,
                                                                       size:
-                                                                          15.sp,
+                                                                          20.sp,
                                                                     ),
                                                                   ),
                                                                 ),
@@ -1257,7 +1257,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                             CrossAxisAlignment.center,
                                         children: [
                                           Flexible(
-                                            flex: 1,
+                                            flex: 2,
                                             child: Container(
                                               height: 40,
                                               width: 40,
@@ -1286,7 +1286,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                           Flexible(
                                             flex: 7,
                                             child: GeneralButton(
-                                              label: 'bayar'.tr +
+                                              label:
                                                   " Rp ${formatCurrency.format(cartController.totalShopping.value)}",
                                               borderRadius: 5,
                                               onPressed: () {

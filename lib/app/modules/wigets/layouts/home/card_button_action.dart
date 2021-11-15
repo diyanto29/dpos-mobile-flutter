@@ -11,7 +11,7 @@ class CardButtonAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return   Container(
-      height: 8.h,
+      height: 7.h,
       width: 1.w,
 
       child: InkWell(

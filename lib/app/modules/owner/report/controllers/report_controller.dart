@@ -12,6 +12,7 @@ class ReportController extends GetxController {
   Rx<ReportTransaction> reportTransaction=ReportTransaction().obs;
   Rx<LoadingState> loadingState = LoadingState.loading.obs;
 
+
   @override
   void onInit() {
     init();

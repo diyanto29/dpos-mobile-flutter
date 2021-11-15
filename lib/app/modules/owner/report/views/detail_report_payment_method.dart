@@ -24,7 +24,7 @@ class DetailReportPaymentMethod extends GetWidget<ReportController> {
                   sortAscending: true,
                   sortColumnIndex: 0,
                   showBottomBorder: true,
-                  columnSpacing: Get.width * 0.14,
+                  columnSpacing: Get.mediaQuery.orientation==Orientation.landscape ? Get.width * 0.24 : Get.width * 0.14,
 
                   columns: <DataColumn>[
                     DataColumn(
@@ -34,7 +34,7 @@ class DetailReportPaymentMethod extends GetWidget<ReportController> {
                     ),
                     DataColumn(
                       label: Text(
-                        'Jml. TRX',
+                        'Jml.TRX',
                       ),
 
                     ),
@@ -47,6 +47,7 @@ class DetailReportPaymentMethod extends GetWidget<ReportController> {
                   ],
                   rows: logic.reportTransaction.value.data!.paymentMethod!
                       .map<DataRow>((e) => DataRow(
+
                             cells: <DataCell>[
                               DataCell(Text("${e.paymentMethodAlias}")),
                               DataCell(Text("${e.count}")),
