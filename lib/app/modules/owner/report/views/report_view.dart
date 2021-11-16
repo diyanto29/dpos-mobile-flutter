@@ -206,7 +206,7 @@ class ReportView extends GetWidget<ReportController> {
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Text(
-                                      "Transaksi Cash",
+                                      'transaksi_tunai'.tr,
                                       style: blackTextFont,
                                     ),
                                     SizedBox(
@@ -242,7 +242,7 @@ class ReportView extends GetWidget<ReportController> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "Diskon",
+                                      'diskon'.tr,
                                       style: blackTextFont,
                                     ),
                                     SizedBox(

@@ -28,37 +28,42 @@ class EditProductView extends StatefulWidget {
 }
 
 class _EditProductViewState extends State<EditProductView> {
-  final formatCurrency = new NumberFormat.currency(locale: "id_ID", symbol: "", decimalDigits: 0);
-  final controller=Get.find<ProductController>();
+  final formatCurrency =
+      new NumberFormat.currency(locale: "id_ID", symbol: "", decimalDigits: 0);
+  final controller = Get.find<ProductController>();
   final categoryC = Get.put(ProductCategoryController());
   late var product;
 
   @override
   void initState() {
-
-     product=Get.arguments as DataProduct;
-    controller.conName.value.text=product.productName!;
-    controller.conDesc.value.text=product.productDescription!;
-    controller.toggleSwitchStock(product.productStokStatus=="true" ? true:false);
-    controller.conQty.value.text=product.productStok!;
-    controller.conSKU.value.text=product.productSku!;
-    controller.conBarcode.value.text=product.productBarcode!;
+    product = Get.arguments as DataProduct;
+    controller.conName.value.text = product.productName!;
+    controller.conDesc.value.text = product.productDescription!;
+    controller
+        .toggleSwitchStock(product.productStokStatus == "true" ? true : false);
+    controller.conQty.value.text = product.productStok!;
+    controller.conSKU.value.text = product.productSku!;
+    controller.conBarcode.value.text = product.productBarcode!;
     controller.priceProduct(product.productPrice!);
     controller.priceModal(int.tryParse(product.productPriceModal ?? "0"));
 
-    controller.conPrice.value.text="Rp "+formatCurrency.format(product.productPrice!);
-    controller.conModal.value.text="Rp "+formatCurrency.format(int.parse(product.productPriceModal=="" ? '0' : product.productPriceModal));
-    controller.toggleSwitchDetailProduct(product.productPhoto!.isNotEmpty ? true:false);
-    controller.satuanProduct=new SatuanProduct(
+    controller.conPrice.value.text =
+        "Rp " + formatCurrency.format(product.productPrice!);
+    controller.conModal.value.text = "Rp " +
+        formatCurrency.format(int.parse(
+            product.productPriceModal == "" ? '0' : product.productPriceModal));
+    controller.toggleSwitchDetailProduct(
+        product.productPhoto!.isNotEmpty ? true : false);
+    controller.satuanProduct = new SatuanProduct(
       unitProductName: product.productUnitId,
     );
-    controller.categoryProduct=new CategoryProduct(
+    controller.categoryProduct = new CategoryProduct(
         storeId: product!.category!.storeId.toString(),
         categoryName: product.category!.categoryName,
-        categoryId: product.category!.categoryId
-    );
+        categoryId: product.category!.categoryId);
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,36 +76,38 @@ class _EditProductViewState extends State<EditProductView> {
             removeTop: true,
             context: context,
             child: ListView(
-              padding: EdgeInsets.symmetric(horizontal: MyString.DEFAULT_PADDING, vertical: 10),
+              padding: EdgeInsets.symmetric(
+                  horizontal: MyString.DEFAULT_PADDING, vertical: 10),
               children: [
                 GeneralTextInput(
                     controller: controller.conName.value,
-                    labelTextInputBox: 'nama_produk'.tr, descTextInputBox: 'masukkan_nama_produk'.tr),
+                    labelTextInputBox: 'nama_produk'.tr,
+                    descTextInputBox: 'masukkan_nama_produk'.tr),
                 controller.listUnitProduct.length == 0
                     ? DropdownSearch(
-                  hint: "Pilih Satuan Produk",
-                  mode: Mode.DIALOG,
-                  showSearchBox: true,
-                  dropdownBuilderSupportsNullItem: true,
-                  items: [],
-                )
+                        hint: 'pilih_satuan_produk'.tr,
+                        mode: Mode.DIALOG,
+                        showSearchBox: true,
+                        dropdownBuilderSupportsNullItem: true,
+                        items: [],
+                      )
                     : DropdownSearch<SatuanProduct?>(
-                  hint: "Pilih Satuan Produk",
-                  mode: Mode.BOTTOM_SHEET,
-                  showSearchBox: true,
-                  selectedItem: controller.satuanProduct,
-                  itemAsString: (s) => s!.unitProductName.toString(),
-                  dropdownBuilderSupportsNullItem: true,
-                  items: controller.listUnitProduct,
-                  onChanged: (v) {
-                    controller.satuanProduct = v;
-                  },
-                ),
+                        hint: 'pilih_satuan_produk'.tr,
+                        mode: Mode.BOTTOM_SHEET,
+                        showSearchBox: true,
+                        selectedItem: controller.satuanProduct,
+                        itemAsString: (s) => s!.unitProductName.toString(),
+                        dropdownBuilderSupportsNullItem: true,
+                        items: controller.listUnitProduct,
+                        onChanged: (v) {
+                          controller.satuanProduct = v;
+                        },
+                      ),
                 SizedBox(
                   height: 5,
                 ),
                 Text(
-                  "  * Pilih Satuan Produk",
+                  ' * ' + 'pilih_satuan_produk'.tr,
                   style: blackTextTitle.copyWith(
                       color: MyColor.colorBlackT50,
                       fontStyle: FontStyle.italic,
@@ -111,29 +118,29 @@ class _EditProductViewState extends State<EditProductView> {
                 ),
                 categoryC.listCategoryProduct.length == 0
                     ? DropdownSearch(
-                  hint: "Pilih Kategori Produk",
-                  mode: Mode.DIALOG,
-                  showSearchBox: true,
-                  dropdownBuilderSupportsNullItem: true,
-                  items: [],
-                )
+                        hint: 'pilih_kategori_produk'.tr,
+                        mode: Mode.DIALOG,
+                        showSearchBox: true,
+                        dropdownBuilderSupportsNullItem: true,
+                        items: [],
+                      )
                     : DropdownSearch<CategoryProduct?>(
-                  hint: "Pilih Kategori Produk",
-                  mode: Mode.BOTTOM_SHEET,
-                  showSearchBox: true,
-                  selectedItem: controller.categoryProduct,
-                  itemAsString: (s) => s!.categoryName.toString(),
-                  dropdownBuilderSupportsNullItem: true,
-                  items: categoryC.listCategoryProduct,
-                  onChanged: (v) {
-                    controller.categoryProduct = v;
-                  },
-                ),
+                        hint: 'pilih_kategori_produk'.tr,
+                        mode: Mode.BOTTOM_SHEET,
+                        showSearchBox: true,
+                        selectedItem: controller.categoryProduct,
+                        itemAsString: (s) => s!.categoryName.toString(),
+                        dropdownBuilderSupportsNullItem: true,
+                        items: categoryC.listCategoryProduct,
+                        onChanged: (v) {
+                          controller.categoryProduct = v;
+                        },
+                      ),
                 SizedBox(
                   height: 5,
                 ),
                 Text(
-                  "  * Pilih Kategori Produk",
+                  ' * ' + 'pilih_kategori_produk'.tr,
                   style: blackTextTitle.copyWith(
                       color: MyColor.colorBlackT50,
                       fontStyle: FontStyle.italic,
@@ -146,8 +153,9 @@ class _EditProductViewState extends State<EditProductView> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        "Atur Stok Produk",
-                        style: GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 3.2.w),
+                        'atur_stok_produk'.tr,
+                        style: GoogleFonts.roboto(
+                            fontWeight: FontWeight.bold, fontSize: 3.2.w),
                       ),
                       Switch.adaptive(
                         value: controller.toggleSwitchStock.value,
@@ -170,7 +178,7 @@ class _EditProductViewState extends State<EditProductView> {
                             keyboardType: TextInputType.number,
                             textInputAction: TextInputAction.next,
                             labelTextInputBox: 'Stok Produk',
-                            descTextInputBox: 'cth. 10'),
+                            descTextInputBox: 'contoh'.tr + ' 10'),
                       ],
                     )),
                 TextField(
@@ -183,13 +191,15 @@ class _EditProductViewState extends State<EditProductView> {
                   ],
                   onChanged: (v) {
                     print(v);
-                    controller.priceProduct( int.parse(controller.conPrice.value.text
+                    controller.priceProduct(int.parse(controller
+                        .conPrice.value.text
                         .split(" ")
                         .last
                         .replaceAll(".", "")));
                   },
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10)),
                       labelText: "Harga Jual",
                       labelStyle: GoogleFonts.droidSans(color: Colors.grey)),
                 ),
@@ -197,9 +207,10 @@ class _EditProductViewState extends State<EditProductView> {
                   height: 10,
                 ),
                 Text(
-                  "* Contoh. Rp. 50.000",
+                  ' * ' 'contoh'.tr + " Rp. 50.000",
                   style: GoogleFonts.droidSans(
-                      fontStyle: FontStyle.italic, color: MyColor.colorBlackT50),
+                      fontStyle: FontStyle.italic,
+                      color: MyColor.colorBlackT50),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -214,15 +225,15 @@ class _EditProductViewState extends State<EditProductView> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Isi Detail Produk",
-                              style:
-                              GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 3.3.w),
+                              'isi_detail_produk'.tr,
+                              style: GoogleFonts.roboto(
+                                  fontWeight: FontWeight.bold, fontSize: 3.3.w),
                             ),
                             SizedBox(
                               height: 2,
                             ),
                             Text(
-                              "Isi Detail Produk Anda Disini",
+                              'isi_detail_produk_anda_disini'.tr,
                               style: GoogleFonts.droidSans(fontSize: 10),
                             )
                           ],
@@ -248,7 +259,8 @@ class _EditProductViewState extends State<EditProductView> {
                       children: [
                         Container(
                           decoration: DottedDecoration(
-                              borderRadius: BorderRadius.circular(10), shape: Shape.box),
+                              borderRadius: BorderRadius.circular(10),
+                              shape: Shape.box),
                           padding: EdgeInsets.all(10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -256,22 +268,27 @@ class _EditProductViewState extends State<EditProductView> {
                             children: [
                               controller.image != null
                                   ? Image.file(
-                                controller.image!,
-                                height: 80,
-                                width: 80,
-                              ):   product.productPhoto!.isNotEmpty ?
-                              CachedNetworkImage(imageUrl: product.productPhoto.toString(),
-                                height: 80,
-                                width: 80,)
-
-                                  :Image.asset(
-                                "assets/food.png",
-                                height: 80,
-                                width: 80,
-                              ),
+                                      controller.image!,
+                                      height: 80,
+                                      width: 80,
+                                    )
+                                  : product.productPhoto!.isNotEmpty
+                                      ? CachedNetworkImage(
+                                          imageUrl:
+                                              product.productPhoto.toString(),
+                                          height: 80,
+                                          width: 80,
+                                        )
+                                      : Image.asset(
+                                          "assets/food.png",
+                                          height: 80,
+                                          width: 80,
+                                        ),
                               ElevatedButton(
-                                  style: ElevatedButton.styleFrom(primary: MyColor.colorPrimary),
-                                  onPressed: () => controller.showBottomSheetImage(),
+                                  style: ElevatedButton.styleFrom(
+                                      primary: MyColor.colorPrimary),
+                                  onPressed: () =>
+                                      controller.showBottomSheetImage(),
                                   child: Text(
                                     "Photo",
                                     style: GoogleFonts.droidSans(),
@@ -288,8 +305,8 @@ class _EditProductViewState extends State<EditProductView> {
                         ),
                         GeneralTextInput(
                           controller: controller.conDesc.value,
-                          labelTextInputBox: 'Deskripsi',
-                          descTextInputBox: 'Deskripsikan Produk Anda',
+                          labelTextInputBox: 'deskripsi'.tr,
+                          descTextInputBox: 'deskripsikan_produk_anda'.tr,
                         ),
                         TextField(
                           controller: controller.conModal.value,
@@ -297,48 +314,54 @@ class _EditProductViewState extends State<EditProductView> {
                           style: GoogleFonts.roboto(),
                           inputFormatters: [
                             WhitelistingTextInputFormatter.digitsOnly,
-                            CurrencyPtBrInputFormatter(maxDigits: 10, currency: "Rp "),
+                            CurrencyPtBrInputFormatter(
+                                maxDigits: 10, currency: "Rp "),
                           ],
                           onChanged: (v) {
-                            controller.priceModal( int.parse(controller.conModal.value.text
+                            controller.priceModal(int.parse(controller
+                                .conModal.value.text
                                 .split(" ")
                                 .last
                                 .replaceAll(".", "")));
                           },
                           decoration: InputDecoration(
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                              labelText: "Harga Modal",
-                              labelStyle: GoogleFonts.droidSans(color: Colors.grey)),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              labelText: 'harga_modal'.tr,
+                              labelStyle:
+                                  GoogleFonts.droidSans(color: Colors.grey)),
                         ),
                         SizedBox(
                           height: 10,
                         ),
                         Text(
-                          "* Contoh. Rp. 50.000",
+                          ' * ' 'contoh'.tr + " Rp. 50.000",
                           style: GoogleFonts.droidSans(
-                              fontStyle: FontStyle.italic, color: MyColor.colorBlackT50),
+                              fontStyle: FontStyle.italic,
+                              color: MyColor.colorBlackT50),
                         ),
                         SizedBox(
                           height: 20,
                         ),
                         GeneralTextInput(
                             controller: controller.conSKU.value,
-                            labelTextInputBox: 'SKU Produk', descTextInputBox: 'Masukan Nomor SKU'),
+                            labelTextInputBox: 'SKU Produk',
+                            descTextInputBox: 'Masukan Nomor SKU'),
                         TextField(
                           controller: controller.conBarcode.value,
                           keyboardType: TextInputType.emailAddress,
                           style: GoogleFonts.roboto(),
-                          onChanged: (v) {
-
-                          },
+                          onChanged: (v) {},
                           decoration: InputDecoration(
                               suffixIcon: IconButton(
                                 onPressed: () => controller.scanBarcode(),
                                 icon: Icon(IconlyLight.work),
                               ),
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10)),
                               labelText: "Barcode",
-                              labelStyle: GoogleFonts.droidSans(color: Colors.grey)),
+                              labelStyle:
+                                  GoogleFonts.droidSans(color: Colors.grey)),
                         ),
                         SizedBox(
                           height: 10,
@@ -346,7 +369,8 @@ class _EditProductViewState extends State<EditProductView> {
                         Text(
                           "* Scan Barcode",
                           style: GoogleFonts.droidSans(
-                              fontStyle: FontStyle.italic, color: MyColor.colorBlackT50),
+                              fontStyle: FontStyle.italic,
+                              color: MyColor.colorBlackT50),
                         ),
                         // SizedBox(
                         //   height: 20,
@@ -385,7 +409,6 @@ class _EditProductViewState extends State<EditProductView> {
                 child: Container(
                   height: 50,
                   width: double.infinity,
-
                   child: ElevatedButton(
                     child: Text(
                       'simpan'.tr,
@@ -394,17 +417,20 @@ class _EditProductViewState extends State<EditProductView> {
                     style: ElevatedButton.styleFrom(
                         elevation: 1,
                         primary: MyColor.colorPrimary,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                    onPressed: () => controller.createOrUpdateProduct(idProduct: product.productId),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                    onPressed: () => controller.createOrUpdateProduct(
+                        idProduct: product.productId),
                   ),
                 ),
               ),
-              SizedBox(width: 10,),
+              SizedBox(
+                width: 10,
+              ),
               Flexible(
                 child: Container(
                   height: 50,
                   width: double.infinity,
-
                   child: ElevatedButton(
                     child: Text(
                       'hapus'.tr,
@@ -413,8 +439,10 @@ class _EditProductViewState extends State<EditProductView> {
                     style: ElevatedButton.styleFrom(
                         elevation: 1,
                         primary: MyColor.colorRedFlatDark,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                    onPressed: () => controller.deleteProductDataSource(id: product.productId),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                    onPressed: () => controller.deleteProductDataSource(
+                        id: product.productId),
                   ),
                 ),
               ),
@@ -423,5 +451,3 @@ class _EditProductViewState extends State<EditProductView> {
     );
   }
 }
-
-

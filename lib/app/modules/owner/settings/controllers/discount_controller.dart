@@ -57,7 +57,7 @@ class DiscountController extends GetxController {
       showSnackBar(
           snackBarType: SnackBarType.INFO,
           message: "Kolom harus Diisi",
-          title: "Diskon");
+          title: 'diskon'.tr);
       return;
     }
     loadingBuilder();
@@ -95,7 +95,7 @@ class DiscountController extends GetxController {
       if (value.status) getDiscountDataSource();
       showSnackBar(
           snackBarType: SnackBarType.SUCCESS,
-          title: "Diskon",
+          title: 'diskon'.tr,
           message: value.message);
     });
   }

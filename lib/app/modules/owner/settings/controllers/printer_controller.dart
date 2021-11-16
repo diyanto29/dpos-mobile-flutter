@@ -512,7 +512,7 @@ class PrinterController extends GetxController {
 
       if ((int.tryParse(item.detailtransactionsubtotal!)! - item.priceafterdiscount!) > 0) {
         bytes += generator.row([
-          PosColumn(text: "Diskon", width: 6, styles: PosStyles(align: PosAlign.left)),
+          PosColumn(text: 'diskon'.tr, width: 6, styles: PosStyles(align: PosAlign.left)),
           PosColumn(text: "- ${formatCurrency.format((int.tryParse(item.detailtransactionsubtotal!)! - item.priceafterdiscount!))}", width: 6, styles: PosStyles(align: PosAlign.right, height: PosTextSize.size1)),
         ]);
       }
@@ -526,7 +526,7 @@ class PrinterController extends GetxController {
     if ( int.tryParse(dataTransaction.transactionpriceoffvoucher ?? "0")! >0) {
       print("masuk sni");
       bytes += generator.row([
-        PosColumn(text: "Diskon", width: 6, styles: PosStyles(align: PosAlign.left)),
+        PosColumn(text: 'diskon'.tr, width: 6, styles: PosStyles(align: PosAlign.left)),
         PosColumn(text: "- ${formatCurrency.format(int.tryParse(dataTransaction.transactionpriceoffvoucher ?? "0"))}", width: 6, styles: PosStyles(align: PosAlign.right, height: PosTextSize.size1)),
       ]);
     }

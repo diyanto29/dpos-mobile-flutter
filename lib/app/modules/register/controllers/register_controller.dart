@@ -29,7 +29,7 @@ class RegisterController extends GetxController {
   Rx<TextEditingController> detailAddressC = TextEditingController().obs;
   TextEditingController businessNameC = TextEditingController();
   Rx<TypeBusiness> typeBusiness = TypeBusiness().obs;
-  RxString totalCrew = 'Jumlah Karyawan'.obs;
+  RxString totalCrew = 'jumlah_karyawan'.tr.obs;
   RxString totalBranch = 'Jumlah Outlet'.obs;
   var listProvince = List<Province>.empty().obs;
   var listCity = List<City>.empty().obs;

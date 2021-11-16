@@ -41,7 +41,7 @@ class DetailReportSellingProduct extends GetWidget<ReportController> {
                     ),
                     DataColumn(
                       label: Text(
-                        'Tot. TRX',
+                        'tot_transaksi'.tr,
                       ),
 
                     ),

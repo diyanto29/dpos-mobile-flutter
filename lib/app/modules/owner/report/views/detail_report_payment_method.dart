@@ -29,18 +29,18 @@ class DetailReportPaymentMethod extends GetWidget<ReportController> {
                   columns: <DataColumn>[
                     DataColumn(
                       label: Flexible(
-                        child: Text("Pembayaran"),
+                        child: Text('pembayaran'.tr),
                       ),
                     ),
                     DataColumn(
                       label: Text(
-                        'Jml.TRX',
+                        'jumlah_tagihan'.tr,
                       ),
 
                     ),
                     DataColumn(
                       label: Text(
-                        'Tot. TRX',
+                        'tot_transaksi'.tr,
                       ),
 
                     ),

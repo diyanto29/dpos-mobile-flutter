@@ -1157,7 +1157,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                               CrossAxisAlignment.center,
                                           children: [
                                             Text(
-                                              "Diskon",
+                                              'diskon'.tr,
                                               style: GoogleFonts.roboto(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 14.sp),

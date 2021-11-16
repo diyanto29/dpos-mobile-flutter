@@ -32,7 +32,7 @@ class SetupBusinessView extends GetWidget<SetupBusinessController> {
             backgroundColor: MyColor.colorPrimary,
             elevation: 2,
             title: Text(
-              "Atur Bisnis Mu",
+              'atur_bisnis'.tr,
               style: whiteTextTitle,
             ),
           ),
@@ -44,8 +44,8 @@ class SetupBusinessView extends GetWidget<SetupBusinessController> {
                 children: [
                   GeneralTextInput(
                     controller: controller.businessNameC,
-                    labelTextInputBox: 'Nama Bisnismu',
-                    descTextInputBox: 'Informasi Nama Bisnismu',
+                    labelTextInputBox: 'nama_bisnis'.tr,
+                    descTextInputBox: 'info_nama_bisnis'.tr,
                   ),
                   Obx(() {
                     return controller.listTypeBusiness.length == 0
@@ -92,7 +92,7 @@ class SetupBusinessView extends GetWidget<SetupBusinessController> {
                   ),
                   Obx(() {
                     return DropdownSearch<String?>(
-                      hint: "Jumlah Karyawan",
+                      hint: 'jumlah_karyawan'.tr,
                       mode: Mode.MENU,
                       showSearchBox: false,
                       selectedItem: controller.totalCrew.value,
@@ -119,14 +119,14 @@ class SetupBusinessView extends GetWidget<SetupBusinessController> {
                     child: GeneralTextInput(
                         controller: controller.websiteNameC,
                         labelTextInputBox: 'Website Toko',
-                        descTextInputBox: 'cth. mudahkan.com/toko-kami'),
+                        descTextInputBox: 'e.g. mudahkan.com/toko-kami'),
                   ),
                   GeneralTextInput(
                       controller: controller.contactC,
                       labelTextInputBox: 'kontak Bisnis',
-                      descTextInputBox: 'cth. 0856-2427-7920'),
+                      descTextInputBox: 'contoh'.tr + ' 0856-2427-7920'),
                   Text(
-                    "Logo Toko",
+                    'logo_toko'.tr,
                     style: GoogleFonts.droidSans(),
                   ),
                   SizedBox(
