@@ -133,6 +133,9 @@ class Messages extends Translations {
           'lanjut': 'Lanjut',
           'tambah_diskon': 'Tambah Diskon',
           'data_berhasil_disimpan': 'Data Berhasil Disimpan',
+          "semua_outlet" : "Semua Outlet",
+          "ganti_toko" : "Ganti Toko",
+          "pembuat" : "Pembuat"
         },
         'en_US': {
           'pendapatan_bulanan': 'Monthly Income',
@@ -263,6 +266,9 @@ class Messages extends Translations {
           'lanjut': 'Continue',
           'tambah_diskon': 'Add Discount',
           'data_berhasil_disimpan': 'Successfully entry data',
+          "semua_outlet" : "All Outlet",
+          "ganti_toko" : "Switch Outlet",
+          "pembuat" : "Created By"
         }
       };
 }

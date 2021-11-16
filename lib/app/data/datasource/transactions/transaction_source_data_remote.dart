@@ -3,6 +3,7 @@ import 'package:api_cache_manager/models/cache_db_model.dart';
 import 'package:api_cache_manager/utils/cache_manager.dart';
 import 'package:dio/dio.dart';
 import 'package:warmi/app/data/datalocal/session/auth_session_manager.dart';
+import 'package:warmi/app/data/models/outlet/outlet.dart';
 import 'package:warmi/app/data/models/product/cart.dart';
 import 'package:warmi/app/data/models/report_transaction/report_transaction.dart';
 import 'package:warmi/app/data/models/transactions/transaction_model.dart';
@@ -143,14 +144,18 @@ class TransactionRemoteDataSource extends BaseDio {
     }
   }
 
-  Future<ReportTransaction> getReportTransaction({String? startDate, String? dueDate, String type = 'monthly'}) async {
+  Future<ReportTransaction> getReportTransaction({String? startDate, String? dueDate, String type = 'monthly',List<dynamic>? listStore}) async {
     try {
+
       Map<dynamic, dynamic> data = {
         "user_id": "${auth.userIdOwner}",
-        if (type == "custom") "type_report": "custom",
-        if (type == "custom") "start_date": startDate,
-        if (type == "custom") "due_date": dueDate,
-        if (type != "custom") "type_report": type,
+        // if (type == "custom") "type_report": "custom",
+        if (listStore!=null) "type_report": "custom",
+        if (listStore!=null) "store": listStore,
+        if (listStore==null) "type_report": "all",
+         "start_date": startDate,
+         "due_date": dueDate,
+        // if (type != "custom") "type_report": type,
       };
       response = await dio.post("${MyString.getReportTransaction}", data: jsonEncode(data), options: options);
       if (type != "custom")

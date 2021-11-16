@@ -56,6 +56,7 @@ class DataOutlet {
     this.storeoperationstart,
     this.storeoperationclose,
     this.storeoperationstatus,
+    this.isChecked=false
   });
 
   String? storeId;
@@ -72,6 +73,7 @@ class DataOutlet {
   dynamic storeoperationstatus;
   Owner? owner;
   List<OrderType>? orderType;
+  bool isChecked;
 
   factory DataOutlet.fromJson(Map<String, dynamic> json) => DataOutlet(
     storeId: json["STORE_ID"],

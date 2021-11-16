@@ -41,7 +41,12 @@ class HomeController extends GetxController{
     var date="${DateTime.now().year}-${DateTime.now().month}-01";
     var startDate=DateFormat("yyyy-MM-dd", 'id-iD').format(DateTime.parse(date));
     var endDate=DateFormat("yyyy-MM-dd", 'id-iD').format(DateTime.now().add(Duration(days: 30)));
-    await TransactionRemoteDataSource().getReportTransaction(startDate: startDate,dueDate: endDate,type: "custom").then((value) {
+    var box=GetStorage();
+      List<dynamic> listStore=[];
+      listStore.add({
+        "store_id" : box.read(MyString.STORE_ID)
+      });
+    await TransactionRemoteDataSource().getReportTransaction(startDate: startDate,dueDate: endDate,listStore: listStore).then((value) {
       reportTranasaction(value);
       update();
     });
@@ -50,6 +55,10 @@ class HomeController extends GetxController{
     var box=GetStorage();
     showDialogQuestion(title: 'keluar'.tr, message: 'apakah_anda_yakin'.tr + ' ?', clickYes: (){
       box.remove(MyString.USER_ID);
+      box.remove(MyString.STORE_ID);
+      box.remove(MyString.STORE_NAME);
+      box.remove(MyString.USER_ID_OWNER);
+
       Get.offAllNamed(Routes.LOGIN_CHOOISE);
     });
   }

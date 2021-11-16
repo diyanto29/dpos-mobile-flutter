@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:warmi/app/modules/owner/report/controllers/report_controller.dart';
 import 'package:warmi/core/globals/global_color.dart';
 
@@ -18,6 +19,52 @@ class DetailReportSellingProduct extends GetWidget<ReportController> {
           'detail_penjualan'.tr,
         ),
       ),
+      bottomNavigationBar: Container(
+          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          height: 50,
+          width: double.infinity,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Flexible(
+                child: Container(
+                  height: 50,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    child: Text(
+                      'cetak'.tr,
+                      style: GoogleFonts.droidSans(fontSize: 16),
+                    ),
+                    style: ElevatedButton.styleFrom(elevation: 1, primary: MyColor.colorPrimary, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                    onPressed: () {
+                    controller.printReport();
+                    },
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+               Flexible(
+                child: Container(
+                  height: 50,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    child: Text(
+                      'kirim'.tr,
+                      style: GoogleFonts.droidSans(fontSize: 16),
+                    ),
+                    style: ElevatedButton.styleFrom(elevation: 1, primary: MyColor.colorRedFlatDark, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                    onPressed: () {
+                      controller.generateReportPDF();
+                    },
+                  ),
+                ),
+              ),
+            ],
+          )),
       body: GetBuilder<ReportController>(builder: (logic) {
         return Padding(
             padding: const EdgeInsets.all(20.0),

@@ -4,6 +4,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:warmi/app/modules/history_sales/controllers/history_sales_controller.dart';
 import 'package:warmi/app/modules/history_sales/controllers/history_sales_controller.dart';
 import 'package:warmi/app/modules/history_sales/controllers/history_sales_controller.dart';
+import 'package:warmi/app/modules/owner/report/controllers/report_controller.dart';
+import 'package:warmi/app/modules/owner/report/controllers/report_controller.dart';
 import 'package:warmi/app/modules/transaction/controllers/transaction_controller.dart';
 import 'package:warmi/app/modules/transaction/controllers/transaction_controller.dart';
 import 'package:warmi/app/modules/transaction/controllers/transaction_controller.dart';
@@ -19,6 +21,9 @@ class LanguageSettingController extends GetxController {
   var historySaleC = Get.isRegistered<HistorySalesController>()
       ? Get.find<HistorySalesController>()
       : Get.put(HistorySalesController());
+  var reportC = Get.isRegistered<ReportController>()
+      ? Get.find<ReportController>()
+      : Get.put(ReportController());
   var box = GetStorage();
 
   @override
@@ -45,11 +50,13 @@ class LanguageSettingController extends GetxController {
       print(box.read(MyString.DEFAULT_LANGUAGE));
       transactionC.setTabName();
       historySaleC.setTabName();
+      reportC.setLocale();
     } else if (languageEnum.value == LanguageEnum.indonesia) {
       var locale = Locale('id');
       Get.updateLocale(locale);
       transactionC.setTabName();
       historySaleC.setTabName();
+      reportC.setLocale();
       box.write(MyString.DEFAULT_LANGUAGE, LanguageEnum.indonesia.toString());
       print(box.read(MyString.DEFAULT_LANGUAGE));
     }

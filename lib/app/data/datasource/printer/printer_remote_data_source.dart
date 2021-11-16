@@ -39,7 +39,7 @@ class PrinterRemoteDataSource extends BaseDio {
             "paper_type": "$paperType",
             "printer_mac": "$printerMac",
             "printer_ip": "$printerIp",
-            "user_id": "${auth.userId}",
+            "user_id": "${auth.userIdOwner}",
             if (printerId != null) "printer_id": "$printerId"
           },
           options: options);

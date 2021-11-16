@@ -14,7 +14,12 @@ class ReportTransaction {
     status = json['status'];
     code = json['code'];
     message = json['message'];
-    data = json['data'] != null ? DataReport.fromJson(json['data']) : null;
+    print(json['data']);
+    if(json['data'].toString()=="[]")
+      print("a");
+      else
+        print("b");
+    data =  json['data'].toString()!="[]" || json['status']==true || json['status']=="true" ? DataReport.fromJson(json['data']) : null;
   }
   bool? status;
   int? code;
@@ -65,7 +70,7 @@ class DataReport {
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    if (ringkasanTransaksi != null) {
+    if (ringkasanTransaksi != null || ringkasanTransaksi==[]) {
       map['ringkasan_transaksi'] = ringkasanTransaksi?.toJson();
     }
     if (penjualanProduk != null) {

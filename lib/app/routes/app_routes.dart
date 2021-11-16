@@ -40,6 +40,7 @@ abstract class Routes {
   static const INDEX_TRANSACTION = _Paths.INDEX_TRANSACTION;
   static const CHECKOUT_TABLET = _Paths.CHECKOUT_TABLET;
   static const CHOOSE_STORE = _Paths.CHOOSE_STORE;
+  static const REPORT_TRANSACTION = _Paths.REPORT_TRANSACTION;
   static const DETAIL_REPORT_SELLING_PRODUCT =
       _Paths.DETAIL_REPORT_SELLING_PRODUCT;
   static const DETAIL_REPORT_PAYMENT_METHOD =
@@ -88,4 +89,5 @@ abstract class _Paths {
   static const DETAIL_REPORT_SELLING_PRODUCT = '/detail-report-selling-product';
   static const DETAIL_REPORT_PAYMENT_METHOD = '/detail-report-payment-method';
   static const TAX_SERVICE_VIEW = '/tax-service-view';
+  static const REPORT_TRANSACTION = '/report-transaction';
 }

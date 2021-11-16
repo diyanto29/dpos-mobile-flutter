@@ -41,7 +41,7 @@ class _BottomDialogDetailPrinterState extends State<BottomDialogDetailPrinter> {
 
   @override
   Widget build(BuildContext context) {
-    var controller=Get.find<PrinterController>();
+    var controller=Get.isRegistered<PrinterController>() ? Get.find<PrinterController>() : Get.put(PrinterController());
     return DraggableScrollableSheet(
       expand: false,
       minChildSize: 0.5,
