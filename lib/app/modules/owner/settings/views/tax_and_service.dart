@@ -52,17 +52,20 @@ class TaxAndServiceView extends GetWidget<TaxServiceController> {
                         onChanged: (value) {
                           controller.switchTax.value = value;
                         }),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Column(
-                        children: [
-                          GeneralTextInput(
-                              controller: controller.contTaxValue.value,
-                              labelTextInputBox: 'nilai_pajak'.tr + ' (%)',
-                              descTextInputBox: 'desc_nilai_pajak'.tr)
-                        ],
-                      ),
-                    ),
+                    (controller.switchTax.value)
+                        ? Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Column(
+                              children: [
+                                GeneralTextInput(
+                                    controller: controller.contTaxValue.value,
+                                    labelTextInputBox:
+                                        'nilai_pajak'.tr + ' (%)',
+                                    descTextInputBox: 'desc_nilai_pajak'.tr)
+                              ],
+                            ),
+                          )
+                        : Container(),
                     SwitchListTile(
                         value: controller.switchService.value,
                         activeColor: MyColor.colorPrimary,
@@ -74,17 +77,21 @@ class TaxAndServiceView extends GetWidget<TaxServiceController> {
                         onChanged: (value) {
                           controller.switchService.value = value;
                         }),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Column(
-                        children: [
-                          GeneralTextInput(
-                              controller: controller.contServiceValue.value,
-                              labelTextInputBox: 'service_charge'.tr + ' (%)',
-                              descTextInputBox: 'desc_service_charge'.tr)
-                        ],
-                      ),
-                    ),
+                    (controller.switchService.value)
+                        ? Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Column(
+                              children: [
+                                GeneralTextInput(
+                                    controller:
+                                        controller.contServiceValue.value,
+                                    labelTextInputBox:
+                                        'service_charge'.tr + ' (%)',
+                                    descTextInputBox: 'desc_service_charge'.tr)
+                              ],
+                            ),
+                          )
+                        : Container(),
                     Divider(),
                     SizedBox(
                       height: 20,
