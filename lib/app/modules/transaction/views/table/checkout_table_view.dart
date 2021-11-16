@@ -268,7 +268,7 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "Diskon",
+                                          'diskon'.tr,
                                           style: GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 14.sp),
                                         ),
                                         Row(

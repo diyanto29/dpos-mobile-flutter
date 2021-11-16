@@ -66,19 +66,19 @@ class RegisterView extends GetWidget<RegisterController> {
                       children: [
                         GeneralTextInput(
                           controller: controller.fullNameC,
-                            labelTextInputBox: 'nama_lengkap'.tr, descTextInputBox: "Cth. Diyanto"),
+                            labelTextInputBox: 'nama_lengkap'.tr, descTextInputBox: 'contoh'.tr + " Diyanto"),
                         GeneralTextInput(
                           controller: controller.emailC,
                             textInputAction: TextInputAction.next,
                             keyboardType: TextInputType.emailAddress,
                             labelTextInputBox: "Email (Opsional)",
-                            descTextInputBox: "Cth. diyanto2911@gmail.com"),
+                            descTextInputBox: 'contoh'.tr + " example@gmail.com"),
                         GeneralTextInput(
                           controller: controller.noHpC,
                             textInputAction: TextInputAction.next,
                             keyboardType: TextInputType.phone,
-                            labelTextInputBox: "No Handphone",
-                            descTextInputBox: "Cth. 085624277920"),
+                            labelTextInputBox: 'nomor_telp'.tr,
+                            descTextInputBox: 'contoh'.tr + " 085624277920"),
                         Obx(() {
                           return Theme(
                             data: ThemeData(primaryColor: MyColor.colorOrangeDark),

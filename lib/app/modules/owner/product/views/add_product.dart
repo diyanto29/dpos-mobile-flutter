@@ -57,7 +57,7 @@ class _AddProductViewState extends State<AddProductView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyColor.colorPrimary,
-        title: Text("Tambah Produk"),
+        title: Text('tambah_produk'.tr),
       ),
       body: Obx(() {
         return MediaQuery.removePadding(
@@ -71,14 +71,14 @@ class _AddProductViewState extends State<AddProductView> {
                     labelTextInputBox: 'nama_produk'.tr, descTextInputBox: 'masukkan_nama_produk'.tr),
                 controller.listUnitProduct.length == 0
                     ? DropdownSearch(
-                        hint: "Pilih Satuan Produk",
+                        hint: 'pilih_satuan_produk'.tr,
                         mode: Mode.DIALOG,
                         showSearchBox: true,
                         dropdownBuilderSupportsNullItem: true,
                         items: [],
                       )
                     : DropdownSearch<SatuanProduct?>(
-                        hint: "Pilih Satuan Produk",
+                        hint: 'pilih_satuan_produk'.tr,
                         mode: Mode.BOTTOM_SHEET,
                         showSearchBox: true,
                         itemAsString: (s) => s!.unitProductName.toString(),
@@ -92,7 +92,7 @@ class _AddProductViewState extends State<AddProductView> {
                   height: 5,
                 ),
                 Text(
-                  "  * Pilih Satuan Produk",
+                  ' * ' + 'pilih_satuan_produk'.tr,
                   style: blackTextTitle.copyWith(
                       color: MyColor.colorBlackT50,
                       fontStyle: FontStyle.italic,
@@ -104,7 +104,7 @@ class _AddProductViewState extends State<AddProductView> {
                 categoryC.listCategoryProduct.length == 0
                     ?
                 DropdownSearch(
-                        hint: "Pilih Kategori Produk",
+                        hint: 'pilih_kategori_produk'.tr,
                         mode: Mode.DIALOG,
                         showSearchBox: true,
                         emptyBuilder: (c,i){
@@ -122,7 +122,7 @@ class _AddProductViewState extends State<AddProductView> {
                         items: [],
                       )
                     : DropdownSearch<CategoryProduct?>(
-                        hint: "Pilih Kategori Produk",
+                        hint: 'pilih_kategori_produk'.tr,
                         mode: Mode.BOTTOM_SHEET,
                         showSearchBox: true,
 
@@ -138,7 +138,7 @@ class _AddProductViewState extends State<AddProductView> {
                   height: 5,
                 ),
                 Text(
-                  "  * Pilih Kategori Produk",
+                  ' * ' + 'pilih_kategori_produk'.tr,
                   style: blackTextTitle.copyWith(
                       color: MyColor.colorBlackT50,
                       fontStyle: FontStyle.italic,
@@ -151,7 +151,7 @@ class _AddProductViewState extends State<AddProductView> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        "Atur Stok Produk",
+                        'atur_stok_produk'.tr,
                         style: GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 3.2.w),
                       ),
                       Switch.adaptive(
@@ -175,7 +175,7 @@ class _AddProductViewState extends State<AddProductView> {
                             keyboardType: TextInputType.number,
                             textInputAction: TextInputAction.next,
                             labelTextInputBox: 'Stok Produk',
-                            descTextInputBox: 'cth. 10'),
+                            descTextInputBox: 'contoh'.tr + ' 10'),
                       ],
                     )),
                 // Padding(
@@ -316,6 +316,7 @@ class _AddProductViewState extends State<AddProductView> {
                 //         ))
                 //       ],
                 //     )),
+
                 TextField(
                   controller: controller.conPrice.value,
                   keyboardType: TextInputType.number,
@@ -340,7 +341,7 @@ class _AddProductViewState extends State<AddProductView> {
                   height: 10,
                 ),
                 Text(
-                  "* Contoh. Rp. 50.000",
+                  ' * ' 'contoh'.tr + " Rp. 50.000",
                   style: GoogleFonts.droidSans(
                       fontStyle: FontStyle.italic, color: MyColor.colorBlackT50),
                 ),
@@ -357,7 +358,7 @@ class _AddProductViewState extends State<AddProductView> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Isi Detail Produk",
+                              'isi_detail_produk'.tr,
                               style:
                                   GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 3.3.w),
                             ),
@@ -365,7 +366,7 @@ class _AddProductViewState extends State<AddProductView> {
                               height: 2,
                             ),
                             Text(
-                              "Isi Detail Produk Anda Disini",
+                              'isi_detail_produk_anda_disini'.tr,
                               style: GoogleFonts.droidSans(fontSize: 10),
                             )
                           ],
@@ -427,8 +428,8 @@ class _AddProductViewState extends State<AddProductView> {
                         ),
                         GeneralTextInput(
                           controller: controller.conDesc.value,
-                          labelTextInputBox: 'Deskripsi',
-                          descTextInputBox: 'Deskripsikan Produk Anda',
+                          labelTextInputBox: 'deskripsi'.tr,
+                          descTextInputBox: 'deskripsikan_produk_anda'.tr,
                         ),
                         TextField(
                           controller: controller.conModal.value,
@@ -446,14 +447,14 @@ class _AddProductViewState extends State<AddProductView> {
                           },
                           decoration: InputDecoration(
                               border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                              labelText: "Harga Modal",
+                              labelText: 'harga_modal'.tr,
                               labelStyle: GoogleFonts.droidSans(color: Colors.grey)),
                         ),
                         SizedBox(
                           height: 10,
                         ),
                         Text(
-                          "* Contoh. Rp. 50.000",
+                          ' * ' 'contoh'.tr + " Rp. 50.000",
                           style: GoogleFonts.droidSans(
                               fontStyle: FontStyle.italic, color: MyColor.colorBlackT50),
                         ),
@@ -543,19 +544,19 @@ class _AddProductViewState extends State<AddProductView> {
                   keyboardType: TextInputType.number,
                   textInputAction: TextInputAction.next,
                   labelTextInputBox: 'Nama Varian',
-                  descTextInputBox: 'cth. Putih'),
+                  descTextInputBox: 'contoh'.tr + ' Putih'),
               GeneralTextInput(
                   controller: controller.conPriceVariant.value,
                   keyboardType: TextInputType.number,
                   textInputAction: TextInputAction.next,
                   labelTextInputBox: 'Harga',
-                  descTextInputBox: 'cth. 10.000'),
+                  descTextInputBox: 'contoh'.tr + ' 10.000'),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    "Atur Stok Produk",
+                    'atur_stok_produk'.tr,
                     style: GoogleFonts.roboto(
                         fontWeight: FontWeight.bold, fontSize: 3.2.w),
                   ),
@@ -581,7 +582,7 @@ class _AddProductViewState extends State<AddProductView> {
                           keyboardType: TextInputType.number,
                           textInputAction: TextInputAction.next,
                           labelTextInputBox: 'Stok Varian',
-                          descTextInputBox: 'cth. 10'),
+                          descTextInputBox: 'contoh'.tr + ' 10'),
                     ],
                   )),
             ],
@@ -602,13 +603,13 @@ class _AddProductViewState extends State<AddProductView> {
                   keyboardType: TextInputType.number,
                   textInputAction: TextInputAction.next,
                   labelTextInputBox: 'Nama Grosir',
-                  descTextInputBox: 'cth. Putih'),
+                  descTextInputBox: 'contoh'.tr + ' Putih'),
               GeneralTextInput(
                   controller: controller.conPriceWholesale.value,
                   keyboardType: TextInputType.number,
                   textInputAction: TextInputAction.next,
                   labelTextInputBox: 'Harga',
-                  descTextInputBox: 'cth. 10.000'),
+                  descTextInputBox: 'contoh'.tr + ' 10.000'),
 
             ],
           );

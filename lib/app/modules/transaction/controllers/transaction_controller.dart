@@ -317,7 +317,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
     if (paymentMethod.value.paymentmethodid == null) {
       double calc = pay.value - conCart.totalShopping.value;
       if (pay < conCart.totalShopping.value) {
-        showSnackBar(snackBarType: SnackBarType.INFO, title: "Pembayaran", message: "Pembayaran Kurang ${formatCurrency.format(calc)}");
+        showSnackBar(snackBarType: SnackBarType.INFO, title: 'pembayaran'.tr, message: "Pembayaran Kurang ${formatCurrency.format(calc)}");
       } else {
         loadingBuilder();
         print("asdas");
@@ -418,7 +418,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
     if (paymentMethod.value.paymentmethodid == null) {
       double calc = pay.value - conCart.totalShopping.value;
       if (pay < conCart.totalShopping.value) {
-        showSnackBar(snackBarType: SnackBarType.INFO, title: "Pembayaran", message: "Pembayaran Kurang ${formatCurrency.format(calc)}");
+        showSnackBar(snackBarType: SnackBarType.INFO, title: 'pembayaran'.tr, message: "Pembayaran Kurang ${formatCurrency.format(calc)}");
       } else {
         print(pay.value);
         print(cashReceived.value);
@@ -779,7 +779,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
                       Flexible(
                         flex: 3,
                         child: Text(
-                          "Diskon",
+                          'diskon'.tr,
                           style: blackTextFont,
                         ),
                       ),

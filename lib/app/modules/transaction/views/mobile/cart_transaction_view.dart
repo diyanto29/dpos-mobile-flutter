@@ -240,7 +240,7 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
-                                          Text("Diskon"),
+                                          Text('diskon'.tr),
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.start,
                                             children: [
@@ -346,7 +346,7 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
                                       Text(
-                                        "Diskon",
+                                        'diskon'.tr,
                                         style: GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 4.w),
                                       ),
                                       Row(

@@ -130,12 +130,36 @@ class Messages extends Translations {
           'harga_tidak_termasuk_pajak':
               'Harga tidak termasuk Pajak & Biaya Layanan',
           'harga_termasuk_pajak': 'Harga termasuk Pajak & Biaya Layanan',
-          'lanjut': 'Lanjut',
           'tambah_diskon': 'Tambah Diskon',
           'data_berhasil_disimpan': 'Data Berhasil Disimpan',
           "semua_outlet" : "Semua Outlet",
           "ganti_toko" : "Ganti Toko",
-          "pembuat" : "Pembuat"
+          "pembuat" : "Pembuat",
+
+          'baca_kebijakan_privasi':
+              'Baca Kebijakan Privasi yang berlaku untuk DPOS',
+          'baca_syarat_ketentuan':
+              'Baca Syarat dan Ketentuan yang berlaku untuk DPOS',
+          'pembayaran': 'Pembayaran',
+          'jumlah_tagihan': 'Jumlah\nTagihan',
+          'tot_transaksi': 'Total\nTransaksi',
+          'transaksi_tunai': 'Transaksi Tunai',
+          'info_nama_bisnis': 'Informasi Nama Bisnis',
+          'nama_bisnis': 'Nama Bisnis',
+          'jumlah_karyawan': 'Jumlah Karyawan',
+          'contoh': 'cth.',
+          'logo_toko': 'Logo Toko',
+          'pilih_satuan_produk': 'Pilih Satuan Produk',
+          'pilih_kategori_produk': 'Pilih Kategori Produk',
+          'atur_stok_produk': 'Atur Stok Produk',
+          'atur_varian_produk': 'Atur Varian Produk',
+          'atur_harga_grosir': 'Atur Harga Grosir',
+          'tambah_produk': 'Tambah Produk',
+          'isi_detail_produk': 'Isi Detail Produk',
+          'isi_detail_produk_anda_disini': 'Isi detail produk Anda disini',
+          'deskripsi': 'Deskripsi',
+          'deskripsikan_produk_anda': 'Deskripsikan Produk Anda',
+          'harga_modal': 'Harga Modal',
         },
         'en_US': {
           'pendapatan_bulanan': 'Monthly Income',
@@ -268,7 +292,31 @@ class Messages extends Translations {
           'data_berhasil_disimpan': 'Successfully entry data',
           "semua_outlet" : "All Outlet",
           "ganti_toko" : "Switch Outlet",
-          "pembuat" : "Created By"
+          "pembuat" : "Created By",
+          'baca_kebijakan_privasi':
+              'Read the Privacy Policy applicable to DPOS',
+          'baca_syarat_ketentuan':
+              'Read the Terms and Conditions that apply to DPOS',
+          'pembayaran': 'Payment',
+          'jumlah_tagihan': 'Amount\nBill',
+          'tot_transaksi': 'Total\nTransaction',
+          'transaksi_tunai': 'Cash Transaction',
+          'info_nama_bisnis': 'Business Name Information',
+          'nama_bisnis': 'Business Name',
+          'jumlah_karyawan': 'Number of Employees',
+          'contoh': 'e.g.',
+          'logo_toko': 'Outlet Logo',
+          'pilih_satuan_produk': 'Select Product Unit',
+          'pilih_kategori_produk': 'Select Product Category',
+          'atur_stok_produk': 'Manage Product Stock',
+          'atur_varian_produk': 'Manage Variant Product',
+          'atur_harga_grosir': 'Manage Wholesale Price',
+          'tambah_produk': 'Add Product',
+          'isi_detail_produk': 'Product Detail Content',
+          'isi_detail_produk_anda_disini': 'Fill in your product details here',
+          'deskripsi': 'Description',
+          'deskripsikan_produk_anda': 'Describe Your Product',
+          'harga_modal': 'Capital Price',
         }
       };
 }

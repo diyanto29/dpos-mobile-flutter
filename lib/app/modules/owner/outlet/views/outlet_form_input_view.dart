@@ -73,7 +73,7 @@ class _OutletFormInputState extends State<OutletFormInput> {
                   labelTextInputBox: 'Nama Outlet', descTextInputBox: 'Masukan Nama Outlet'),
               GeneralTextInput(
                   controller: controller.descC.value,
-                  labelTextInputBox: 'Deskripsi', descTextInputBox: 'Deskripsikan Outletmu'),
+                  labelTextInputBox: 'deskripsi'.tr, descTextInputBox: 'Deskripsikan Outletmu'),
               GeneralTextInput(
                   readOnly: true,
                   controller: controller.timeOpenC.value,

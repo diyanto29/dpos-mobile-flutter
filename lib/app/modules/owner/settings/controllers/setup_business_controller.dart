@@ -21,7 +21,7 @@ class SetupBusinessController extends GetxController {
   TextEditingController businessNameC = TextEditingController();
   TextEditingController websiteNameC = TextEditingController();
   TextEditingController contactC = TextEditingController();
-  RxString totalCrew = 'Jumlah Karyawan'.obs;
+  RxString totalCrew = 'jumlah_karyawab'.tr.obs;
   RxString totalBranch = 'Jumlah Outlet'.obs;
   Rx<TypeBusiness> typeBusiness = TypeBusiness().obs;
   File? image;
@@ -50,7 +50,7 @@ class SetupBusinessController extends GetxController {
             : businessProfile.value.data!.businessWebsiteName.toString();
     contactC.text = businessProfile.value.data!.businessContact ?? '';
     totalCrew(
-        businessProfile.value.data!.businessCrewTotal ?? 'Jumlah Karyawan');
+        businessProfile.value.data!.businessCrewTotal ?? 'jumlah_karyawan'.tr);
     totalBranch(businessProfile.value.data!.businessBranch ?? 'Jumlah Outlet');
   }
 

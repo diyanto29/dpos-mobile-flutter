@@ -307,7 +307,7 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                       Flexible(
                           flex: 3,
                           child: Text(
-                            "Diskon",
+                            'diskon'.tr,
                             style: blackTextFont,
                           ),),
 

@@ -78,8 +78,8 @@ class _BottomDialogRegisterState extends State<BottomDialogRegister> {
               SizedBox(height: 16),
               GeneralTextInput(
                 controller: registerC.businessNameC,
-                labelTextInputBox: 'Nama Bisnismu',
-                descTextInputBox: 'Informasi Nama Bisnismu',
+                labelTextInputBox: 'nama_bisnis'.tr,
+                descTextInputBox: 'info_nama_bisnis'.tr,
               ),
               Obx(() {
                 return registerC.listTypeBusiness.length == 0
@@ -128,7 +128,7 @@ class _BottomDialogRegisterState extends State<BottomDialogRegister> {
               ),
               Obx(() {
                 return DropdownSearch<String?>(
-                  hint: "Jumlah Karyawan",
+                  hint: 'jumlah_karyawan'.tr,
                   mode: Mode.MENU,
                   showSearchBox: false,
                   selectedItem: registerC.totalCrew.value,

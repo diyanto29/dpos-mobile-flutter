@@ -247,13 +247,11 @@ class ReportView extends GetWidget<ReportController> {
                                           style: blackTextFont,
                                         )
                                             : Text(
-                                          "Rp. ${formatCurrency.format(
-                                              logic.reportTransaction.value
-                                                  .data!.ringkasanTransaksi!
-                                                  .totalAll!)}",
-                                          style: blackTextTitle,
-                                        ),
-                                      ],
+                                                "Rp. ${formatCurrency.format(logic.reportTransaction.value.data!.ringkasanTransaksi!.totalAll!)}",
+                                                style: blackTextTitle,
+                                              ),
+                                  ],
+
                                     ),
                                   ),
                                   Flexible(
@@ -264,7 +262,7 @@ class ReportView extends GetWidget<ReportController> {
                                           .end,
                                       children: [
                                         Text(
-                                          "Transaksi Cash",
+                                      'transaksi_tunai'.tr,
                                           style: blackTextFont,
                                         ),
                                         SizedBox(
@@ -281,13 +279,11 @@ class ReportView extends GetWidget<ReportController> {
                                           style: blackTextFont,
                                         )
                                             : Text(
-                                          "Rp. ${formatCurrency.format(
-                                              logic.reportTransaction.value
-                                                  .data!.ringkasanTransaksi!
-                                                  .totalCash!)}",
-                                          style: blackTextTitle,
-                                        ),
-                                      ],
+                                                "Rp. ${formatCurrency.format(logic.reportTransaction.value.data!.ringkasanTransaksi!.totalCash!)}",
+                                                style: blackTextTitle,
+                                              ),
+                                  ],
+
                                     ),
                                   ),
                                 ],
@@ -308,7 +304,7 @@ class ReportView extends GetWidget<ReportController> {
                                           .start,
                                       children: [
                                         Text(
-                                          "Diskon",
+                                          "diskon".tr,
                                           style: blackTextFont,
                                         ),
                                         SizedBox(
