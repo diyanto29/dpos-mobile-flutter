@@ -89,7 +89,7 @@ class DrawerCustom extends StatelessWidget {
 
                     },
                     leading: Icon(Icons.store,color: Colors.deepOrange,),
-                    title: Text("Toko Online",style: GoogleFonts.roboto(fontWeight: FontWeight.bold),),
+                    title: Text("toko_online".tr,style: GoogleFonts.roboto(fontWeight: FontWeight.bold),),
                     trailing: Icon(Icons.keyboard_arrow_right,color: Colors.black,),
                     dense: true,
 

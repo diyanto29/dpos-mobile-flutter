@@ -130,6 +130,7 @@ class Messages extends Translations {
           'harga_tidak_termasuk_pajak':
               'Harga tidak termasuk Pajak & Biaya Layanan',
           'harga_termasuk_pajak': 'Harga termasuk Pajak & Biaya Layanan',
+          'lanjut': 'Lanjut',
         },
         'en_US': {
           'pendapatan_bulanan': 'Monthly Income',
@@ -257,6 +258,7 @@ class Messages extends Translations {
           'harga_tidak_termasuk_pajak':
               'Prices do not include Tax & Service Fee',
           'harga_termasuk_pajak': 'Price includes Tax & Service Fee',
+          'lanjut': 'Continue',
         }
       };
 }

@@ -203,7 +203,13 @@ class AuthRemoteDataSource extends BaseDio {
     var dir;
     await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS).then((value) {
       dir = value;
+
+
     });
+    final targetFile = Directory("$dir/$filename"+".png");
+    if(targetFile.existsSync()) {
+      targetFile.deleteSync(recursive: true);
+    }
     box.write(MyString.BUSINESS_LOGO, '$dir/$filename' + '.png');
 
     //
@@ -212,18 +218,30 @@ class AuthRemoteDataSource extends BaseDio {
       if (value.isGranted) {
         await file.writeAsBytes(bytes);
         Image image2 = decodeJpg(file.readAsBytesSync());
-        Image thumbnail = copyResize(image2, width: 150, height: 150);
+        Image thumbnail = grayscale(copyResize(image2, width: 250, height: 150));
         File('$dir/logo.png').writeAsBytesSync(encodePng(thumbnail));
       }
     });
     if (await Permission.storage.isGranted) {
       await file.writeAsBytes(bytes);
       Image image2 = decodeJpg(file.readAsBytesSync());
-      Image thumbnail = copyResize(image2, width: 150, height: 150);
+      Image thumbnail = grayscale(copyResize(image2, width: 250, height: 150));
       File('$dir/logo.png').writeAsBytesSync(encodePng(thumbnail));
     }
 
     return file;
+  }
+
+
+  Image grayscale(Image src) {
+    final p = src.getBytes();
+    for (var i = 0, len = p.length; i < len; i += 4) {
+      final l = getLuminanceRgb(p[i], p[i + 1], p[i + 2]);
+      p[i] = l;
+      p[i + 1] = l;
+      p[i + 2] = l;
+    }
+    return src;
   }
 
   Future<ResponseMessage> updateUser({String? name, String? email, String? phoneNumber}) async {

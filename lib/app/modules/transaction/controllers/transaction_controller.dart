@@ -492,7 +492,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
   }
 
   void printNow() async {
-    printerC.printTicketPurchase(dataTransaction: detailTransaction);
+    printerC.printTicketPurchase(dataTransaction: detailTransaction,printCopy: true);
   }
 
   ScreenshotController screenshotController = ScreenshotController();

@@ -458,7 +458,7 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                             }else{
                               controller.changeStatusTransaction(dataTransaction: data);
                             }
-                          },label: 'Lanjut',borderRadius: 10,))
+                          },label: 'lanjut'.tr,borderRadius: 10,))
                     ],
                   ),
                 ))

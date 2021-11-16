@@ -65,7 +65,9 @@ class _BottomDialogPrinterState extends State<BottomDialogPrinter> {
                 child: Divider(),
               ),
               ListTile(
-                onTap: (){},
+                onTap: (){
+
+                },
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)
                 ),

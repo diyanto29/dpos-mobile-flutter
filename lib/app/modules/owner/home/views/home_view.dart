@@ -246,7 +246,7 @@ class HomeView extends GetWidget<HomeController> {
                                     onPressed: () => Get.toNamed(Routes.OUTLET_ONLINE),
                                     icon: 'assets/icons/mobile_order.png',
                                     colorBackground: MyColor.colorOrange,
-                                    labelIcon: 'Online Order',
+                                    labelIcon: 'toko_online'.tr,
                                   ),
                                   CardButtonAction(
                                     onPressed: () => Get.toNamed(Routes.PRINTER_PAGE),
@@ -317,7 +317,7 @@ class HomeView extends GetWidget<HomeController> {
                                         onPressed: () => Get.toNamed(Routes.OUTLET_ONLINE),
                                         icon: 'assets/icons/mobile_order.png',
                                         colorBackground: MyColor.colorOrange,
-                                        labelIcon: 'pesanan_online'.tr,
+                                        labelIcon: 'toko_online'.tr,
                                       ),
                                       CardButtonAction(
                                         onPressed: () => Get.toNamed(Routes.PRINTER_PAGE),

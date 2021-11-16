@@ -265,7 +265,7 @@ class _BottomDialogRegisterState extends State<BottomDialogRegister> {
                       ],
                     ));
               }),
-              GeneralButton(label: 'Lanjutkan', onPressed: () => registerC.register())
+              GeneralButton(label: 'lanjut'.tr, onPressed: () => registerC.register())
             ],
           ),
         );

@@ -95,7 +95,7 @@ class CheckoutView extends GetWidget<TransactionController> {
             }else{
               controller.changeStatusTransaction(dataTransaction: data);
             }
-          },label: 'Lanjut',)),
+          },label: 'lanjut'.tr,)),
     );
   }
 }

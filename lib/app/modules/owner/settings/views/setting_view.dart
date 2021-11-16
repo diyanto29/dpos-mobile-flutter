@@ -301,7 +301,7 @@ class SettingView extends GetWidget<SettingController> {
                               onClick: () => Get.toNamed(Routes.OUTLET_ONLINE),
                               statusIcon: true,
                               icon: "assets/icons/mobile_order.png",
-                              textButton: 'pesanan_online'.tr,
+                              textButton: 'toko_online'.tr,
                               sizeIcon: 35,
                             ),
                             MenuActionButton(

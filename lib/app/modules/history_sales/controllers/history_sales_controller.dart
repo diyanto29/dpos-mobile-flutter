@@ -126,7 +126,7 @@ class HistorySalesController extends GetxController
   }
 
   void testPrint(DataTransaction dataTransaction) async {
-    printerC.printTicketPurchase(dataTransaction: dataTransaction);
+    printerC.printTicketPurchase(dataTransaction: dataTransaction,printCopy: true);
   }
 
   void sendInvoice({String? id}) async {

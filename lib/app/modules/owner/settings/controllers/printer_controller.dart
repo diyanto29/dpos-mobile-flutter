@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:blue_thermal_printer/blue_thermal_printer.dart';
 import 'package:esc_pos_bluetooth/esc_pos_bluetooth.dart';
 import 'package:esc_pos_utils/esc_pos_utils.dart';
 import 'package:flutter/services.dart';
@@ -247,10 +248,9 @@ class PrinterController extends GetxController {
       generator = Generator(PaperSize.mm80, profile);
     else
       generator = Generator(PaperSize.mm58, profile);
-    final ByteData data = await rootBundle.load('assets/store_coba.png');
+    final ByteData data = await rootBundle.load('assets/store.png');
     final Uint8List imgBytes = data.buffer.asUint8List();
-    final Image image = decodeImage(imgBytes)!;
-    bytes += generator.image(image);
+
     bytes += generator.text("TEST PRINTER ",
         styles: PosStyles(
           align: PosAlign.center,
@@ -370,7 +370,7 @@ class PrinterController extends GetxController {
   }
 
   //print invoice form sales
-  void printTicketPurchase({DataTransaction? dataTransaction}) async {
+  void printTicketPurchase({DataTransaction? dataTransaction,bool printCopy=false}) async {
     final bool result = await PrintBluetoothThermal.bluetoothEnabled;
     if (result) {
       // loadingBuilder();
@@ -380,7 +380,7 @@ class PrinterController extends GetxController {
       if (box.read(MyString.PRINTER_TYPE) == "bluetooth") {
         bool? isConnected = await PrintBluetoothThermal.connectionStatus;
         if (isConnected) {
-          List<int> bytes = await getTicketPurchase(dataTransaction: dataTransaction);
+          List<int> bytes = await getTicketPurchase(dataTransaction: dataTransaction,printCopy: printCopy);
           final result = await PrintBluetoothThermal.writeBytes(bytes);
         } else {
           var a = await PrintBluetoothThermal.connect(macPrinterAddress: box.read(MyString.DEFAULT_PRINTER)).then((value) {
@@ -389,7 +389,7 @@ class PrinterController extends GetxController {
             else
               printTest = false;
           });
-          List<int> bytes = await getTicketPurchase(dataTransaction: dataTransaction);
+          List<int> bytes = await getTicketPurchase(dataTransaction: dataTransaction,printCopy: printCopy);
           final result = await PrintBluetoothThermal.writeBytes(bytes);
         }
       }
@@ -428,19 +428,23 @@ class PrinterController extends GetxController {
 
 
 
-  Future<List<int>> getTicketPurchase({DataTransaction? dataTransaction}) async {
+  Future<List<int>> getTicketPurchase({DataTransaction? dataTransaction,bool printCopy=false}) async {
     var auth = AuthSessionManager();
     var historyC = Get.find<HistorySalesController>();
     historyC.getSubtotal(dataTransaction!);
     print("subtoao" + historyC.subTotal.value.floor().toString());
     List<int> bytes = [];
     print(box.read(MyString.PRINTER_PAPER));
-    CapabilityProfile profile = await CapabilityProfile.load();
+    CapabilityProfile profile = await CapabilityProfile.load(name: 'RP80USE');
+
     final generator;
     if (box.read(MyString.PRINTER_PAPER) == "80")
       generator = Generator(PaperSize.mm80, profile);
     else
       generator = Generator(PaperSize.mm58, profile);
+    bytes += generator.setGlobalCodeTable('CP437');
+
+    bytes+=generator.setGlobalFont(PosFontType.fontB);
 
 // print(dir);
 
@@ -448,9 +452,12 @@ class PrinterController extends GetxController {
     if (invoiceC.logo.value) {
       File file = new File(box.read(MyString.BUSINESS_LOGO));
 
+
       final Uint8List imgBytes = file.readAsBytesSync();
       final Image image = decodeImage(imgBytes)!;
-      bytes += generator.image(image);
+      Image thumbnail = copyResize(image, width: 250,height: 150);
+
+      bytes += generator.image(thumbnail);
     }
 
     bytes += generator.text(auth.storeName,
@@ -545,12 +552,16 @@ class PrinterController extends GetxController {
       footer="Terima Kasih berbelanja";
       box.write(MyString.FOOTER_TEXT, footer);
     }
+
+    if(printCopy)bytes += generator.text('+++++++Salinan+++++++', styles: PosStyles(align: PosAlign.center, height: PosTextSize.size1, width: PosTextSize.size1, bold: true));
     bytes += generator.text(box.read(MyString.FOOTER_TEXT), styles: PosStyles(align: PosAlign.center, height: PosTextSize.size1, width: PosTextSize.size1, bold: true));
     bytes += generator.text("Power By DPOS", styles: PosStyles(align: PosAlign.center, fontType: PosFontType.fontA, bold: true));
     bytes += generator.drawer();
     bytes += generator.cut();
     return bytes;
   }
+
+
 
 
 }
