@@ -500,7 +500,7 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                             child:  Text("Diskon Kosong"),
                           ),
                         SizedBox(height: 20,),
-                        GeneralButton(label: 'Tambah Diskon', onPressed: ()=> Get.toNamed(Routes.ADD_DISCOUNT),height: 30,width: 200,)
+                        GeneralButton(label: 'tambah_diskon'.tr, onPressed: ()=> Get.toNamed(Routes.ADD_DISCOUNT),height: 30,width: 200,)
                       ],
                     ),
                   )

@@ -1356,7 +1356,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                             height: 20,
                           ),
                           GeneralButton(
-                            label: 'Tambah Diskon',
+                            label: 'tambah_diskon'.tr,
                             onPressed: () => Get.toNamed(Routes.ADD_DISCOUNT),
                             height: 30,
                             width: 200,

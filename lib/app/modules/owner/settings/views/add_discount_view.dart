@@ -62,7 +62,7 @@ class _AddDiscountViewState extends State<AddDiscountView> {
       appBar: AppBar(
         backgroundColor: MyColor.colorPrimary,
         title: Text(
-          'Tambah Diskon',
+          'tambah_diskon'.tr,
           style: whiteTextTitle,
         ),
       ),

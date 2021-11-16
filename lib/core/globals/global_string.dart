@@ -66,6 +66,10 @@ class MyString {
   static final storeEmployees = api_url_dev + "employee/store";
   static final deleteEmployees = api_url_dev + "employee/delete";
 
+  // tax service
+  static final getTaxService = api_url_dev + "tax_service";
+  static final postTaxService = api_url_dev + "tax_service/store";
+
   // static final updatePaymentMethodByUser=api_url_dev+"payment_method/update_by_user";
   // static final updatePaymentMethodByUser=api_url_dev+"payment_method/update_by_user";
 
@@ -145,4 +149,11 @@ class MyString {
   static const String LOGO_DPOS = "logoDpos";
 
   static const String DEFAULT_LANGUAGE = 'defaultLanguage';
+
+  // SESSION TAX SERVICE
+  static const String TAX_PERCENTAGE = 'taxPercentage';
+  static const String TAX_STATUS = 'taxStatus';
+  static const String SERVICE_PERCENTAGE = 'servicePercentage';
+  static const String SERVICE_STATUS = 'serviceStatus';
+  static const String INCLUDE_COUNT_TAX_SERVICE = 'includeCountTaxService';
 }

@@ -131,6 +131,8 @@ class Messages extends Translations {
               'Harga tidak termasuk Pajak & Biaya Layanan',
           'harga_termasuk_pajak': 'Harga termasuk Pajak & Biaya Layanan',
           'lanjut': 'Lanjut',
+          'tambah_diskon': 'Tambah Diskon',
+          'data_berhasil_disimpan': 'Data Berhasil Disimpan',
         },
         'en_US': {
           'pendapatan_bulanan': 'Monthly Income',
@@ -251,14 +253,16 @@ class Messages extends Translations {
           'pajak': 'Tax',
           'biaya_layanan': 'Service Charge',
           'nilai_pajak': 'Tax Value',
-          'desc_nilai_pajak': 'Enter Tax Value (without &)',
+          'desc_nilai_pajak': 'Enter Tax Value (without %)',
           'service_charge': 'Service Charge Value',
-          'desc_service_charge': 'Enter Service Charge Value (without &)',
+          'desc_service_charge': 'Enter Service Charge Value (without %)',
           'pengaturan_perhitungan': 'Calculation Settings',
           'harga_tidak_termasuk_pajak':
               'Prices do not include Tax & Service Fee',
           'harga_termasuk_pajak': 'Price includes Tax & Service Fee',
           'lanjut': 'Continue',
+          'tambah_diskon': 'Add Discount',
+          'data_berhasil_disimpan': 'Successfully entry data',
         }
       };
 }

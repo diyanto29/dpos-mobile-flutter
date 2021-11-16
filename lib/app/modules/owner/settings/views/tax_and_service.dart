@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:warmi/app/data/models/tax_service/model_tax_service.dart';
 import 'package:warmi/app/modules/owner/settings/controllers/tax_service_controller.dart';
 import 'package:warmi/app/modules/wigets/layouts/general_button.dart';
 import 'package:warmi/app/modules/wigets/layouts/general_text_input.dart';
@@ -30,8 +31,7 @@ class TaxAndServiceView extends GetWidget<TaxServiceController> {
                 child: GeneralButton(
                     label: 'simpan'.tr,
                     onPressed: () {
-                      print(controller.switchTax.value);
-                      print(controller.taxServiceEnum.value.toString());
+                      controller.postAddTaxService();
                     }),
               ),
             ),
@@ -42,7 +42,7 @@ class TaxAndServiceView extends GetWidget<TaxServiceController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SwitchListTile(
-                        value: controller.switchTax.value,
+                        value: (controller.switchTax.value),
                         activeColor: MyColor.colorPrimary,
                         title: Text(
                           'pajak'.tr,
@@ -57,6 +57,7 @@ class TaxAndServiceView extends GetWidget<TaxServiceController> {
                       child: Column(
                         children: [
                           GeneralTextInput(
+                              controller: controller.contTaxValue.value,
                               labelTextInputBox: 'nilai_pajak'.tr + ' (%)',
                               descTextInputBox: 'desc_nilai_pajak'.tr)
                         ],
@@ -78,6 +79,7 @@ class TaxAndServiceView extends GetWidget<TaxServiceController> {
                       child: Column(
                         children: [
                           GeneralTextInput(
+                              controller: controller.contServiceValue.value,
                               labelTextInputBox: 'service_charge'.tr + ' (%)',
                               descTextInputBox: 'desc_service_charge'.tr)
                         ],
