@@ -211,6 +211,8 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
 
   void scanBarcode() async {
     String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode("#ff6666", 'Batal', true, ScanMode.BARCODE);
+    print(barcodeScanRes);
+    print("ini barcoed");
     if (barcodeScanRes != "-1") {
       searchC.value.text = barcodeScanRes;
       getSearchProduct(barcodeScanRes);

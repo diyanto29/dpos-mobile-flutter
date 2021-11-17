@@ -192,7 +192,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                         Flexible(
                             flex: 1,
                             child: IconButton(
-                              onPressed: () => controller.scanBarcode(),
+                              onPressed: () => transactionController.scanBarcode(),
                               icon: LineIcon.barcode(
                                 color: MyColor.colorSilver,
                               ),
