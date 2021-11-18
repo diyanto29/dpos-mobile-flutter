@@ -29,10 +29,12 @@ class ProductCategoryController extends GetxController {
   }
 
   void searchCategoryProduct(String keyword) async {
-
     loadingState(LoadingState.loading);
     await listSearchCategoryProduct(listCategoryProduct
-        .where((item) => item.categoryName.toString().toLowerCase().contains(keyword.toLowerCase()))
+        .where((item) => item.categoryName
+            .toString()
+            .toLowerCase()
+            .contains(keyword.toLowerCase()))
         .toList());
     print(listSearchCategoryProduct.length);
     loadingState(LoadingState.empty);
@@ -48,29 +50,29 @@ class ProductCategoryController extends GetxController {
     }
     loadingBuilder();
     await CategoryProductRemoteDataSource()
-        .createCategoryProduct(id: null, name: nameCategoryProductC.text).then((value) {
-          if(value.status){
-            getCategoryProductDataSource();
-            Get.back();
-            Get.back();
-            showSnackBar(
-                snackBarType: SnackBarType.SUCCESS,
-                title: 'kategori_produk'.tr,
-                message: 'Data Berhasil Disimpan');
-            nameCategoryProductC.text="";
-            update();
-            var productC = Get.isRegistered<ProductController>() ? Get.find<ProductController>() : Get.put(ProductController());
-            listCategoryProduct.refresh();
-          }else{
-            showSnackBar(
-                snackBarType: SnackBarType.ERROR,
-                title: 'kategori_produk'.tr,
-                message: "${value.message}");
-          }
-
-
+        .createCategoryProduct(id: null, name: nameCategoryProductC.text)
+        .then((value) {
+      if (value.status) {
+        getCategoryProductDataSource();
+        Get.back();
+        Get.back();
+        showSnackBar(
+            snackBarType: SnackBarType.SUCCESS,
+            title: 'kategori_produk'.tr,
+            message: 'Data Berhasil Disimpan');
+        nameCategoryProductC.text = "";
+        update();
+        var productC = Get.isRegistered<ProductController>()
+            ? Get.find<ProductController>()
+            : Get.put(ProductController());
+        listCategoryProduct.refresh();
+      } else {
+        showSnackBar(
+            snackBarType: SnackBarType.ERROR,
+            title: 'kategori_produk'.tr,
+            message: "${value.message}");
+      }
     });
-
   }
 
   void deleteCategoryProductDataSource(String id) async {

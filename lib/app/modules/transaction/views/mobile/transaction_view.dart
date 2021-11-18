@@ -1,9 +1,12 @@
+import 'dart:ui';
+
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:warmi/app/modules/history_sales/views/all_history.dart';
+import 'package:warmi/app/modules/owner/settings/controllers/product_category_controller.dart';
 import 'package:warmi/app/modules/transaction/controllers/cart_controller.dart';
 
 import 'package:warmi/app/modules/transaction/controllers/transaction_controller.dart';
@@ -27,6 +30,7 @@ class TransactionView extends StatefulWidget {
 
 class _TransactionViewState extends State<TransactionView> {
   var controller = Get.put(TransactionController());
+  var controllerCategory = Get.put(ProductCategoryController());
   var cartController = Get.isRegistered<CartController>()
       ? Get.find<CartController>()
       : Get.put(CartController());
@@ -164,6 +168,7 @@ class _TransactionViewState extends State<TransactionView> {
               indicatorSize: TabBarIndicatorSize.label,
               automaticIndicatorColorAdjustment: true,
               isScrollable: true,
+              padding: EdgeInsets.symmetric(horizontal: 20),
               physics: NeverScrollableScrollPhysics(),
               // indicator: new BubbleTabIndicator(
               //   indicatorHeight: 25.0,
@@ -182,6 +187,39 @@ class _TransactionViewState extends State<TransactionView> {
             SizedBox(
               height: 10,
             ),
+
+            // Container(
+            //   width: 100,
+            //   height: 40,
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(6),
+            //     image: DecorationImage(
+            //       image: ExactAssetImage("assets/foods.jpg"),
+            //       fit: BoxFit.cover,
+            //     ),
+            //   ),
+            //   child: ClipRRect(
+            //     // make sure we apply clip it properly
+            //     child: BackdropFilter(
+            //       filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+            //       child: Container(
+            //         alignment: Alignment.center,
+            //         decoration: BoxDecoration(
+            //           borderRadius: BorderRadius.circular(6),
+            //           color: Colors.black.withOpacity(0.2),
+            //         ),
+            //         child: Text(
+            //           "Beverage",
+            //           maxLines: 2,
+            //           overflow: TextOverflow.ellipsis,
+            //           textAlign: TextAlign.center,
+            //           style: TextStyle(
+            //               fontWeight: FontWeight.bold, color: Colors.white),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             Expanded(
               child: PageView(
                 onPageChanged: (v) {
