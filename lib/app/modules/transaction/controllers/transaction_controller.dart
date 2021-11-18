@@ -17,7 +17,8 @@ import 'package:warmi/app/data/datalocal/session/auth_session_manager.dart';
 import 'package:warmi/app/data/datasource/product/product_remote_data_source.dart';
 import 'package:warmi/app/data/datasource/transactions/transaction_source_data_remote.dart';
 
-import 'package:warmi/app/data/models/payment_method/payment_method_channel.dart' as PM;
+import 'package:warmi/app/data/models/payment_method/payment_method_channel.dart'
+    as PM;
 import 'package:warmi/app/data/models/product/product.dart';
 import 'package:warmi/app/data/models/transactions/transaction_model.dart';
 import 'package:warmi/app/modules/history_sales/controllers/history_sales_controller.dart';
@@ -40,54 +41,57 @@ import 'package:warmi/main.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:recase/recase.dart';
 
-class TransactionController extends GetxController with SingleGetTickerProviderMixin {
+class TransactionController extends GetxController
+    with SingleGetTickerProviderMixin {
   //TODO: Implement TransactionController
   var productController = Get.put(ProductController());
   Rx<LoadingState> loadingState = LoadingState.loading.obs;
   Rx<TextEditingController> searchC = TextEditingController().obs;
   var listSearchProduct = List<DataProduct>.empty().obs;
   var discountController = Get.put(DiscountController());
-  var printerC = Get.isRegistered<PrinterController>() ? Get.find<PrinterController>() : Get.put(PrinterController());
-   List<Tab> tabs =[];
+  var printerC = Get.isRegistered<PrinterController>()
+      ? Get.find<PrinterController>()
+      : Get.put(PrinterController());
+  List<Tab> tabs = [];
 
   final List<Tab> tabsCheckout = <Tab>[
     Tab(text: "Tunai"),
     Tab(text: "Non Tunai"),
   ];
   late TabController tabController;
-  PageController controllerPage = PageController(keepPage: false, initialPage: 0);
+  PageController controllerPage =
+      PageController(keepPage: false, initialPage: 0);
   RxInt initialIndex = 0.obs;
   RxInt index = 0.obs;
   late TabController tabControllerCheckout;
-  PageController controllerPageCheckout = PageController(keepPage: false, initialPage: 0);
+  PageController controllerPageCheckout =
+      PageController(keepPage: false, initialPage: 0);
   RxInt initialIndexCheckout = 0.obs;
   RxInt indexCheckout = 0.obs;
   RxString title = "List Kontak".obs;
   DataTransaction? detailTransaction;
   Rx<AuthSessionManager> auth = AuthSessionManager().obs;
 
-
-
   List<DataTransaction> listTransaction = [];
-  void getTransaction({String? statusTransaction})async{
-    if(listTransaction.isNotEmpty) listTransaction.clear();
-    await TransactionRemoteDataSource().getTransaction(statusTransaction: "pending").then((value) {
-      listTransaction=value.data!;
 
+  void getTransaction({String? statusTransaction}) async {
+    if (listTransaction.isNotEmpty) listTransaction.clear();
+    await TransactionRemoteDataSource()
+        .getTransaction(statusTransaction: "pending")
+        .then((value) {
+      listTransaction = value.data!;
     });
-
 
     update();
   }
 
-  void setTabName(){
-   tabs= <Tab>[
+  void setTabName() {
+    tabs = <Tab>[
       Tab(text: 'semua'.tr),
       Tab(text: 'paket'.tr),
     ];
-   update();
+    update();
   }
-
 
   AppUpdateInfo? _updateInfo;
   late BannerAd bannerAd;
@@ -102,7 +106,8 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
     InAppUpdate.checkForUpdate().then((info) {
       _updateInfo = info;
 
-      if (_updateInfo!.updateAvailability == UpdateAvailability.updateAvailable) {
+      if (_updateInfo!.updateAvailability ==
+          UpdateAvailability.updateAvailable) {
         InAppUpdate.performImmediateUpdate().catchError((e) {
           print(e);
         });
@@ -113,26 +118,26 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
   }
 
   Future<void> initAdmob() async {
-    var box =GetStorage();
+    var box = GetStorage();
     print("Success Load loadad");
     // if(box.read(MyString.STATUS_NAME)=="FREE") {
-     bannerAd = BannerAd(
-       // Change Banner Size According to Ur Need
-         size: AdSize.mediumRectangle,
-         adUnitId: AdmobHelpers.bannerAdUnitId,
-         listener: BannerAdListener(onAdLoaded: (_) {
-           isBannerAdReady = true;
-           print("Success Load Admon");
-           update();
-         }, onAdFailedToLoad: (ad, LoadAdError error) {
-           print("Failed to Load A Banner Ad${error.message}");
-           isBannerAdReady = false;
+    bannerAd = BannerAd(
+        // Change Banner Size According to Ur Need
+        size: AdSize.mediumRectangle,
+        adUnitId: AdmobHelpers.bannerAdUnitId,
+        listener: BannerAdListener(onAdLoaded: (_) {
+          isBannerAdReady = true;
+          print("Success Load Admon");
+          update();
+        }, onAdFailedToLoad: (ad, LoadAdError error) {
+          print("Failed to Load A Banner Ad${error.message}");
+          isBannerAdReady = false;
 
-           ad.dispose();
-           update();
-         }),
-         request: AdRequest())
-       ..load();
+          ad.dispose();
+          update();
+        }),
+        request: AdRequest())
+      ..load();
     //Interstitial Ads
     InterstitialAd.load(
         adUnitId: AdmobHelpers.interstitialAdUnitId,
@@ -144,10 +149,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
         }, onAdFailedToLoad: (LoadAdError error) {
           print("failed to Load Interstitial Ad ${error.message}");
         }));
-   // }
-
-
-
+    // }
   }
 
   @override
@@ -159,7 +161,8 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
     discountController.getDiscountDataSource();
     Get.lazyPut<CartController>(() => CartController());
     tabController = TabController(vsync: this, length: tabs.length);
-    tabControllerCheckout = TabController(vsync: this, length: tabsCheckout.length);
+    tabControllerCheckout =
+        TabController(vsync: this, length: tabsCheckout.length);
     productController.getProduct().then((value) {
       loadingState(LoadingState.empty);
     });
@@ -173,8 +176,8 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
     tabControllerCheckout.dispose();
     listSearchProduct.clear();
     listTransaction.clear();
-    var box =GetStorage();
-    if(box.read(MyString.STATUS_NAME)=="FREE"){
+    var box = GetStorage();
+    if (box.read(MyString.STATUS_NAME) == "FREE") {
       bannerAd.dispose();
       interstitialAd.dispose();
     }
@@ -187,7 +190,6 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
       listSearchProduct(value.data);
       loadingState(LoadingState.empty);
       checkProductInCart();
-
     });
     searchC.refresh();
     listSearchProduct.refresh();
@@ -210,7 +212,8 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
   }
 
   void scanBarcode() async {
-    String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode("#ff6666", 'Batal', true, ScanMode.BARCODE);
+    String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+        "#ff6666", 'Batal', true, ScanMode.BARCODE);
     print(barcodeScanRes);
     print("ini barcoed");
     if (barcodeScanRes != "-1") {
@@ -229,7 +232,10 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
   var paymentMethod = PM.Payment_method().obs;
 
   void getPayMoney20() async {
-    pay.value = cashC.value.text.isEmpty || cashC.value.text == "" ? 0.0 : double.tryParse(cashC.value.text.split(" ").last.replaceAll(".", ""))!;
+    pay.value = cashC.value.text.isEmpty || cashC.value.text == ""
+        ? 0.0
+        : double.tryParse(
+            cashC.value.text.split(" ").last.replaceAll(".", ""))!;
     if (is20.value) {
       paymentMethod.value = PM.Payment_method();
       update();
@@ -247,7 +253,10 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
   }
 
   void getPayMoney50() async {
-    pay.value = cashC.value.text.isEmpty ? 0.0 : double.tryParse(cashC.value.text.split(" ").last.replaceAll(".", ""))!;
+    pay.value = cashC.value.text.isEmpty
+        ? 0.0
+        : double.tryParse(
+            cashC.value.text.split(" ").last.replaceAll(".", ""))!;
     if (is50.value) {
       paymentMethod.value = PM.Payment_method();
       update();
@@ -264,7 +273,10 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
   }
 
   void getPayMoney100() async {
-    pay.value = cashC.value.text.isEmpty ? 0.0 : double.tryParse(cashC.value.text.split(" ").last.replaceAll(".", ""))!;
+    pay.value = cashC.value.text.isEmpty
+        ? 0.0
+        : double.tryParse(
+            cashC.value.text.split(" ").last.replaceAll(".", ""))!;
     if (is100.value) {
       paymentMethod.value = PM.Payment_method();
       update();
@@ -319,19 +331,28 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
     if (paymentMethod.value.paymentmethodid == null) {
       double calc = pay.value - conCart.totalShopping.value;
       if (pay < conCart.totalShopping.value) {
-        showSnackBar(snackBarType: SnackBarType.INFO, title: 'pembayaran'.tr, message: "Pembayaran Kurang ${formatCurrency.format(calc)}");
+        showSnackBar(
+            snackBarType: SnackBarType.INFO,
+            title: 'pembayaran'.tr,
+            message: "Pembayaran Kurang ${formatCurrency.format(calc)}");
       } else {
         loadingBuilder();
         print("asdas");
         await TransactionRemoteDataSource()
             .storeTransaction(
                 customerPartnerID: conCart.customer.value.customerpartnerid,
-                dateTransaction: DateFormat("yyyy-MM-dd").format(conCart.dateTransaction.value),
-                discountID: conCart.dataDiscount == null ? null : conCart.dataDiscount!.discountId.toString(),
+                dateTransaction: DateFormat("yyyy-MM-dd")
+                    .format(conCart.dateTransaction.value),
+                discountID: conCart.dataDiscount == null
+                    ? null
+                    : conCart.dataDiscount!.discountId.toString(),
                 paymentMethodID: paymentMethod.value.paymentmethodid,
                 listCart: conCart.listCart,
                 paymentMethodStatus: "done",
-                priceOff: conCart.dataDiscount == null ? null : double.tryParse(conCart.dataDiscount!.discountMaxPriceOff!),
+                priceOff: conCart.dataDiscount == null
+                    ? null
+                    : double.tryParse(
+                        conCart.dataDiscount!.discountMaxPriceOff!),
                 totalTransaction: conCart.totalShopping.value,
                 transactionPay: pay.value,
                 transactionReceived: cashReceived.value,
@@ -342,7 +363,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
           if (value.status) {
             conCart.listCart.clear();
             productController.listProduct.forEach((element) {
-              element.productInCart=false;
+              element.productInCart = false;
             });
             Map<dynamic, dynamic> pass;
             pass = {
@@ -354,13 +375,15 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
 
             Get.toNamed(Routes.TRANSACTION_SUCCESS, arguments: pass);
             printerC.printTicketPurchase(dataTransaction: detailTransaction);
-          }else{
-            showSnackBar(snackBarType: SnackBarType.INFO,title: "Transaksi",message: value.message.split("=>").last);
+          } else {
+            showSnackBar(
+                snackBarType: SnackBarType.INFO,
+                title: "Transaksi",
+                message: value.message.split("=>").last);
           }
         });
       }
-    }
-    else {
+    } else {
       var paymentC = Get.find<PaymentMethodController>();
       Map<dynamic, dynamic> pass = {};
       paymentC.listPaymentMethod.forEach((element) {
@@ -385,12 +408,17 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
       await TransactionRemoteDataSource()
           .storeTransaction(
               customerPartnerID: conCart.customer.value.customerpartnerid,
-              dateTransaction: DateFormat("yyyy-MM-dd").format(conCart.dateTransaction.value),
-              discountID: conCart.dataDiscount == null ? null : conCart.dataDiscount!.discountId.toString(),
+              dateTransaction: DateFormat("yyyy-MM-dd")
+                  .format(conCart.dateTransaction.value),
+              discountID: conCart.dataDiscount == null
+                  ? null
+                  : conCart.dataDiscount!.discountId.toString(),
               paymentMethodID: paymentMethod.value.paymentmethodid,
               listCart: conCart.listCart,
               paymentMethodStatus: "done",
-              priceOff: conCart.dataDiscount == null ? null : double.tryParse(conCart.dataDiscount!.discountMaxPriceOff!),
+              priceOff: conCart.dataDiscount == null
+                  ? null
+                  : double.tryParse(conCart.dataDiscount!.discountMaxPriceOff!),
               totalTransaction: conCart.totalShopping.value,
               transactionPay: 0,
               transactionReceived: 0,
@@ -402,14 +430,15 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
           conCart.listCart.clear();
           detailTransaction = DataTransaction.fromJson(value.data);
           productController.listProduct.forEach((element) {
-            element.productInCart=false;
+            element.productInCart = false;
           });
           Get.toNamed(Routes.TRANSACTION_SUCCESS, arguments: pass);
           printerC.printTicketPurchase(dataTransaction: detailTransaction);
-
-
-        }else{
-          showSnackBar(snackBarType: SnackBarType.INFO,title: "Transaksi",message: value.message.split("=>").last);
+        } else {
+          showSnackBar(
+              snackBarType: SnackBarType.INFO,
+              title: "Transaksi",
+              message: value.message.split("=>").last);
         }
       });
     }
@@ -420,14 +449,18 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
     if (paymentMethod.value.paymentmethodid == null) {
       double calc = pay.value - conCart.totalShopping.value;
       if (pay < conCart.totalShopping.value) {
-        showSnackBar(snackBarType: SnackBarType.INFO, title: 'pembayaran'.tr, message: "Pembayaran Kurang ${formatCurrency.format(calc)}");
+        showSnackBar(
+            snackBarType: SnackBarType.INFO,
+            title: 'pembayaran'.tr,
+            message: "Pembayaran Kurang ${formatCurrency.format(calc)}");
       } else {
         print(pay.value);
         print(cashReceived.value);
         loadingBuilder();
         await TransactionRemoteDataSource()
             .changeStatusTransaction(
-                transactionPaymentDate: DateFormat("yyyy-MM-dd").format(DateTime.now()),
+                transactionPaymentDate:
+                    DateFormat("yyyy-MM-dd").format(DateTime.now()),
                 paymentMethodID: paymentMethod.value.paymentmethodid,
                 listCart: conCart.listCart,
                 paymentMethodStatus: "done",
@@ -470,7 +503,8 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
       loadingBuilder();
       await TransactionRemoteDataSource()
           .changeStatusTransaction(
-              transactionPaymentDate: DateFormat("yyyy-MM-dd").format(DateTime.now()),
+              transactionPaymentDate:
+                  DateFormat("yyyy-MM-dd").format(DateTime.now()),
               paymentMethodID: paymentMethod.value.paymentmethodid,
               listCart: conCart.listCart,
               paymentMethodStatus: "done",
@@ -494,7 +528,8 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
   }
 
   void printNow() async {
-    printerC.printTicketPurchase(dataTransaction: detailTransaction,printCopy: true);
+    printerC.printTicketPurchase(
+        dataTransaction: detailTransaction, printCopy: true);
   }
 
   ScreenshotController screenshotController = ScreenshotController();
@@ -524,10 +559,14 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
                     Flexible(
                       child: Container(
                         alignment: Alignment.center,
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
-                          color: detailTransaction!.transactionstatus!.contains("pending") ? MyColor.colorRedFlatDark : MyColor.colorPrimary,
+                          color: detailTransaction!.transactionstatus!
+                                  .contains("pending")
+                              ? MyColor.colorRedFlatDark
+                              : MyColor.colorPrimary,
                         ),
                         child: Text(
                           "${detailTransaction!.transactionstatus.toString().titleCase}",
@@ -588,12 +627,14 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
                   children: [
                     Flexible(
                         child: Text(
-                          'metode_pembayaran'.tr,
+                      'metode_pembayaran'.tr,
                       style: blackTextTitle.copyWith(fontSize: 14.sp),
                     )),
                     Flexible(
                         child: Text(
-                      detailTransaction!.paymentMethod == null ? 'Cash' : "${detailTransaction!.paymentMethod!.type!.paymentmethodtypename.toString().titleCase} -  ${detailTransaction!.paymentMethod!.paymentmethodname.toString().capitalize}",
+                      detailTransaction!.paymentMethod == null
+                          ? 'Cash'
+                          : "${detailTransaction!.paymentMethod!.type!.paymentmethodtypename.toString().titleCase} -  ${detailTransaction!.paymentMethod!.paymentmethodname.toString().capitalize}",
                       style: blackTextTitle.copyWith(fontSize: 14.sp),
                     )),
                   ],
@@ -607,7 +648,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
                   children: [
                     Flexible(
                         child: Text(
-                          'status_pembayaran'.tr,
+                      'status_pembayaran'.tr,
                       style: blackTextTitle.copyWith(fontSize: 14.sp),
                     )),
                     Flexible(
@@ -626,7 +667,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
                   children: [
                     Flexible(
                         child: Text(
-                          'kasir'.tr,
+                      'kasir'.tr,
                       style: blackTextTitle.copyWith(fontSize: 14.sp),
                     )),
                     Flexible(
@@ -646,7 +687,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
                     children: [
                       Flexible(
                           child: Text(
-                            'pelanggan'.tr,
+                        'pelanggan'.tr,
                         style: blackTextTitle.copyWith(fontSize: 14.sp),
                       )),
                       Flexible(
@@ -686,7 +727,10 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
                                     height: 30,
                                     width: 30,
                                     padding: const EdgeInsets.all(8),
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(100), color: MyColor.colorOrange),
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(100),
+                                        color: MyColor.colorOrange),
                                     alignment: Alignment.center,
                                     child: Text(
                                       (i + 1).toString(),
@@ -699,7 +743,8 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
                                   Flexible(
                                       child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         product.product!.productname!,
@@ -728,10 +773,14 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
                               SizedBox(
                                 height: 5,
                               ),
-                              if ((int.tryParse(product.detailtransactionsubtotal!)! - product.priceafterdiscount!) > 0)
+                              if ((int.tryParse(
+                                          product.detailtransactionsubtotal!)! -
+                                      product.priceafterdiscount!) >
+                                  0)
                                 Text(
                                   "-  Rp ${formatCurrency.format(int.tryParse(product.detailtransactionsubtotal!)! - product.priceafterdiscount!)}",
-                                  style: blackTextFont.copyWith(color: MyColor.colorRedFlat),
+                                  style: blackTextFont.copyWith(
+                                      color: MyColor.colorRedFlat),
                                 ),
                             ],
                           ))
@@ -792,7 +841,8 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
                         children: [
                           Text(
                             "- Rp ${formatCurrency.format(int.tryParse(detailTransaction!.transactionpriceoffvoucher ?? "0"))}",
-                            style: blackTextTitle.copyWith(color: MyColor.colorRedFlat),
+                            style: blackTextTitle.copyWith(
+                                color: MyColor.colorRedFlat),
                           )
                         ],
                       ))
@@ -860,7 +910,7 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
                         children: [
                           Flexible(
                               child: Text(
-                                'kembalian'.tr,
+                            'kembalian'.tr,
                             style: blackTextFont,
                           )),
                           Flexible(
@@ -878,7 +928,10 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
                 Center(
                   child: Text(
                     "Power By DPOS",
-                    style: blackTextTitle.copyWith(fontStyle: FontStyle.italic, fontWeight: FontWeight.w400, color: MyColor.colorBlackT50),
+                    style: blackTextTitle.copyWith(
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.w400,
+                        color: MyColor.colorBlackT50),
                   ),
                 )
               ],
@@ -889,12 +942,15 @@ class TransactionController extends GetxController with SingleGetTickerProviderM
     )
         .then((capturedImage) async {
       var dir;
-      await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_PICTURES).then((value) {
+      await ExternalPath.getExternalStoragePublicDirectory(
+              ExternalPath.DIRECTORY_PICTURES)
+          .then((value) {
         dir = value;
       });
       File file = new File('$dir/${detailTransaction!.transactionid}' + '.png');
       await file.writeAsBytes(capturedImage);
-      Share.shareFiles(['$dir/${detailTransaction!.transactionid}' + '.png'], text: '${detailTransaction!.transactionid}');
+      Share.shareFiles(['$dir/${detailTransaction!.transactionid}' + '.png'],
+          text: '${detailTransaction!.transactionid}');
     });
   }
 }

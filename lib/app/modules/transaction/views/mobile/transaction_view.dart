@@ -1,9 +1,12 @@
+import 'dart:ui';
+
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:warmi/app/modules/history_sales/views/all_history.dart';
+import 'package:warmi/app/modules/owner/settings/controllers/product_category_controller.dart';
 import 'package:warmi/app/modules/transaction/controllers/cart_controller.dart';
 
 import 'package:warmi/app/modules/transaction/controllers/transaction_controller.dart';
@@ -27,6 +30,7 @@ class TransactionView extends StatefulWidget {
 
 class _TransactionViewState extends State<TransactionView> {
   var controller = Get.put(TransactionController());
+  var controllerCategory = Get.put(ProductCategoryController());
   var cartController = Get.isRegistered<CartController>()
       ? Get.find<CartController>()
       : Get.put(CartController());
@@ -176,6 +180,65 @@ class _TransactionViewState extends State<TransactionView> {
             SizedBox(
               height: 10,
             ),
+            // KATEGORI PRODUK
+            Container(
+              margin: EdgeInsets.fromLTRB(5, 0, 0, 5),
+              height: 50,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: controllerCategory.listCategoryProduct.length,
+                itemBuilder: (c, i) => Container(
+                  margin: EdgeInsets.fromLTRB(10, 5, 0, 5),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20,
+                  ),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(6),
+                      border: Border.all(color: Colors.grey),
+                      color: Colors.grey.shade300),
+                  child: Center(
+                    child: Text(
+                      controllerCategory.listCategoryProduct[i].categoryName ??
+                          '-',
+                      style: TextStyle(fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            // Container(
+            //   width: 100,
+            //   height: 40,
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(6),
+            //     image: DecorationImage(
+            //       image: ExactAssetImage("assets/foods.jpg"),
+            //       fit: BoxFit.cover,
+            //     ),
+            //   ),
+            //   child: ClipRRect(
+            //     // make sure we apply clip it properly
+            //     child: BackdropFilter(
+            //       filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+            //       child: Container(
+            //         alignment: Alignment.center,
+            //         decoration: BoxDecoration(
+            //           borderRadius: BorderRadius.circular(6),
+            //           color: Colors.black.withOpacity(0.2),
+            //         ),
+            //         child: Text(
+            //           "Beverage",
+            //           maxLines: 2,
+            //           overflow: TextOverflow.ellipsis,
+            //           textAlign: TextAlign.center,
+            //           style: TextStyle(
+            //               fontWeight: FontWeight.bold, color: Colors.white),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             Expanded(
               child: PageView(
                 onPageChanged: (v) {
