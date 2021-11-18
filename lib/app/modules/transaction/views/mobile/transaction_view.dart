@@ -92,7 +92,7 @@ class _TransactionViewState extends State<TransactionView> {
                         onSubmitted: (v) {},
                         onChanged: (v) {
                           print("asda");
-                          controller.getSearchProduct(v);
+                          controller.getSearchProduct(v,idCategory: controller.idCategory.value);
                         },
                         decoration: InputDecoration(
                             hintText: 'cari_produk_disini'.tr + '...',
@@ -154,11 +154,17 @@ class _TransactionViewState extends State<TransactionView> {
               );
             }),
             TabBar(
+
               unselectedLabelColor: MyColor.colorBlackT50,
               indicatorColor: MyColor.colorPrimary,
               labelColor: MyColor.colorPrimary,
 
+
+
               indicatorSize: TabBarIndicatorSize.label,
+              automaticIndicatorColorAdjustment: true,
+              isScrollable: true,
+              physics: NeverScrollableScrollPhysics(),
               // indicator: new BubbleTabIndicator(
               //   indicatorHeight: 25.0,
               //   indicatorColor: MyColor.colorPrimary,
@@ -179,16 +185,22 @@ class _TransactionViewState extends State<TransactionView> {
             Expanded(
               child: PageView(
                 onPageChanged: (v) {
+                  print(v);
                   controller.tabController.index = v;
                 },
                 controller: controller.controllerPage,
+
                 children: controller.tabs.map<Widget>((Tab tab) {
                   if (tab.text == 'semua'.tr) {
                     return ProductTransactionView();
-                  } else if (tab.text == 'lunas'.tr) {
+                  } else if (tab.text == 'paket'.tr) {
                     return Container();
                   } else {
-                    return Container();
+                    var category=controller.listCategoryProduct.where((p0) => p0.categoryName!.toLowerCase().contains(tab.text!.toLowerCase())).toList();
+                    var idCategory=category.length>0 ?category[0].categoryId : null;
+                    print(category);
+                    controller.idCategory(idCategory);
+                    return ProductTransactionView(idCategory: idCategory,);
                   }
                 }).toList(),
               ),

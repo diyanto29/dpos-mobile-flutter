@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
 import 'package:pdf/pdf.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:warmi/app/data/datalocal/session/auth_session_manager.dart';
 import 'package:warmi/app/data/datasource/outlet/outlet_remote_data_source.dart';
@@ -155,102 +156,116 @@ class ReportController extends GetxController {
     });
 
     pdf.addPage(
-      pw.Page(
-        build: (pw.Context context) => pw.Column(
-          mainAxisAlignment: pw.MainAxisAlignment.start,
-          crossAxisAlignment: pw.CrossAxisAlignment.start,
-          children:[
-            pw.Center(
-              child: pw.Text('LAPORAN PENJUALAN '),
-            ),
-            pw.SizedBox(height: 10),
-            pw.Center(
-              child: pw.Text('Periode'),
-            ),
-            pw.SizedBox(height: 10),
-            pw.Center(
-              child: pw.Text('$startDate - $endDate'),
-            ),
-            pw.SizedBox(height: 10),
-            pw.Text("Tgl Cetak : "+ DateFormat("EEEE, dd MMMM yyyy","${Get.locale}").format(DateTime.now())),
-            pw.SizedBox(height: 20),
-            pw.Text("pembuat".tr+" : "+ AuthSessionManager().userFullName),
-            pw.SizedBox(height: 20),
 
-            pw.Text(listOutlet[0].isChecked ?  "toko".tr+" : "+ "semua_outlet".tr : "toko".tr+" : "+ storeName.value),
-            pw.SizedBox(height: 20),
+      pw.MultiPage(
+        pageFormat: PdfPageFormat.a4,
+        header: (pw.Context context) =>   pw.Column(
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children:[
 
-
-       pw.Table.fromTextArray(
-      border: null,
-      cellAlignment: pw.Alignment.centerLeft,
-      headerDecoration: pw.BoxDecoration(
-        borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
-        color: PdfColors.deepOrange,
-      ),
-      headerHeight: 25,
-      cellHeight: 40,
-      cellAlignments: {
-        0: pw.Alignment.centerLeft,
-        1: pw.Alignment.centerLeft,
-        2: pw.Alignment.centerRight,
-        3: pw.Alignment.center,
-        4: pw.Alignment.centerRight,
-      },
-      headerStyle: pw.TextStyle(
-        color: PdfColors.white,
-        fontSize: 10,
-        fontWeight: pw.FontWeight.bold,
-      ),
-      cellStyle: const pw.TextStyle(
-        color: PdfColors.black,
-        fontSize: 10,
-      ),
-      rowDecoration: pw.BoxDecoration(
-        border: pw.Border(
-          bottom: pw.BorderSide(
-            color: PdfColors.deepOrange,
-            width: .5,
+            ]
+        ),
+        build: (pw.Context context) => [
+          pw.Center(
+            child: pw.Text('LAPORAN PENJUALAN '),
           ),
-        ),
-      ),
-      headers: List<String>.generate(
-        tableHeaders.length,
-            (col) => tableHeaders[col],
-      ),
-      data: List<List<String>>.generate(
-        reportTransaction.value.data!.penjualanProduk!.length,
-            (row) => List<String>.generate(
-          tableHeaders.length,
-              (col) => products[row].getIndex(col),
-        ),
-      ),
-    ),
-            pw.SizedBox(height: 20),
-            pw.Text("penjualan_kotor".tr+" : "+ formatCurrency.format(reportTransaction.value.data!.ringkasanTransaksi!.totalAll)),
-            pw.SizedBox(height: 10),
-            pw.Text("Transaksi Cash"+" : "+ formatCurrency.format(reportTransaction.value.data!.ringkasanTransaksi!.totalCash)),
-            pw.SizedBox(height: 10),
-            pw.Text("Diskon"+" : "+ formatCurrency.format(reportTransaction.value.data!.ringkasanTransaksi!.allDisc)),
-            pw.SizedBox(height: 10),
-            pw.Text("pembatalan".tr+" : "+ formatCurrency.format(reportTransaction.value.data!.ringkasanTransaksi!.cancel)),
-            pw.SizedBox(height: 10),
-            pw.Text("penjualan_bersih".tr+" : "+ formatCurrency.format(reportTransaction.value.data!.ringkasanTransaksi!.neto)),
-            pw.SizedBox(height: 20),
-          ]
-        ),
+          pw.SizedBox(height: 10),
+          pw.Center(
+            child: pw.Text('Periode'),
+          ),
+          pw.SizedBox(height: 10),
+          pw.Center(
+            child: pw.Text('$startDate - $endDate'),
+          ),
+          pw.SizedBox(height: 10),
+          pw.Text("Tgl Cetak : "+ DateFormat("EEEE, dd MMMM yyyy","${Get.locale}").format(DateTime.now())),
+          pw.SizedBox(height: 20),
+          pw.Text("pembuat".tr+" : "+ AuthSessionManager().userFullName),
+          pw.SizedBox(height: 20),
+
+          pw.Text(listOutlet[0].isChecked ?  "toko".tr+" : "+ "semua_outlet".tr : "toko".tr+" : "+ storeName.value),
+          pw.SizedBox(height: 20),
+          pw.Table.fromTextArray(
+            border: null,
+            cellAlignment: pw.Alignment.centerLeft,
+            headerDecoration: pw.BoxDecoration(
+              borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
+              color: PdfColors.deepOrange,
+            ),
+            headerHeight: 25,
+            cellHeight: 40,
+            cellAlignments: {
+              0: pw.Alignment.centerLeft,
+              1: pw.Alignment.centerLeft,
+              2: pw.Alignment.centerRight,
+              3: pw.Alignment.center,
+              4: pw.Alignment.centerRight,
+            },
+            headerStyle: pw.TextStyle(
+              color: PdfColors.white,
+              fontSize: 10,
+              fontWeight: pw.FontWeight.bold,
+            ),
+            cellStyle: const pw.TextStyle(
+              color: PdfColors.black,
+              fontSize: 10,
+            ),
+            rowDecoration: pw.BoxDecoration(
+              border: pw.Border(
+                bottom: pw.BorderSide(
+                  color: PdfColors.deepOrange,
+                  width: .5,
+                ),
+              ),
+            ),
+            headers: List<String>.generate(
+              tableHeaders.length,
+                  (col) => tableHeaders[col],
+            ),
+            data: List<List<String>>.generate(
+              reportTransaction.value.data!.penjualanProduk!.length,
+                  (row) => List<String>.generate(
+                tableHeaders.length,
+                    (col) => products[row].getIndex(col),
+              ),
+            ),
+          ),
+
+          pw.SizedBox(height: 20),
+          pw.Text("penjualan_kotor".tr+" : "+ formatCurrency.format(reportTransaction.value.data!.ringkasanTransaksi!.totalAll)),
+          pw.SizedBox(height: 10),
+          pw.Text("Transaksi Cash"+" : "+ formatCurrency.format(reportTransaction.value.data!.ringkasanTransaksi!.totalCash)),
+          pw.SizedBox(height: 10),
+          pw.Text("Diskon"+" : "+ formatCurrency.format(reportTransaction.value.data!.ringkasanTransaksi!.allDisc)),
+          pw.SizedBox(height: 10),
+          pw.Text("pembatalan".tr+" : "+ formatCurrency.format(reportTransaction.value.data!.ringkasanTransaksi!.cancel)),
+          pw.SizedBox(height: 10),
+          pw.Text("penjualan_bersih".tr+" : "+ formatCurrency.format(reportTransaction.value.data!.ringkasanTransaksi!.neto)),
+          pw.SizedBox(height: 20),
+        ],
+
+
+
       ),
     );
-    var dir;
-    await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS).then((value) {
-      dir = value;
+
+    await Permission.storage.request().then((value) async {
+      if (value.isGranted) {
+        var dir;
+        await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS).then((value) {
+          dir = value;
 
 
+        });
+
+
+        final file = File('$dir/laporan-penjualan-$startDate-$endDate.pdf');
+        await file.writeAsBytes(await pdf.save());
+        Share.shareFiles(['$dir/laporan-penjualan-$startDate-$endDate.pdf'], text: "laporan-penjualan-$startDate-$endDate.pdf");
+      }
     });
 
-    final file = File('$dir/laporan-penjualan-$startDate-$endDate.pdf');
-    await file.writeAsBytes(await pdf.save());
-    Share.shareFiles(['$dir/laporan-penjualan-$startDate-$endDate.pdf'], text: "laporan-penjualan-$startDate-$endDate.pdf");
   }
 
 }

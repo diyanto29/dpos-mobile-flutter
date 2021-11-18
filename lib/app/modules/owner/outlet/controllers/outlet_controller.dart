@@ -204,7 +204,7 @@ class OutletController extends GetxController {
     box.write(MyString.STORE_ID, dataOutlet.storeId);
     box.write(MyString.STORE_NAME, dataOutlet.storeName);
     box.write(MyString.STORE_ADDRESS, address);
-    if (auth.roleName == "Pemilik Toko") Get.offAllNamed(Routes.NAVIGATION);
+    if (auth.roleName == "Pemilik Toko") Get.offAllNamed(Routes.SPLASH);
   }
 
   void copyToClipboard(String data){

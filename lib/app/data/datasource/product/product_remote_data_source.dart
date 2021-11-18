@@ -45,10 +45,13 @@ class ProductRemoteDataSource extends BaseDio {
   }
 
 
-  Future<ProductModel> getSearchProduct({String? name}) async {
+  Future<ProductModel> getSearchProduct({String? name,String? idCategory}) async {
     try {
       response = await dio.get(MyString.getProduct,
-          queryParameters: {"store_id": "${auth.storeId}","name" : "$name"}, options: options);
+          queryParameters: {
+        "store_id": "${auth.storeId}","name" : "$name",
+          if(idCategory!=null) "category_id" : "$idCategory"
+          }, options: options);
       return ProductModel.fromJson(response!.data);
     } on DioError catch (e) {
       print(e);

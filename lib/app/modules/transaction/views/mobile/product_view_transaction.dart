@@ -19,6 +19,9 @@ import 'package:warmi/core/utils/enum.dart';
 import '../../../../../main.dart';
 
 class ProductTransactionView extends StatefulWidget {
+  final String? idCategory;
+
+  const ProductTransactionView({Key? key, this.idCategory}) : super(key: key);
   @override
   State<ProductTransactionView> createState() => _ProductTransactionViewState();
 }
@@ -34,7 +37,11 @@ class _ProductTransactionViewState extends State<ProductTransactionView> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    if(widget.idCategory!=null){
+      transactionController.getSearchProduct(transactionController.searchC.value.text,idCategory: widget.idCategory);
+    }else{
+
+    }
     super.initState();
   }
 
@@ -50,7 +57,7 @@ class _ProductTransactionViewState extends State<ProductTransactionView> {
   Widget build(BuildContext context) {
     controller.checkProductInCart();
     return Obx(() {
-      return transactionController.searchC.value.text.isEmpty
+      return transactionController.searchC.value.text.isEmpty && widget.idCategory==null
           ? controller.listProduct.length == 0
               ? Center(
                   child: GeneralButton(
