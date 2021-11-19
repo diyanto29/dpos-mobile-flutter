@@ -36,7 +36,7 @@ class ReportView extends GetWidget<ReportController> {
                 child: ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                         primary: MyColor.colorPrimary),
-                    onPressed: () {},
+                    onPressed: () => showBottomSheetExport(),
                     icon: Icon(Icons.import_export),
                     label: Text('Export'))),
             Container(

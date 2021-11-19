@@ -67,15 +67,15 @@ class _BottomDialogOutletReportSummaryExportState extends State<BottomDialogOutl
                      child: ListTile(
                        onTap: ()=> controller.generateReportPDF(),
 
-                       title: Text("print_penjualan".tr),
-                       subtitle: Text("ket_print".tr),
+                       title: Text("export_penjualan".tr),
+                       subtitle: Text("ket_export".tr),
                      ),
                    ),
                     Card(
                       child: ListTile(
                         onTap: ()=> controller.generateReportPDF(type: "method"),
-                       title: Text("print_metode_pembayaran".tr),
-                        subtitle:  Text("ket_print".tr),
+                       title: Text("export_metode_pembayaran".tr),
+                        subtitle:  Text("ket_export".tr),
                    ),
                     )
                     // SizedBox(height: 30,),

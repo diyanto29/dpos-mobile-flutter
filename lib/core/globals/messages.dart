@@ -170,10 +170,14 @@ class Messages extends Translations {
           'transaksi': 'Transaksi',
           'print_penjualan': 'Print Penjualan + Ringkasan',
           'print_metode_pembayaran': 'Print Metode Pembayaran + Ringkasan',
+          'export_metode_pembayaran': 'Export Metode Pembayaran + Ringkasan',
           'ket_print': 'Klik Untuk Print',
+          'ket_export': 'Klik Untuk Export',
+          'export_penjualan': 'Print Penjualan + Ringkasan',
         },
         'en_US': {
           'ket_print': 'Tap For Print',
+          'ket_export': 'Tap For Export',
           'pendapatan_bulanan': 'Monthly Income',
           'menu_fav': 'Favorite Menu',
           'toko_anda': 'Your Outlet',
@@ -339,7 +343,9 @@ class Messages extends Translations {
           'laporan_pegawai': 'Employee Report',
           'transaksi': 'Transaction',
           'print_penjualan': 'Print Sales + Summary',
+          'export_penjualan': 'Export Sales + Summary',
           'print_metode_pembayaran': 'Print Method Payment + Summary',
+          'export_metode_pembayaran': 'Export Method Payment + Summary',
         }
       };
 }
