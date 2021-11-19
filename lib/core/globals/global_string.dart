@@ -96,6 +96,14 @@ class MyString {
   static const String DEFAULT_PRINTER = 'defaultPrinter';
   static const String PRINTER_PAPER = 'printerPaper';
   static const String PRINTER_TYPE = 'printerType';
+  static const String FONT_HEADER = 'fontHeader';
+  static const String FONT_FOOTER = 'fontFooter';
+  static const String FONT_CONTENT = 'fontContent';
+  static const String FONT_TOTAL = 'fontTotal';
+  static const String TYPE_FONT_HEADER = 'typeFontHeader';
+  static const String TYPE_FONT_FOOTER = 'typeFontFooter';
+  static const String TYPE_FONT_CONTENT = 'typeFontContent';
+  static const String TYPE_FONT_TOTAL = 'typeFontTotal';
 
   //navtigation
   // static const String homeTitleBottomNavBar = 'Beranda';

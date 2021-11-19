@@ -69,7 +69,7 @@ class DetailReportSellingProduct extends GetWidget<ReportController> {
         return Padding(
             padding: const EdgeInsets.all(20.0),
             child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
+              // scrollDirection: Axis.horizontal,
               child: DataTable(
                   sortAscending: true,
                   sortColumnIndex: 0,

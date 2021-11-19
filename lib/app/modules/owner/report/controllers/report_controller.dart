@@ -16,6 +16,7 @@ import 'package:warmi/app/data/models/outlet/outlet.dart';
 import 'package:warmi/app/data/models/report_transaction/report_transaction.dart';
 import 'package:warmi/app/modules/owner/settings/controllers/printer_controller.dart';
 import 'package:warmi/core/globals/global_color.dart';
+import 'package:recase/recase.dart';
 
 import 'package:warmi/core/utils/enum.dart';
 import 'dart:io';
@@ -147,13 +148,25 @@ class ReportController extends GetxController {
       'terjual'.tr,
       'total_transaksi'.tr
     ];
+    var tableHeadersMethod = [
+      'metode_pembayaran'.tr,
+      'terjual'.tr,
+      'total_transaksi'.tr
+    ];
     List<Product> products=[];
     int jum=0;
-    reportTransaction.value.data!.penjualanProduk!.forEach((element) {
-      
-      products.add(Product(element.name!, int.tryParse(element.count.toString())!,double.tryParse(element.sum.toString())!));
-      jum+=element.sum!;
-    });
+   if(type=="sales")
+     reportTransaction.value.data!.penjualanProduk!.forEach((element) {
+
+       products.add(Product(element.name!, int.tryParse(element.count.toString())!,double.tryParse(element.sum.toString())!));
+       jum+=element.sum!;
+     });
+   else
+     reportTransaction.value.data!.paymentMethod!.forEach((element) {
+
+       products.add(Product(element.paymentMethodAlias.toString().titleCase, int.tryParse(element.count.toString())!,double.tryParse(element.total.toString())!));
+       jum+=element.total!;
+     });
 
     pdf.addPage(
 
@@ -168,7 +181,7 @@ class ReportController extends GetxController {
         ),
         build: (pw.Context context) => [
           pw.Center(
-            child: pw.Text('LAPORAN PENJUALAN '),
+            child: type=="sales"? pw.Text('LAPORAN PENJUALAN By Produk') : pw.Text('LAPORAN PENJUALAN By Metode Pembayaran'),
           ),
           pw.SizedBox(height: 10),
           pw.Center(
@@ -219,9 +232,12 @@ class ReportController extends GetxController {
                 ),
               ),
             ),
-            headers: List<String>.generate(
+            headers: type=="sales"  ? List<String>.generate(
               tableHeaders.length,
                   (col) => tableHeaders[col],
+            ): List<String>.generate(
+              tableHeadersMethod.length,
+                  (col) => tableHeadersMethod[col],
             ),
             data: type=="sales" ? List<List<String>>.generate(
               reportTransaction.value.data!.penjualanProduk!.length,
@@ -232,7 +248,7 @@ class ReportController extends GetxController {
             )  : List<List<String>>.generate(
               reportTransaction.value.data!.paymentMethod!.length,
                   (row) => List<String>.generate(
-                tableHeaders.length,
+                tableHeadersMethod.length,
                     (col) => products[row].getIndex(col),
               ),
             ),
@@ -265,8 +281,13 @@ class ReportController extends GetxController {
 
         });
 
+        final targetFile = Directory('$dir/laporan-penjualan-$startDate-$endDate.pdf');
+        if(targetFile.existsSync()) {
+          targetFile.deleteSync(recursive: true);
+        }
 
         final file = File('$dir/laporan-penjualan-$startDate-$endDate.pdf');
+
         await file.writeAsBytes(await pdf.save());
         Share.shareFiles(['$dir/laporan-penjualan-$startDate-$endDate.pdf'], text: "laporan-penjualan-$startDate-$endDate.pdf");
       }

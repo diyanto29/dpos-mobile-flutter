@@ -1,10 +1,12 @@
 import 'package:esc_pos_bluetooth/esc_pos_bluetooth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:warmi/app/data/models/printer/printer_model.dart';
 import 'package:warmi/app/modules/owner/settings/controllers/printer_controller.dart';
 import 'package:warmi/app/modules/owner/settings/views/printer_blue_list.dart';
+import 'package:warmi/app/modules/wigets/package/dropdown__search/dropdown_search.dart';
 import 'package:warmi/core/globals/global_color.dart';
 import 'package:warmi/core/globals/global_string.dart';
 import 'package:warmi/core/utils/thema.dart';
@@ -23,10 +25,28 @@ class BottomDialogDetailPrinter extends StatefulWidget {
 
 class _BottomDialogDetailPrinterState extends State<BottomDialogDetailPrinter> {
     int groupValue=1;
+    int groupValueFontTypeHeader=1;
+    int groupValueFontTypeFooter=1;
+    int groupValueFontTypeContent=1;
+    int groupValueFontTypeTotal=1;
+    String? fontSizeHeader,fontSizeFooter,fontSizeContent,fontSizeTotal;
+    var box=GetStorage();
 
     @override
   void initState() {
     setState(() {
+      groupValueFontTypeHeader=box.read(MyString.TYPE_FONT_HEADER);
+      fontSizeHeader=box.read(MyString.FONT_HEADER);
+
+      groupValueFontTypeFooter=box.read(MyString.TYPE_FONT_FOOTER);
+      fontSizeFooter=box.read(MyString.FONT_FOOTER);
+
+      groupValueFontTypeContent=box.read(MyString.TYPE_FONT_CONTENT);
+      fontSizeContent=box.read(MyString.FONT_CONTENT);
+
+      groupValueFontTypeTotal=box.read(MyString.TYPE_FONT_TOTAL);
+      fontSizeTotal=box.read(MyString.FONT_TOTAL);
+
       if(widget.edit){
         // print(widget.printerData!.printerpapertype);
         if(widget.printerData!.printerpapertype=="58"){
@@ -94,6 +114,7 @@ class _BottomDialogDetailPrinterState extends State<BottomDialogDetailPrinter> {
                 onChanged: (v){
                   setState(() {
                     groupValue=v!;
+                    // box.read(MyString.TYP)
                   });
 
               },title: Text("58mm"),),
@@ -102,6 +123,184 @@ class _BottomDialogDetailPrinterState extends State<BottomDialogDetailPrinter> {
                   groupValue=v!;
                 });
               },title: Text("80mm"),),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text("Header",style: blackTextTitle,),
+              ),
+              SizedBox(height: 10,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text("Tipe Font",style: blackTextTitle.copyWith(fontWeight: FontWeight.w200),),
+              ),
+              RadioListTile<int>(value: 1, groupValue: groupValueFontTypeHeader,
+
+                onChanged: (v){
+                  setState(() {
+                    groupValueFontTypeHeader=v!;
+                    box.write(MyString.TYPE_FONT_HEADER, v);
+                  });
+
+                },title: Text("Tipe A"),),
+              RadioListTile<int>(value: 2, groupValue: groupValueFontTypeHeader, onChanged: (v){
+                setState(() {
+                  groupValueFontTypeHeader=v!;
+                  box.write(MyString.TYPE_FONT_HEADER, v);
+                });
+              },title: Text("Tipe B"),),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text("Ukuran Font",style: blackTextTitle.copyWith(fontWeight: FontWeight.w200),),
+              ),
+              Container(
+                height: 50,
+                margin: EdgeInsets.symmetric(horizontal: MyString.DEFAULT_PADDING,vertical: 10),
+                child: DropdownSearch(
+                  hint: "Pilih Ukuran Font",
+                  mode: Mode.BOTTOM_SHEET,
+                  selectedItem: fontSizeHeader,
+                  // autoFocusSearchBox: true,
+                  // showSearchBox: true,
+                  items: ['size1','size2','size3','size4'],
+                  onChanged: (v){
+                    box.write(MyString.FONT_HEADER, v);
+                  },
+                ),
+              ),
+              SizedBox(height: 10,),
+              Divider(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text("Footer",style: blackTextTitle,),
+              ),
+              SizedBox(height: 10,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text("Tipe Font",style: blackTextTitle.copyWith(fontWeight: FontWeight.w200),),
+              ),
+              RadioListTile<int>(value: 1, groupValue: groupValueFontTypeFooter,
+
+                onChanged: (v){
+                  setState(() {
+                    groupValueFontTypeFooter=v!;
+                    box.write(MyString.TYPE_FONT_FOOTER, v);
+                  });
+
+                },title: Text("Tipe A"),),
+              RadioListTile<int>(value: 2, groupValue: groupValueFontTypeFooter, onChanged: (v){
+                setState(() {
+                  groupValueFontTypeFooter=v!;
+                  box.write(MyString.TYPE_FONT_FOOTER, v);
+                });
+              },title: Text("Tipe B"),),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text("Ukuran Font",style: blackTextTitle.copyWith(fontWeight: FontWeight.w200),),
+              ),
+              Container(
+                height: 50,
+                margin: EdgeInsets.symmetric(horizontal: MyString.DEFAULT_PADDING,vertical: 10),
+                child: DropdownSearch(
+                  hint: "Pilih Ukuran Font",
+                  mode: Mode.BOTTOM_SHEET,
+                  // autoFocusSearchBox: true,
+                  // showSearchBox: true,
+                  selectedItem: fontSizeFooter,
+                  items: ['size1','size2','size3','size4'],
+                  onChanged: (v){
+                    box.write(MyString.FONT_FOOTER, v);
+                  },
+                ),
+              ),
+              Divider(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text("Konten",style: blackTextTitle,),
+              ),
+              SizedBox(height: 10,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text("Tipe Font",style: blackTextTitle.copyWith(fontWeight: FontWeight.w200),),
+              ),
+              RadioListTile<int>(value: 1, groupValue: groupValueFontTypeContent,
+
+                onChanged: (v){
+                  setState(() {
+                    groupValueFontTypeContent=v!;
+                    box.write(MyString.TYPE_FONT_CONTENT, v);
+                  });
+
+                },title: Text("Tipe A"),),
+              RadioListTile<int>(value: 2, groupValue: groupValueFontTypeContent, onChanged: (v){
+                setState(() {
+                  groupValueFontTypeContent=v!;
+                  box.write(MyString.TYPE_FONT_CONTENT, v);
+                });
+              },title: Text("Tipe B"),),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text("Ukuran Font",style: blackTextTitle.copyWith(fontWeight: FontWeight.w200),),
+              ),
+              Container(
+                height: 50,
+                margin: EdgeInsets.symmetric(horizontal: MyString.DEFAULT_PADDING,vertical: 10),
+                child: DropdownSearch(
+                  hint: "Pilih Ukuran Font",
+                  mode: Mode.BOTTOM_SHEET,
+                  // autoFocusSearchBox: true,
+                  // showSearchBox: true,
+                  selectedItem: fontSizeContent,
+                  items: ['size1','size2','size3','size4'],
+                  onChanged: (v){
+                    box.write(MyString.FONT_CONTENT, v);
+                  },
+                ),
+              ),
+              Divider(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text("Tipe dan Ukuran Total",style: blackTextTitle,),
+              ),
+              SizedBox(height: 10,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text("Tipe Font",style: blackTextTitle.copyWith(fontWeight: FontWeight.w200),),
+              ),
+              RadioListTile<int>(value: 1, groupValue: groupValueFontTypeTotal,
+
+                onChanged: (v){
+                  setState(() {
+                    groupValueFontTypeTotal=v!;
+                    box.write(MyString.TYPE_FONT_TOTAL, v);
+                  });
+
+                },title: Text("Tipe A"),),
+              RadioListTile<int>(value: 2, groupValue: groupValueFontTypeTotal, onChanged: (v){
+                setState(() {
+                  groupValueFontTypeTotal=v!;
+                  box.write(MyString.TYPE_FONT_TOTAL, v);
+                });
+              },title: Text("Tipe B"),),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text("Ukuran Font",style: blackTextTitle.copyWith(fontWeight: FontWeight.w200),),
+              ),
+              Container(
+                height: 50,
+                margin: EdgeInsets.symmetric(horizontal: MyString.DEFAULT_PADDING,vertical: 10),
+                child: DropdownSearch(
+                  hint: "Pilih Ukuran Font",
+                  mode: Mode.BOTTOM_SHEET,
+                  // autoFocusSearchBox: true,
+                  // showSearchBox: true,
+                  selectedItem: fontSizeTotal,
+                  items: ['size1','size2','size3','size4'],
+                  onChanged: (v){
+                    box.write(MyString.FONT_TOTAL, v);
+                  },
+                ),
+              ),
+
+              Divider(),
               if(!widget.edit)SizedBox(height: 100,),
               if(widget.edit) SizedBox(height: 30,),
               if(widget.edit) Center(child: TextButton(onPressed: ()=> controller.printTest(printerData: widget.printerData),child: Text("Test Printer"),)),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:warmi/app/routes/app_pages.dart';
 import 'package:warmi/core/globals/global_color.dart';
+import 'package:warmi/core/globals/global_string.dart';
 
 class ReportingView extends StatelessWidget {
   const ReportingView({Key? key}) : super(key: key);
@@ -14,20 +15,21 @@ class ReportingView extends StatelessWidget {
         title: Text('laporan'.tr),
       ),
       body: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: MyString.DEFAULT_PADDING,vertical: 10),
         children: ListTile.divideTiles(
             //          <-- ListTile.divideTiles
             context: context,
             tiles: [
-              InkWell(
-                onTap: () {},
-                child: ListTile(
-                  title: Text('rangkuman'.tr),
-                  trailing: Icon(
-                    Icons.arrow_forward_ios,
-                    size: 16,
-                  ),
-                ),
-              ),
+              // InkWell(
+              //   onTap: () {},
+              //   child: ListTile(
+              //     title: Text('rangkuman'.tr),
+              //     trailing: Icon(
+              //       Icons.arrow_forward_ios,
+              //       size: 16,
+              //     ),
+              //   ),
+              // ),
               InkWell(
                 onTap: () {
                   Get.toNamed(Routes.REPORT_TRANSACTION);
@@ -70,16 +72,16 @@ class ReportingView extends StatelessWidget {
                   ),
                 ),
               ),
-              InkWell(
-                onTap: () {},
-                child: ListTile(
-                  title: Text('penjualan_per_merek'.tr),
-                  trailing: Icon(
-                    Icons.arrow_forward_ios,
-                    size: 16,
-                  ),
-                ),
-              ),
+              // InkWell(
+              //   onTap: () {},
+              //   child: ListTile(
+              //     title: Text('penjualan_per_merek'.tr),
+              //     trailing: Icon(
+              //       Icons.arrow_forward_ios,
+              //       size: 16,
+              //     ),
+              //   ),
+              // ),
               InkWell(
                 onTap: () {},
                 child: ListTile(

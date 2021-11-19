@@ -74,6 +74,18 @@ class SplashController extends GetxController {
       print('INI INDONESIA DATA KOSONG');
     }
     print(box.read(MyString.DEFAULT_LANGUAGE));
+
+      box.writeIfNull(MyString.TYPE_FONT_HEADER, 1);
+      box.writeIfNull(MyString.FONT_HEADER, 'size1');
+      box.writeIfNull(MyString.TYPE_FONT_FOOTER, 1);
+      box.writeIfNull(MyString.FONT_FOOTER, 'size1');
+      box.writeIfNull(MyString.TYPE_FONT_CONTENT, 1);
+      box.writeIfNull(MyString.FONT_CONTENT, 'size1');
+      box.writeIfNull(MyString.TYPE_FONT_TOTAL, 1);
+      box.writeIfNull(MyString.FONT_TOTAL, 'size1');
+
+
+
     Future.delayed(Duration(seconds: 1), () {
       if (box.hasData(MyString.USER_ID)) {
         if (box
