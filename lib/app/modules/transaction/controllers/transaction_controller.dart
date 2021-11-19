@@ -93,7 +93,7 @@ class TransactionController extends GetxController
   var listCategoryProduct = List<CategoryProduct>.empty().obs;
   RxString idCategory = "".obs;
 
-  void getCategoryProductDataSource() async {
+  Future getCategoryProductDataSource() async {
     loadingStateCategory(LoadingState.loading);
     await CategoryProductRemoteDataSource().getCategoryProduct().then((value) {
       listCategoryProduct(value.data);
@@ -103,11 +103,13 @@ class TransactionController extends GetxController
           tabs.add(Tab(
             text: element.categoryName.toString().titleCase,
           ));
+          update();
         });
       }
     });
-    tabController = TabController(vsync: this, length: tabs.length);
 
+    tabController = TabController(vsync: this, length: tabs.length);
+    print("ini tab "+ tabs.length.toString());
     loadingStateCategory(LoadingState.empty);
     update();
   }
@@ -182,13 +184,13 @@ class TransactionController extends GetxController
   }
 
   @override
-  void onInit() {
+  void onInit() async{
     checkForUpdate();
     getTransaction();
     setTabName();
     initAdmob();
     //categori
-    getCategoryProductDataSource();
+    await getCategoryProductDataSource();
 
     //catgori
     discountController.getDiscountDataSource();
@@ -198,8 +200,12 @@ class TransactionController extends GetxController
         TabController(vsync: this, length: tabsCheckout.length);
     productController.getProduct().then((value) {
       loadingState(LoadingState.empty);
+
     });
-    tabController = TabController(vsync: this, length: 1);
+
+    // setTabName();
+
+    // tabController = TabController(vsync: this, length: tabs.length);
     update();
     discountController.getDiscountDataSource();
     super.onInit();

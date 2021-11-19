@@ -6,6 +6,8 @@ import 'package:intl/intl.dart';
 import 'package:warmi/app/modules/owner/report/controllers/report_controller.dart';
 import 'package:warmi/app/modules/transaction/controllers/transaction_controller.dart';
 import 'package:warmi/app/modules/wigets/layouts/dialog/bottom_dialog_outlet_report.dart';
+import 'package:warmi/app/modules/wigets/layouts/dialog/bottom_dialog_outlet_report_summary_export.dart';
+import 'package:warmi/app/modules/wigets/layouts/dialog/bottom_dialog_outlet_report_summary_print.dart';
 import 'package:warmi/app/modules/wigets/layouts/home/drawer_cashier.dart';
 import 'package:warmi/app/routes/app_pages.dart';
 import 'package:warmi/core/globals/global_color.dart';
@@ -42,7 +44,7 @@ class ReportView extends GetWidget<ReportController> {
                 child: ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                         primary: MyColor.colorBlue),
-                    onPressed: () {},
+                    onPressed: () => showBottomSheetPrint(),
                     icon: Icon(Icons.print),
                     label: Text('Print'))),
           ],
@@ -614,6 +616,16 @@ class ReportView extends GetWidget<ReportController> {
 
   Future showBottomSheetOutlet() {
     return Get.bottomSheet(BottomDialogOutletReport(),
+        isScrollControlled: true, elevation: 3);
+  }
+
+  Future showBottomSheetPrint() {
+    return Get.bottomSheet(BottomDialogOutletReportSummaryPrint(),
+        isScrollControlled: true, elevation: 3);
+  }
+
+  Future showBottomSheetExport() {
+    return Get.bottomSheet(BottomDialogOutletReportSummaryExport(),
         isScrollControlled: true, elevation: 3);
   }
 }

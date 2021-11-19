@@ -12,14 +12,14 @@ import 'package:recase/recase.dart';
 
 import 'dialog_question.dart';
 
-class BottomDialogOutletReportSummaryPrint extends StatefulWidget {
-  const BottomDialogOutletReportSummaryPrint({Key? key}) : super(key: key);
+class BottomDialogOutletReportSummaryExport extends StatefulWidget {
+  const BottomDialogOutletReportSummaryExport({Key? key}) : super(key: key);
 
   @override
-  State<BottomDialogOutletReportSummaryPrint> createState() => _BottomDialogOutletReportSummaryPrintState();
+  State<BottomDialogOutletReportSummaryExport> createState() => _BottomDialogOutletReportSummaryExportState();
 }
 
-class _BottomDialogOutletReportSummaryPrintState extends State<BottomDialogOutletReportSummaryPrint> {
+class _BottomDialogOutletReportSummaryExportState extends State<BottomDialogOutletReportSummaryExport> {
   var controller =  Get.isRegistered<ReportController>()
   ? Get.find<ReportController>()
       : Get.put(ReportController());
@@ -65,7 +65,7 @@ class _BottomDialogOutletReportSummaryPrintState extends State<BottomDialogOutle
                     ),
                    Card(
                      child: ListTile(
-                       onTap: ()=> controller.printReport(),
+                       onTap: ()=> controller.generateReportPDF(),
 
                        title: Text("print_penjualan".tr),
                        subtitle: Text("ket_print".tr),
@@ -73,8 +73,7 @@ class _BottomDialogOutletReportSummaryPrintState extends State<BottomDialogOutle
                    ),
                     Card(
                       child: ListTile(
-                        onTap: ()=> controller.printReport(type: "method"),
-
+                        onTap: ()=> controller.generateReportPDF(type: "method"),
                        title: Text("print_metode_pembayaran".tr),
                         subtitle:  Text("ket_print".tr),
                    ),

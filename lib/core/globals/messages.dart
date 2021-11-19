@@ -168,8 +168,12 @@ class Messages extends Translations {
           'laporan_pelanggan': 'Laporan Pelanggan',
           'laporan_pegawai': 'Laporan Pegawai',
           'transaksi': 'Transaksi',
+          'print_penjualan': 'Print Penjualan + Ringkasan',
+          'print_metode_pembayaran': 'Print Metode Pembayaran + Ringkasan',
+          'ket_print': 'Klik Untuk Print',
         },
         'en_US': {
+          'ket_print': 'Tap For Print',
           'pendapatan_bulanan': 'Monthly Income',
           'menu_fav': 'Favorite Menu',
           'toko_anda': 'Your Outlet',
@@ -334,6 +338,8 @@ class Messages extends Translations {
           'laporan_pelanggan': 'Customer Report',
           'laporan_pegawai': 'Employee Report',
           'transaksi': 'Transaction',
+          'print_penjualan': 'Print Sales + Summary',
+          'print_metode_pembayaran': 'Print Method Payment + Summary',
         }
       };
 }

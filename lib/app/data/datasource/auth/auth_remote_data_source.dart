@@ -164,7 +164,7 @@ class AuthRemoteDataSource extends BaseDio {
         box.write(MyString.BUSINESS_CREW_TOTAL, '');
         box.write(MyString.BUSINESS_BRANCH, '');
         box.write(MyString.BUSINESS_WEBSITE_ID, '').toString();
-        box.write(MyString.BUSINESS_CONTACT, '');
+        box.write(MyString.BUSINESS_CONTACT, dataDetailUser['store'][0]['owner']['business']['BUSINESS_CONTACT']);
 
         Get.offAllNamed(Routes.CHOOSE_STORE, arguments: authCashier);
 

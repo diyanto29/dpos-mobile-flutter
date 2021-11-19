@@ -565,7 +565,7 @@ class PrinterController extends GetxController {
 
 
   void printTicketPurchaseReport(ReportTransaction reportTransaction,
-      {var startDate, var endDate}) async {
+      {var startDate, var endDate,var type="sales"}) async {
     final bool result = await PrintBluetoothThermal.bluetoothEnabled;
     if (result) {
       // loadingBuilder();
@@ -578,7 +578,7 @@ class PrinterController extends GetxController {
           List<int> bytes = await getTicketPurchaseReport(
               reportTransaction: reportTransaction,
               startDate: startDate,
-              endDate: endDate);
+              endDate: endDate,type: type);
           final result = await PrintBluetoothThermal.writeBytes(bytes);
         } else {
           var a = await PrintBluetoothThermal.connect(
@@ -592,7 +592,7 @@ class PrinterController extends GetxController {
           List<int> bytes = await getTicketPurchaseReport(
               reportTransaction: reportTransaction,
               startDate: startDate,
-              endDate: endDate);
+              endDate: endDate,type: type);
           final result = await PrintBluetoothThermal.writeBytes(bytes);
         }
       }
@@ -644,7 +644,7 @@ class PrinterController extends GetxController {
   Future<List<int>> getTicketPurchaseReport(
       {required ReportTransaction reportTransaction,
         var startDate,
-        var endDate}) async {
+        var endDate,String type="sales"}) async {
     var auth = AuthSessionManager();
     List<int> bytes = [];
     print(box.read(MyString.PRINTER_PAPER));
@@ -700,43 +700,85 @@ class PrinterController extends GetxController {
         styles: PosStyles(align: PosAlign.left));
     bytes += generator.hr();
     int total = 0;
-    reportTransaction.data!.penjualanProduk!.forEach((item) {
-      total += int.tryParse(item.sum.toString())!;
+    if(type=="sales")
+      {
+        reportTransaction.data!.penjualanProduk!.forEach((item) {
+          total += int.tryParse(item.sum.toString())!;
+          bytes += generator.row([
+            PosColumn(
+                text: item.name!,
+                width: 6,
+                styles: PosStyles(
+                  align: PosAlign.left,
+                )),
+            PosColumn(
+                text: item.count.toString(),
+                width: 2,
+                styles:
+                PosStyles(align: PosAlign.center, height: PosTextSize.size1)),
+            PosColumn(
+                text: "${formatCurrency.format(item.sum)}",
+                width: 4,
+                styles:
+                PosStyles(align: PosAlign.right, height: PosTextSize.size1)),
+          ]);
+        });
+
+        bytes += generator.row([
+          PosColumn(
+              text: "Jumlah",
+              width: 6,
+              styles: PosStyles(
+                  align: PosAlign.left,
+                  width: PosTextSize.size1,
+                  height: PosTextSize.size1)),
+          PosColumn(
+              text: "${formatCurrency.format(total)}",
+              width: 6,
+              styles: PosStyles(align: PosAlign.right, height: PosTextSize.size1)),
+        ]);
+      }else{
+      reportTransaction.data!.paymentMethod!.forEach((item) {
+        // total += int.tryParse(item.total.toString())!;
+        bytes += generator.row([
+          PosColumn(
+              text: item.paymentMethodAlias!,
+              width: 6,
+              styles: PosStyles(
+                align: PosAlign.left,
+              )),
+          PosColumn(
+              text: item.count.toString(),
+              width: 2,
+              styles:
+              PosStyles(align: PosAlign.center, height: PosTextSize.size1)),
+          PosColumn(
+              text: "${formatCurrency.format(item.total)}",
+              width: 4,
+              styles:
+              PosStyles(align: PosAlign.right, height: PosTextSize.size1)),
+        ]);
+      });
+
       bytes += generator.row([
         PosColumn(
-            text: item.name!,
+            text: "Jumlah",
             width: 6,
             styles: PosStyles(
-              align: PosAlign.left,
-            )),
+                align: PosAlign.left,
+                width: PosTextSize.size1,
+                height: PosTextSize.size1)),
         PosColumn(
-            text: item.count.toString(),
-            width: 2,
-            styles:
-            PosStyles(align: PosAlign.center, height: PosTextSize.size1)),
-        PosColumn(
-            text: "${formatCurrency.format(item.sum)}",
-            width: 4,
-            styles:
-            PosStyles(align: PosAlign.right, height: PosTextSize.size1)),
+            text: "${formatCurrency.format(total)}",
+            width: 6,
+            styles: PosStyles(align: PosAlign.right, height: PosTextSize.size1)),
       ]);
-    });
+    }
+
 
     bytes += generator.hr();
 
-    bytes += generator.row([
-      PosColumn(
-          text: "Jumlah",
-          width: 6,
-          styles: PosStyles(
-              align: PosAlign.left,
-              width: PosTextSize.size1,
-              height: PosTextSize.size1)),
-      PosColumn(
-          text: "${formatCurrency.format(total)}",
-          width: 6,
-          styles: PosStyles(align: PosAlign.right, height: PosTextSize.size1)),
-    ]);
+
 
 
     bytes += generator.text("Power By DPOS",

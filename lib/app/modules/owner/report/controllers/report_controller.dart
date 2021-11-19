@@ -136,11 +136,11 @@ class ReportController extends GetxController {
     listOutlet[0].storeName="semua_outlet".tr;
   }
 
-  void printReport() async {
-    printerC.printTicketPurchaseReport(reportTransaction.value,startDate: startDate,endDate: endDate);
+  void printReport({String? type}) async {
+    printerC.printTicketPurchaseReport(reportTransaction.value,startDate: startDate,endDate: endDate,type: type);
   }
 
-  void generateReportPDF()async{
+  void generateReportPDF({String type="sales"})async{
     final pdf = pw.Document();
     var tableHeaders = [
       'nama_produk'.tr,
@@ -223,8 +223,14 @@ class ReportController extends GetxController {
               tableHeaders.length,
                   (col) => tableHeaders[col],
             ),
-            data: List<List<String>>.generate(
+            data: type=="sales" ? List<List<String>>.generate(
               reportTransaction.value.data!.penjualanProduk!.length,
+                  (row) => List<String>.generate(
+                tableHeaders.length,
+                    (col) => products[row].getIndex(col),
+              ),
+            )  : List<List<String>>.generate(
+              reportTransaction.value.data!.paymentMethod!.length,
                   (row) => List<String>.generate(
                 tableHeaders.length,
                     (col) => products[row].getIndex(col),
@@ -295,3 +301,6 @@ class Product {
     return '';
   }
 }
+
+
+

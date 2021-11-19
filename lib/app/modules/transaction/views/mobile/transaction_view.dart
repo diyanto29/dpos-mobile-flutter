@@ -160,7 +160,9 @@ class _TransactionViewState extends State<TransactionView> {
               );
             }),
             GetBuilder<TransactionController>(builder: (logic) {
-              return controller.loadingState.value==LoadingState.loading ? Container(): TabBar(
+              return controller.loadingStateCategory.value == LoadingState.loading
+                  ? Container()
+                  : TabBar(
 
                 unselectedLabelColor: MyColor.colorBlackT50,
                 indicatorColor: MyColor.colorPrimary,
@@ -223,32 +225,35 @@ class _TransactionViewState extends State<TransactionView> {
             //     ),
             //   ),
             // ),
-            Expanded(
-              child: PageView(
-                onPageChanged: (v) {
-                  print(v);
-                  controller.tabController!.index = v;
-                },
-                controller: controller.controllerPage,
+            GetBuilder<TransactionController>(builder: (logic) {
+              return Expanded(
+                child: PageView(
+                  onPageChanged: (v) {
+                    print(v);
+                    controller.tabController!.index = v;
+                  },
+                  controller: controller.controllerPage,
 
-                children: controller.tabs.map<Widget>((Tab tab) {
-                  if (tab.text == 'semua'.tr) {
-                    return ProductTransactionView();
-                  } else if (tab.text == 'paket'.tr) {
-                    return Container();
-                  } else {
-                    var category = controller.listCategoryProduct.where((p0) =>
-                        p0.categoryName!.toLowerCase().contains(
-                            tab.text!.toLowerCase())).toList();
-                    var idCategory = category.length > 0 ? category[0]
-                        .categoryId : null;
-                    print(category);
-                    controller.idCategory(idCategory);
-                    return ProductTransactionView(idCategory: idCategory,);
-                  }
-                }).toList(),
-              ),
-            ),
+                  children: controller.tabs.map<Widget>((Tab tab) {
+                    if (tab.text == 'semua'.tr) {
+                      return ProductTransactionView();
+                    } else if (tab.text == 'paket'.tr) {
+                      return Container();
+                    } else {
+                      var category = controller.listCategoryProduct.where((
+                          p0) =>
+                          p0.categoryName!.toLowerCase().contains(
+                              tab.text!.toLowerCase())).toList();
+                      var idCategory = category.length > 0 ? category[0]
+                          .categoryId : null;
+                      print(category);
+                      controller.idCategory(idCategory);
+                      return ProductTransactionView(idCategory: idCategory,);
+                    }
+                  }).toList(),
+                ),
+              );
+            }),
             Obx(() {
               return Align(
                 alignment: Alignment.bottomCenter,
