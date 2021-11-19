@@ -174,10 +174,19 @@ class ReportView extends GetWidget<ReportController> {
                             .format(picked!.start);
                         var endDate = DateFormat("yyyy-MM-dd", 'id-iD')
                             .format(picked.end);
+                        List<dynamic> list=[];
+                        controller.listOutlet.forEach((element) {
+                          if(element.storeId!="all"){
+                            if(element.isChecked) {
+
+                              list.add({"store_id": element.storeId});
+                            }
+                          }
+                        });
                         controller.startDate = startDate;
                         controller.endDate = endDate;
                         controller.getReportTransaction(
-                            startDate: startDate, dueDate: endDate);
+                            startDate: startDate, dueDate: endDate,listStore: list);
                       },
                       readOnly: true,
                       style: TextStyle(height: 0.9, fontSize: 14),
