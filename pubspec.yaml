@@ -1,6 +1,6 @@
 ---
 name: warmi
-version: 1.0.0+16
+version: 1.0.0+17
 publish_to: none
 description: A new Flutter project.
 environment:
@@ -50,6 +50,7 @@ dependencies:
   share_plus: ^3.0.4
   get: ^4.3.8
   badges: ^2.0.1
+  horizontal_data_table: ^3.5.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

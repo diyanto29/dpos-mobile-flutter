@@ -137,7 +137,7 @@ class ReportController extends GetxController {
     listOutlet[0].storeName="semua_outlet".tr;
   }
 
-  void printReport({String? type}) async {
+  void printReport({String type="sales"}) async {
     printerC.printTicketPurchaseReport(reportTransaction.value,startDate: startDate,endDate: endDate,type: type);
   }
 

@@ -228,6 +228,7 @@ class TransactionController extends GetxController
 
   void getSearchProduct(String name, {String? idCategory}) async {
     loadingState(LoadingState.loading);
+    // print("Katog "+idCategory!);
     await ProductRemoteDataSource()
         .getSearchProduct(name: name, idCategory: idCategory)
         .then((value) {

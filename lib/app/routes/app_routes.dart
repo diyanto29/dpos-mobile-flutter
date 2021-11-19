@@ -45,8 +45,9 @@ abstract class Routes {
       _Paths.DETAIL_REPORT_SELLING_PRODUCT;
   static const DETAIL_REPORT_PAYMENT_METHOD =
       _Paths.DETAIL_REPORT_PAYMENT_METHOD;
-  static const TAX_SERVICE_VIEW =
-      _Paths.TAX_SERVICE_VIEW;
+  static const TAX_SERVICE_VIEW = _Paths.TAX_SERVICE_VIEW;
+  static const REPORT_BY_SALES_PRODUCT = _Paths.REPORT_BY_SALES_PRODUCT;
+  static const REPORT_BY_METHOD_PAYMENT = _Paths.REPORT_BY_METHOD_PAYMENT;
 }
 
 abstract class _Paths {
@@ -90,4 +91,6 @@ abstract class _Paths {
   static const DETAIL_REPORT_PAYMENT_METHOD = '/detail-report-payment-method';
   static const TAX_SERVICE_VIEW = '/tax-service-view';
   static const REPORT_TRANSACTION = '/report-transaction';
+  static const REPORT_BY_SALES_PRODUCT = '/report-by-sales-product';
+  static const REPORT_BY_METHOD_PAYMENT = '/report-by-method-payment';
 }

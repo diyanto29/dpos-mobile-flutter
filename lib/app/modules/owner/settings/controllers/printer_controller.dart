@@ -312,8 +312,9 @@ class PrinterController extends GetxController {
     bytes += generator.setGlobalFont(PosFontType.fontB);
     bytes += generator.text("TIPE FONT B");
     bytes += generator.hr();
+    bytes += generator.setGlobalFont(PosFontType.fontA);
     bytes += generator.text(
-      "FOnt Size 1",
+      "Font Size 1",
       styles: PosStyles(
         align: PosAlign.left,
         height: PosTextSize.size1,
@@ -322,7 +323,7 @@ class PrinterController extends GetxController {
     );
     bytes += generator.hr();
     bytes += generator.text(
-      "FOnt Size 2",
+      "Font Size 2",
       styles: PosStyles(
         align: PosAlign.left,
         height: PosTextSize.size2,
@@ -331,7 +332,7 @@ class PrinterController extends GetxController {
     );
     bytes += generator.hr();
     bytes += generator.text(
-      "FOnt Size 3",
+      "Font Size 3",
       styles: PosStyles(
         align: PosAlign.left,
         height: PosTextSize.size3,
@@ -340,10 +341,10 @@ class PrinterController extends GetxController {
     );
     bytes += generator.hr();
     bytes += generator.text(
-      "FOnt Size 4",
+      "Font Size 4",
       styles: PosStyles(
         align: PosAlign.left,
-        height: PosTextSize.size4,
+        height: PosTextSize.size5,
         width: PosTextSize.size4,
       ),
     );
@@ -825,7 +826,7 @@ class PrinterController extends GetxController {
           )),
     ]);
 
-    if (dataTransaction.customerpartnerid) {
+    if (dataTransaction.customerpartnerid!=null) {
       bytes += generator.row([
         PosColumn(
             text: "Pelanggan",
@@ -849,9 +850,8 @@ class PrinterController extends GetxController {
                           : PosTextSize.size1,
             )),
         PosColumn(
-            text: dataTransaction.paymentMethod == null
-                ? 'Cash'
-                : "${dataTransaction.paymentMethod!.type!.paymentmethodtypename.toString().titleCase} -  ${dataTransaction.paymentMethod!.paymentmethodname.toString().capitalize}",
+            text:
+                "${dataTransaction.customerDetail['CUSTOMER_PARTNER_NAME'].toString().titleCase}",
             width: 6,
             styles: PosStyles(
               align: PosAlign.right,
@@ -997,21 +997,21 @@ class PrinterController extends GetxController {
           width: 6,
           styles: PosStyles(
             align: PosAlign.left,
-            fontType:  groupValueFontTypeTotal==1 ?   PosFontType.fontA :   PosFontType.fontB,
-            height: fontSizeTotal == "size4"
+            fontType:  groupValueFontTypeContent==1 ?   PosFontType.fontA :   PosFontType.fontB,
+            height: fontSizeContent == "size4"
                 ? PosTextSize.size4
-                : fontSizeTotal == "size3"
-                    ? PosTextSize.size3
-                    : fontSizeTotal == "size2"
-                        ? PosTextSize.size2
-                        : PosTextSize.size1,
-            width: fontSizeTotal == "size4"
+                : fontSizeContent == "size3"
+                ? PosTextSize.size3
+                : fontSizeContent == "size2"
+                ? PosTextSize.size2
+                : PosTextSize.size1,
+            width: fontSizeContent == "size4"
                 ? PosTextSize.size4
-                : fontSizeTotal == "size3"
-                    ? PosTextSize.size3
-                    : fontSizeTotal == "size2"
-                        ? PosTextSize.size2
-                        : PosTextSize.size1,
+                : fontSizeContent == "size3"
+                ? PosTextSize.size3
+                : fontSizeContent == "size2"
+                ? PosTextSize.size2
+                : PosTextSize.size1,
           )),
       PosColumn(
           text: "${formatCurrency.format(

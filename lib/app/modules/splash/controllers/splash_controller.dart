@@ -75,13 +75,13 @@ class SplashController extends GetxController {
     }
     print(box.read(MyString.DEFAULT_LANGUAGE));
 
-      box.writeIfNull(MyString.TYPE_FONT_HEADER, 1);
+      box.writeIfNull(MyString.TYPE_FONT_HEADER, 2);
       box.writeIfNull(MyString.FONT_HEADER, 'size1');
-      box.writeIfNull(MyString.TYPE_FONT_FOOTER, 1);
+      box.writeIfNull(MyString.TYPE_FONT_FOOTER, 2);
       box.writeIfNull(MyString.FONT_FOOTER, 'size1');
-      box.writeIfNull(MyString.TYPE_FONT_CONTENT, 1);
+      box.writeIfNull(MyString.TYPE_FONT_CONTENT, 2);
       box.writeIfNull(MyString.FONT_CONTENT, 'size1');
-      box.writeIfNull(MyString.TYPE_FONT_TOTAL, 1);
+      box.writeIfNull(MyString.TYPE_FONT_TOTAL, 2);
       box.writeIfNull(MyString.FONT_TOTAL, 'size1');
 
 

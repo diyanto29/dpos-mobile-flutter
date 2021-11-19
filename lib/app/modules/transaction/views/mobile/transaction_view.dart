@@ -36,6 +36,25 @@ class _TransactionViewState extends State<TransactionView> {
       ? Get.find<CartController>()
       : Get.put(CartController());
 
+
+  @override
+  void initState() {
+    if(this.mounted){
+      print("ini state");
+      setState(() {
+        controller.idCategory.value="";
+        controller.idCategory.refresh();
+        print(controller.idCategory.value);
+
+      });
+    }
+    super.initState();
+  }
+  @override
+  void dispose() {
+
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return GetBuilder<TransactionController>(builder: (logic) {
@@ -98,7 +117,7 @@ class _TransactionViewState extends State<TransactionView> {
                         onChanged: (v) {
                           print("asda");
                           controller.getSearchProduct(
-                              v, idCategory: controller.idCategory.value);
+                              v);
                         },
                         decoration: InputDecoration(
                             hintText: 'cari_produk_disini'.tr + '...',
@@ -182,7 +201,10 @@ class _TransactionViewState extends State<TransactionView> {
                 onTap: (v) {
                   controller.controllerPage.jumpToPage(v);
                   controller.index(v);
+                  if(v==0)
+                    controller.idCategory(null);
                 },
+
                 tabs: controller.tabs,
                 labelStyle: blackTextFont.copyWith(
                     fontSize: 12, fontWeight: FontWeight.bold),
@@ -230,12 +252,30 @@ class _TransactionViewState extends State<TransactionView> {
                 child: PageView(
                   onPageChanged: (v) {
                     print(v);
+                    if(v==0){
+                      controller.idCategory.value="";
+
+                      print("Ini Kateogri "+controller.idCategory.value);
+                    }else{
+                      var category = controller.listCategoryProduct.where((
+                          p0) =>
+                          p0.categoryName!.toLowerCase().contains(
+                              controller.tabs[v].text!.toLowerCase())).toList();
+                      var idCategory = category.length > 0 ? category[0]
+                          .categoryId : null;
+                      print("disni");
+                      print(idCategory);
+                      controller.idCategory(idCategory);
+                    }
                     controller.tabController!.index = v;
                   },
                   controller: controller.controllerPage,
+                  allowImplicitScrolling: true,
 
                   children: controller.tabs.map<Widget>((Tab tab) {
                     if (tab.text == 'semua'.tr) {
+                      controller.idCategory.value="";
+                      print("Ini Kateogri "+controller.idCategory.value);
                       return ProductTransactionView();
                     } else if (tab.text == 'paket'.tr) {
                       return Container();
@@ -243,12 +283,14 @@ class _TransactionViewState extends State<TransactionView> {
                       var category = controller.listCategoryProduct.where((
                           p0) =>
                           p0.categoryName!.toLowerCase().contains(
-                              tab.text!.toLowerCase())).toList();
+                              tab.text.toString().toLowerCase())).toList();
                       var idCategory = category.length > 0 ? category[0]
                           .categoryId : null;
-                      print(category);
-                      controller.idCategory(idCategory);
-                      return ProductTransactionView(idCategory: idCategory,);
+                      print("disni");
+                      if(tab.text!='semua'.tr){
+                        controller.idCategory(idCategory);
+                      }
+                      return ProductTransactionView(idCategory: controller.idCategory.value,);
                     }
                   }).toList(),
                 ),

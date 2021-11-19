@@ -42,24 +42,20 @@ class ReportingView extends StatelessWidget {
                   ),
                 ),
               ),
-              InkWell(
-                onTap: () {},
-                child: ListTile(
-                  title: Text('metode_pembayaran'.tr),
-                  trailing: Icon(
-                    Icons.arrow_forward_ios,
-                    size: 16,
-                  ),
+              ListTile(
+                onTap: ()=> Get.toNamed(Routes.REPORT_BY_METHOD_PAYMENT),
+                title: Text('metode_pembayaran'.tr),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  size: 16,
                 ),
               ),
-              InkWell(
-                onTap: () {},
-                child: ListTile(
-                  title: Text('penjualan_per_produk'.tr),
-                  trailing: Icon(
-                    Icons.arrow_forward_ios,
-                    size: 16,
-                  ),
+              ListTile(
+                onTap: ()=> Get.toNamed(Routes.REPORT_BY_SALES_PRODUCT),
+                title: Text('penjualan_per_produk'.tr),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  size: 16,
                 ),
               ),
               InkWell(
