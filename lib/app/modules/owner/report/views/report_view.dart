@@ -20,7 +20,7 @@ class ReportView extends GetWidget<ReportController> {
   Widget build(BuildContext context) {
     var controllerTransaction = Get.put(TransactionController());
     final GlobalKey<ScaffoldState> _scaffoldKey =
-    new GlobalKey<ScaffoldState>();
+        new GlobalKey<ScaffoldState>();
     return SafeArea(
       child: Scaffold(
         key: _scaffoldKey,
@@ -71,7 +71,7 @@ class ReportView extends GetWidget<ReportController> {
                                   Text(
                                     'toko_anda'.tr,
                                     style:
-                                    blackTextFont.copyWith(fontSize: 14.sp),
+                                        blackTextFont.copyWith(fontSize: 14.sp),
                                   ),
                                 ],
                               ),
@@ -106,25 +106,25 @@ class ReportView extends GetWidget<ReportController> {
                       // ),
                       Flexible(
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  IconlyLight.notification,
-                                  color: MyColor.colorWhite,
-                                ),
-                                SizedBox(
-                                  width: 15,
-                                ),
-                                Icon(
-                                  IconlyLight.logout,
-                                  color: MyColor.colorWhite,
-                                )
-                              ],
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              IconlyLight.notification,
+                              color: MyColor.colorWhite,
                             ),
-                          ))
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Icon(
+                              IconlyLight.logout,
+                              color: MyColor.colorWhite,
+                            )
+                          ],
+                        ),
+                      ))
                     ],
                   ),
                   SizedBox(
@@ -136,12 +136,8 @@ class ReportView extends GetWidget<ReportController> {
                       onTap: () async {
                         DateTimeRange? picked = await showDateRangePicker(
                           context: Get.context!,
-                          firstDate: DateTime(DateTime
-                              .now()
-                              .year - 5),
-                          lastDate: DateTime(DateTime
-                              .now()
-                              .year + 5),
+                          firstDate: DateTime(DateTime.now().year - 5),
+                          lastDate: DateTime(DateTime.now().year + 5),
                           initialDateRange: DateTimeRange(
                             end: DateTime.parse(controller.date)
                                 .add(Duration(days: 30)),
@@ -176,7 +172,7 @@ class ReportView extends GetWidget<ReportController> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide:
-                              BorderSide(color: Colors.red, width: 0.1)),
+                                  BorderSide(color: Colors.red, width: 0.1)),
                           suffixIcon: Icon(
                             IconlyLight.calendar,
                             color: MyColor.colorBlackT50,
@@ -193,319 +189,275 @@ class ReportView extends GetWidget<ReportController> {
             GetBuilder<ReportController>(builder: (logic) {
               return Expanded(
                   child: ListView(
-                    shrinkWrap: true,
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                    physics: ClampingScrollPhysics(),
-                    children: [
-                      Card(
-                        elevation: 0.4,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                shrinkWrap: true,
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                physics: ClampingScrollPhysics(),
+                children: [
+                  Card(
+                    elevation: 0.4,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('ringkasan'.tr, style: blackTextTitle),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Divider(
+                            thickness: 1,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text('ringkasan'.tr, style: blackTextTitle),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Divider(
-                                thickness: 1,
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment
-                                    .spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Flexible(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .start,
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .start,
-                                      children: [
-                                        Text(
-                                          'penjualan_kotor'.tr,
-                                          style: blackTextFont,
-                                        ),
-                                        SizedBox(
-                                          height: 6,
-                                        ),
-                                        logic.loadingState ==
-                                            LoadingState.loading
-                                            ? CircularProgressIndicator()
-                                            : logic.reportTransaction.value
-                                            .data ==
-                                            null
+                              Flexible(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'penjualan_kotor'.tr,
+                                      style: blackTextFont,
+                                    ),
+                                    SizedBox(
+                                      height: 6,
+                                    ),
+                                    logic.loadingState == LoadingState.loading
+                                        ? CircularProgressIndicator()
+                                        : logic.reportTransaction.value.data ==
+                                                null
                                             ? Text(
-                                          "Rp 0",
-                                          style: blackTextFont,
-                                        )
+                                                "Rp 0",
+                                                style: blackTextFont,
+                                              )
                                             : Text(
                                                 "Rp. ${formatCurrency.format(logic.reportTransaction.value.data!.ringkasanTransaksi!.totalAll!)}",
                                                 style: blackTextTitle,
                                               ),
                                   ],
-
-                                    ),
-                                  ),
-                                  Flexible(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .start,
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .end,
-                                      children: [
-                                        Text(
+                                ),
+                              ),
+                              Flexible(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
                                       'transaksi_tunai'.tr,
-                                          style: blackTextFont,
-                                        ),
-                                        SizedBox(
-                                          height: 6,
-                                        ),
-                                        logic.loadingState ==
-                                            LoadingState.loading
-                                            ? CircularProgressIndicator()
-                                            : logic.reportTransaction.value
-                                            .data ==
-                                            null
+                                      style: blackTextFont,
+                                    ),
+                                    SizedBox(
+                                      height: 6,
+                                    ),
+                                    logic.loadingState == LoadingState.loading
+                                        ? CircularProgressIndicator()
+                                        : logic.reportTransaction.value.data ==
+                                                null
                                             ? Text(
-                                          "Rp 0",
-                                          style: blackTextFont,
-                                        )
+                                                "Rp 0",
+                                                style: blackTextFont,
+                                              )
                                             : Text(
                                                 "Rp. ${formatCurrency.format(logic.reportTransaction.value.data!.ringkasanTransaksi!.totalCash!)}",
                                                 style: blackTextTitle,
                                               ),
                                   ],
-
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment
-                                    .spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Flexible(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .start,
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .start,
-                                      children: [
-                                        Text(
-                                          "diskon".tr,
-                                          style: blackTextFont,
-                                        ),
-                                        SizedBox(
-                                          height: 6,
-                                        ),
-                                        logic.loadingState ==
-                                            LoadingState.loading
-                                            ? CircularProgressIndicator()
-                                            : logic.reportTransaction.value
-                                            .data ==
-                                            null
-                                            ? Text(
-                                          "Rp 0",
-                                          style: blackTextFont,
-                                        )
-                                            : Text(
-                                          "- Rp. ${formatCurrency.format(
-                                              logic.reportTransaction.value
-                                                  .data!.ringkasanTransaksi!
-                                                  .allDisc!)}",
-                                          style: blackTextTitle,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Flexible(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .start,
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .end,
-                                      children: [
-                                        Text(
-                                          'pembatalan'.tr,
-                                          style: blackTextFont,
-                                        ),
-                                        SizedBox(
-                                          height: 6,
-                                        ),
-                                        logic.loadingState ==
-                                            LoadingState.loading
-                                            ? CircularProgressIndicator()
-                                            : logic.reportTransaction.value
-                                            .data ==
-                                            null
-                                            ? Text(
-                                          "Rp 0",
-                                          style: blackTextFont,
-                                        )
-                                            : Text(
-                                          "- Rp ${formatCurrency.format(
-                                              (logic.reportTransaction.value
-                                                  .data!.ringkasanTransaksi!
-                                                  .cancel!))}",
-                                          style: blackTextTitle,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment
-                                    .spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Flexible(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .start,
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .start,
-                                      children: [
-                                        Text(
-                                          'penjualan_bersih'.tr,
-                                          style: blackTextFont,
-                                        ),
-                                        SizedBox(
-                                          height: 6,
-                                        ),
-                                        logic.loadingState ==
-                                            LoadingState.loading
-                                            ? CircularProgressIndicator()
-                                            : logic.reportTransaction.value
-                                            .data ==
-                                            null
-                                            ? Text(
-                                          "Rp 0",
-                                          style: blackTextFont,
-                                        )
-                                            : Text(
-                                          "Rp. ${formatCurrency.format(
-                                              (logic.reportTransaction.value
-                                                  .data!.ringkasanTransaksi!
-                                                  .neto!))}",
-                                          style: blackTextTitle,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Flexible(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .start,
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .end,
-                                      children: [
-                                        Text(
-                                          'total_transaksi'.tr,
-                                          style: blackTextFont,
-                                        ),
-                                        SizedBox(
-                                          height: 6,
-                                        ),
-                                        logic.loadingState ==
-                                            LoadingState.loading
-                                            ? CircularProgressIndicator()
-                                            : logic.reportTransaction.value
-                                            .data ==
-                                            null
-                                            ? Text(
-                                          "Rp 0",
-                                          style: blackTextFont,
-                                        )
-                                            : Text(
-                                          "${logic.reportTransaction.value.data!
-                                              .ringkasanTransaksi!.success}",
-                                          style: blackTextTitle,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              )
                             ],
                           ),
-                        ),
-                      ),
-                      Card(
-                        elevation: 0.4,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              InkWell(
-                                onTap: () =>
-                                    Get.toNamed(
-                                        Routes.DETAIL_REPORT_SELLING_PRODUCT),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                              Flexible(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'penjualan_produk'.tr,
-                                      style: blackTextTitle,
+                                      "diskon".tr,
+                                      style: blackTextFont,
                                     ),
-                                    Icon(
-                                      IconlyLight.arrowRightCircle,
-                                      size: 25,
-                                    )
+                                    SizedBox(
+                                      height: 6,
+                                    ),
+                                    logic.loadingState == LoadingState.loading
+                                        ? CircularProgressIndicator()
+                                        : logic.reportTransaction.value.data ==
+                                                null
+                                            ? Text(
+                                                "Rp 0",
+                                                style: blackTextFont,
+                                              )
+                                            : Text(
+                                                "- Rp. ${formatCurrency.format(logic.reportTransaction.value.data!.ringkasanTransaksi!.allDisc!)}",
+                                                style: blackTextTitle,
+                                              ),
                                   ],
                                 ),
                               ),
-                              SizedBox(
-                                height: 10,
+                              Flexible(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      'pembatalan'.tr,
+                                      style: blackTextFont,
+                                    ),
+                                    SizedBox(
+                                      height: 6,
+                                    ),
+                                    logic.loadingState == LoadingState.loading
+                                        ? CircularProgressIndicator()
+                                        : logic.reportTransaction.value.data ==
+                                                null
+                                            ? Text(
+                                                "Rp 0",
+                                                style: blackTextFont,
+                                              )
+                                            : Text(
+                                                "- Rp ${formatCurrency.format((logic.reportTransaction.value.data!.ringkasanTransaksi!.cancel!))}",
+                                                style: blackTextTitle,
+                                              ),
+                                  ],
+                                ),
                               ),
-                              Divider(
-                                thickness: 1,
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Flexible(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'penjualan_bersih'.tr,
+                                      style: blackTextFont,
+                                    ),
+                                    SizedBox(
+                                      height: 6,
+                                    ),
+                                    logic.loadingState == LoadingState.loading
+                                        ? CircularProgressIndicator()
+                                        : logic.reportTransaction.value.data ==
+                                                null
+                                            ? Text(
+                                                "Rp 0",
+                                                style: blackTextFont,
+                                              )
+                                            : Text(
+                                                "Rp. ${formatCurrency.format((logic.reportTransaction.value.data!.ringkasanTransaksi!.neto!))}",
+                                                style: blackTextTitle,
+                                              ),
+                                  ],
+                                ),
                               ),
-                              SizedBox(
-                                height: 10,
+                              Flexible(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      'total_transaksi'.tr,
+                                      style: blackTextFont,
+                                    ),
+                                    SizedBox(
+                                      height: 6,
+                                    ),
+                                    logic.loadingState == LoadingState.loading
+                                        ? CircularProgressIndicator()
+                                        : logic.reportTransaction.value.data ==
+                                                null
+                                            ? Text(
+                                                "Rp 0",
+                                                style: blackTextFont,
+                                              )
+                                            : Text(
+                                                "${logic.reportTransaction.value.data!.ringkasanTransaksi!.success}",
+                                                style: blackTextTitle,
+                                              ),
+                                  ],
+                                ),
                               ),
-                              GetBuilder<ReportController>(builder: (logic) {
-                                return logic.reportTransaction.value.data ==
-                                    null
-                                    ? Container()
-                                    : ListView.builder(
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  Card(
+                    elevation: 0.4,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          InkWell(
+                            onTap: () => Get.toNamed(
+                                Routes.DETAIL_REPORT_SELLING_PRODUCT),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'penjualan_produk'.tr,
+                                  style: blackTextTitle,
+                                ),
+                                Icon(
+                                  IconlyLight.arrowRightCircle,
+                                  size: 25,
+                                )
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Divider(
+                            thickness: 1,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          GetBuilder<ReportController>(builder: (logic) {
+                            return logic.reportTransaction.value.data == null
+                                ? Container()
+                                : ListView.builder(
                                     shrinkWrap: true,
                                     itemCount: logic.reportTransaction.value
-                                        .data!.penjualanProduk!.length >
-                                        3
+                                                .data!.penjualanProduk!.length >
+                                            3
                                         ? 3
                                         : logic.reportTransaction.value.data!
-                                        .penjualanProduk!.length,
+                                            .penjualanProduk!.length,
                                     physics: ClampingScrollPhysics(),
                                     itemBuilder: (c, i) {
                                       var data = logic.reportTransaction.value
                                           .data!.penjualanProduk![i];
                                       return ListTile(
                                         title: Text(
-                                          "${data.name
-                                              .toString()
-                                              .titleCase}",
+                                          "${data.name.toString().titleCase}",
                                           style: blackTextFont,
                                         ),
                                         subtitle: Divider(
@@ -513,91 +465,87 @@ class ReportView extends GetWidget<ReportController> {
                                         ),
                                         trailing: Column(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                              MainAxisAlignment.start,
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              "Rp ${formatCurrency.format(
-                                                  (data.sum!))}",
+                                              "Rp ${formatCurrency.format((data.sum!))}",
                                               style: blackTextTitle,
                                             ),
                                             SizedBox(
                                               height: 2,
                                             ),
                                             Text(
-                                              "${data.count}" + 'terjual'.tr,
+                                              "${data.count}" +
+                                                  ' ' +
+                                                  'terjual'.tr,
                                               style: blackTextTitle,
                                             ),
                                           ],
                                         ),
                                       );
                                     });
-                              })
-                            ],
-                          ),
-                        ),
+                          })
+                        ],
                       ),
-                      Card(
-                        elevation: 0.4,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              InkWell(
-                                onTap: () =>
-                                    Get.toNamed(
-                                        Routes.DETAIL_REPORT_PAYMENT_METHOD),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'metode_pembayaran'.tr,
-                                      style: blackTextTitle,
-                                    ),
-                                    Icon(
-                                      IconlyLight.arrowRightCircle,
-                                      size: 25,
-                                    )
-                                  ],
+                    ),
+                  ),
+                  Card(
+                    elevation: 0.4,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          InkWell(
+                            onTap: () => Get.toNamed(
+                                Routes.DETAIL_REPORT_PAYMENT_METHOD),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'metode_pembayaran'.tr,
+                                  style: blackTextTitle,
                                 ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Divider(
-                                thickness: 1,
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              GetBuilder<ReportController>(builder: (logic) {
-                                return logic.reportTransaction.value.data ==
-                                    null
-                                    ? Container()
-                                    : ListView.builder(
+                                Icon(
+                                  IconlyLight.arrowRightCircle,
+                                  size: 25,
+                                )
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Divider(
+                            thickness: 1,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          GetBuilder<ReportController>(builder: (logic) {
+                            return logic.reportTransaction.value.data == null
+                                ? Container()
+                                : ListView.builder(
                                     shrinkWrap: true,
                                     itemCount: logic.reportTransaction.value
-                                        .data!.paymentMethod!.length >
-                                        3
+                                                .data!.paymentMethod!.length >
+                                            3
                                         ? 3
                                         : logic.reportTransaction.value.data!
-                                        .paymentMethod!.length,
+                                            .paymentMethod!.length,
                                     physics: ClampingScrollPhysics(),
                                     itemBuilder: (c, i) {
                                       var data = logic.reportTransaction.value
                                           .data!.paymentMethod![i];
                                       return ListTile(
                                         title: Text(
-                                          "${data.paymentMethodAlias
-                                              .toString()
-                                              .titleCase}",
+                                          "${data.paymentMethodAlias.toString().titleCase}",
                                           style: blackTextFont,
                                         ),
                                         subtitle: Divider(
@@ -605,34 +553,42 @@ class ReportView extends GetWidget<ReportController> {
                                         ),
                                         trailing: Column(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                              MainAxisAlignment.start,
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              "Rp. ${formatCurrency.format(
-                                                  data.total)}",
+                                              "Rp. ${formatCurrency.format(data.total)}",
                                               style: blackTextTitle,
                                             ),
                                             SizedBox(
                                               height: 2,
                                             ),
                                             Text(
-                                              "${data.count} Transaksi",
+                                              "${data.count} " + 'transaksi'.tr,
                                               style: blackTextTitle,
                                             ),
                                           ],
                                         ),
                                       );
                                     });
-                              })
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ));
-            })
+                          }),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 120),
+                    child: ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                            primary: MyColor.colorPrimary),
+                        onPressed: () {},
+                        icon: Icon(Icons.import_export),
+                        label: Text('Export')),
+                  )
+                ],
+              ));
+            }),
           ],
         ),
       ),

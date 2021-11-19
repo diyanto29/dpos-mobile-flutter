@@ -132,10 +132,9 @@ class Messages extends Translations {
           'harga_termasuk_pajak': 'Harga termasuk Pajak & Biaya Layanan',
           'tambah_diskon': 'Tambah Diskon',
           'data_berhasil_disimpan': 'Data Berhasil Disimpan',
-          "semua_outlet" : "Semua Outlet",
-          "ganti_toko" : "Ganti Toko",
-          "pembuat" : "Pembuat",
-
+          "semua_outlet": "Semua Outlet",
+          "ganti_toko": "Ganti Toko",
+          "pembuat": "Pembuat",
           'baca_kebijakan_privasi':
               'Baca Kebijakan Privasi yang berlaku untuk DPOS',
           'baca_syarat_ketentuan':
@@ -160,6 +159,15 @@ class Messages extends Translations {
           'deskripsi': 'Deskripsi',
           'deskripsikan_produk_anda': 'Deskripsikan Produk Anda',
           'harga_modal': 'Harga Modal',
+          'rangkuman': 'Rangkuman',
+          'ringkasan_penjualan': 'Ringkasan Penjualan',
+          'penjualan_per_produk': 'Penjualan Per Produk',
+          'penjualan_per_kategori': 'Penjualan Per Kategori',
+          'penjualan_per_merek': 'Penjualan Per Merek',
+          'laporan_pajak': 'Laporan Pajak',
+          'laporan_pelanggan': 'Laporan Pelanggan',
+          'laporan_pegawai': 'Laporan Pegawai',
+          'transaksi': 'Transaksi',
         },
         'en_US': {
           'pendapatan_bulanan': 'Monthly Income',
@@ -290,9 +298,9 @@ class Messages extends Translations {
           'lanjut': 'Continue',
           'tambah_diskon': 'Add Discount',
           'data_berhasil_disimpan': 'Successfully entry data',
-          "semua_outlet" : "All Outlet",
-          "ganti_toko" : "Switch Outlet",
-          "pembuat" : "Created By",
+          "semua_outlet": "All Outlet",
+          "ganti_toko": "Switch Outlet",
+          "pembuat": "Created By",
           'baca_kebijakan_privasi':
               'Read the Privacy Policy applicable to DPOS',
           'baca_syarat_ketentuan':
@@ -317,6 +325,15 @@ class Messages extends Translations {
           'deskripsi': 'Description',
           'deskripsikan_produk_anda': 'Describe Your Product',
           'harga_modal': 'Capital Price',
+          'rangkuman': 'Summary',
+          'ringkasan_penjualan': 'Sales Summary',
+          'penjualan_per_produk': 'Product Sale',
+          'penjualan_per_kategori': 'Category Sale',
+          'penjualan_per_merek': 'Brand Sale',
+          'laporan_pajak': 'Tax Report',
+          'laporan_pelanggan': 'Customer Report',
+          'laporan_pegawai': 'Employee Report',
+          'transaksi': 'Transaction',
         }
       };
 }

@@ -460,7 +460,7 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                             "data" : null
                           };
                           if(cartController.listCart.isEmpty){
-                            showSnackBar(snackBarType: SnackBarType.INFO,message: "Keranjang Masih Kosong",title: "Transaksi");
+                            showSnackBar(snackBarType: SnackBarType.INFO,message: "Keranjang Masih Kosong",title: 'transaksi'.tr);
                           }else{
                             Get.toNamed(Routes.CHECKOUT_PAGE,arguments: data);
                           }

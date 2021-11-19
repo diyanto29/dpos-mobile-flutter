@@ -91,17 +91,18 @@ class TransactionController extends GetxController
 
   //list category
   var listCategoryProduct = List<CategoryProduct>.empty().obs;
-  RxString idCategory="".obs;
+  RxString idCategory = "".obs;
 
   void getCategoryProductDataSource() async {
     loadingStateCategory(LoadingState.loading);
     await CategoryProductRemoteDataSource().getCategoryProduct().then((value) {
       listCategoryProduct(value.data);
       print("disni yaaaa");
-      if(value.data!.length>0){
-
+      if (value.data!.length > 0) {
         listCategoryProduct.forEach((element) {
-          tabs.add(Tab(text: element.categoryName.toString().titleCase,));
+          tabs.add(Tab(
+            text: element.categoryName.toString().titleCase,
+          ));
         });
       }
     });
@@ -146,37 +147,36 @@ class TransactionController extends GetxController
   Future<void> initAdmob() async {
     var box = GetStorage();
     print("Success Load loadad");
-    if(box.read(MyString.STATUS_NAME)=="FREE") {
-    bannerAd = BannerAd(
-        // Change Banner Size According to Ur Need
-        size: AdSize.mediumRectangle,
-        adUnitId: AdmobHelpers.bannerAdUnitId,
-        listener: BannerAdListener(onAdLoaded: (_) {
-          isBannerAdReady = true;
-          print("Success Load Admon");
-          update();
-        }, onAdFailedToLoad: (ad, LoadAdError error) {
-          print("Failed to Load A Banner Ad${error.message}");
-          isBannerAdReady = false;
+    if (box.read(MyString.STATUS_NAME) == "FREE") {
+      bannerAd = BannerAd(
+          // Change Banner Size According to Ur Need
+          size: AdSize.mediumRectangle,
+          adUnitId: AdmobHelpers.bannerAdUnitId,
+          listener: BannerAdListener(onAdLoaded: (_) {
+            isBannerAdReady = true;
+            print("Success Load Admon");
+            update();
+          }, onAdFailedToLoad: (ad, LoadAdError error) {
+            print("Failed to Load A Banner Ad${error.message}");
+            isBannerAdReady = false;
 
-          ad.dispose();
-          update();
-        }),
-        request: AdRequest())
-      ..load();
-    //Interstitial Ads
-    InterstitialAd.load(
-        adUnitId: AdmobHelpers.interstitialAdUnitId,
-        request: AdRequest(),
-        adLoadCallback: InterstitialAdLoadCallback(onAdLoaded: (ad) {
-          this.interstitialAd = ad;
-          isInterstitialAdReady = true;
-          update();
-        }, onAdFailedToLoad: (LoadAdError error) {
-          print("failed to Load Interstitial Ad ${error.message}");
-        }));
+            ad.dispose();
+            update();
+          }),
+          request: AdRequest())
+        ..load();
+      //Interstitial Ads
+      InterstitialAd.load(
+          adUnitId: AdmobHelpers.interstitialAdUnitId,
+          request: AdRequest(),
+          adLoadCallback: InterstitialAdLoadCallback(onAdLoaded: (ad) {
+            this.interstitialAd = ad;
+            isInterstitialAdReady = true;
+            update();
+          }, onAdFailedToLoad: (LoadAdError error) {
+            print("failed to Load Interstitial Ad ${error.message}");
+          }));
     }
-
   }
 
   @override
@@ -213,13 +213,14 @@ class TransactionController extends GetxController
       interstitialAd.dispose();
     }
 
-
     super.dispose();
   }
 
   void getSearchProduct(String name, {String? idCategory}) async {
     loadingState(LoadingState.loading);
-    await ProductRemoteDataSource().getSearchProduct(name: name,idCategory: idCategory).then((value) {
+    await ProductRemoteDataSource()
+        .getSearchProduct(name: name, idCategory: idCategory)
+        .then((value) {
       listSearchProduct(value.data);
       loadingState(LoadingState.empty);
       checkProductInCart();
@@ -411,7 +412,7 @@ class TransactionController extends GetxController
           } else {
             showSnackBar(
                 snackBarType: SnackBarType.INFO,
-                title: "Transaksi",
+                title: 'transaksi'.tr,
                 message: value.message.split("=>").last);
           }
         });
@@ -470,7 +471,7 @@ class TransactionController extends GetxController
         } else {
           showSnackBar(
               snackBarType: SnackBarType.INFO,
-              title: "Transaksi",
+              title: 'transaksi'.tr,
               message: value.message.split("=>").last);
         }
       });

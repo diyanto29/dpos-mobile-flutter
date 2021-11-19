@@ -1301,7 +1301,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                           SnackBarType.INFO,
                                                       message:
                                                           "Keranjang Masih Kosong",
-                                                      title: "Transaksi");
+                                                      title: 'transaksi'.tr);
                                                 } else {
                                                   Get.toNamed(
                                                       Routes.CHECKOUT_TABLET,

@@ -7,13 +7,14 @@ import 'package:warmi/app/modules/history_sales/views/history_sales_view.dart';
 import 'package:warmi/app/modules/owner/home/views/home_view.dart';
 import 'package:warmi/app/modules/owner/outlet/controllers/outlet_controller.dart';
 import 'package:warmi/app/modules/owner/report/views/report_view.dart';
+import 'package:warmi/app/modules/owner/report/views/reporting_view.dart';
 import 'package:warmi/app/modules/owner/settings/views/setting_view.dart';
 
 class NavigationController extends GetxController {
   final count = 0.obs;
   final indexNavigation = 0.obs;
   var auth = AuthSessionManager().obs;
-  final List<Widget> pageList = [HomeView(), HistorySalesView(), ReportView(), SettingView()];
+  final List<Widget> pageList = [HomeView(), HistorySalesView(), ReportingView(), SettingView()];
   AppUpdateInfo? _updateInfo;
 
   Future<void> checkForUpdate() async {

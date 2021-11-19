@@ -356,9 +356,9 @@ class CartController extends GetxController {
         Get.back();
         if (box.read(MyString.ROLE_NAME) != "Pemilik Toko") {
           Get.offAllNamed(Routes.INDEX_TRANSACTION);
-          showSnackBar(snackBarType: SnackBarType.SUCCESS, title: "Transaksi", message: 'Transaksi Berhasil Disimpan');
+          showSnackBar(snackBarType: SnackBarType.SUCCESS, title: 'transaksi'.tr, message: 'Transaksi Berhasil Disimpan');
         }
-        showSnackBar(snackBarType: SnackBarType.SUCCESS, title: "Transaksi", message: 'Transaksi Berhasil Disimpan');
+        showSnackBar(snackBarType: SnackBarType.SUCCESS, title: 'transaksi'.tr, message: 'Transaksi Berhasil Disimpan');
       }
     });
   }

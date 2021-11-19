@@ -186,7 +186,7 @@ class _OutletFormEditState extends State<OutletFormEdit> {
                                 maxHeight: Get.height * 0.7,
                                 onChanged: (p) {
                                   controller.selectedCity(null);
-                                  controller.selectedProvince.value=p;
+                                  controller.selectedProvince.value = p;
                                   controller.province = p!;
                                   controller.getCity(p.provinceId);
                                   controller.listSubDistrict.clear();
@@ -211,9 +211,7 @@ class _OutletFormEditState extends State<OutletFormEdit> {
                                 readOnly: true,
                                 keyboardType: TextInputType.number,
                                 labelTextInputBox:
-                                    "${controller.selectedCity.value!
-                                        .cityId==null ? "Pilih Kabupaten" :controller.selectedCity.value!
-                                        .cityName}",
+                                    "${controller.selectedCity.value!.cityId == null ? "Pilih Kabupaten" : controller.selectedCity.value!.cityName}",
                                 descTextInputBox: "* Pilih Kabupaten Anda")
                             : Obx(() {
                                 return DropdownSearch<City?>(
@@ -250,14 +248,11 @@ class _OutletFormEditState extends State<OutletFormEdit> {
                         ),
                         controller.listSubDistrict.length == 0
                             ? GeneralTextInput(
-                            readOnly: true,
-                            keyboardType: TextInputType.number,
-                            labelTextInputBox:
-                            "${controller.selectedSubDistrict.value!
-                                .subdistrictId==null ? "Pilih Kecamatan" :controller
-                                .selectedSubDistrict.value!
-                                .subdistrictName}",
-                            descTextInputBox: "* Pilih Kecamatan Anda")
+                                readOnly: true,
+                                keyboardType: TextInputType.number,
+                                labelTextInputBox:
+                                    "${controller.selectedSubDistrict.value!.subdistrictId == null ? "Pilih Kecamatan" : controller.selectedSubDistrict.value!.subdistrictName}",
+                                descTextInputBox: "* Pilih Kecamatan Anda")
                             : DropdownSearch<Subdistrict?>(
                                 hint: "Pilih Kecamatan",
                                 mode: Mode.BOTTOM_SHEET,
