@@ -62,12 +62,12 @@ class TransactionController extends GetxController
     Tab(text: "Tunai"),
     Tab(text: "Non Tunai"),
   ];
-  late TabController tabController;
+    TabController? tabController;
   PageController controllerPage =
       PageController(keepPage: false, initialPage: 0);
   RxInt initialIndex = 0.obs;
   RxInt index = 0.obs;
-  late TabController tabControllerCheckout;
+    TabController? tabControllerCheckout;
   PageController controllerPageCheckout =
       PageController(keepPage: false, initialPage: 0);
   RxInt initialIndexCheckout = 0.obs;
@@ -107,7 +107,9 @@ class TransactionController extends GetxController
       }
     });
     tabController = TabController(vsync: this, length: tabs.length);
+
     loadingStateCategory(LoadingState.empty);
+    update();
   }
 
   //
@@ -197,14 +199,16 @@ class TransactionController extends GetxController
     productController.getProduct().then((value) {
       loadingState(LoadingState.empty);
     });
+    tabController = TabController(vsync: this, length: 1);
+    update();
     discountController.getDiscountDataSource();
     super.onInit();
   }
 
   @override
   void dispose() {
-    tabController.dispose();
-    tabControllerCheckout.dispose();
+    tabController!.dispose();
+    tabControllerCheckout!.dispose();
     listSearchProduct.clear();
     listTransaction.clear();
     var box = GetStorage();

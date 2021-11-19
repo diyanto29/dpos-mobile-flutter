@@ -178,144 +178,144 @@ class _AddProductViewState extends State<AddProductView> {
                             descTextInputBox: 'contoh'.tr + ' 10'),
                       ],
                     )),
-                // Padding(
-                //   padding: const EdgeInsets.all(8.0),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //     crossAxisAlignment: CrossAxisAlignment.center,
-                //     children: [
-                //       Text(
-                //         "Atur Varian  Produk",
-                //         style: GoogleFonts.roboto(
-                //             fontWeight: FontWeight.bold, fontSize: 3.2.w),
-                //       ),
-                //       Switch.adaptive(
-                //         value: controller.toggleSwitchVariant.value,
-                //         activeColor: MyColor.colorPrimary,
-                //         onChanged: (v) {
-                //           controller.toggleSwitchVariant(v);
-                //         },
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                // Visibility(
-                //     visible: controller.toggleSwitchVariant.value,
-                //     child: Column(
-                //       mainAxisAlignment: MainAxisAlignment.start,
-                //       crossAxisAlignment: CrossAxisAlignment.start,
-                //       children: [
-                //         GeneralButton(
-                //             label: 'Tambah Varian',
-                //             onPressed: () => openDialogVariant()),
-                //         SizedBox(
-                //           height: 15,
-                //         ),
-                //         ...List.generate(3, (index) => Card(
-                //           child: ExpansionTile(
-                //             title: Text("Variant 1"),
-                //             children: [
-                //               Row(
-                //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //                 crossAxisAlignment: CrossAxisAlignment.end,
-                //                 children: [
-                //                   Column(
-                //                     mainAxisAlignment: MainAxisAlignment.start,
-                //                     crossAxisAlignment: CrossAxisAlignment.start,
-                //                     children: [
-                //                       Text("Stok Varian",style: blackTextTitle,),
-                //                       SizedBox(height: 3,),
-                //                       Text("Tersedia",style: blackTextFont,)
-                //                     ],
-                //                   ),
-                //
-                //                   Column(
-                //                     mainAxisAlignment: MainAxisAlignment.end,
-                //                     crossAxisAlignment: CrossAxisAlignment.end,
-                //                     children: [
-                //                       Text("Harga Varian",style: blackTextTitle,),
-                //                       SizedBox(height: 3,),
-                //                       Text("Rp 10.000",style: blackTextFont,)
-                //                     ],
-                //                   ),
-                //                 ],
-                //               )
-                //             ],
-                //             expandedAlignment: Alignment.centerLeft,
-                //             childrenPadding: const EdgeInsets.all(8),
-                //           ),
-                //         ))
-                //       ],
-                //     )),
-                // Padding(
-                //   padding: const EdgeInsets.all(8.0),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //     crossAxisAlignment: CrossAxisAlignment.center,
-                //     children: [
-                //       Text(
-                //         "Atur Harga Grosir",
-                //         style: GoogleFonts.roboto(
-                //             fontWeight: FontWeight.bold, fontSize: 3.2.w),
-                //       ),
-                //       Switch.adaptive(
-                //         value: controller.toggleSwitchWholesale.value,
-                //         activeColor: MyColor.colorPrimary,
-                //         onChanged: (v) {
-                //           controller.toggleSwitchWholesale(v);
-                //         },
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                // Visibility(
-                //     visible: controller.toggleSwitchWholesale.value,
-                //     child: Column(
-                //       mainAxisAlignment: MainAxisAlignment.start,
-                //       crossAxisAlignment: CrossAxisAlignment.start,
-                //       children: [
-                //         GeneralButton(
-                //             label: 'Tambah Harga Grosir',
-                //             onPressed: () => openDialogHargaGrosir()),
-                //         SizedBox(
-                //           height: 15,
-                //         ),
-                //         ...List.generate(3, (index) => Card(
-                //           child: ExpansionTile(
-                //             title: Text("Variant 1"),
-                //             children: [
-                //               Row(
-                //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //                 crossAxisAlignment: CrossAxisAlignment.end,
-                //                 children: [
-                //                   Column(
-                //                     mainAxisAlignment: MainAxisAlignment.start,
-                //                     crossAxisAlignment: CrossAxisAlignment.start,
-                //                     children: [
-                //                       Text("Stok Varian",style: blackTextTitle,),
-                //                       SizedBox(height: 3,),
-                //                       Text("Tersedia",style: blackTextFont,)
-                //                     ],
-                //                   ),
-                //
-                //                   Column(
-                //                     mainAxisAlignment: MainAxisAlignment.end,
-                //                     crossAxisAlignment: CrossAxisAlignment.end,
-                //                     children: [
-                //                       Text("Harga Varian",style: blackTextTitle,),
-                //                       SizedBox(height: 3,),
-                //                       Text("Rp 10.000",style: blackTextFont,)
-                //                     ],
-                //                   ),
-                //                 ],
-                //               )
-                //             ],
-                //             expandedAlignment: Alignment.centerLeft,
-                //             childrenPadding: const EdgeInsets.all(8),
-                //           ),
-                //         ))
-                //       ],
-                //     )),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Atur Varian  Produk",
+                        style: GoogleFonts.roboto(
+                            fontWeight: FontWeight.bold, fontSize: 3.2.w),
+                      ),
+                      Switch.adaptive(
+                        value: controller.toggleSwitchVariant.value,
+                        activeColor: MyColor.colorPrimary,
+                        onChanged: (v) {
+                          controller.toggleSwitchVariant(v);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                Visibility(
+                    visible: controller.toggleSwitchVariant.value,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        GeneralButton(
+                            label: 'Tambah Varian',
+                            onPressed: () => openDialogVariant()),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        ...List.generate(3, (index) => Card(
+                          child: ExpansionTile(
+                            title: Text("Variant 1"),
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text("Stok Varian",style: blackTextTitle,),
+                                      SizedBox(height: 3,),
+                                      Text("Tersedia",style: blackTextFont,)
+                                    ],
+                                  ),
+
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text("Harga Varian",style: blackTextTitle,),
+                                      SizedBox(height: 3,),
+                                      Text("Rp 10.000",style: blackTextFont,)
+                                    ],
+                                  ),
+                                ],
+                              )
+                            ],
+                            expandedAlignment: Alignment.centerLeft,
+                            childrenPadding: const EdgeInsets.all(8),
+                          ),
+                        ))
+                      ],
+                    )),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Atur Harga Grosir",
+                        style: GoogleFonts.roboto(
+                            fontWeight: FontWeight.bold, fontSize: 3.2.w),
+                      ),
+                      Switch.adaptive(
+                        value: controller.toggleSwitchWholesale.value,
+                        activeColor: MyColor.colorPrimary,
+                        onChanged: (v) {
+                          controller.toggleSwitchWholesale(v);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                Visibility(
+                    visible: controller.toggleSwitchWholesale.value,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        GeneralButton(
+                            label: 'Tambah Harga Grosir',
+                            onPressed: () => openDialogHargaGrosir()),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        ...List.generate(3, (index) => Card(
+                          child: ExpansionTile(
+                            title: Text("Variant 1"),
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text("Stok Varian",style: blackTextTitle,),
+                                      SizedBox(height: 3,),
+                                      Text("Tersedia",style: blackTextFont,)
+                                    ],
+                                  ),
+
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text("Harga Varian",style: blackTextTitle,),
+                                      SizedBox(height: 3,),
+                                      Text("Rp 10.000",style: blackTextFont,)
+                                    ],
+                                  ),
+                                ],
+                              )
+                            ],
+                            expandedAlignment: Alignment.centerLeft,
+                            childrenPadding: const EdgeInsets.all(8),
+                          ),
+                        ))
+                      ],
+                    )),
 
                 TextField(
                   controller: controller.conPrice.value,

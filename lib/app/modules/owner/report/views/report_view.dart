@@ -25,6 +25,30 @@ class ReportView extends GetWidget<ReportController> {
       child: Scaffold(
         key: _scaffoldKey,
         backgroundColor: MyColor.colorBackground,
+        floatingActionButton:Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+
+          children: [
+            Container(
+                margin: EdgeInsets.symmetric(vertical: 10),
+                child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                        primary: MyColor.colorPrimary),
+                    onPressed: () {},
+                    icon: Icon(Icons.import_export),
+                    label: Text('Export'))),
+            Container(
+                margin: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+                child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                        primary: MyColor.colorBlue),
+                    onPressed: () {},
+                    icon: Icon(Icons.print),
+                    label: Text('Print'))),
+          ],
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        resizeToAvoidBottomInset: true,
         drawer: controllerTransaction.auth.value.roleName == "Pemilik Toko"
             ? null
             : DrawerCustom(),
@@ -577,15 +601,8 @@ class ReportView extends GetWidget<ReportController> {
                       ),
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 120),
-                    child: ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                            primary: MyColor.colorPrimary),
-                        onPressed: () {},
-                        icon: Icon(Icons.import_export),
-                        label: Text('Export')),
-                  )
+
+
                 ],
               ));
             }),

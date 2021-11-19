@@ -16,6 +16,7 @@ import 'package:warmi/app/modules/wigets/layouts/dialog/bottom_dialog_cart.dart'
 import 'package:warmi/app/modules/wigets/layouts/home/drawer_cashier.dart';
 import 'package:warmi/app/routes/app_pages.dart';
 import 'package:warmi/core/globals/global_color.dart';
+import 'package:warmi/core/utils/enum.dart';
 
 import 'package:warmi/core/utils/thema.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -47,32 +48,32 @@ class _TransactionViewState extends State<TransactionView> {
             'penjualan'.tr,
           ),
           automaticallyImplyLeading:
-              controller.auth.value.roleName == "Pemilik Toko" ? false : true,
+          controller.auth.value.roleName == "Pemilik Toko" ? false : true,
           actions: [
             controller.listTransaction.length == 0
                 ? IconButton(
-                    onPressed: () {},
-                    icon: LineIcon.addToShoppingCart(
-                      color: MyColor.colorSilver,
-                    ),
-                    iconSize: 30,
-                  )
+              onPressed: () {},
+              icon: LineIcon.addToShoppingCart(
+                color: MyColor.colorSilver,
+              ),
+              iconSize: 30,
+            )
                 : Badge(
-                    elevation: 1,
-                    shape: BadgeShape.circle,
-                    animationDuration: Duration(seconds: 3),
-                    position: BadgePosition.topEnd(top: 2, end: 7),
-                    animationType: BadgeAnimationType.slide,
-                    badgeColor: Colors.white,
-                    badgeContent: Text("${controller.listTransaction.length}"),
-                    child: IconButton(
-                      onPressed: () => Get.to(TransactionPending()),
-                      icon: LineIcon.addToShoppingCart(
-                        color: MyColor.colorSilver,
-                      ),
-                      iconSize: 30,
-                    ),
-                  )
+              elevation: 1,
+              shape: BadgeShape.circle,
+              animationDuration: Duration(seconds: 3),
+              position: BadgePosition.topEnd(top: 2, end: 7),
+              animationType: BadgeAnimationType.slide,
+              badgeColor: Colors.white,
+              badgeContent: Text("${controller.listTransaction.length}"),
+              child: IconButton(
+                onPressed: () => Get.to(TransactionPending()),
+                icon: LineIcon.addToShoppingCart(
+                  color: MyColor.colorSilver,
+                ),
+                iconSize: 30,
+              ),
+            )
           ],
         ),
         drawer: controller.auth.value.roleName == "Pemilik Toko"
@@ -96,7 +97,8 @@ class _TransactionViewState extends State<TransactionView> {
                         onSubmitted: (v) {},
                         onChanged: (v) {
                           print("asda");
-                          controller.getSearchProduct(v,idCategory: controller.idCategory.value);
+                          controller.getSearchProduct(
+                              v, idCategory: controller.idCategory.value);
                         },
                         decoration: InputDecoration(
                             hintText: 'cari_produk_disini'.tr + '...',
@@ -104,35 +106,35 @@ class _TransactionViewState extends State<TransactionView> {
                                 fontSize: 12, color: Colors.grey[600]),
                             enabledBorder: OutlineInputBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
+                              BorderRadius.all(Radius.circular(10)),
                               borderSide: BorderSide(
                                   width: 1, color: MyColor.colorBlackT50),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
+                              BorderRadius.all(Radius.circular(10)),
                               borderSide: BorderSide(
                                   width: 1, color: MyColor.colorPrimary),
                             ),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide:
-                                    BorderSide(color: Colors.red, width: 0.1)),
+                                BorderSide(color: Colors.red, width: 0.1)),
                             suffixIcon: controller.searchC.value.text.isNotEmpty
                                 ? IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        controller.searchC.value.text = "";
-                                      });
-                                    },
-                                    icon: Icon(
-                                      Icons.cancel,
-                                      color: Colors.grey[400],
-                                    ))
+                                onPressed: () {
+                                  setState(() {
+                                    controller.searchC.value.text = "";
+                                  });
+                                },
+                                icon: Icon(
+                                  Icons.cancel,
+                                  color: Colors.grey[400],
+                                ))
                                 : Icon(
-                                    Icons.search,
-                                    color: Colors.grey[400],
-                                  )),
+                              Icons.search,
+                              color: Colors.grey[400],
+                            )),
                       ),
                     ),
                   ),
@@ -157,33 +159,34 @@ class _TransactionViewState extends State<TransactionView> {
                 ],
               );
             }),
-            TabBar(
+            GetBuilder<TransactionController>(builder: (logic) {
+              return controller.loadingState.value==LoadingState.loading ? Container(): TabBar(
 
-              unselectedLabelColor: MyColor.colorBlackT50,
-              indicatorColor: MyColor.colorPrimary,
-              labelColor: MyColor.colorPrimary,
+                unselectedLabelColor: MyColor.colorBlackT50,
+                indicatorColor: MyColor.colorPrimary,
+                labelColor: MyColor.colorPrimary,
 
 
-
-              indicatorSize: TabBarIndicatorSize.label,
-              automaticIndicatorColorAdjustment: true,
-              isScrollable: true,
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              physics: NeverScrollableScrollPhysics(),
-              // indicator: new BubbleTabIndicator(
-              //   indicatorHeight: 25.0,
-              //   indicatorColor: MyColor.colorPrimary,
-              //   tabBarIndicatorSize: TabBarIndicatorSize.tab,
-              // ),
-              onTap: (v) {
-                controller.controllerPage.jumpToPage(v);
-                controller.index(v);
-              },
-              tabs: controller.tabs,
-              labelStyle: blackTextFont.copyWith(
-                  fontSize: 12, fontWeight: FontWeight.bold),
-              controller: controller.tabController,
-            ),
+                indicatorSize: TabBarIndicatorSize.label,
+                automaticIndicatorColorAdjustment: true,
+                isScrollable: true,
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                physics: NeverScrollableScrollPhysics(),
+                // indicator: new BubbleTabIndicator(
+                //   indicatorHeight: 25.0,
+                //   indicatorColor: MyColor.colorPrimary,
+                //   tabBarIndicatorSize: TabBarIndicatorSize.tab,
+                // ),
+                onTap: (v) {
+                  controller.controllerPage.jumpToPage(v);
+                  controller.index(v);
+                },
+                tabs: controller.tabs,
+                labelStyle: blackTextFont.copyWith(
+                    fontSize: 12, fontWeight: FontWeight.bold),
+                controller: controller.tabController,
+              );
+            }),
             SizedBox(
               height: 10,
             ),
@@ -224,7 +227,7 @@ class _TransactionViewState extends State<TransactionView> {
               child: PageView(
                 onPageChanged: (v) {
                   print(v);
-                  controller.tabController.index = v;
+                  controller.tabController!.index = v;
                 },
                 controller: controller.controllerPage,
 
@@ -234,8 +237,11 @@ class _TransactionViewState extends State<TransactionView> {
                   } else if (tab.text == 'paket'.tr) {
                     return Container();
                   } else {
-                    var category=controller.listCategoryProduct.where((p0) => p0.categoryName!.toLowerCase().contains(tab.text!.toLowerCase())).toList();
-                    var idCategory=category.length>0 ?category[0].categoryId : null;
+                    var category = controller.listCategoryProduct.where((p0) =>
+                        p0.categoryName!.toLowerCase().contains(
+                            tab.text!.toLowerCase())).toList();
+                    var idCategory = category.length > 0 ? category[0]
+                        .categoryId : null;
                     print(category);
                     controller.idCategory(idCategory);
                     return ProductTransactionView(idCategory: idCategory,);
@@ -271,7 +277,8 @@ class _TransactionViewState extends State<TransactionView> {
                             color: MyColor.colorWhite,
                           ),
                           title: Text(
-                            "Rp. ${formatCurrency.format(cartController.totalCart.value)}",
+                            "Rp. ${formatCurrency.format(
+                                cartController.totalCart.value)}",
                             style: GoogleFonts.droidSans(
                                 fontSize: 6.w,
                                 color: MyColor.colorWhite,

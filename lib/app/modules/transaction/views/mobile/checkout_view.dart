@@ -69,7 +69,7 @@ class CheckoutView extends GetWidget<TransactionController> {
               child: PageView(
                 allowImplicitScrolling: true,
                 onPageChanged: (v) {
-                  controller.tabControllerCheckout.index = v;
+                  controller.tabControllerCheckout!.index = v;
                 },
                 controller: controller.controllerPageCheckout,
                 children: controller.tabsCheckout.map<Widget>((Tab tab) {
