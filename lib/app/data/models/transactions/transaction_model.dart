@@ -6,11 +6,12 @@
 
 class TransactionModel {
   TransactionModel({
-      this.status, 
-      this.code, 
-      this.message, 
-      this.totalData, 
-      this.data,});
+    this.status,
+    this.code,
+    this.message,
+    this.totalData,
+    this.data,
+  });
 
   TransactionModel.fromJson(dynamic json) {
     status = json['status'];
@@ -24,6 +25,7 @@ class TransactionModel {
       });
     }
   }
+
   bool? status;
   int? code;
   String? message;
@@ -41,7 +43,6 @@ class TransactionModel {
     }
     return map;
   }
-
 }
 
 /// TRANSACTION_ID : "TRX1773026-211024075636"
@@ -74,39 +75,42 @@ class TransactionModel {
 
 class DataTransaction {
   DataTransaction({
-      this.transactionid, 
-      this.transactiondate, 
-      this.transactionnote, 
-      this.transactiontotal, 
-      this.transactionpaymentstatus, 
-      this.transactionpaymentdate, 
-      this.transactionstatus, 
-      this.transactionvoucherid, 
-      this.transactionpriceoffvoucher, 
-      this.userid, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.deletedAt, 
-      this.transactionpay, 
-      this.transactionreceived, 
-      this.storeid, 
-      this.transactionpaymentmethodid, 
-      this.customerpartnerid, 
-      this.employeid, 
-      this.detailCount, 
-      this.paymentMethod, 
-      this.customerDetail, 
-      this.discount, 
-      this.outlet, 
-      this.cashier, 
-      this.createdBy, 
-      this.detail,});
+    this.transactionid,
+    this.transactiondate,
+    this.transactionnote,
+    this.transactiontotal,
+    this.transactionpaymentstatus,
+    this.transactionpaymentdate,
+    this.transactionstatus,
+    this.transactionvoucherid,
+    this.transactionpriceoffvoucher,
+    this.userid,
+    this.createdAt,
+    this.updatedAt,
+    this.deletedAt,
+    this.transactionpay,
+    this.transactionreceived,
+    this.storeid,
+    this.transactionpaymentmethodid,
+    this.customerpartnerid,
+    this.employeid,
+    this.detailCount,
+    this.paymentMethod,
+    this.customerDetail,
+    this.discount,
+    this.outlet,
+    this.cashier,
+    this.createdBy,
+    this.transactionReasonCancel,
+    this.detail,
+  });
 
   DataTransaction.fromJson(dynamic json) {
     transactionid = json['TRANSACTION_ID'];
     transactiondate = json['TRANSACTION_DATE'];
     transactionnote = json['TRANSACTION_NOTE'];
     transactiontotal = json['TRANSACTION_TOTAL'];
+    transactionReasonCancel = json['TRANSACTION_REASON_CANCEL'];
     transactionpaymentstatus = json['TRANSACTION_PAYMENT_STATUS'];
     transactionpaymentdate = json['TRANSACTION_PAYMENT_DATE'];
     transactionstatus = json['TRANSACTION_STATUS'];
@@ -123,12 +127,16 @@ class DataTransaction {
     customerpartnerid = json['CUSTOMER_PARTNER_ID'];
     employeid = json['EMPLOYE_ID'];
     detailCount = json['detail_count'];
-    paymentMethod = json['payment_method'] != null ? Payment_method.fromJson(json['payment_method']) : null;
+    paymentMethod = json['payment_method'] != null
+        ? Payment_method.fromJson(json['payment_method'])
+        : null;
     customerDetail = json['customer_detail'];
     discount = json['discount'];
     outlet = json['outlet'] != null ? Outlet.fromJson(json['outlet']) : null;
     cashier = json['cashier'];
-    createdBy = json['created_by'] != null ? Created_by.fromJson(json['created_by']) : null;
+    createdBy = json['created_by'] != null
+        ? Created_by.fromJson(json['created_by'])
+        : null;
     if (json['detail'] != null) {
       detail = [];
       json['detail'].forEach((v) {
@@ -136,6 +144,7 @@ class DataTransaction {
       });
     }
   }
+
   String? transactionid;
   String? transactiondate;
   dynamic transactionnote;
@@ -152,6 +161,7 @@ class DataTransaction {
   String? transactionpay;
   String? transactionreceived;
   String? storeid;
+  String? transactionReasonCancel;
   String? transactionpaymentmethodid;
   dynamic customerpartnerid;
   dynamic employeid;
@@ -203,7 +213,6 @@ class DataTransaction {
     }
     return map;
   }
-
 }
 
 /// DETAIL_TRANSACTION_ID : "ID1310097-211024075636"
@@ -223,20 +232,21 @@ class DataTransaction {
 
 class Detail {
   Detail({
-      this.detailtransactionid, 
-      this.transactionid, 
-      this.productid, 
-      this.detailtransactionqtyproduct, 
-      this.detailtransactionpriceproduct, 
-      this.detailtransactionsubtotal, 
-      this.detailtransactiontotalweight, 
-      this.detailtransactioncodediscount, 
-      this.detailtransacionpriceoffdiscount, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.deletedAt, 
-      this.priceafterdiscount, 
-      this.product,});
+    this.detailtransactionid,
+    this.transactionid,
+    this.productid,
+    this.detailtransactionqtyproduct,
+    this.detailtransactionpriceproduct,
+    this.detailtransactionsubtotal,
+    this.detailtransactiontotalweight,
+    this.detailtransactioncodediscount,
+    this.detailtransacionpriceoffdiscount,
+    this.createdAt,
+    this.updatedAt,
+    this.deletedAt,
+    this.priceafterdiscount,
+    this.product,
+  });
 
   Detail.fromJson(dynamic json) {
     detailtransactionid = json['DETAIL_TRANSACTION_ID'];
@@ -247,13 +257,16 @@ class Detail {
     detailtransactionsubtotal = json['DETAIL_TRANSACTION_SUB_TOTAL'];
     detailtransactiontotalweight = json['DETAIL_TRANSACTION_TOTAL_WEIGHT'];
     detailtransactioncodediscount = json['DETAIL_TRANSACTION_CODE_DISCOUNT'];
-    detailtransacionpriceoffdiscount = json['DETAIL_TRANSACION_PRICE_OFF_DISCOUNT'];
+    detailtransacionpriceoffdiscount =
+        json['DETAIL_TRANSACION_PRICE_OFF_DISCOUNT'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     deletedAt = json['deleted_at'];
     priceafterdiscount = json['PRICE_AFTER_DISCOUNT'];
-    product = json['product'] != null ? Product.fromJson(json['product']) : null;
+    product =
+        json['product'] != null ? Product.fromJson(json['product']) : null;
   }
+
   String? detailtransactionid;
   String? transactionid;
   String? productid;
@@ -279,7 +292,8 @@ class Detail {
     map['DETAIL_TRANSACTION_SUB_TOTAL'] = detailtransactionsubtotal;
     map['DETAIL_TRANSACTION_TOTAL_WEIGHT'] = detailtransactiontotalweight;
     map['DETAIL_TRANSACTION_CODE_DISCOUNT'] = detailtransactioncodediscount;
-    map['DETAIL_TRANSACION_PRICE_OFF_DISCOUNT'] = detailtransacionpriceoffdiscount;
+    map['DETAIL_TRANSACION_PRICE_OFF_DISCOUNT'] =
+        detailtransacionpriceoffdiscount;
     map['created_at'] = createdAt;
     map['updated_at'] = updatedAt;
     map['deleted_at'] = deletedAt;
@@ -289,7 +303,6 @@ class Detail {
     }
     return map;
   }
-
 }
 
 /// PRODUCT_ID : "b6b5160c6e0d4820ae24984e273ca866"
@@ -298,15 +311,17 @@ class Detail {
 
 class Product {
   Product({
-      this.productid, 
-      this.productname, 
-      this.productphoto,});
+    this.productid,
+    this.productname,
+    this.productphoto,
+  });
 
   Product.fromJson(dynamic json) {
     productid = json['PRODUCT_ID'];
     productname = json['PRODUCT_NAME'];
     productphoto = json['PRODUCT_PHOTO'];
   }
+
   String? productid;
   String? productname;
   String? productphoto;
@@ -318,7 +333,6 @@ class Product {
     map['PRODUCT_PHOTO'] = productphoto;
     return map;
   }
-
 }
 
 /// USER_FULLNAME : "Diyanto v2"
@@ -326,13 +340,16 @@ class Product {
 
 class Created_by {
   Created_by({
-      this.userfullname, 
-      this.userid,});
+    this.userfullname,
+    this.userid,
+  });
 
   Created_by.fromJson(dynamic json) {
-    userfullname = json['USER_ID'] ==null ?  json['NAME'] :  json['USER_FULLNAME'];
+    userfullname =
+        json['USER_ID'] == null ? json['NAME'] : json['USER_FULLNAME'];
     userid = json['USER_ID'];
   }
+
   String? userfullname;
   String? userid;
 
@@ -342,7 +359,6 @@ class Created_by {
     map['USER_ID'] = userid;
     return map;
   }
-
 }
 
 /// STORE_ID : "9b6800204e9ccdd85a90c96dc37fae22"
@@ -359,17 +375,18 @@ class Created_by {
 
 class Outlet {
   Outlet({
-      this.storeid, 
-      this.storename, 
-      this.storedescription, 
-      this.addressid, 
-      this.userid, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.deletedAt, 
-      this.storeoperationstart, 
-      this.storeoperationclose, 
-      this.storeoperationstatus,});
+    this.storeid,
+    this.storename,
+    this.storedescription,
+    this.addressid,
+    this.userid,
+    this.createdAt,
+    this.updatedAt,
+    this.deletedAt,
+    this.storeoperationstart,
+    this.storeoperationclose,
+    this.storeoperationstatus,
+  });
 
   Outlet.fromJson(dynamic json) {
     storeid = json['STORE_ID'];
@@ -384,6 +401,7 @@ class Outlet {
     storeoperationclose = json['STORE_OPERATION_CLOSE'];
     storeoperationstatus = json['STORE_OPERATION_STATUS'];
   }
+
   String? storeid;
   String? storename;
   String? storedescription;
@@ -411,7 +429,6 @@ class Outlet {
     map['STORE_OPERATION_STATUS'] = storeoperationstatus;
     return map;
   }
-
 }
 
 /// PAYMENT_METHOD_ID : "5f605866083f40b0801b235afc3785d4"
@@ -428,17 +445,18 @@ class Outlet {
 
 class Payment_method {
   Payment_method({
-      this.paymentmethodid, 
-      this.paymentmethodname, 
-      this.paymentmethodtypeid, 
-      this.paymentmethodalias, 
-      this.paymentmethodlogo, 
-      this.paymentmethoddescription, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.deletedAt, 
-      this.paymentmethodstatus, 
-      this.type,});
+    this.paymentmethodid,
+    this.paymentmethodname,
+    this.paymentmethodtypeid,
+    this.paymentmethodalias,
+    this.paymentmethodlogo,
+    this.paymentmethoddescription,
+    this.createdAt,
+    this.updatedAt,
+    this.deletedAt,
+    this.paymentmethodstatus,
+    this.type,
+  });
 
   Payment_method.fromJson(dynamic json) {
     paymentmethodid = json['PAYMENT_METHOD_ID'];
@@ -453,6 +471,7 @@ class Payment_method {
     paymentmethodstatus = json['PAYMENT_METHOD_STATUS'];
     type = json['type'] != null ? Type.fromJson(json['type']) : null;
   }
+
   String? paymentmethodid;
   String? paymentmethodname;
   String? paymentmethodtypeid;
@@ -482,7 +501,6 @@ class Payment_method {
     }
     return map;
   }
-
 }
 
 /// PAYMENT_METHOD_TYPE_ID : "1de3aed3ae2941259989438ccd25702e"
@@ -496,14 +514,15 @@ class Payment_method {
 
 class Type {
   Type({
-      this.paymentmethodtypeid, 
-      this.paymentmethodtypename, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.deletedAt, 
-      this.paymentmethodtypelogo, 
-      this.paymentmethodtypealias, 
-      this.paymentmethodstatus,});
+    this.paymentmethodtypeid,
+    this.paymentmethodtypename,
+    this.createdAt,
+    this.updatedAt,
+    this.deletedAt,
+    this.paymentmethodtypelogo,
+    this.paymentmethodtypealias,
+    this.paymentmethodstatus,
+  });
 
   Type.fromJson(dynamic json) {
     paymentmethodtypeid = json['PAYMENT_METHOD_TYPE_ID'];
@@ -515,6 +534,7 @@ class Type {
     paymentmethodtypealias = json['PAYMENT_METHOD_TYPE_ALIAS'];
     paymentmethodstatus = json['PAYMENT_METHOD_STATUS'];
   }
+
   String? paymentmethodtypeid;
   String? paymentmethodtypename;
   String? createdAt;
@@ -536,5 +556,4 @@ class Type {
     map['PAYMENT_METHOD_STATUS'] = paymentmethodstatus;
     return map;
   }
-
 }

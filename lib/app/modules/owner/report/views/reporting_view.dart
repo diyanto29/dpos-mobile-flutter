@@ -89,7 +89,7 @@ class ReportingView extends StatelessWidget {
                 ),
               ),
               InkWell(
-                onTap: () {},
+                onTap: ()=> Get.toNamed(Routes.REPORT_BY_CUSTOMER),
                 child: ListTile(
                   title: Text('laporan_pelanggan'.tr),
                   trailing: Icon(
@@ -98,16 +98,16 @@ class ReportingView extends StatelessWidget {
                   ),
                 ),
               ),
-              InkWell(
-                onTap: () {},
-                child: ListTile(
-                  title: Text('laporan_pegawai'.tr),
-                  trailing: Icon(
-                    Icons.arrow_forward_ios,
-                    size: 16,
-                  ),
-                ),
-              ),
+              // InkWell(
+              //   onTap: () {},
+              //   child: ListTile(
+              //     title: Text('laporan_pegawai'.tr),
+              //     trailing: Icon(
+              //       Icons.arrow_forward_ios,
+              //       size: 16,
+              //     ),
+              //   ),
+              // ),
             ]).toList(),
       ),
     );
