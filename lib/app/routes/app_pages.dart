@@ -16,8 +16,10 @@ import 'package:warmi/app/modules/owner/report/views/detail_report_payment_metho
 import 'package:warmi/app/modules/owner/report/views/detail_report_penjualan_product.dart';
 import 'package:warmi/app/modules/owner/report/views/report_by_,method_payment.dart';
 import 'package:warmi/app/modules/owner/report/views/report_by_customer.dart';
+import 'package:warmi/app/modules/owner/report/views/report_by_sales_category.dart';
 import 'package:warmi/app/modules/owner/report/views/report_by_sales_product.dart';
 import 'package:warmi/app/modules/owner/report/views/report_view.dart';
+import 'package:warmi/app/modules/owner/report/views/reporting_view.dart';
 import 'package:warmi/app/modules/owner/settings/views/add_discount_view.dart';
 import 'package:warmi/app/modules/owner/settings/views/change_password_view.dart';
 import 'package:warmi/app/modules/owner/settings/views/discount_view.dart';
@@ -280,6 +282,18 @@ class AppPages {
     GetPage(
       name: _Paths.REPORT_BY_CUSTOMER,
       page: () => ReportByCustomer(),
+      transition: Transition.leftToRightWithFade,
+      binding: LazyBindings(),
+    ),
+    GetPage(
+      name: _Paths.REPORT_BY_CATEGORY,
+      page: () => ReportBySalesCategoryView(),
+      transition: Transition.leftToRightWithFade,
+      binding: LazyBindings(),
+    ),
+    GetPage(
+      name: _Paths.REPORT_VIEW,
+      page: () => ReportingView(),
       transition: Transition.leftToRightWithFade,
       binding: LazyBindings(),
     ),

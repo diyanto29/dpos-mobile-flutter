@@ -12,6 +12,7 @@ import 'package:warmi/app/data/datalocal/session/auth_session_manager.dart';
 import 'package:warmi/app/data/datasource/printer/printer_remote_data_source.dart';
 import 'package:warmi/app/data/models/printer/printer_model.dart';
 import 'package:warmi/app/data/models/report_transaction/report_transaction.dart';
+import 'package:warmi/app/data/models/report_transaction/report_transaction_by_category.dart';
 import 'package:warmi/app/data/models/transactions/transaction_model.dart';
 import 'package:warmi/app/modules/history_sales/controllers/history_sales_controller.dart';
 import 'package:warmi/app/modules/transaction/controllers/cart_controller.dart';
@@ -991,6 +992,7 @@ class PrinterController extends GetxController {
         ]);
       }
     });
+    bytes += generator.hr();
     bytes += generator.row([
       PosColumn(
           text: "Sub Total",
@@ -1020,19 +1022,19 @@ class PrinterController extends GetxController {
           width: 6,
           styles: PosStyles(
             align: PosAlign.right,
-            fontType:  groupValueFontTypeTotal==1 ?   PosFontType.fontA :   PosFontType.fontB,
-            height: fontSizeTotal == "size4"
+            fontType:  groupValueFontTypeContent==1 ?   PosFontType.fontA :   PosFontType.fontB,
+            height: fontSizeContent == "size4"
                 ? PosTextSize.size4
-                : fontSizeTotal == "size3"
+                : fontSizeContent == "size3"
                     ? PosTextSize.size3
-                    : fontSizeTotal == "size2"
+                    : fontSizeContent == "size2"
                         ? PosTextSize.size2
                         : PosTextSize.size1,
-            width: fontSizeTotal == "size4"
+            width: fontSizeContent == "size4"
                 ? PosTextSize.size4
-                : fontSizeTotal == "size3"
+                : fontSizeContent == "size3"
                     ? PosTextSize.size3
-                    : fontSizeTotal == "size2"
+                    : fontSizeContent == "size2"
                         ? PosTextSize.size2
                         : PosTextSize.size1,
           )),
@@ -1507,5 +1509,193 @@ class PrinterController extends GetxController {
     bytes += generator.drawer();
     bytes += generator.cut();
     return bytes;
+  }
+
+  Future<List<int>> getTicketPurchaseReportByCategory(
+      {required ReportTransactionByCategory reportTransaction,
+        var startDate,
+        var endDate}) async {
+    var auth = AuthSessionManager();
+    List<int> bytes = [];
+    print(box.read(MyString.PRINTER_PAPER));
+    CapabilityProfile profile = await CapabilityProfile.load();
+
+    final generator;
+    if (box.read(MyString.PRINTER_PAPER) == "80")
+      generator = Generator(PaperSize.mm80, profile);
+    else
+      generator = Generator(PaperSize.mm58, profile);
+    // bytes += generator.setGlobalCodeTable('ISO_8859-15');
+
+    bytes += generator.setGlobalFont(PosFontType.fontB);
+
+// print(dir);
+
+//
+    if (invoiceC.logo.value) {
+      File file = new File(box.read(MyString.BUSINESS_LOGO));
+
+      final Uint8List imgBytes = file.readAsBytesSync();
+      final Image image = decodeImage(imgBytes)!;
+      Image thumbnail = copyResize(image, width: 250, height: 150);
+
+      bytes += generator.image(thumbnail);
+    }
+
+    bytes += generator.text(auth.storeName,
+        styles: PosStyles(
+          align: PosAlign.center,
+          height: PosTextSize.size1,
+          width: PosTextSize.size1,
+        ),
+        linesAfter: 0);
+
+    bytes += generator.text(
+        box.read(MyString.STORE_ADDRESS) == null
+            ? "-"
+            : box.read(MyString.STORE_ADDRESS),
+        styles: PosStyles(align: PosAlign.center));
+    bytes += generator.text('Whatsapp: ${box.read(MyString.BUSINESS_CONTACT)}',
+        styles: PosStyles(align: PosAlign.center));
+    bytes += generator.text('Laporan Penjulan',
+        styles: PosStyles(align: PosAlign.center));
+    bytes += generator.text("${startDate} - ${endDate}",
+        styles: PosStyles(align: PosAlign.center));
+
+    bytes += generator.hr();
+    bytes += generator.text(
+        "Tgl ctk : ${DateFormat('EEE, dd MMM yyyy HH:mm:ss', "${Get.locale}").format(DateTime.now())}",
+        styles: PosStyles(align: PosAlign.left));
+    bytes += generator.text('Kasir : ${auth.userFullName}',
+        styles: PosStyles(align: PosAlign.left));
+    bytes += generator.hr();
+    int total = 0;
+
+      reportTransaction.data!.forEach((item) {
+        total += int.tryParse(item.sum.toString())!;
+        bytes += generator.row([
+          PosColumn(
+              text: item.name!,
+              width: 6,
+              styles: PosStyles(
+                align: PosAlign.left,
+              )),
+          PosColumn(
+              text: item.count.toString(),
+              width: 2,
+              styles:
+              PosStyles(align: PosAlign.center, height: PosTextSize.size1)),
+          PosColumn(
+              text: "${formatCurrency.format(item.sum)}",
+              width: 4,
+              styles:
+              PosStyles(align: PosAlign.right, height: PosTextSize.size1)),
+        ]);
+      });
+
+      bytes += generator.row([
+        PosColumn(
+            text: "Jumlah",
+            width: 6,
+            styles: PosStyles(
+                align: PosAlign.left,
+                width: PosTextSize.size1,
+                height: PosTextSize.size1)),
+        PosColumn(
+            text: "${formatCurrency.format(total)}",
+            width: 6,
+            styles:
+            PosStyles(align: PosAlign.right, height: PosTextSize.size1)),
+      ]);
+
+
+    bytes += generator.hr();
+
+    bytes += generator.text("Power By DPOS",
+        styles: PosStyles(
+            align: PosAlign.center, fontType: PosFontType.fontA, bold: true));
+    bytes += generator.drawer();
+    bytes += generator.cut();
+    return bytes;
+  }
+
+
+
+  void printTicketPurchaseReportByCategory(ReportTransactionByCategory reportTransaction,
+      {var startDate, var endDate}) async {
+    final bool result = await PrintBluetoothThermal.bluetoothEnabled;
+    if (result) {
+      // loadingBuilder();
+      bool printTest = true;
+
+      await PrintBluetoothThermal.disconnect;
+      if (box.read(MyString.PRINTER_TYPE) == "bluetooth") {
+        bool? isConnected = await PrintBluetoothThermal.connectionStatus;
+        if (isConnected) {
+          List<int> bytes = await getTicketPurchaseReportByCategory(
+              reportTransaction: reportTransaction,
+              startDate: startDate,
+              endDate: endDate);
+          final result = await PrintBluetoothThermal.writeBytes(bytes);
+        } else {
+          var a = await PrintBluetoothThermal.connect(
+              macPrinterAddress: box.read(MyString.DEFAULT_PRINTER))
+              .then((value) {
+            if (value)
+              printTest = true;
+            else
+              printTest = false;
+          });
+          List<int> bytes = await getTicketPurchaseReportByCategory(
+              reportTransaction: reportTransaction,
+              startDate: startDate,
+              endDate: endDate,
+              );
+          final result = await PrintBluetoothThermal.writeBytes(bytes);
+        }
+      }
+
+      // Get.back();
+      if (printTest) {
+        showSnackBar(
+            snackBarType: SnackBarType.SUCCESS,
+            message: "Printing Success",
+            title: "Print");
+        var controller = Get.isRegistered<TransactionController>()
+            ? Get.find<TransactionController>()
+            : Get.put(TransactionController());
+
+        if (controller.isInterstitialAdReady)
+          Future.delayed(Duration(seconds: 2), () {
+            controller.interstitialAd.show();
+          });
+      } else {
+        showSnackBar(
+            snackBarType: SnackBarType.ERROR,
+            message: "Printing Gagal! Periksa Bluetooth di kedua device anda",
+            title: "Print");
+        var controller = Get.isRegistered<TransactionController>()
+            ? Get.find<TransactionController>()
+            : Get.put(TransactionController());
+
+        if (controller.isInterstitialAdReady)
+          Future.delayed(Duration(seconds: 2), () {
+            controller.interstitialAd.show();
+          });
+      }
+    } else {
+      showSnackBar(
+          snackBarType: SnackBarType.INFO,
+          message: "Bluetooth Anda tidak Aktif",
+          title: "Print");
+      var controller = Get.isRegistered<TransactionController>()
+          ? Get.find<TransactionController>()
+          : Get.put(TransactionController());
+
+      if (controller.isInterstitialAdReady)
+        Future.delayed(Duration(seconds: 2), () {
+          controller.interstitialAd.show();
+        });
+    }
   }
 }

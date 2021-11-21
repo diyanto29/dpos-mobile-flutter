@@ -75,7 +75,7 @@ class DiscountController extends GetxController {
         Get.back();
         Get.back();
         showSnackBar(
-            snackBarType: SnackBarType.WARNING,
+            snackBarType: SnackBarType.SUCCESS,
             title: 'Diskon',
             message: 'Data Berhasil Disimpan');
       } else {

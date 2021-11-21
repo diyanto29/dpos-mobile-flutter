@@ -102,7 +102,7 @@ class DrawerCustom extends StatelessWidget {
                   ),
                   ListTile(
                     onTap: () {
-                      Get.toNamed(Routes.REPORT_TRANSACTION);
+                      Get.toNamed(Routes.REPORT_VIEW);
                     },
                     leading: Icon(
                       Icons.receipt_long,

@@ -49,6 +49,8 @@ abstract class Routes {
   static const REPORT_BY_SALES_PRODUCT = _Paths.REPORT_BY_SALES_PRODUCT;
   static const REPORT_BY_METHOD_PAYMENT = _Paths.REPORT_BY_METHOD_PAYMENT;
   static const REPORT_BY_CUSTOMER = _Paths.REPORT_BY_CUSTOMER;
+  static const REPORT_BY_CATEGORY = _Paths.REPORT_BY_CATEGORY;
+  static const REPORT_VIEW = _Paths.REPORT_VIEW;
 }
 
 abstract class _Paths {
@@ -95,4 +97,6 @@ abstract class _Paths {
   static const REPORT_BY_SALES_PRODUCT = '/report-by-sales-product';
   static const REPORT_BY_METHOD_PAYMENT = '/report-by-method-payment';
   static const REPORT_BY_CUSTOMER = '/report-by-customer';
+  static const REPORT_BY_CATEGORY = '/report-by-category';
+  static const REPORT_VIEW = '/report-view';
 }

@@ -174,9 +174,13 @@ class Messages extends Translations {
           'ket_print': 'Klik Untuk Print',
           'ket_export': 'Klik Untuk Export',
           'export_penjualan': 'Print Penjualan + Ringkasan',
+          'batalkan' : "Canceled",
+          'alasan' : "Reason Cancel",
+          "semua_kategori": "Semua Kategori",
         },
         'en_US': {
           'ket_print': 'Tap For Print',
+          'alasan' : "Alasan Pembatalan",
           'ket_export': 'Tap For Export',
           'pendapatan_bulanan': 'Monthly Income',
           'menu_fav': 'Favorite Menu',
@@ -307,6 +311,7 @@ class Messages extends Translations {
           'tambah_diskon': 'Add Discount',
           'data_berhasil_disimpan': 'Successfully entry data',
           "semua_outlet": "All Outlet",
+          "semua_kategori": "All Category",
           "ganti_toko": "Switch Outlet",
           "pembuat": "Created By",
           'baca_kebijakan_privasi':
@@ -346,6 +351,7 @@ class Messages extends Translations {
           'export_penjualan': 'Export Sales + Summary',
           'print_metode_pembayaran': 'Print Method Payment + Summary',
           'export_metode_pembayaran': 'Export Method Payment + Summary',
+          'batalkan' : "Batalkan"
         }
       };
 }

@@ -58,6 +58,8 @@ class MyString {
   static final getTransaction = api_url_dev + "transaction";
   static final getReportTransaction =
       api_url_dev + "transaction/report_transaction";
+  static final getReportTransactionByCategory =
+      api_url_dev + "transaction/report_transaction_by_category";
   static final changeStatusTransaction =
       api_url_dev + "transaction/change_status_payment";
 

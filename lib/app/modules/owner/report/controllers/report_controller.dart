@@ -11,9 +11,12 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:warmi/app/data/datalocal/session/auth_session_manager.dart';
 import 'package:warmi/app/data/datasource/outlet/outlet_remote_data_source.dart';
+import 'package:warmi/app/data/datasource/product/category_product_remote_data_source.dart';
 import 'package:warmi/app/data/datasource/transactions/transaction_source_data_remote.dart';
 import 'package:warmi/app/data/models/outlet/outlet.dart';
+import 'package:warmi/app/data/models/product/category_product.dart';
 import 'package:warmi/app/data/models/report_transaction/report_transaction.dart';
+import 'package:warmi/app/data/models/report_transaction/report_transaction_by_category.dart';
 import 'package:warmi/app/modules/owner/settings/controllers/printer_controller.dart';
 import 'package:warmi/core/globals/global_color.dart';
 import 'package:recase/recase.dart';
@@ -27,9 +30,12 @@ import 'package:warmi/main.dart';
 class ReportController extends GetxController {
   TextEditingController controllerDate = TextEditingController();
   Rx<ReportTransaction> reportTransaction=ReportTransaction().obs;
+  Rx<ReportTransactionByCategory> reportTransactionByCategory=ReportTransactionByCategory().obs;
   Rx<LoadingState> loadingState = LoadingState.loading.obs;
+  Rx<LoadingState> loadingStateCategory = LoadingState.loading.obs;
   var date,startDate,endDate;
   var listOutlet = List<DataOutlet>.empty().obs;
+  var listCategoryProduct = List<CategoryProduct>.empty().obs;
 
 
   var printerC = Get.isRegistered<PrinterController>()
@@ -39,6 +45,7 @@ class ReportController extends GetxController {
   List<MultiSelectItem<DataOutlet>> item=[];
 
   RxString storeName="".obs;
+  RxString CategoryName="".obs;
 
 
   @override
@@ -68,14 +75,40 @@ class ReportController extends GetxController {
     print('hai Report');
     loadingState(LoadingState.empty);
   }
+  void getCategoryProductDataSource() async {
+    var locale=Get.locale;
+    print(locale);
+    loadingStateCategory(LoadingState.loading);
+    listCategoryProduct.add(CategoryProduct(
+        storeName: "semua_kategori".tr,
+        categoryName:  "semua_kategori".tr,
+        categoryId: "all",
+        isChecked: true
+    ));
+    await CategoryProductRemoteDataSource().getCategoryProduct().then((value) {
+      listCategoryProduct.addAll(value.data!);
+    });
+    loadingStateCategory(LoadingState.empty);
+
+    listCategoryProduct.forEach((element) {
+      element.isChecked=true;
+    });
+    listCategoryProduct.refresh();
+    print(item.length);
+    print('hai Report');
+    loadingStateCategory(LoadingState.empty);
+
+  }
   void init() {
     getOutletDataSource();
+    getCategoryProductDataSource();
      date="${DateTime.now().year}-${DateTime.now().month}-01";
      startDate=DateFormat("yyyy-MM-dd", 'id-iD').format(DateTime.parse(date));
      endDate=DateFormat("yyyy-MM-dd", 'id-iD').format(DateTime.parse(startDate).add(Duration(days: 30)));
     controllerDate.text = DateFormat("dd MMMM yyyy", 'id-iD').format(DateTime.now()) + " - " + DateFormat("dd MMMM yyyy", 'id-iD').format(DateTime.now().add(Duration(days: 30)));
 
     getReportTransaction(startDate: startDate,dueDate: endDate);
+    getReportTransactionByCategory(startDate: startDate,dueDate: endDate);
     update();
   }
 
@@ -83,6 +116,16 @@ class ReportController extends GetxController {
     loadingState(LoadingState.loading);
     await TransactionRemoteDataSource().getReportTransaction(startDate: startDate,dueDate: dueDate,type: "all",listStore: listStore).then((value) {
       reportTransaction(value);
+      controllerDate.text=DateFormat("dd MMMM yyyy", 'id-iD').format(DateTime.parse(startDate!))+ " - " + DateFormat("dd MMMM yyyy", 'id-iD').format(DateTime.parse(dueDate!));
+      loadingState(LoadingState.empty);
+      update();
+    });
+  }
+
+  void getReportTransactionByCategory({String? startDate,String? dueDate,List<dynamic>? listStore})async{
+    loadingState(LoadingState.loading);
+    await TransactionRemoteDataSource().getReportTransactionByCategory(startDate: startDate,dueDate: dueDate,type: "all",listCategory: listStore).then((value) {
+      reportTransactionByCategory(value);
       controllerDate.text=DateFormat("dd MMMM yyyy", 'id-iD').format(DateTime.parse(startDate!))+ " - " + DateFormat("dd MMMM yyyy", 'id-iD').format(DateTime.parse(dueDate!));
       loadingState(LoadingState.empty);
       update();
@@ -131,6 +174,50 @@ class ReportController extends GetxController {
     });
   getReportTransaction(listStore: list,startDate: startDate,dueDate: endDate);
     listOutlet.refresh();
+  }
+
+  void checkedCategory(CategoryProduct categoryProduct)async{
+    if(categoryProduct.categoryId=="all" && categoryProduct.isChecked){
+      listCategoryProduct.forEach((element) {
+        element.isChecked=false;
+      });
+    }else if(categoryProduct.categoryId=="all" && !categoryProduct.isChecked){
+      listCategoryProduct.forEach((element) {
+        element.isChecked=true;
+      });
+    }else{
+      int tot=0;
+      listCategoryProduct.forEach((element) {
+        if(element.categoryId==categoryProduct.categoryId){
+          element.isChecked=!element.isChecked;
+        }
+      });
+      listCategoryProduct.forEach((element) {
+        if(element.isChecked  && element.categoryId!="all"){
+          tot++;
+        }
+      });
+
+      print(listCategoryProduct.length-1);
+      if((listCategoryProduct.length-1)==tot){
+        listCategoryProduct[0].isChecked=true;
+      }else{
+        listCategoryProduct[0].isChecked=false;
+      }
+
+    }
+
+    List<dynamic> list=[];
+    listCategoryProduct.forEach((element) {
+      if(element.categoryId!="all"){
+        if(element.isChecked) {
+          CategoryName.value=element.categoryName.toString()+",";
+          list.add({"category_id": element.categoryId});
+        }
+      }
+    });
+    getReportTransactionByCategory(listStore: list,startDate: startDate,dueDate: endDate);
+    listCategoryProduct.refresh();
   }
 
   setLocale(){
@@ -295,6 +382,137 @@ class ReportController extends GetxController {
 
   }
 
+
+  void printReportByCategory() async {
+    printerC.printTicketPurchaseReportByCategory(reportTransactionByCategory.value,startDate: startDate,endDate: endDate);
+  }
+
+  void generateReportPDFBYCategory()async{
+    final pdf = pw.Document();
+    var tableHeaders = [
+      'nama_produk'.tr,
+      'kategori_produk'.tr,
+      'terjual'.tr,
+      'total_transaksi'.tr
+    ];
+
+    List<Category> products=[];
+    int jum=0;
+
+
+      reportTransactionByCategory.value.data!.forEach((element) {
+
+        products.add(Category(element.name.toString().titleCase,element.category!, int.tryParse(element.count.toString())!,double.tryParse(element.sum.toString())!));
+        jum+=element.sum!;
+      });
+
+    pdf.addPage(
+
+      pw.MultiPage(
+        pageFormat: PdfPageFormat.a4,
+        header: (pw.Context context) =>   pw.Column(
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children:[
+
+            ]
+        ),
+        build: (pw.Context context) => [
+          pw.Center(
+            child: pw.Text('LAPORAN PENJUALAN By Category') ,
+          ),
+          pw.SizedBox(height: 10),
+          pw.Center(
+            child: pw.Text('Periode'),
+          ),
+          pw.SizedBox(height: 10),
+          pw.Center(
+            child: pw.Text('$startDate - $endDate'),
+          ),
+          pw.SizedBox(height: 10),
+          pw.Text("Tgl Cetak : "+ DateFormat("EEEE, dd MMMM yyyy","${Get.locale}").format(DateTime.now())),
+          pw.SizedBox(height: 20),
+          pw.Text("pembuat".tr+" : "+ AuthSessionManager().userFullName),
+          pw.SizedBox(height: 20),
+
+          pw.Text(listCategoryProduct[0].isChecked ?  "kategori_produk".tr+" : "+ "semua_kategori".tr : "kategori_produk".tr+" : "+ CategoryName.value),
+          pw.SizedBox(height: 20),
+          pw.Table.fromTextArray(
+            border: null,
+            cellAlignment: pw.Alignment.centerLeft,
+            headerDecoration: pw.BoxDecoration(
+              borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
+              color: PdfColors.deepOrange,
+            ),
+            headerHeight: 25,
+            cellHeight: 40,
+            cellAlignments: {
+              0: pw.Alignment.centerLeft,
+              1: pw.Alignment.centerLeft,
+              2: pw.Alignment.center,
+              3: pw.Alignment.centerRight,
+            },
+            headerStyle: pw.TextStyle(
+              color: PdfColors.white,
+              fontSize: 10,
+              fontWeight: pw.FontWeight.bold,
+            ),
+            cellStyle: const pw.TextStyle(
+              color: PdfColors.black,
+              fontSize: 10,
+            ),
+            rowDecoration: pw.BoxDecoration(
+              border: pw.Border(
+                bottom: pw.BorderSide(
+                  color: PdfColors.deepOrange,
+                  width: .5,
+                ),
+              ),
+            ),
+            headers:  List<String>.generate(
+              tableHeaders.length,
+                  (col) => tableHeaders[col],
+            ),
+            data:List<List<String>>.generate(
+              reportTransactionByCategory.value.data!.length,
+                  (row) => List<String>.generate(
+                tableHeaders.length,
+                    (col) => products[row].getIndex(col),
+              ),
+            ),
+          ),
+
+          pw.SizedBox(height: 20),
+        ],
+
+
+
+      ),
+    );
+
+    await Permission.storage.request().then((value) async {
+      if (value.isGranted) {
+        var dir;
+        await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS).then((value) {
+          dir = value;
+
+
+        });
+
+        final targetFile = Directory('$dir/laporan-penjualan-category-$startDate-$endDate.pdf');
+        if(targetFile.existsSync()) {
+          targetFile.deleteSync(recursive: true);
+        }
+
+        final file = File('$dir/laporan-penjualan-category-$startDate-$endDate.pdf');
+
+        await file.writeAsBytes(await pdf.save());
+        Share.shareFiles(['$dir/laporan-penjualan-category-$startDate-$endDate.pdf'], text: "laporan-penjualan-category-$startDate-$endDate.pdf");
+      }
+    });
+
+  }
+
 }
 
 class Product {
@@ -317,6 +535,35 @@ class Product {
       case 1:
         return quantity.toString();
       case 2:
+        return formatCurrency.format(total);
+    }
+    return '';
+  }
+}
+
+class Category {
+  const Category(
+      this.productName,
+      this.category,
+      this.quantity,
+
+      this.total,
+      );
+
+  final String productName;
+  final String category;
+  final int quantity;
+  final double total;
+
+  String getIndex(int index) {
+    switch (index) {
+      case 0:
+        return productName;
+        case 1:
+        return category;
+      case 2:
+        return quantity.toString();
+      case 3:
         return formatCurrency.format(total);
     }
     return '';

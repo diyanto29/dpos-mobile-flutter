@@ -11,8 +11,8 @@ class BaseDio {
 
   Dio _dio() {
     final options = BaseOptions(
-      connectTimeout: 5000,
-      receiveTimeout: 5000,
+      connectTimeout: 10000,
+      receiveTimeout: 10000,
       contentType: "application/json;charset=utf-8",
     );
 

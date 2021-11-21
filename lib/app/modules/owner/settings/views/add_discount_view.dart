@@ -52,6 +52,7 @@ class _AddDiscountViewState extends State<AddDiscountView> {
     controller.conPercent.value.text = "";
     controller.conDiscount.value.text = "";
     controller.conDiscountMax.value.text = "";
+    controller.moneyMax(0);
     super.dispose();
   }
 

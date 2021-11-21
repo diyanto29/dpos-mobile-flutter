@@ -5,6 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:warmi/app/data/models/transactions/transaction_model.dart';
 import 'package:warmi/app/modules/history_sales/controllers/history_sales_controller.dart';
+import 'package:warmi/app/modules/transaction/controllers/transaction_controller.dart';
+import 'package:warmi/app/modules/wigets/layouts/general_button.dart';
+import 'package:warmi/app/modules/wigets/layouts/general_text_input.dart';
 import 'package:warmi/app/modules/wigets/package/screenshoot/screenshot.dart';
 import 'package:warmi/app/routes/app_pages.dart';
 import 'package:warmi/core/globals/global_color.dart';
@@ -22,7 +25,6 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
     var data = Get.arguments as DataTransaction;
     controller.getSubtotal(data);
 
-
     return Scaffold(
       backgroundColor: MyColor.colorBackground,
       appBar: AppBar(
@@ -33,7 +35,7 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
         ),
       ),
       body: Screenshot(
-        controller : controller.screenshotController,
+        controller: controller.screenshotController,
         child: Container(
           color: MyColor.colorBackground,
           child: ListView(
@@ -51,10 +53,13 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                   Flexible(
                     child: Container(
                       alignment: Alignment.center,
-                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        color: data.transactionstatus!.contains("pending") ? MyColor.colorRedFlatDark : MyColor.colorPrimary,
+                        color: data.transactionstatus!.contains("pending")
+                            ? MyColor.colorRedFlatDark
+                            :data.transactionstatus!.toLowerCase()=="cancel" ?Colors.red : data.transactionstatus!.toLowerCase()=="success" ?Colors.green :  MyColor.colorPrimary,
                       ),
                       child: Text(
                         "${data.transactionstatus.toString().titleCase}",
@@ -115,12 +120,14 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                 children: [
                   Flexible(
                       child: Text(
-                        'metode_pembayaran'.tr,
+                    'metode_pembayaran'.tr,
                     style: blackTextTitle.copyWith(fontSize: 14.sp),
                   )),
                   Flexible(
                       child: Text(
-                    data.paymentMethod == null ? 'Cash' : "${data.paymentMethod!.type!.paymentmethodtypename.toString().titleCase} -  ${data.paymentMethod!.paymentmethodname.toString().capitalize}",
+                    data.paymentMethod == null
+                        ? 'Cash'
+                        : "${data.paymentMethod!.type!.paymentmethodtypename.toString().titleCase} -  ${data.paymentMethod!.paymentmethodname.toString().capitalize}",
                     style: blackTextTitle.copyWith(fontSize: 14.sp),
                   )),
                 ],
@@ -166,6 +173,25 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
               SizedBox(
                 height: 14,
               ),
+            if(data.transactionpaymentstatus!.toLowerCase()=="cancel")  Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Flexible(
+                      child: Text(
+                        'alasan'.tr,
+                        style: blackTextTitle.copyWith(fontSize: 14.sp),
+                      )),
+                  Flexible(
+                      child: Text(
+                        "${data.transactionReasonCancel}",
+                        style: blackTextTitle.copyWith(fontSize: 14.sp),
+                      )),
+                ],
+              ),
+              if(data.transactionpaymentstatus!.toLowerCase()=="cancel")      SizedBox(
+                height: 14,
+              ),
               if (data.customerDetail != null)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -206,40 +232,47 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                         Flexible(
                             flex: 3,
                             child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              height: 30,
-                              width: 30,
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(100), color: MyColor.colorOrange),
-                              alignment: Alignment.center,
-                              child: Text(
-                                (i + 1).toString(),
-                                style: whiteTextTitle,
-                              ),
-                            ),
-                            SizedBox(width: 10,),
-                            Flexible(child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text(
-                                  product.product!.productname!,
-                                  style: blackTextFont,
+                                Container(
+                                  height: 30,
+                                  width: 30,
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(100),
+                                      color: MyColor.colorOrange),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    (i + 1).toString(),
+                                    style: whiteTextTitle,
+                                  ),
                                 ),
-                                SizedBox(height: 10,),
-                                Text(
-                                  "${product.detailtransactionqtyproduct} x Rp ${formatCurrency.format(product.detailtransactionpriceproduct!)}",
-                                  style: blackTextFont,
-                                )
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Flexible(
+                                    child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      product.product!.productname!,
+                                      style: blackTextFont,
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      "${product.detailtransactionqtyproduct} x Rp ${formatCurrency.format(product.detailtransactionpriceproduct!)}",
+                                      style: blackTextFont,
+                                    )
+                                  ],
+                                ))
                               ],
-                            ))
-                          ],
-                        )),
-
-                        Flexible(child: Column(
+                            )),
+                        Flexible(
+                            child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
@@ -250,17 +283,20 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                             SizedBox(
                               height: 5,
                             ),
-                            if ((int.tryParse(product.detailtransactionsubtotal!)! - product.priceafterdiscount!) > 0)
+                            if ((int.tryParse(
+                                        product.detailtransactionsubtotal!)! -
+                                    product.priceafterdiscount!) >
+                                0)
                               Text(
                                 "-  Rp ${formatCurrency.format(int.tryParse(product.detailtransactionsubtotal!)! - product.priceafterdiscount!)}",
-                                style: blackTextFont.copyWith(color: MyColor.colorRedFlat),
+                                style: blackTextFont.copyWith(
+                                    color: MyColor.colorRedFlat),
                               ),
                           ],
                         ))
                       ],
                     ),
                   );
-
                 },
               ),
               SizedBox(
@@ -269,19 +305,19 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
               Container(decoration: DottedDecoration()),
               Obx(() {
                 return Padding(
-                  padding: const EdgeInsets.only(bottom: 20.0,top: 20),
+                  padding: const EdgeInsets.only(bottom: 20.0, top: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Flexible(
                           flex: 3,
-                          child:  Text(
+                          child: Text(
                             "Sub Total",
                             style: blackTextFont,
                           )),
-
-                      Flexible(child: Column(
+                      Flexible(
+                          child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
@@ -294,30 +330,31 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                     ],
                   ),
                 );
-
               }),
               Visibility(
-                visible: data.transactionpriceoffvoucher!=null ? true : false,
+                visible: data.transactionpriceoffvoucher != null ? true : false,
                 child: Padding(
-                  padding: const EdgeInsets.only(bottom: 20.0,top: 20),
+                  padding: const EdgeInsets.only(bottom: 20.0, top: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Flexible(
-                          flex: 3,
-                          child: Text(
-                            'diskon'.tr,
-                            style: blackTextFont,
-                          ),),
-
-                      Flexible(child: Column(
+                        flex: 3,
+                        child: Text(
+                          'diskon'.tr,
+                          style: blackTextFont,
+                        ),
+                      ),
+                      Flexible(
+                          child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
                             "- Rp ${formatCurrency.format(int.tryParse(data.transactionpriceoffvoucher ?? "0"))}",
-                            style: blackTextTitle.copyWith(color: MyColor.colorRedFlat),
+                            style: blackTextTitle.copyWith(
+                                color: MyColor.colorRedFlat),
                           )
                         ],
                       ))
@@ -325,7 +362,6 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                   ),
                 ),
               ),
-
               SizedBox(
                 height: 10,
               ),
@@ -405,9 +441,24 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
               Center(
                 child: Text(
                   "Power By DPOS",
-                  style: blackTextTitle.copyWith(fontStyle: FontStyle.italic, fontWeight: FontWeight.w400, color: MyColor.colorBlackT50),
+                  style: blackTextTitle.copyWith(
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.w400,
+                      color: MyColor.colorBlackT50),
                 ),
-              )
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              if (data.transactionpaymentstatus!.toLowerCase() != 'cancel')
+                TextButton(
+                    onPressed: () {
+                      showDialogCancel(
+                          title: "Transaksi",
+                          message: "Batalkan Transaksi",
+                          dataTransaction: data);
+                    },
+                    child: Text("batalkan".tr))
             ],
           ),
         ),
@@ -430,7 +481,11 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                       'cetak'.tr,
                       style: GoogleFonts.droidSans(fontSize: 16),
                     ),
-                    style: ElevatedButton.styleFrom(elevation: 1, primary: MyColor.colorPrimary, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                    style: ElevatedButton.styleFrom(
+                        elevation: 1,
+                        primary: MyColor.colorPrimary,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
                     onPressed: () {
                       controller.testPrint(data);
                     },
@@ -450,7 +505,11 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                             'bayar_sekarang'.tr,
                             style: GoogleFonts.droidSans(fontSize: 16),
                           ),
-                          style: ElevatedButton.styleFrom(elevation: 1, primary: MyColor.colorRedFlatDark, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                          style: ElevatedButton.styleFrom(
+                              elevation: 1,
+                              primary: MyColor.colorRedFlatDark,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10))),
                           onPressed: () => controller.checkoutNow(data),
                         ),
                       ),
@@ -464,13 +523,55 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                             'kirim'.tr,
                             style: GoogleFonts.droidSans(fontSize: 16),
                           ),
-                          style: ElevatedButton.styleFrom(elevation: 1, primary: MyColor.colorRedFlatDark, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                          onPressed: () => controller.sendInvoice(id: data.transactionid),
+                          style: ElevatedButton.styleFrom(
+                              elevation: 1,
+                              primary: MyColor.colorRedFlatDark,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10))),
+                          onPressed: () =>
+                              controller.sendInvoice(id: data.transactionid),
                         ),
                       ),
                     ),
             ],
           )),
+    );
+  }
+
+  Future<dynamic> showDialogCancel(
+      {required String title,
+      required String message,
+      required DataTransaction dataTransaction}) {
+    final controllerTransaciton = Get.isRegistered<TransactionController>()
+        ? Get.find<TransactionController>()
+        : Get.put(TransactionController());
+    TextEditingController controllerReason = TextEditingController();
+    return Get.dialog(
+      AlertDialog(
+        title: Text(title),
+        content: Container(
+          height: 100,
+          child: GeneralTextInput(
+              controller: controllerReason,
+              keyboardType: TextInputType.emailAddress,
+              textInputAction: TextInputAction.next,
+              labelTextInputBox: 'catatan'.tr,
+              descTextInputBox: 'Masukan Catatan Pembatalan'),
+        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        actions: [
+          GeneralButton(
+              height: 45,
+              width: double.infinity,
+              label: 'simpan'.tr,
+              onPressed: () {
+                controllerTransaciton.changeStatusTransaction(
+                    dataTransaction: dataTransaction,
+                    type: "cancel",
+                    reasonCancel: controllerReason.text);
+              }),
+        ],
+      ),
     );
   }
 }

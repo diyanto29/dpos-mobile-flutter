@@ -489,45 +489,54 @@ class TransactionController extends GetxController
     }
   }
 
-  void changeStatusTransaction({DataTransaction? dataTransaction}) async {
-    var conCart = Get.find<CartController>();
+  void changeStatusTransaction({DataTransaction? dataTransaction,String? type="checkout",String? reasonCancel}) async {
+    final conCart = Get.isRegistered<CartController>()
+        ? Get.find<CartController>()
+        : Get.put(CartController());
     if (paymentMethod.value.paymentmethodid == null) {
       double calc = pay.value - conCart.totalShopping.value;
-      if (pay < conCart.totalShopping.value) {
+      if (pay < conCart.totalShopping.value && type=="checkout") {
         showSnackBar(
             snackBarType: SnackBarType.INFO,
             title: 'pembayaran'.tr,
             message: "Pembayaran Kurang ${formatCurrency.format(calc)}");
       } else {
-        print(pay.value);
-        print(cashReceived.value);
+        // print(pay.value);
+        // print(cashReceived.value);
         loadingBuilder();
         await TransactionRemoteDataSource()
             .changeStatusTransaction(
                 transactionPaymentDate:
                     DateFormat("yyyy-MM-dd").format(DateTime.now()),
-                paymentMethodID: paymentMethod.value.paymentmethodid,
+                paymentMethodID: type=="checkout" ? paymentMethod.value.paymentmethodid : dataTransaction!.transactionpaymentmethodid.toString(),
                 listCart: conCart.listCart,
-                paymentMethodStatus: "done",
-                transactionPay: pay.value,
+                paymentMethodStatus:  type=="checkout" ? "done" : "cancel",
+                transactionPay:type=="checkout" ?    pay.value : double.tryParse(dataTransaction!.transactionpay ?? "0"),
                 transactionID: dataTransaction!.transactionid.toString(),
-                transactionReceived: cashReceived.value,
-                transactionStatus: "success")
+                transactionReceived:type=="checkout" ?    cashReceived.value : double.tryParse(dataTransaction.transactionreceived ?? "0"),
+                transactionReasonCancel: reasonCancel,
+                transactionStatus:  type=="checkout" ? "success" : "cancel")
             .then((value) {
           Get.back();
-          Map<dynamic, dynamic> pass;
+         if(type=="checkout"){
+           Map<dynamic, dynamic> pass;
 
-          pass = {
-            "type": "cash",
-            "from": "history",
-            "cash_received": cashReceived,
-          };
-          if (value.status) {
-            DataTransaction data = DataTransaction.fromJson(value.data);
-            detailTransaction = DataTransaction.fromJson(value.data);
-            Get.toNamed(Routes.TRANSACTION_SUCCESS, arguments: pass);
-            printerC.printTicketPurchase(dataTransaction: data);
-          }
+           pass = {
+             "type": "cash",
+             "from": "history",
+             "cash_received": cashReceived,
+           };
+           if (value.status) {
+             DataTransaction data = DataTransaction.fromJson(value.data);
+             detailTransaction = DataTransaction.fromJson(value.data);
+             Get.toNamed(Routes.TRANSACTION_SUCCESS, arguments: pass);
+             printerC.printTicketPurchase(dataTransaction: data);
+           }
+         }else{
+           Get.back();
+           Get.back();
+           getTransaction();
+         }
         });
       }
     } else {
@@ -571,6 +580,9 @@ class TransactionController extends GetxController
       });
     }
   }
+
+
+
 
   void printNow() async {
     printerC.printTicketPurchase(

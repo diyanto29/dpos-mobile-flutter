@@ -47,6 +47,7 @@ class CategoryProduct {
     this.userId,
     this.deletedAt,
     this.store,
+    this.isChecked=false
   });
 
   String? categoryId;
@@ -61,6 +62,7 @@ class CategoryProduct {
   String? userId;
   dynamic deletedAt;
   Store? store;
+  bool isChecked;
 
   factory CategoryProduct.fromJson(Map<String, dynamic> json) => CategoryProduct(
     categoryId: json["CATEGORY_ID"] == null ? null : json["CATEGORY_ID"],

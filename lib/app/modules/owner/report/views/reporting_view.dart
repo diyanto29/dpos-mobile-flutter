@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:warmi/app/modules/history_sales/controllers/history_sales_controller.dart';
 import 'package:warmi/app/routes/app_pages.dart';
 import 'package:warmi/core/globals/global_color.dart';
 import 'package:warmi/core/globals/global_string.dart';
 
-class ReportingView extends StatelessWidget {
+class ReportingView extends GetWidget<HistorySalesController> {
   const ReportingView({Key? key}) : super(key: key);
 
   @override
@@ -59,7 +60,7 @@ class ReportingView extends StatelessWidget {
                 ),
               ),
               InkWell(
-                onTap: () {},
+                onTap: ()=> Get.toNamed(Routes.REPORT_BY_CATEGORY),
                 child: ListTile(
                   title: Text('penjualan_per_kategori'.tr),
                   trailing: Icon(
@@ -78,7 +79,7 @@ class ReportingView extends StatelessWidget {
               //     ),
               //   ),
               // ),
-              InkWell(
+          if(controller.auth.value.roleName=="Pemilik Toko")    InkWell(
                 onTap: () {},
                 child: ListTile(
                   title: Text('laporan_pajak'.tr),

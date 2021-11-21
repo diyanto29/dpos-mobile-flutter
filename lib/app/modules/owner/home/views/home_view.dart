@@ -371,7 +371,9 @@ class HomeView extends GetWidget<HomeController> {
                                         .titleCase}",
                                     totalOrders: "Rp. ${formatCurrency.format(int.tryParse(data.transactiontotal!))}",
                                     qtyOrders: "${data.detailCount}",
-                                    orderColorStatus: data.transactionstatus!.contains("pending") ? MyColor.colorRedFlatDark : MyColor.colorPrimary,
+                                    orderColorStatus: data.transactionstatus!.contains("pending")
+                                        ? MyColor.colorRedFlatDark
+                                        :data.transactionstatus!.toLowerCase()=="cancel" ?Colors.red : data.transactionstatus!.toLowerCase()=="success" ?Colors.green :  MyColor.colorPrimary,
                                     noted: data.transactionstatus!.contains("pending") ? data.transactionnote : null,
                                     orderDate: "${DateFormat('dd MMM yyyy', 'id-ID').format(DateTime.parse(data.createdAt!))}",
                                     orderStatus: "${data.transactionstatus
