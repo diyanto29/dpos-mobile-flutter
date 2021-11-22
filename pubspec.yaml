@@ -65,6 +65,7 @@ flutter:
   assets:
     - assets/
     - assets/icons/
+    - assets/icons/report/
 
 # remove package data_connection_checker
 # package in_app_update only android

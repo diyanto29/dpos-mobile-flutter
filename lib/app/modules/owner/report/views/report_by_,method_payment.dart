@@ -3,6 +3,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:get/get.dart';
 import 'package:horizontal_data_table/horizontal_data_table.dart';
 import 'package:intl/intl.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:warmi/app/modules/owner/report/controllers/report_controller.dart';
 import 'package:warmi/app/modules/transaction/controllers/transaction_controller.dart';
 import 'package:warmi/app/modules/wigets/layouts/dialog/bottom_dialog_outlet_report.dart';
@@ -18,8 +19,7 @@ import '../../../../../main.dart';
 
 class ReportByMethodPayment extends StatefulWidget {
   @override
-  _ReportByMethodPaymentState createState() =>
-      _ReportByMethodPaymentState();
+  _ReportByMethodPaymentState createState() => _ReportByMethodPaymentState();
 }
 
 class _ReportByMethodPaymentState extends State<ReportByMethodPayment> {
@@ -45,35 +45,37 @@ class _ReportByMethodPaymentState extends State<ReportByMethodPayment> {
         isScrollControlled: true, elevation: 3);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: MyColor.colorBackground,
-        floatingActionButton:Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-
-          children: [
-            Container(
-                margin: EdgeInsets.symmetric(vertical: 0),
-                child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                        primary: MyColor.colorPrimary),
-                    onPressed: () => controller.generateReportPDF(type: "method"),
-                    icon: Icon(Icons.import_export),
-                    label: Text('Export'))),
-            Container(
-                margin: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
-                child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                        primary: MyColor.colorBlue),
-                    onPressed: () => controller.printReport(type: "method"),
-                    icon: Icon(Icons.print),
-                    label: Text('Print'))),
-          ],
+        floatingActionButton: Align(
+          alignment: Alignment.bottomRight,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              FloatingActionButton(
+                heroTag: 'export',
+                tooltip: 'Export',
+                mini: true,
+                backgroundColor: MyColor.colorPrimary,
+                onPressed: () => controller.generateReportPDF(type: "method"),
+                child: Icon(LineIcons.fileExport),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              FloatingActionButton(
+                heroTag: 'print',
+                tooltip: 'Print',
+                mini: true,
+                onPressed: () => controller.printReport(type: "method"),
+                child: Icon(LineIcons.print),
+              )
+            ],
+          ),
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         resizeToAvoidBottomInset: true,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(140.0),
@@ -89,7 +91,6 @@ class _ReportByMethodPaymentState extends State<ReportByMethodPayment> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       Flexible(
                         child: InkWell(
                           onTap: () => showBottomSheetOutlet(),
@@ -108,7 +109,7 @@ class _ReportByMethodPaymentState extends State<ReportByMethodPayment> {
                                   Text(
                                     'toko_anda'.tr,
                                     style:
-                                    blackTextFont.copyWith(fontSize: 14.sp),
+                                        blackTextFont.copyWith(fontSize: 14.sp),
                                   ),
                                 ],
                               ),
@@ -143,25 +144,25 @@ class _ReportByMethodPaymentState extends State<ReportByMethodPayment> {
                       // ),
                       Flexible(
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  IconlyLight.notification,
-                                  color: MyColor.colorWhite,
-                                ),
-                                SizedBox(
-                                  width: 15,
-                                ),
-                                Icon(
-                                  IconlyLight.logout,
-                                  color: MyColor.colorWhite,
-                                )
-                              ],
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              IconlyLight.notification,
+                              color: MyColor.colorWhite,
                             ),
-                          ))
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Icon(
+                              IconlyLight.logout,
+                              color: MyColor.colorWhite,
+                            )
+                          ],
+                        ),
+                      ))
                     ],
                   ),
                   SizedBox(
@@ -173,12 +174,8 @@ class _ReportByMethodPaymentState extends State<ReportByMethodPayment> {
                       onTap: () async {
                         DateTimeRange? picked = await showDateRangePicker(
                           context: Get.context!,
-                          firstDate: DateTime(DateTime
-                              .now()
-                              .year - 5),
-                          lastDate: DateTime(DateTime
-                              .now()
-                              .year + 5),
+                          firstDate: DateTime(DateTime.now().year - 5),
+                          lastDate: DateTime(DateTime.now().year + 5),
                           initialDateRange: DateTimeRange(
                             end: DateTime.parse(controller.date)
                                 .add(Duration(days: 30)),
@@ -187,8 +184,8 @@ class _ReportByMethodPaymentState extends State<ReportByMethodPayment> {
                         );
                         var startDate = DateFormat("yyyy-MM-dd", 'id-iD')
                             .format(picked!.start);
-                        var endDate =
-                        DateFormat("yyyy-MM-dd", 'id-iD').format(picked.end);
+                        var endDate = DateFormat("yyyy-MM-dd", 'id-iD')
+                            .format(picked.end);
                         List<dynamic> list = [];
                         controller.listOutlet.forEach((element) {
                           if (element.storeId != "all") {
@@ -217,13 +214,13 @@ class _ReportByMethodPaymentState extends State<ReportByMethodPayment> {
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
-                            borderSide:
-                            BorderSide(width: 1, color: MyColor.colorPrimary),
+                            borderSide: BorderSide(
+                                width: 1, color: MyColor.colorPrimary),
                           ),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide:
-                              BorderSide(color: Colors.red, width: 0.1)),
+                                  BorderSide(color: Colors.red, width: 0.1)),
                           suffixIcon: Icon(
                             IconlyLight.calendar,
                             color: MyColor.colorBlackT50,
@@ -236,93 +233,89 @@ class _ReportByMethodPaymentState extends State<ReportByMethodPayment> {
           ),
         ),
         body: Obx(() {
-          return controller.loadingState.value==LoadingState.loading ? Center(child: CircularProgressIndicator()):
-          controller.reportTransaction.value.status!=true ? Center(child: Text("data_kosong".tr)) :
+          return controller.loadingState.value == LoadingState.loading
+              ? Center(child: CircularProgressIndicator())
+              : controller.reportTransaction.value.status != true
+                  ? Center(child: Text("data_kosong".tr))
+                  : Container(
+                      child: HorizontalDataTable(
+                        leftHandSideColumnWidth: 150,
+                        rightHandSideColumnWidth: 600,
+                        isFixedHeader: true,
+                        headerWidgets: _getTitleWidget(),
+                        leftSideItemBuilder: (BuildContext context, i) {
+                          return Container(
+                            child: Text(controller.reportTransaction.value.data!
+                                .paymentMethod![i].paymentMethodAlias!),
+                            width: 120,
+                            height: 52,
+                            padding: EdgeInsets.fromLTRB(
+                                MyString.DEFAULT_PADDING, 0, 0, 10),
+                            alignment: Alignment.centerLeft,
+                          );
+                        },
+                        rightSideItemBuilder: (BuildContext context, i) {
+                          var data = controller
+                              .reportTransaction.value.data!.paymentMethod![i];
+                          return Row(
+                            children: <Widget>[
+                              Container(
+                                child: Text(data.count.toString()),
+                                width: 120,
+                                height: 52,
+                                padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                alignment: Alignment.center,
+                              ),
+                              Container(
+                                child: Text(
+                                    "${"${formatCurrency.format(data.total!)}"}"),
+                                width: 100,
+                                height: 52,
+                                padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                alignment: Alignment.centerLeft,
+                              ),
+                            ],
+                          );
+                        },
+                        itemCount: controller.reportTransaction.value.data!
+                            .paymentMethod!.length,
+                        rowSeparatorWidget: const Divider(
+                          color: Colors.black54,
+                          height: 1.0,
+                          thickness: 0.0,
+                        ),
+                        leftHandSideColBackgroundColor: Color(0xFFFFFFFF),
+                        rightHandSideColBackgroundColor: Color(0xFFFFFFFF),
+                        verticalScrollbarStyle: const ScrollbarStyle(
+                          thumbColor: MyColor.colorPrimary,
+                          isAlwaysShown: true,
+                          thickness: 4.0,
+                          radius: Radius.circular(5.0),
+                        ),
+                        // horizontalScrollbarStyle: const ScrollbarStyle(
+                        //   thumbColor: Colors.red,
+                        //   isAlwaysShown: true,
+                        //   thickness: 4.0,
+                        //   radius: Radius.circular(5.0),
+                        // ),
+                        enablePullToRefresh: false,
+                        // refreshIndicator: const WaterDropHeader(),
+                        refreshIndicatorHeight: 60,
 
-          Container(
-            child: HorizontalDataTable(
-              leftHandSideColumnWidth: 150,
-              rightHandSideColumnWidth: 600,
-              isFixedHeader: true,
-              headerWidgets: _getTitleWidget(),
-              leftSideItemBuilder: (BuildContext context, i) {
-
-                return Container(
-                  child: Text(controller.reportTransaction.value.data!
-                      .paymentMethod![i].paymentMethodAlias!),
-                  width: 120,
-                  height: 52,
-                  padding: EdgeInsets.fromLTRB(MyString.DEFAULT_PADDING, 0, 0, 10),
-                  alignment: Alignment.centerLeft,
-                );
-              },
-              rightSideItemBuilder: (BuildContext context, i) {
-                var data = controller.reportTransaction.value.data!
-                    .paymentMethod![i];
-                return Row(
-                  children: <Widget>[
-
-                    Container(
-                      child: Text(data.count.toString()),
-                      width: 120,
-                      height: 52,
-                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                      alignment: Alignment.center,
-                    ),
-                    Container(
-                      child: Text("${"${formatCurrency.format(data.total!)}"}"),
-                      width: 100,
-                      height: 52,
-                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                      alignment: Alignment.centerLeft,
-                    ),
-
-                  ],
-                );
-              },
-              itemCount: controller.reportTransaction.value.data!
-                  .paymentMethod!.length,
-              rowSeparatorWidget: const Divider(
-                color: Colors.black54,
-                height: 1.0,
-                thickness: 0.0,
-              ),
-              leftHandSideColBackgroundColor: Color(0xFFFFFFFF),
-              rightHandSideColBackgroundColor: Color(0xFFFFFFFF),
-              verticalScrollbarStyle: const ScrollbarStyle(
-                thumbColor: MyColor.colorPrimary,
-                isAlwaysShown: true,
-                thickness: 4.0,
-                radius: Radius.circular(5.0),
-              ),
-              // horizontalScrollbarStyle: const ScrollbarStyle(
-              //   thumbColor: Colors.red,
-              //   isAlwaysShown: true,
-              //   thickness: 4.0,
-              //   radius: Radius.circular(5.0),
-              // ),
-              enablePullToRefresh: false,
-              // refreshIndicator: const WaterDropHeader(),
-              refreshIndicatorHeight: 60,
-
-              htdRefreshController: _hdtRefreshController,
-            ),
-            height: MediaQuery
-                .of(context)
-                .size
-                .height,
-          );
+                        htdRefreshController: _hdtRefreshController,
+                      ),
+                      height: MediaQuery.of(context).size.height,
+                    );
         }),
       ),
     );
   }
 
-
   List<Widget> _getTitleWidget() {
     return [
       _getTitleItemWidget('metode_pembayaran'.tr, 250),
       _getTitleItemWidget('total_transaksi'.tr, 120),
-        _getTitleItemWidget('total_transaksi'.tr, 250),
+      _getTitleItemWidget('total_transaksi'.tr, 250),
     ];
   }
 
@@ -335,8 +328,4 @@ class _ReportByMethodPaymentState extends State<ReportByMethodPayment> {
       alignment: Alignment.centerLeft,
     );
   }
-
-
 }
-
-

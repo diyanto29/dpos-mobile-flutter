@@ -987,7 +987,7 @@ class TransactionController extends GetxController
                 ),
                 Center(
                   child: Text(
-                    "Power By DPOS",
+                    "Powered by DPOS",
                     style: blackTextTitle.copyWith(
                         fontStyle: FontStyle.italic,
                         fontWeight: FontWeight.w400,
