@@ -4,6 +4,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:get/get.dart';
 import 'package:horizontal_data_table/horizontal_data_table.dart';
 import 'package:intl/intl.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:warmi/app/modules/owner/report/controllers/report_controller.dart';
 import 'package:warmi/app/modules/transaction/controllers/transaction_controller.dart';
 import 'package:warmi/app/modules/wigets/layouts/dialog/bottom_dialog_category_report.dart';
@@ -39,9 +40,11 @@ class _ReportBySalesCategoryViewState extends State<ReportBySalesCategoryView> {
 
   @override
   void initState() {
-    controller.date="${DateTime.now().year}-${DateTime.now().month}-01";
-    controller.startDate=DateFormat("yyyy-MM-dd", 'id-iD').format(DateTime.parse(controller.date));
-    controller.endDate=DateFormat("yyyy-MM-dd", 'id-iD').format(DateTime.parse(controller.startDate).add(Duration(days: 30)));
+    controller.date = "${DateTime.now().year}-${DateTime.now().month}-01";
+    controller.startDate = DateFormat("yyyy-MM-dd", 'id-iD')
+        .format(DateTime.parse(controller.date));
+    controller.endDate = DateFormat("yyyy-MM-dd", 'id-iD')
+        .format(DateTime.parse(controller.startDate).add(Duration(days: 30)));
     super.initState();
   }
 
@@ -50,35 +53,37 @@ class _ReportBySalesCategoryViewState extends State<ReportBySalesCategoryView> {
         isScrollControlled: true, elevation: 3);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: MyColor.colorBackground,
-        floatingActionButton:Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-
-          children: [
-            Container(
-                margin: EdgeInsets.symmetric(vertical: 0),
-                child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                        primary: MyColor.colorPrimary),
-                    onPressed: () => controller.generateReportPDFBYCategory(),
-                    icon: Icon(Icons.import_export),
-                    label: Text('Export'))),
-            Container(
-                margin: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
-                child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                        primary: MyColor.colorBlue),
-                    onPressed: () => controller.printReportByCategory(),
-                    icon: Icon(Icons.print),
-                    label: Text('Print'))),
-          ],
+        floatingActionButton: Align(
+          alignment: Alignment.bottomRight,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              FloatingActionButton(
+                heroTag: 'export',
+                tooltip: 'Export',
+                mini: true,
+                backgroundColor: MyColor.colorPrimary,
+                onPressed: () => controller.generateReportPDFBYCategory(),
+                child: Icon(LineIcons.fileExport),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              FloatingActionButton(
+                heroTag: 'print',
+                tooltip: 'Print',
+                mini: true,
+                onPressed: () => controller.printReportByCategory(),
+                child: Icon(LineIcons.print),
+              )
+            ],
+          ),
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         resizeToAvoidBottomInset: true,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(140.0),
@@ -94,7 +99,6 @@ class _ReportBySalesCategoryViewState extends State<ReportBySalesCategoryView> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       Flexible(
                         child: InkWell(
                           onTap: () => showBottomSheetOutlet(),
@@ -113,13 +117,12 @@ class _ReportBySalesCategoryViewState extends State<ReportBySalesCategoryView> {
                                   Text(
                                     'kategori_produk'.tr,
                                     style:
-                                    blackTextFont.copyWith(fontSize: 14.sp),
+                                        blackTextFont.copyWith(fontSize: 14.sp),
                                   ),
                                 ],
                               ),
                               Obx(() {
                                 return Text(
-
                                   controller.listCategoryProduct[0].isChecked
                                       ? "semua_kategori".tr
                                       : "${controller.CategoryName}",
@@ -150,25 +153,25 @@ class _ReportBySalesCategoryViewState extends State<ReportBySalesCategoryView> {
                       // ),
                       Flexible(
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  IconlyLight.notification,
-                                  color: MyColor.colorWhite,
-                                ),
-                                SizedBox(
-                                  width: 15,
-                                ),
-                                Icon(
-                                  IconlyLight.logout,
-                                  color: MyColor.colorWhite,
-                                )
-                              ],
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              IconlyLight.notification,
+                              color: MyColor.colorWhite,
                             ),
-                          ))
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Icon(
+                              IconlyLight.logout,
+                              color: MyColor.colorWhite,
+                            )
+                          ],
+                        ),
+                      ))
                     ],
                   ),
                   SizedBox(
@@ -180,12 +183,8 @@ class _ReportBySalesCategoryViewState extends State<ReportBySalesCategoryView> {
                       onTap: () async {
                         DateTimeRange? picked = await showDateRangePicker(
                           context: Get.context!,
-                          firstDate: DateTime(DateTime
-                              .now()
-                              .year - 5),
-                          lastDate: DateTime(DateTime
-                              .now()
-                              .year + 5),
+                          firstDate: DateTime(DateTime.now().year - 5),
+                          lastDate: DateTime(DateTime.now().year + 5),
                           initialDateRange: DateTimeRange(
                             end: DateTime.parse(controller.date)
                                 .add(Duration(days: 30)),
@@ -194,8 +193,8 @@ class _ReportBySalesCategoryViewState extends State<ReportBySalesCategoryView> {
                         );
                         var startDate = DateFormat("yyyy-MM-dd", 'id-iD')
                             .format(picked!.start);
-                        var endDate =
-                        DateFormat("yyyy-MM-dd", 'id-iD').format(picked.end);
+                        var endDate = DateFormat("yyyy-MM-dd", 'id-iD')
+                            .format(picked.end);
                         List<dynamic> list = [];
                         controller.listCategoryProduct.forEach((element) {
                           if (element.categoryId != "all") {
@@ -224,13 +223,13 @@ class _ReportBySalesCategoryViewState extends State<ReportBySalesCategoryView> {
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
-                            borderSide:
-                            BorderSide(width: 1, color: MyColor.colorPrimary),
+                            borderSide: BorderSide(
+                                width: 1, color: MyColor.colorPrimary),
                           ),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide:
-                              BorderSide(color: Colors.red, width: 0.1)),
+                                  BorderSide(color: Colors.red, width: 0.1)),
                           suffixIcon: Icon(
                             IconlyLight.calendar,
                             color: MyColor.colorBlackT50,
@@ -243,94 +242,97 @@ class _ReportBySalesCategoryViewState extends State<ReportBySalesCategoryView> {
           ),
         ),
         body: Obx(() {
-          return controller.loadingStateCategory.value==LoadingState.loading ? Center(child: CircularProgressIndicator()):
-          controller.reportTransactionByCategory.value.data==null ? Center(child: Text("data_kosong".tr)) :
-          controller.reportTransactionByCategory.value.data!.isEmpty ? Center(child: Text("data_kosong".tr)) :
+          return controller.loadingStateCategory.value == LoadingState.loading
+              ? Center(child: CircularProgressIndicator())
+              : controller.reportTransactionByCategory.value.data == null
+                  ? Center(child: Text("data_kosong".tr))
+                  : controller.reportTransactionByCategory.value.data!.isEmpty
+                      ? Center(child: Text("data_kosong".tr))
+                      : Container(
+                          child: HorizontalDataTable(
+                            leftHandSideColumnWidth: 150,
+                            rightHandSideColumnWidth: 600,
+                            isFixedHeader: true,
+                            headerWidgets: _getTitleWidget(),
+                            leftSideItemBuilder: (BuildContext context, i) {
+                              var data = controller
+                                  .reportTransactionByCategory.value.data![i];
+                              return Container(
+                                child: Text(controller
+                                    .reportTransactionByCategory
+                                    .value
+                                    .data![i]
+                                    .name!),
+                                width: 200,
+                                height: 52,
+                                padding: EdgeInsets.fromLTRB(
+                                    MyString.DEFAULT_PADDING, 0, 0, 10),
+                                alignment: Alignment.centerLeft,
+                              );
+                            },
+                            rightSideItemBuilder: (BuildContext context, i) {
+                              var data = controller
+                                  .reportTransactionByCategory.value.data![i];
+                              return Row(
+                                children: <Widget>[
+                                  Container(
+                                    child: Text(data.category.toString()),
+                                    width: 150,
+                                    height: 52,
+                                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                    alignment: Alignment.centerLeft,
+                                  ),
+                                  Container(
+                                    child: Text(data.count.toString()),
+                                    width: 80,
+                                    height: 52,
+                                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                    alignment: Alignment.centerLeft,
+                                  ),
+                                  Container(
+                                    child: Text(
+                                        "${"${formatCurrency.format(data.sum!)}"}"),
+                                    width: 150,
+                                    height: 52,
+                                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                    alignment: Alignment.centerLeft,
+                                  ),
+                                ],
+                              );
+                            },
+                            itemCount: controller
+                                .reportTransactionByCategory.value.data!.length,
+                            rowSeparatorWidget: const Divider(
+                              color: Colors.black54,
+                              height: 1.0,
+                              thickness: 0.0,
+                            ),
+                            leftHandSideColBackgroundColor: Color(0xFFFFFFFF),
+                            rightHandSideColBackgroundColor: Color(0xFFFFFFFF),
+                            verticalScrollbarStyle: const ScrollbarStyle(
+                              thumbColor: MyColor.colorPrimary,
+                              isAlwaysShown: true,
+                              thickness: 4.0,
+                              radius: Radius.circular(5.0),
+                            ),
+                            // horizontalScrollbarStyle: const ScrollbarStyle(
+                            //   thumbColor: Colors.red,
+                            //   isAlwaysShown: true,
+                            //   thickness: 4.0,
+                            //   radius: Radius.circular(5.0),
+                            // ),
+                            enablePullToRefresh: false,
+                            // refreshIndicator: const WaterDropHeader(),
+                            refreshIndicatorHeight: 60,
 
-          Container(
-            child: HorizontalDataTable(
-              leftHandSideColumnWidth: 150,
-              rightHandSideColumnWidth: 600,
-              isFixedHeader: true,
-              headerWidgets: _getTitleWidget(),
-              leftSideItemBuilder: (BuildContext context, i) {
-                var data = controller.reportTransactionByCategory.value.data!
-                    [i];
-                return Container(
-                  child: Text(controller.reportTransactionByCategory.value.data!
-                      [i].name!),
-                  width: 200,
-                  height: 52,
-                  padding: EdgeInsets.fromLTRB(MyString.DEFAULT_PADDING, 0, 0, 10),
-                  alignment: Alignment.centerLeft,
-                );
-              },
-              rightSideItemBuilder: (BuildContext context, i) {
-                var data = controller.reportTransactionByCategory.value.data![i];
-                return Row(
-                  children: <Widget>[
-
-                    Container(
-                      child: Text(data.category.toString()),
-                      width: 150,
-                      height: 52,
-                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                      alignment: Alignment.centerLeft,
-                    ),
-                    Container(
-                      child: Text(data.count.toString()),
-                      width: 80,
-                      height: 52,
-                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                      alignment: Alignment.centerLeft,
-                    ),
-                    Container(
-                      child: Text("${"${formatCurrency.format(data.sum!)}"}"),
-                      width: 150,
-                      height: 52,
-                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                      alignment: Alignment.centerLeft,
-                    ),
-
-                  ],
-                );
-              },
-              itemCount: controller.reportTransactionByCategory.value.data!.length,
-              rowSeparatorWidget: const Divider(
-                color: Colors.black54,
-                height: 1.0,
-                thickness: 0.0,
-              ),
-              leftHandSideColBackgroundColor: Color(0xFFFFFFFF),
-              rightHandSideColBackgroundColor: Color(0xFFFFFFFF),
-              verticalScrollbarStyle: const ScrollbarStyle(
-                thumbColor: MyColor.colorPrimary,
-                isAlwaysShown: true,
-                thickness: 4.0,
-                radius: Radius.circular(5.0),
-              ),
-              // horizontalScrollbarStyle: const ScrollbarStyle(
-              //   thumbColor: Colors.red,
-              //   isAlwaysShown: true,
-              //   thickness: 4.0,
-              //   radius: Radius.circular(5.0),
-              // ),
-              enablePullToRefresh: false,
-              // refreshIndicator: const WaterDropHeader(),
-              refreshIndicatorHeight: 60,
-
-              htdRefreshController: _hdtRefreshController,
-            ),
-            height: MediaQuery
-                .of(context)
-                .size
-                .height,
-          );
+                            htdRefreshController: _hdtRefreshController,
+                          ),
+                          height: MediaQuery.of(context).size.height,
+                        );
         }),
       ),
     );
   }
-
 
   List<Widget> _getTitleWidget() {
     return [
@@ -350,8 +352,4 @@ class _ReportBySalesCategoryViewState extends State<ReportBySalesCategoryView> {
       alignment: Alignment.centerLeft,
     );
   }
-
-
 }
-
-

@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:warmi/app/modules/owner/report/controllers/report_controller.dart';
 import 'package:warmi/app/modules/transaction/controllers/transaction_controller.dart';
 import 'package:warmi/app/modules/wigets/layouts/dialog/bottom_dialog_outlet_report.dart';
@@ -27,29 +28,48 @@ class ReportView extends GetWidget<ReportController> {
       child: Scaffold(
         key: _scaffoldKey,
         backgroundColor: MyColor.colorBackground,
-        floatingActionButton:Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-
-          children: [
-            Container(
-                margin: EdgeInsets.symmetric(vertical: 10),
-                child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                        primary: MyColor.colorPrimary),
-                    onPressed: () => showBottomSheetExport(),
-                    icon: Icon(Icons.import_export),
-                    label: Text('Export'))),
-            Container(
-                margin: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
-                child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                        primary: MyColor.colorBlue),
-                    onPressed: () => showBottomSheetPrint(),
-                    icon: Icon(Icons.print),
-                    label: Text('Print'))),
-          ],
+        floatingActionButton: Align(
+          alignment: Alignment.bottomRight,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Container(
+              //     margin: EdgeInsets.symmetric(vertical: 10),
+              //     child: ElevatedButton.icon(
+              //         style:
+              //             ElevatedButton.styleFrom(primary: MyColor.colorPrimary),
+              //         onPressed: () => showBottomSheetExport(),
+              //         icon: Icon(LineIcons.fileExport),
+              //         label: Text('Export'))),
+              // Container(
+              //     margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              //     child: ElevatedButton.icon(
+              //         style: ElevatedButton.styleFrom(primary: MyColor.colorBlue),
+              //         onPressed: () => showBottomSheetPrint(),
+              //         icon: Icon(Icons.print),
+              //         label: Text('Print'))),
+              FloatingActionButton(
+                heroTag: 'export',
+                tooltip: 'Export',
+                mini: true,
+                backgroundColor: MyColor.colorPrimary,
+                onPressed: () => showBottomSheetExport(),
+                child: Icon(LineIcons.fileExport),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              FloatingActionButton(
+                heroTag: 'print',
+                tooltip: 'Print',
+                mini: true,
+                onPressed: () => showBottomSheetPrint(),
+                child: Icon(LineIcons.print),
+              )
+            ],
+          ),
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         resizeToAvoidBottomInset: true,
         drawer: controllerTransaction.auth.value.roleName == "Pemilik Toko"
             ? null
@@ -174,11 +194,10 @@ class ReportView extends GetWidget<ReportController> {
                             .format(picked!.start);
                         var endDate = DateFormat("yyyy-MM-dd", 'id-iD')
                             .format(picked.end);
-                        List<dynamic> list=[];
+                        List<dynamic> list = [];
                         controller.listOutlet.forEach((element) {
-                          if(element.storeId!="all"){
-                            if(element.isChecked) {
-
+                          if (element.storeId != "all") {
+                            if (element.isChecked) {
                               list.add({"store_id": element.storeId});
                             }
                           }
@@ -186,7 +205,9 @@ class ReportView extends GetWidget<ReportController> {
                         controller.startDate = startDate;
                         controller.endDate = endDate;
                         controller.getReportTransaction(
-                            startDate: startDate, dueDate: endDate,listStore: list);
+                            startDate: startDate,
+                            dueDate: endDate,
+                            listStore: list);
                       },
                       readOnly: true,
                       style: TextStyle(height: 0.9, fontSize: 14),
@@ -612,8 +633,6 @@ class ReportView extends GetWidget<ReportController> {
                       ),
                     ),
                   ),
-
-
                 ],
               ));
             }),

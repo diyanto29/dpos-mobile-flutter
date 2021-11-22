@@ -95,7 +95,7 @@ class MenuActionButton extends StatelessWidget {
                 child: Icon(
                   Icons.arrow_forward_ios_outlined,
                   size: 17,
-                  color: MyColor.colorPrimary,
+                  // color: MyColor.colorPrimary,
                 ),
               ) : Container()
             ],

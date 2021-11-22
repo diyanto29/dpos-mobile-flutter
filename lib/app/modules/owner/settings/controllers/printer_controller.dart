@@ -1278,7 +1278,7 @@ class PrinterController extends GetxController {
                         ? PosTextSize.size2
                         : PosTextSize.size1,
             bold: true));
-    bytes += generator.text("Power By DPOS",
+    bytes += generator.text("Powered by DPOS",
         styles: PosStyles(
             align: PosAlign.center, fontType: PosFontType.fontA, bold: true));
     bytes += generator.drawer();
@@ -1503,7 +1503,7 @@ class PrinterController extends GetxController {
 
     bytes += generator.hr();
 
-    bytes += generator.text("Power By DPOS",
+    bytes += generator.text("Powered by DPOS",
         styles: PosStyles(
             align: PosAlign.center, fontType: PosFontType.fontA, bold: true));
     bytes += generator.drawer();

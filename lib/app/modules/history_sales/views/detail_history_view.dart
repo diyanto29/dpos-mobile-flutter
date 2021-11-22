@@ -59,7 +59,12 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                         borderRadius: BorderRadius.circular(5),
                         color: data.transactionstatus!.contains("pending")
                             ? MyColor.colorRedFlatDark
-                            :data.transactionstatus!.toLowerCase()=="cancel" ?Colors.red : data.transactionstatus!.toLowerCase()=="success" ?Colors.green :  MyColor.colorPrimary,
+                            : data.transactionstatus!.toLowerCase() == "cancel"
+                                ? Colors.red
+                                : data.transactionstatus!.toLowerCase() ==
+                                        "success"
+                                    ? Colors.green
+                                    : MyColor.colorPrimary,
                       ),
                       child: Text(
                         "${data.transactionstatus.toString().titleCase}",
@@ -173,25 +178,27 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
               SizedBox(
                 height: 14,
               ),
-            if(data.transactionpaymentstatus!.toLowerCase()=="cancel")  Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Flexible(
-                      child: Text(
-                        'alasan'.tr,
-                        style: blackTextTitle.copyWith(fontSize: 14.sp),
-                      )),
-                  Flexible(
-                      child: Text(
-                        "${data.transactionReasonCancel}",
-                        style: blackTextTitle.copyWith(fontSize: 14.sp),
-                      )),
-                ],
-              ),
-              if(data.transactionpaymentstatus!.toLowerCase()=="cancel")      SizedBox(
-                height: 14,
-              ),
+              if (data.transactionpaymentstatus!.toLowerCase() == "cancel")
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Flexible(
+                        child: Text(
+                      'alasan'.tr,
+                      style: blackTextTitle.copyWith(fontSize: 14.sp),
+                    )),
+                    Flexible(
+                        child: Text(
+                      "${data.transactionReasonCancel}",
+                      style: blackTextTitle.copyWith(fontSize: 14.sp),
+                    )),
+                  ],
+                ),
+              if (data.transactionpaymentstatus!.toLowerCase() == "cancel")
+                SizedBox(
+                  height: 14,
+                ),
               if (data.customerDetail != null)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -440,7 +447,7 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
               ),
               Center(
                 child: Text(
-                  "Power By DPOS",
+                  "Powered by DPOS",
                   style: blackTextTitle.copyWith(
                       fontStyle: FontStyle.italic,
                       fontWeight: FontWeight.w400,
@@ -458,7 +465,10 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                           message: "Batalkan Transaksi",
                           dataTransaction: data);
                     },
-                    child: Text("batalkan".tr))
+                    child: Text(
+                      "batalkan".tr,
+                      style: TextStyle(color: Colors.red),
+                    ))
             ],
           ),
         ),
