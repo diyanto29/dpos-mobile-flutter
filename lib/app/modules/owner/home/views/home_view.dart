@@ -26,7 +26,7 @@ import '../../../../../main.dart';
 class HomeView extends GetWidget<HomeController> {
   @override
   Widget build(BuildContext context) {
-    FlutterStatusbarcolor.setStatusBarColor(MyColor.colorPrimary);
+    // FlutterStatusbarcolor.setStatusBarColor(MyColor.colorPrimary);
     var navigationC = Get.find<NavigationController>();
     var historySalesC = Get.isRegistered<HistorySalesController>() ? Get.find<HistorySalesController>() : Get.put(HistorySalesController());
 
@@ -129,7 +129,7 @@ class HomeView extends GetWidget<HomeController> {
 
                     if (scrollInfo.metrics.pixels == 0.0) {
                       controller.scrollOpacity(1.0);
-                      FlutterStatusbarcolor.setStatusBarColor(MyColor.colorPrimary);
+                      // FlutterStatusbarcolor.setStatusBarColor(MyColor.colorPrimary);
                     }
                     if (scroll < 101.4604048295443 && scroll > 40.0) {
                       controller.scrollOpacity(0.6);
@@ -139,7 +139,7 @@ class HomeView extends GetWidget<HomeController> {
                     }
                     if (scroll < 269.4393643465884 && scroll > 40.0) {
                       controller.scrollOpacity(0.0);
-                      FlutterStatusbarcolor.setStatusBarColor(Colors.grey.withOpacity(0.4));
+                      // FlutterStatusbarcolor.setStatusBarColor(Colors.grey.withOpacity(0.4));
                     }
 
                     return true;

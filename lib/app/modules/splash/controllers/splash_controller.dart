@@ -31,8 +31,11 @@ class SplashController extends GetxController {
   @override
   void onInit() async {
     print("init");
-    checkForUpdate();
-    await Permission.storage.request();
+    if(GetPlatform.isAndroid){
+      checkForUpdate();
+
+      await Permission.storage.request();
+    }
     BusinessDataSource().getTypeBusiness();
 
     checkSessionLogin();
@@ -54,6 +57,7 @@ class SplashController extends GetxController {
   void onClose() {}
 
   Future<void> checkSessionLogin() async {
+    print("hhhhhhhhhhhhhhhhhhh");
     GetStorage box = GetStorage();
     print(box.hasData(MyString.DEFAULT_LANGUAGE));
     if (box.hasData(MyString.DEFAULT_LANGUAGE)) {
@@ -87,6 +91,7 @@ class SplashController extends GetxController {
 
 
     Future.delayed(Duration(seconds: 1), () {
+
       if (box.hasData(MyString.USER_ID)) {
         if (box
             .read(MyString.ROLE_NAME)

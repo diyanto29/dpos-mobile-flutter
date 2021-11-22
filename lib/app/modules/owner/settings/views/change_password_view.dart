@@ -12,7 +12,7 @@ import 'package:warmi/core/utils/thema.dart';
 class ChangePasswordView extends GetWidget<SettingController> {
   @override
   Widget build(BuildContext context) {
-    FlutterStatusbarcolor.setStatusBarColor(MyColor.colorPrimary);
+    // FlutterStatusbarcolor.setStatusBarColor(MyColor.colorPrimary);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyColor.colorPrimary,

@@ -9,7 +9,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
-  dio: ^4.0.0
+  dio: ^4.0.3
   #  data_connection_checker: ^0.3.4
   recase: ^4.0.0
   api_cache_manager: ^1.0.2

@@ -12,7 +12,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 class SplashView extends GetWidget<SplashController> {
   @override
   Widget build(BuildContext context) {
-    FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
+    // FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(

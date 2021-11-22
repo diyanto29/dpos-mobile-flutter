@@ -17,7 +17,9 @@ final formatCurrency =
 void main() async {
   LazyBindings().dependencies();
   await GetStorage.init();
-  MobileAds.instance.initialize();
+  if(GetPlatform.isAndroid){
+    MobileAds.instance.initialize();
+  }
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
   var locale = Locale('id');

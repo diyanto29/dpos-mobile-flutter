@@ -22,7 +22,7 @@ import 'package:warmi/core/utils/thema.dart';
 class SettingView extends GetWidget<SettingController> {
   @override
   Widget build(BuildContext context) {
-    FlutterStatusbarcolor.setStatusBarColor(MyColor.colorPrimary);
+    // FlutterStatusbarcolor.setStatusBarColor(MyColor.colorPrimary);
     var navC = Get.find<NavigationController>();
     return SafeArea(
       child: Scaffold(
@@ -79,8 +79,8 @@ class SettingView extends GetWidget<SettingController> {
 
                       if (scrollInfo.metrics.pixels == 0.0) {
                         controller.scrollOpacity(1.0);
-                        FlutterStatusbarcolor.setStatusBarColor(
-                            MyColor.colorPrimary);
+                        // FlutterStatusbarcolor.setStatusBarColor(
+                        //     MyColor.colorPrimary);
                       }
                       if (scroll < 101.4604048295443 && scroll > 40.0) {
                         controller.scrollOpacity(0.6);
@@ -90,8 +90,8 @@ class SettingView extends GetWidget<SettingController> {
                       }
                       if (scroll < 269.4393643465884 && scroll > 40.0) {
                         controller.scrollOpacity(0.0);
-                        FlutterStatusbarcolor.setStatusBarColor(
-                            Colors.grey.withOpacity(0.4));
+                        // FlutterStatusbarcolor.setStatusBarColor(
+                        //     Colors.grey.withOpacity(0.4));
                       }
 
                       return true;

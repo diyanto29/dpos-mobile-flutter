@@ -60,7 +60,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
   @override
   Widget build(BuildContext context) {
     controller.checkProductInCart();
-    FlutterStatusbarcolor.setStatusBarColor(MyColor.colorPrimary);
+    // FlutterStatusbarcolor.setStatusBarColor(MyColor.colorPrimary);
 
     return Scaffold(
       key: _scaffoldKey,

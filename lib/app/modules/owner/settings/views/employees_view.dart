@@ -17,7 +17,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 class EmployeesView extends GetWidget<EmployeesController> {
   @override
   Widget build(BuildContext context) {
-    FlutterStatusbarcolor.setStatusBarColor(MyColor.colorPrimary);
+    // FlutterStatusbarcolor.setStatusBarColor(MyColor.colorPrimary);
     return Scaffold(
         backgroundColor: MyColor.colorBackground,
         appBar: AppBar(

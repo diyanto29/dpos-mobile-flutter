@@ -185,10 +185,13 @@ class TransactionController extends GetxController
 
   @override
   void onInit() async{
-    checkForUpdate();
+
     getTransaction();
     setTabName();
-    initAdmob();
+    if(GetPlatform.isAndroid){
+      initAdmob();
+      checkForUpdate();
+    }
     //categori
     await getCategoryProductDataSource();
 

@@ -18,7 +18,7 @@ import 'package:recase/recase.dart';
 class OutletView extends GetWidget<OutletController> {
   @override
   Widget build(BuildContext context) {
-    FlutterStatusbarcolor.setStatusBarColor(MyColor.colorPrimary);
+    // FlutterStatusbarcolor.setStatusBarColor(MyColor.colorPrimary);
     return Scaffold(
       backgroundColor: MyColor.colorBackground,
       appBar: AppBar(

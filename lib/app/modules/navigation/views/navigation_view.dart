@@ -13,7 +13,7 @@ import '../controllers/navigation_controller.dart';
 class NavigationView extends GetWidget<NavigationController> {
   @override
   Widget build(BuildContext context) {
-    FlutterStatusbarcolor.setStatusBarColor(MyColor.colorPrimary);
+    // FlutterStatusbarcolor.setStatusBarColor(MyColor.colorPrimary);
     return Scaffold(
       body: Obx(() {
         return IndexedStack(
