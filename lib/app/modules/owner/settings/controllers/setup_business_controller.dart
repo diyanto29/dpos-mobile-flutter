@@ -36,7 +36,7 @@ class SetupBusinessController extends GetxController {
 
   @override
   void onInit() {
-    getBusinessProfileDataSource();
+    // getBusinessProfileDataSource();
     getDataSourceTypeBusiness();
 
     super.onInit();
@@ -99,15 +99,16 @@ class SetupBusinessController extends GetxController {
   void getBusinessProfileDataSource() async {
     loadingState(LoadingState.loading);
     await BusinessProfileDataSource().getBusinessProfile().then((value) {
-      businessProfile(BusinessProfileModel.fromJson(value));
-      print(businessProfile.value.data!.category!.businessCategoryName);
-      typeBusiness.value = new TypeBusiness(
-          businessCategoryId:
-              businessProfile.value.data!.category!.businessCategoryId,
-          businessCategoryName:
-              businessProfile.value.data!.category!.businessCategoryName);
-      print(businessProfile.value.data!.businessName);
-      initialization();
+      // print(value);
+      // businessProfile(BusinessProfileModel.fromJson(value));
+      // print(businessProfile.value.data!.category!.businessCategoryName);
+      // typeBusiness.value = new TypeBusiness(
+      //     businessCategoryId:
+      //         businessProfile.value.data!.category!.businessCategoryId,
+      //     businessCategoryName:
+      //         businessProfile.value.data!.category!.businessCategoryName);
+      // print(businessProfile.value.data!.businessName);
+      // initialization();
     });
     update();
     loadingState(LoadingState.empty);

@@ -7,6 +7,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:warmi/app/modules/owner/report/controllers/report_controller.dart';
 import 'package:warmi/app/modules/transaction/controllers/transaction_controller.dart';
 import 'package:warmi/app/modules/wigets/layouts/dialog/bottom_dialog_outlet_report.dart';
+import 'package:warmi/app/modules/wigets/layouts/home/drawer_cashier.dart';
 import 'package:warmi/core/globals/global_color.dart';
 import 'package:warmi/core/globals/global_string.dart';
 import 'package:warmi/core/utils/enum.dart';
@@ -34,7 +35,8 @@ class _ReportByMethodPaymentState extends State<ReportByMethodPayment> {
   static const int sortStatus = 1;
   bool isAscending = true;
   int sortType = sortName;
-
+  final GlobalKey<ScaffoldState> _scaffoldKey =
+  new GlobalKey<ScaffoldState>();
   @override
   void initState() {
     super.initState();
@@ -49,7 +51,11 @@ class _ReportByMethodPaymentState extends State<ReportByMethodPayment> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+      key: _scaffoldKey,
         backgroundColor: MyColor.colorBackground,
+        drawer: controllerTransaction.auth.value.roleName == "Pemilik Toko"
+            ? null
+            : DrawerCustom(),
         floatingActionButton: Align(
           alignment: Alignment.bottomRight,
           child: Column(
@@ -91,6 +97,17 @@ class _ReportByMethodPaymentState extends State<ReportByMethodPayment> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      if (controllerTransaction.auth.value.roleName !=
+                          "Pemilik Toko")
+                        Flexible(
+                          child: IconButton(
+                              onPressed: () =>
+                                  _scaffoldKey.currentState!.openDrawer(),
+                              icon: Icon(
+                                Icons.menu,
+                                color: MyColor.colorPrimary,
+                              )),
+                        ),
                       Flexible(
                         child: InkWell(
                           onTap: () => showBottomSheetOutlet(),
@@ -98,10 +115,12 @@ class _ReportByMethodPaymentState extends State<ReportByMethodPayment> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
+
                                   Icon(
                                     Icons.keyboard_arrow_down_rounded,
                                     color: MyColor.colorBlack,

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:api_cache_manager/models/cache_db_model.dart';
 import 'package:api_cache_manager/utils/cache_manager.dart';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:warmi/app/data/datalocal/session/auth_session_manager.dart';
 import 'package:warmi/app/data/models/printer/printer_model.dart';
 import 'package:warmi/core/errors/exceptions.dart';
@@ -21,12 +22,17 @@ class PrinterRemoteDataSource extends BaseDio {
   Future<PrinterModel> getPrinterDevice() async {
     try {
       response = await dio.get("${MyString.getPrinter}", queryParameters: {"user_id": "${auth.userIdOwner}"}, options: options);
-      await APICacheManager().addCacheData(APICacheDBModel(key: 'API_PRINTER_MODEL', syncData: jsonEncode(response!.data)));
+      if(GetPlatform.isAndroid){
+        await APICacheManager().addCacheData(APICacheDBModel(key: 'API_PRINTER_MODEL', syncData: jsonEncode(response!.data)));
+      }
       return PrinterModel.fromJson(response!.data);
     } on DioError catch (e) {
       print(e);
-      var cacheData = await APICacheManager().getCacheData('API_PRINTER_MODEL');
-      var result = PrinterModel.fromJson(jsonDecode(cacheData.syncData));
+      var result;
+      if(GetPlatform.isAndroid){
+        var cacheData = await APICacheManager().getCacheData('API_PRINTER_MODEL');
+         result = PrinterModel.fromJson(jsonDecode(cacheData.syncData));
+      }
       return result;
     }
   }

@@ -112,7 +112,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                             padding: const EdgeInsets.all(8.0),
                             child: TextAvatar(
                               shape: Shape.Circular,
-                              size: 8.h,
+                              size: 20,
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
                               upperCase: true,
@@ -940,7 +940,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                                   style: blackTextFont
                                                                       .copyWith(
                                                                           fontSize:
-                                                                              14.sp),
+                                                                              12.sp),
                                                                 ),
                                                                 SizedBox(
                                                                   height: 4,
@@ -953,7 +953,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                                   Text(
                                                                     "Klik untuk tambah diskon",
                                                                     style: blackTextFont.copyWith(
-                                                                        fontSize: 12
+                                                                        fontSize: GetPlatform.isWindows ? 10.sp : 12
                                                                             .sp,
                                                                         fontStyle:
                                                                             FontStyle.italic),
@@ -982,7 +982,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                                   style: blackTextFont
                                                                       .copyWith(
                                                                           fontSize:
-                                                                              14.sp),
+                                                                              12.sp),
                                                                 ),
                                                                 SizedBox(
                                                                   width: 10,
@@ -1011,7 +1011,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                                       color: Colors
                                                                           .red,
                                                                       size:
-                                                                          20.sp,
+                                                                          GetPlatform.isWindows ? 15.sp: 20.sp,
                                                                     ),
                                                                   ),
                                                                 ),
@@ -1134,13 +1134,13 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                             "Sub Total",
                                             style: GoogleFonts.roboto(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 14.sp),
+                                                fontSize: 12.sp),
                                           ),
                                           Text(
                                             "Rp.${formatCurrency.format(cartController.totalCart.value)}",
                                             style: GoogleFonts.roboto(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 14.sp),
+                                                fontSize: 12.sp),
                                           ),
                                         ],
                                       ),
@@ -1160,7 +1160,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                               'diskon'.tr,
                                               style: GoogleFonts.roboto(
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 14.sp),
+                                                  fontSize: 12.sp),
                                             ),
                                             Row(
                                               mainAxisAlignment:
@@ -1178,7 +1178,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                                     FontWeight
                                                                         .bold,
                                                                 fontSize:
-                                                                    14.sp),
+                                                                    12.sp),
                                                       )
                                                     : Icon(
                                                         Icons
@@ -1259,8 +1259,8 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                           Flexible(
                                             flex: 2,
                                             child: Container(
-                                              height: 40,
-                                              width: 40,
+                                              height: GetPlatform.isWindows ?80 :40,
+                                              width: GetPlatform.isWindows ? 80:40,
                                               decoration: BoxDecoration(
                                                   color: MyColor.colorRedFlat,
                                                   borderRadius:
@@ -1289,6 +1289,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                               label:
                                                   " Rp ${formatCurrency.format(cartController.totalShopping.value)}",
                                               borderRadius: 5,
+                                              fontSize: 16.sp,
                                               onPressed: () {
                                                 Map<dynamic, dynamic> data = {
                                                   "from": "cart",
@@ -1308,7 +1309,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                       arguments: data);
                                                 }
                                               },
-                                              height: 45,
+                                              height: GetPlatform.isWindows ? 80 : 45,
                                             ),
                                           )
                                         ],

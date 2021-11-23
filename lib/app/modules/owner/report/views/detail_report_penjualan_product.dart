@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:warmi/app/modules/owner/report/controllers/report_controller.dart';
+import 'package:warmi/app/modules/wigets/layouts/home/drawer_cashier.dart';
 import 'package:warmi/core/globals/global_color.dart';
 
 import '../../../../../main.dart';
@@ -19,6 +20,9 @@ class DetailReportSellingProduct extends GetWidget<ReportController> {
           'detail_penjualan'.tr,
         ),
       ),
+      drawer: controller.auth.value.roleName == "Pemilik Toko"
+          ? null
+          : DrawerCustom(),
       bottomNavigationBar: Container(
           margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           height: 50,

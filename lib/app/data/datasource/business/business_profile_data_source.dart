@@ -9,7 +9,7 @@ import 'package:warmi/app/data/models/business/type_business.dart';
 import 'package:warmi/core/errors/exceptions.dart';
 import 'package:warmi/core/globals/global_string.dart';
 import 'package:warmi/core/network/base_dio.dart';
-
+import 'package:get/get.dart' as getX;
 class BusinessProfileDataSource extends BaseDio {
   AuthSessionManager authSessionManager = AuthSessionManager();
 
@@ -21,14 +21,20 @@ class BusinessProfileDataSource extends BaseDio {
           options: Options(headers: {
             "Authorization": "Bearer ${authSessionManager.token}"
           }));
-      await APICacheManager().addCacheData(APICacheDBModel(
-          key: 'API_BUSINESS_USER', syncData: jsonEncode(response!.data)));
-      return response!.data;
+      if(getX.GetPlatform.isAndroid){
+        await APICacheManager().addCacheData(APICacheDBModel(
+            key: 'API_BUSINESS_USER', syncData: jsonEncode(response!.data)));
+        return response!.data;
+      }
     } on DioError catch (e) {
-      var isCacheExist =
-          await APICacheManager().isAPICacheKeyExist('API_BUSINESS_USER');
-      var cacheData = await APICacheManager().getCacheData('API_BUSINESS_USER');
-      var result = TypeBusinessModel.fromJson(jsonDecode(cacheData.syncData));
+      var result;
+      if(getX.GetPlatform.isAndroid){
+        var isCacheExist =
+        await APICacheManager().isAPICacheKeyExist('API_BUSINESS_USER');
+        var cacheData = await APICacheManager().getCacheData('API_BUSINESS_USER');
+         result = TypeBusinessModel.fromJson(jsonDecode(cacheData.syncData));
+      }
+
       return result.data;
     }
   }

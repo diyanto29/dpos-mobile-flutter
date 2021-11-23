@@ -67,13 +67,17 @@ class SplashController extends GetxController {
         print('INI ENGLISH');
       } else {
         initializeDateFormatting('id_ID');
-        Get.updateLocale(Locale('id'));
+        if(GetPlatform.isAndroid){
+          Get.updateLocale(Locale('id'));
+        }
         print('INI INDONESIA');
       }
       print('INI PRINT ADA DATA');
     } else {
       initializeDateFormatting('id_ID');
-      Get.updateLocale(Locale('id'));
+      if(GetPlatform.isAndroid){
+        Get.updateLocale(Locale('id'));
+      }
       box.write(MyString.DEFAULT_LANGUAGE, LanguageEnum.indonesia.toString());
       print('INI INDONESIA DATA KOSONG');
     }

@@ -30,7 +30,8 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
   var type,data;
   @override
   void initState() {
-
+    print("ijni cart");
+      print(cartController.listCart.length);
      type =Get.arguments != null ? Get.arguments['from'] : "cart";
      data =Get.arguments != null ? Get.arguments['data'] != null ? Get.arguments['data'] as DataTransaction : null :null ;
     super.initState();
@@ -166,7 +167,7 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                                               children: [
                                                                 Text(
                                                                   "${cartController.listCart[i].dataProduct!.productName}",
-                                                                  style: blackTextFont.copyWith(fontSize: 14.sp),
+                                                                  style: blackTextFont.copyWith(fontSize: 12.sp),
                                                                 ),
                                                                 SizedBox(
                                                                   height: 4,
@@ -191,7 +192,7 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                                           children: [
                                                             Text(
                                                               "@ ${formatCurrency.format(cartController.listCart[i].dataProduct!.productPrice)}",
-                                                              style: blackTextFont.copyWith(fontSize: 14.sp),
+                                                              style: blackTextFont.copyWith(fontSize: 12.sp),
                                                             ),
 
 
@@ -207,7 +208,7 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                                               Text(
                                                                 "${cartController.listCart[i].discount!.discountType!.toLowerCase() == 'price' ? ' - Rp.' + formatCurrency.format(int.parse(cartController.listCart[i].discount!.discountMaxPriceOff!)) : cartController.listCart[i].discount!
                                                                     .discountPercent + '%'}",
-                                                                style: GoogleFonts.roboto(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                                style: GoogleFonts.roboto(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12.sp),
                                                               ),
 
                                                             ],
@@ -252,11 +253,11 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                       children: [
                                         Text(
                                           "Sub Total",
-                                          style: GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                          style: GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 12.sp),
                                         ),
                                         Text(
                                           "Rp.${formatCurrency.format(cartController.totalCart.value)}",
-                                          style: GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                          style: GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 12.sp),
                                         ),
                                       ],
                                     ),
@@ -269,7 +270,7 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                       children: [
                                         Text(
                                           'diskon'.tr,
-                                          style: GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                          style: GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 12.sp),
                                         ),
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.start,
@@ -277,7 +278,7 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                             cartController.dataDiscount != null
                                                 ? Text(
                                               "${cartController.dataDiscount?.discountType!.toLowerCase() == 'price' ? ' - Rp.' + formatCurrency.format(int.parse(cartController.dataDiscount!.discountMaxPriceOff!)) : cartController.dataDiscount?.discountPercent + '%'}",
-                                              style: GoogleFonts.roboto(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                              style: GoogleFonts.roboto(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12.sp),
                                             )
                                                 : Icon(
                                               Icons.arrow_forward_ios_rounded,
@@ -319,8 +320,8 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                         Flexible(
                                           flex: 2,
                                           child: Container(
-                                            height: 40,
-                                            width: 40,
+                                            height: GetPlatform.isWindows ?80 :40,
+                                            width: GetPlatform.isWindows ? 80:40,
                                             decoration: BoxDecoration(color: MyColor.colorRedFlat, borderRadius: BorderRadius.circular(5)),
                                             child: IconButton(
                                               color: Colors.white,
@@ -342,13 +343,13 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                           flex: 7,
                                           child: GeneralButton(
                                             label: "Rp ${formatCurrency.format(cartController.totalShopping.value)}",
-                                            borderRadius: 5,
+                                            borderRadius: 10,
                                             fontSize: 16.sp,
                                             onPressed: () {
                                               Map<dynamic, dynamic> data = {"from": "cart", "data": null};
                                               Get.toNamed(Routes.CHECKOUT_TABLET, arguments: data);
                                             },
-                                            height: 45,
+                                            height: GetPlatform.isWindows ? 80 :45,
                                           ),
                                         )
                                       ],
@@ -452,13 +453,14 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                       ),
                       Container(
                           padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+
                           child: GeneralButton(onPressed: (){
                             if(type=="cart"){
                               controller.storeTransaction();
                             }else{
                               controller.changeStatusTransaction(dataTransaction: data);
                             }
-                          },label: 'lanjut'.tr,borderRadius: 10,))
+                          },label: 'lanjut'.tr,borderRadius: 10,height: GetPlatform.isWindows ? 80 :45,fontSize: GetPlatform.isWindows ? 14.sp : 12.sp,))
                     ],
                   ),
                 ))

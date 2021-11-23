@@ -26,7 +26,9 @@ void onInit()async{
 }
 
 void checkPackage()async{
-  packageInfo= await PackageInfo.fromPlatform();
+  if(GetPlatform.isAndroid){
+    packageInfo= await PackageInfo.fromPlatform();
+  }
   update();
 }
   launchWhatsApp() async {

@@ -90,7 +90,7 @@ class _CheckoutCashViewState extends State<CheckoutCashView> {
                 children: [
                   Flexible(
                     child: Container(
-                        height: 45,
+                        height: GetPlatform.isWindows ? 80: 45,
                         width: Get.width * 0.6,
                         child: GeneralButton(
                             borderRadius: 10,
@@ -107,7 +107,7 @@ class _CheckoutCashViewState extends State<CheckoutCashView> {
                   ),
                   Flexible(
                     child: Container(
-                        height: 45,
+                        height: GetPlatform.isWindows ? 80: 45,
                         width: Get.width * 0.6,
                         child: GeneralButton(
                             borderRadius: 10,
@@ -130,7 +130,7 @@ class _CheckoutCashViewState extends State<CheckoutCashView> {
                 children: [
                   Flexible(
                     child: Container(
-                        height: 45,
+                        height: GetPlatform.isWindows ? 80: 45,
                         width: Get.width * 0.6,
                         child: GeneralButton(
                             borderRadius: 10,
@@ -147,7 +147,7 @@ class _CheckoutCashViewState extends State<CheckoutCashView> {
                   ),
                   Flexible(
                     child: Container(
-                        height: 45,
+                        height: GetPlatform.isWindows ? 80: 45,
                         width: Get.width * 0.6,
                         child: GeneralButton(
                             borderRadius: 10,

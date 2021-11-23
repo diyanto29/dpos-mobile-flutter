@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:warmi/app/modules/transaction/controllers/cart_controller.dart';
 import 'package:warmi/app/modules/transaction/views/table/transaction_view_table.dart';
 import 'package:warmi/core/utils/responsive_layout.dart';
 
@@ -12,9 +14,13 @@ class IndexTransaction extends StatefulWidget {
 }
 
 class _IndexTransactionState extends State<IndexTransaction> {
+
+  var cartController = Get.isRegistered<CartController>()
+      ? Get.find<CartController>()
+      : Get.put(CartController());
   @override
   Widget build(BuildContext context) {
-    return ResponsiveBuilder(desktop: Container(),
+    return ResponsiveBuilder(desktop: TransactionViewTable(),
     mobile: TransactionView(),
     tablet: TransactionViewTable(),);
   }

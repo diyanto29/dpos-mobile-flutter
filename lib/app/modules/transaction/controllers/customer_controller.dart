@@ -27,6 +27,7 @@ class CustomerController extends GetxController {
 
   var listCustomer = List<DataCustomer>.empty().obs;
   var listSearchCustomer = List<DataCustomer>.empty().obs;
+  Rx<AuthSessionManager> auth=AuthSessionManager().obs;
 
   @override
   void onInit() {

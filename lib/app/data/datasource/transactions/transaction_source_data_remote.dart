@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:api_cache_manager/models/cache_db_model.dart';
 import 'package:api_cache_manager/utils/cache_manager.dart';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:warmi/app/data/datalocal/session/auth_session_manager.dart';
 import 'package:warmi/app/data/models/outlet/outlet.dart';
 import 'package:warmi/app/data/models/product/cart.dart';
@@ -132,8 +133,10 @@ class TransactionRemoteDataSource extends BaseDio {
               "transaction_payment_status": "${statusPayment}"
           },
           options: options);
-      await APICacheManager().addCacheData(APICacheDBModel(
-          key: 'API_TRANSACTION_MODEL', syncData: jsonEncode(response!.data)));
+      if(GetPlatform.isAndroid){
+        await APICacheManager().addCacheData(APICacheDBModel(
+            key: 'API_TRANSACTION_MODEL', syncData: jsonEncode(response!.data)));
+      }
       return TransactionModel.fromJson(response!.data);
     } on DioError catch (e) {
       print(e);
@@ -205,6 +208,7 @@ class TransactionRemoteDataSource extends BaseDio {
       };
       response = await dio.post("${MyString.getReportTransaction}",
           data: jsonEncode(data), options: options);
+    if(GetPlatform.isAndroid){
       if (type != "custom")
         await APICacheManager().addCacheData(APICacheDBModel(
             key: 'API_REPORT_TRANSACTION_MONTHLY_MODEL',
@@ -213,20 +217,26 @@ class TransactionRemoteDataSource extends BaseDio {
         await APICacheManager().addCacheData(APICacheDBModel(
             key: 'API_REPORT_TRANSACTION_MODEL',
             syncData: jsonEncode(response!.data)));
+    }
       return ReportTransaction.fromJson(response!.data);
     } on DioError catch (e) {
       print(e);
       var cacheData;
-      if (type != "custom") if (await APICacheManager()
-          .isAPICacheKeyExist("API_REPORT_TRANSACTION_MONTHLY_MODEL"))
-        cacheData = await APICacheManager()
-            .getCacheData('API_REPORT_TRANSACTION_MONTHLY_MODEL');
-      else if (await APICacheManager()
-          .isAPICacheKeyExist("API_REPORT_TRANSACTION_MODEL"))
-        cacheData = await APICacheManager()
-            .getCacheData('API_REPORT_TRANSACTION_MODEL');
-      var result = ReportTransaction.fromJson(jsonDecode(cacheData.syncData));
+      var result;
+     if(GetPlatform.isAndroid){
+       if (type != "custom") if (await APICacheManager()
+           .isAPICacheKeyExist("API_REPORT_TRANSACTION_MONTHLY_MODEL"))
+         cacheData = await APICacheManager()
+             .getCacheData('API_REPORT_TRANSACTION_MONTHLY_MODEL');
+       else if (await APICacheManager()
+           .isAPICacheKeyExist("API_REPORT_TRANSACTION_MODEL"))
+         cacheData = await APICacheManager()
+             .getCacheData('API_REPORT_TRANSACTION_MODEL');
+      result  = ReportTransaction.fromJson(jsonDecode(cacheData.syncData));
+       return result;
+     }
       return result;
+
     }
   }
 
@@ -248,27 +258,32 @@ class TransactionRemoteDataSource extends BaseDio {
       };
       response = await dio.post("${MyString.getReportTransactionByCategory}",
           data: jsonEncode(data), options: options);
-      if (type != "custom")
-        await APICacheManager().addCacheData(APICacheDBModel(
-            key: 'API_REPORT_TRANSACTION_BY_CATEGORY_CUSTOM',
-            syncData: jsonEncode(response!.data)));
-      else
-        await APICacheManager().addCacheData(APICacheDBModel(
-            key: 'API_REPORT_TRANSACTION_BY_CATEGORY',
-            syncData: jsonEncode(response!.data)));
+      if(GetPlatform.isAndroid){
+        if (type != "custom")
+          await APICacheManager().addCacheData(APICacheDBModel(
+              key: 'API_REPORT_TRANSACTION_BY_CATEGORY_CUSTOM',
+              syncData: jsonEncode(response!.data)));
+        else
+          await APICacheManager().addCacheData(APICacheDBModel(
+              key: 'API_REPORT_TRANSACTION_BY_CATEGORY',
+              syncData: jsonEncode(response!.data)));
+      }
       return ReportTransactionByCategory.fromJson(response!.data);
     } on DioError catch (e) {
       print(e);
       var cacheData;
-      if (type != "custom") if (await APICacheManager()
-          .isAPICacheKeyExist("API_REPORT_TRANSACTION_BY_CATEGORY_CUSTOM"))
-        cacheData = await APICacheManager()
-            .getCacheData('API_REPORT_TRANSACTION_BY_CATEGORY_CUSTOM');
-      else if (await APICacheManager()
-          .isAPICacheKeyExist("API_REPORT_TRANSACTION_BY_CATEGORY"))
-        cacheData = await APICacheManager()
-            .getCacheData('API_REPORT_TRANSACTION_BY_CATEGORY');
-      var result = ReportTransactionByCategory.fromJson(jsonDecode(cacheData.syncData));
+      var result;
+      if(GetPlatform.isAndroid){
+    if (type != "custom") if (await APICacheManager()
+        .isAPICacheKeyExist("API_REPORT_TRANSACTION_BY_CATEGORY_CUSTOM"))
+    cacheData = await APICacheManager()
+        .getCacheData('API_REPORT_TRANSACTION_BY_CATEGORY_CUSTOM');
+    else if (await APICacheManager()
+        .isAPICacheKeyExist("API_REPORT_TRANSACTION_BY_CATEGORY"))
+    cacheData = await APICacheManager()
+        .getCacheData('API_REPORT_TRANSACTION_BY_CATEGORY');
+     result = ReportTransactionByCategory.fromJson(jsonDecode(cacheData.syncData));
+  }
       return result;
     }
   }

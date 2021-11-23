@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:api_cache_manager/api_cache_manager.dart';
 import 'package:api_cache_manager/models/cache_db_model.dart';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:warmi/app/data/datalocal/session/auth_session_manager.dart';
 import 'package:warmi/app/data/models/product/category_product.dart';
 import 'package:warmi/core/errors/exceptions.dart';
@@ -22,9 +23,11 @@ class CategoryProductRemoteDataSource extends BaseDio {
     try {
       response = await dio.get("${MyString.getCategoryByStore}",
           queryParameters: {'store_id': "${auth.storeId}"}, options: options);
-      await APICacheManager().addCacheData(APICacheDBModel(
-          key: 'API_CATEGORY_PRODUCT_MODEL',
-          syncData: jsonEncode(response!.data)));
+      if(GetPlatform.isAndroid){
+        await APICacheManager().addCacheData(APICacheDBModel(
+            key: 'API_CATEGORY_PRODUCT_MODEL',
+            syncData: jsonEncode(response!.data)));
+      }
       return CategoryProductModel.fromJson(response!.data);
     } on DioError catch (e) {
       print(e);

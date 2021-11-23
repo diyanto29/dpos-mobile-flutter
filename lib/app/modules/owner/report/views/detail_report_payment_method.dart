@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:warmi/app/modules/owner/report/controllers/report_controller.dart';
+import 'package:warmi/app/modules/wigets/layouts/home/drawer_cashier.dart';
 import 'package:warmi/core/globals/global_color.dart';
 import 'package:warmi/main.dart';
 
@@ -16,6 +17,10 @@ class DetailReportPaymentMethod extends GetWidget<ReportController> {
           'detail_penjualan'.tr,
         ),
       ),
+
+      drawer: controller.auth.value.roleName == "Pemilik Toko"
+          ? null
+          : DrawerCustom(),
       body: GetBuilder<ReportController>(builder: (logic) {
         return Padding(
             padding: const EdgeInsets.all(20.0),

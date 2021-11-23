@@ -9,6 +9,7 @@ import 'package:warmi/app/modules/transaction/controllers/customer_controller.da
 import 'package:warmi/app/modules/transaction/controllers/customer_controller.dart';
 import 'package:warmi/app/modules/transaction/controllers/transaction_controller.dart';
 import 'package:warmi/app/modules/wigets/layouts/dialog/bottom_dialog_outlet_report.dart';
+import 'package:warmi/app/modules/wigets/layouts/home/drawer_cashier.dart';
 import 'package:warmi/core/globals/global_color.dart';
 import 'package:warmi/core/globals/global_string.dart';
 import 'package:warmi/core/utils/enum.dart';
@@ -56,6 +57,9 @@ class _ReportByCustomerState extends State<ReportByCustomer> {
           backgroundColor: MyColor.colorPrimary,
           title: Text('pelanggan'.tr),
         ),
+        drawer: controller.auth.value.roleName == "Pemilik Toko"
+            ? null
+            : DrawerCustom(),
         backgroundColor: MyColor.colorBackground,
         // floatingActionButton:Row(
         //   mainAxisAlignment: MainAxisAlignment.center,

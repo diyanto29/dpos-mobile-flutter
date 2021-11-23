@@ -46,6 +46,7 @@ class ReportController extends GetxController {
 
   RxString storeName="".obs;
   RxString CategoryName="".obs;
+  Rx<AuthSessionManager> auth=AuthSessionManager().obs;
 
 
   @override

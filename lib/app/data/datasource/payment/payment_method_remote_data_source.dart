@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:api_cache_manager/models/cache_db_model.dart';
 import 'package:api_cache_manager/utils/cache_manager.dart';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:warmi/app/data/datalocal/session/auth_session_manager.dart';
 import 'package:warmi/app/data/models/payment_method/payment_method_channel.dart';
 import 'package:warmi/core/errors/exceptions.dart';
@@ -22,8 +23,10 @@ class PaymentMethodRemoteDataSource extends BaseDio {
     try {
       response = await dio.get("${MyString.getPaymentMehtod}",
           queryParameters: {"user_id": "${auth.userIdOwner}"}, options: options);
-      await APICacheManager().addCacheData(APICacheDBModel(
-          key: 'API_PAYMENT_METHOD', syncData: jsonEncode(response!.data)));
+      if(GetPlatform.isAndroid){
+        await APICacheManager().addCacheData(APICacheDBModel(
+            key: 'API_PAYMENT_METHOD', syncData: jsonEncode(response!.data)));
+      }
       return PaymentMethodChannel.fromJson(response!.data);
     } on DioError catch (e) {
       print(e);
