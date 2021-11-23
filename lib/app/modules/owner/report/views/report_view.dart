@@ -369,7 +369,7 @@ class ReportView extends GetWidget<ReportController> {
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Text(
-                                      'pembatalan'.tr,
+                                      'dibatalkan'.tr,
                                       style: blackTextFont,
                                     ),
                                     SizedBox(

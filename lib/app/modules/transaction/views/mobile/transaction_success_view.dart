@@ -57,7 +57,7 @@ class _TransactionSuccessViewState extends State<TransactionSuccessView> {
                   SizedBox(height:80,),
                   Center(child: Image.asset("assets/icons/check-dollar.png",)),
                   SizedBox(height: 10,),
-                  Text("Transaksi Success!", style: blackTextTitle.copyWith(fontSize: 16),),
+                  Text("Transaksi Sukses!", style: blackTextTitle.copyWith(fontSize: 16),),
                   SizedBox(height: 20,),
                   if(controller.paymentMethod.value.paymentmethodid == null)Text('kembalian'.tr + " Rp ${formatCurrency.format(controller.cashReceived.value)}", style: blackTextTitle.copyWith(fontSize: 20),),
                   if(controller.paymentMethod.value.paymentmethodid != null)Container(
@@ -124,7 +124,7 @@ class _TransactionSuccessViewState extends State<TransactionSuccessView> {
                         SizedBox(height: 100,),
                         Center(child: Image.asset("assets/icons/check-dollar.png",)),
                         SizedBox(height: 10,),
-                        Text("Transaksi Success!", style: blackTextTitle.copyWith(fontSize: 16),),
+                        Text("Transaksi Sukses!", style: blackTextTitle.copyWith(fontSize: 16),),
                         SizedBox(height: 20,),
                         if(controller.paymentMethod.value.paymentmethodid == null)Text('kembalian'.tr + " Rp ${formatCurrency.format(controller.cashReceived.value)}", style: blackTextTitle.copyWith(fontSize: 20),),
                         if(controller.paymentMethod.value.paymentmethodid != null)Container(

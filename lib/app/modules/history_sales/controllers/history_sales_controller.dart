@@ -70,7 +70,7 @@ class HistorySalesController extends GetxController
    Tab(text: 'lunas'.tr),
    Tab(text: 'menunggu_pembayaran'.tr),
    // Tab(text: "Utang"),
-   Tab(text: 'pembatalan'.tr),
+   Tab(text: 'dibatalkan'.tr),
    ];
 
    print('set tab histori');
