@@ -230,7 +230,7 @@ class ProductController extends GetxController {
   }
 
   void scanBarcode() async {
-    String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode("#ff6666", 'Batal', true, ScanMode.BARCODE);
+    String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode("#ff6666", 'batal'.tr, true, ScanMode.BARCODE);
     if(barcodeScanRes!="-1"){
       conBarcode.value.text = barcodeScanRes;
     }

@@ -30,6 +30,7 @@ import 'package:warmi/app/modules/owner/settings/controllers/discount_controller
 import 'package:warmi/app/modules/owner/settings/controllers/payment_method_controller.dart';
 import 'package:warmi/app/modules/owner/settings/controllers/printer_controller.dart';
 import 'package:warmi/app/modules/transaction/controllers/cart_controller.dart';
+import 'package:warmi/app/modules/transaction/views/mobile/product_view_transaction.dart';
 import 'package:warmi/app/modules/wigets/layouts/dialog/dialog_loading.dart';
 import 'package:warmi/app/modules/wigets/layouts/dialog/dialog_snackbar.dart';
 import 'package:warmi/app/modules/wigets/package/screenshoot/screenshot.dart';
@@ -62,12 +63,12 @@ class TransactionController extends GetxController
     Tab(text: "Tunai"),
     Tab(text: "Non Tunai"),
   ];
-    TabController? tabController;
+  TabController? tabController;
   PageController controllerPage =
       PageController(keepPage: false, initialPage: 0);
   RxInt initialIndex = 0.obs;
   RxInt index = 0.obs;
-    TabController? tabControllerCheckout;
+  TabController? tabControllerCheckout;
   PageController controllerPageCheckout =
       PageController(keepPage: false, initialPage: 0);
   RxInt initialIndexCheckout = 0.obs;
@@ -91,30 +92,49 @@ class TransactionController extends GetxController
 
   //list category
   var listCategoryProduct = List<CategoryProduct>.empty().obs;
-  RxString idCategory = "".obs;
+  Rx<String> idCategory = "".obs;
 
   Future getCategoryProductDataSource() async {
     loadingStateCategory(LoadingState.loading);
+    listCategoryProduct
+        .add(CategoryProduct(categoryName: 'semua'.tr, categoryId: 'all'));
+
     await CategoryProductRemoteDataSource().getCategoryProduct().then((value) {
-      listCategoryProduct(value.data);
-      print("disni yaaaa");
-      if (value.data!.length > 0) {
-        listCategoryProduct.forEach((element) {
-          tabs.add(Tab(
-            text: element.categoryName.toString().titleCase,
-          ));
-          update();
-        });
-      }
+      listCategoryProduct.addAll(value.data!);
+      update();
+      // if (value.data!.length > 0) {
+      //   listCategoryProduct.forEach((element) {
+      //     tabs.add(Tab(
+      //       text: element.categoryName.toString().titleCase,
+      //     ));
+      //     update();
+      //   });
+      // }
     });
 
-    tabController = TabController(vsync: this, length: tabs.length);
-    print("ini tab "+ tabs.length.toString());
+    // tabController = TabController(vsync: this, length: tabs.length);
+    // print("ini tab " + tabs.length.toString());
     loadingStateCategory(LoadingState.empty);
     update();
   }
 
   //
+
+  void onTapCategory(int i) {
+    listCategoryProduct.forEach((element) {
+      element.isChecked = false;
+      update();
+    });
+    listCategoryProduct[i].isChecked = true;
+    if (listCategoryProduct[i].categoryId == 'all') {
+      idCategory.value = 'all';
+      update();
+    } else {
+      idCategory.value = listCategoryProduct[i].categoryId!;
+      update();
+    }
+    listCategoryProduct.refresh();
+  }
 
   void setTabName() {
     tabs = <Tab>[
@@ -184,11 +204,10 @@ class TransactionController extends GetxController
   }
 
   @override
-  void onInit() async{
-
+  void onInit() async {
     getTransaction();
     setTabName();
-    if(GetPlatform.isAndroid){
+    if (GetPlatform.isAndroid) {
       initAdmob();
       checkForUpdate();
     }
@@ -203,7 +222,6 @@ class TransactionController extends GetxController
         TabController(vsync: this, length: tabsCheckout.length);
     productController.getProduct().then((value) {
       loadingState(LoadingState.empty);
-
     });
 
     // setTabName();
@@ -261,7 +279,7 @@ class TransactionController extends GetxController
 
   void scanBarcode() async {
     String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-        "#ff6666", 'Batal', true, ScanMode.BARCODE);
+        "#ff6666", 'batal'.tr, true, ScanMode.BARCODE);
     print(barcodeScanRes);
     print("ini barcoed");
     if (barcodeScanRes != "-1") {
@@ -492,13 +510,16 @@ class TransactionController extends GetxController
     }
   }
 
-  void changeStatusTransaction({DataTransaction? dataTransaction,String? type="checkout",String? reasonCancel}) async {
+  void changeStatusTransaction(
+      {DataTransaction? dataTransaction,
+      String? type = "checkout",
+      String? reasonCancel}) async {
     final conCart = Get.isRegistered<CartController>()
         ? Get.find<CartController>()
         : Get.put(CartController());
     if (paymentMethod.value.paymentmethodid == null) {
       double calc = pay.value - conCart.totalShopping.value;
-      if (pay < conCart.totalShopping.value && type=="checkout") {
+      if (pay < conCart.totalShopping.value && type == "checkout") {
         showSnackBar(
             snackBarType: SnackBarType.INFO,
             title: 'pembayaran'.tr,
@@ -511,35 +532,42 @@ class TransactionController extends GetxController
             .changeStatusTransaction(
                 transactionPaymentDate:
                     DateFormat("yyyy-MM-dd").format(DateTime.now()),
-                paymentMethodID: type=="checkout" ? paymentMethod.value.paymentmethodid : dataTransaction!.transactionpaymentmethodid.toString(),
+                paymentMethodID: type == "checkout"
+                    ? paymentMethod.value.paymentmethodid
+                    : dataTransaction!.transactionpaymentmethodid.toString(),
                 listCart: conCart.listCart,
-                paymentMethodStatus:  type=="checkout" ? "done" : "cancel",
-                transactionPay:type=="checkout" ?    pay.value : double.tryParse(dataTransaction!.transactionpay ?? "0"),
+                paymentMethodStatus: type == "checkout" ? "done" : "cancel",
+                transactionPay: type == "checkout"
+                    ? pay.value
+                    : double.tryParse(dataTransaction!.transactionpay ?? "0"),
                 transactionID: dataTransaction!.transactionid.toString(),
-                transactionReceived:type=="checkout" ?    cashReceived.value : double.tryParse(dataTransaction.transactionreceived ?? "0"),
+                transactionReceived: type == "checkout"
+                    ? cashReceived.value
+                    : double.tryParse(
+                        dataTransaction.transactionreceived ?? "0"),
                 transactionReasonCancel: reasonCancel,
-                transactionStatus:  type=="checkout" ? "success" : "cancel")
+                transactionStatus: type == "checkout" ? "success" : "cancel")
             .then((value) {
           Get.back();
-         if(type=="checkout"){
-           Map<dynamic, dynamic> pass;
+          if (type == "checkout") {
+            Map<dynamic, dynamic> pass;
 
-           pass = {
-             "type": "cash",
-             "from": "history",
-             "cash_received": cashReceived,
-           };
-           if (value.status) {
-             DataTransaction data = DataTransaction.fromJson(value.data);
-             detailTransaction = DataTransaction.fromJson(value.data);
-             Get.toNamed(Routes.TRANSACTION_SUCCESS, arguments: pass);
-             printerC.printTicketPurchase(dataTransaction: data);
-           }
-         }else{
-           Get.back();
-           Get.back();
-           getTransaction();
-         }
+            pass = {
+              "type": "cash",
+              "from": "history",
+              "cash_received": cashReceived,
+            };
+            if (value.status) {
+              DataTransaction data = DataTransaction.fromJson(value.data);
+              detailTransaction = DataTransaction.fromJson(value.data);
+              Get.toNamed(Routes.TRANSACTION_SUCCESS, arguments: pass);
+              printerC.printTicketPurchase(dataTransaction: data);
+            }
+          } else {
+            Get.back();
+            Get.back();
+            getTransaction();
+          }
         });
       }
     } else {
@@ -583,9 +611,6 @@ class TransactionController extends GetxController
       });
     }
   }
-
-
-
 
   void printNow() async {
     printerC.printTicketPurchase(

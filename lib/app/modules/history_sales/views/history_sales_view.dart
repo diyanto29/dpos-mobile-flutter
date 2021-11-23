@@ -111,7 +111,7 @@ class HistorySalesView extends GetWidget<HistorySalesController> {
                     // else if (tab.text == "Utang") {
                     //   return AllHistory(statusTab: tab.text!,);
                     // }
-                    else if (tab.text == 'pembatalan'.tr) {
+                    else if (tab.text == 'dibatalkan'.tr) {
                       return AllHistory(
                         statusTab: tab.text!,
                       );

@@ -51,7 +51,6 @@ class Messages extends Translations {
           'penjualan_kotor': 'Penjualan Kotor',
           'penjualan_bersih': 'Penjualan Bersih',
           'total_transaksi': 'Total Transaksi',
-          'pembatalan': 'Dibatalkan',
           'penjualan_produk': 'Penjualan Produk',
           'terjual': 'Terjual',
           'detail_penjualan': 'Detail Penjualan',
@@ -174,13 +173,14 @@ class Messages extends Translations {
           'ket_print': 'Klik Untuk Print',
           'ket_export': 'Klik Untuk Export',
           'export_penjualan': 'Print Penjualan + Ringkasan',
-          'batalkan' : "Canceled",
-          'alasan' : "Reason Cancel",
+          'dibatalkan': "Canceled",
+          'alasan': "Alasan dibatalkan",
           "semua_kategori": "Semua Kategori",
+          "batal": "Batal",
         },
         'en_US': {
           'ket_print': 'Tap For Print',
-          'alasan' : "Alasan Pembatalan",
+          'alasan': "Alasan Pembatalan",
           'ket_export': 'Tap For Export',
           'pendapatan_bulanan': 'Monthly Income',
           'menu_fav': 'Favorite Menu',
@@ -229,7 +229,6 @@ class Messages extends Translations {
           'penjualan_kotor': 'Gross',
           'penjualan_bersih': 'Nett',
           'total_transaksi': 'Total Transaction',
-          'pembatalan': 'Canceled',
           'penjualan_produk': 'Product Sale',
           'terjual': 'Sold',
           'detail_penjualan': 'Sales Details',
@@ -351,7 +350,8 @@ class Messages extends Translations {
           'export_penjualan': 'Export Sales + Summary',
           'print_metode_pembayaran': 'Print Method Payment + Summary',
           'export_metode_pembayaran': 'Export Method Payment + Summary',
-          'batalkan' : "Batalkan"
+          'dibatalkan': 'Dibatalkan',
+          "batal": "Cancel",
         }
       };
 }

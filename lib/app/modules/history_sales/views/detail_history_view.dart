@@ -466,7 +466,7 @@ class DetailHistoryView extends GetWidget<HistorySalesController> {
                           dataTransaction: data);
                     },
                     child: Text(
-                      "batalkan".tr,
+                      'batal'.tr,
                       style: TextStyle(color: Colors.red),
                     ))
             ],

@@ -36,25 +36,24 @@ class _TransactionViewState extends State<TransactionView> {
       ? Get.find<CartController>()
       : Get.put(CartController());
 
-
   @override
   void initState() {
-    if(this.mounted){
+    if (this.mounted) {
       print("ini state");
       setState(() {
-        controller.idCategory.value="";
+        controller.idCategory.value = "";
         controller.idCategory.refresh();
         print(controller.idCategory.value);
-
       });
     }
     super.initState();
   }
+
   @override
   void dispose() {
-
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<TransactionController>(builder: (logic) {
@@ -116,8 +115,7 @@ class _TransactionViewState extends State<TransactionView> {
                         onSubmitted: (v) {},
                         onChanged: (v) {
                           print("asda");
-                          controller.getSearchProduct(
-                              v);
+                          controller.getSearchProduct(v);
                         },
                         decoration: InputDecoration(
                             hintText: 'cari_produk_disini'.tr + '...',
@@ -178,121 +176,87 @@ class _TransactionViewState extends State<TransactionView> {
                 ],
               );
             }),
-            GetBuilder<TransactionController>(builder: (logic) {
-              return controller.loadingStateCategory.value == LoadingState.loading
-                  ? Container()
-                  : TabBar(
-
-                unselectedLabelColor: MyColor.colorBlackT50,
-                indicatorColor: MyColor.colorPrimary,
-                labelColor: MyColor.colorPrimary,
-
-
-                indicatorSize: TabBarIndicatorSize.label,
-                automaticIndicatorColorAdjustment: true,
-                isScrollable: true,
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                physics: NeverScrollableScrollPhysics(),
-                // indicator: new BubbleTabIndicator(
-                //   indicatorHeight: 25.0,
-                //   indicatorColor: MyColor.colorPrimary,
-                //   tabBarIndicatorSize: TabBarIndicatorSize.tab,
-                // ),
-                onTap: (v) {
-                  controller.controllerPage.jumpToPage(v);
-                  controller.index(v);
-                  if(v==0)
-                    controller.idCategory(null);
-                },
-
-                tabs: controller.tabs,
-                labelStyle: blackTextFont.copyWith(
-                    fontSize: 12, fontWeight: FontWeight.bold),
-                controller: controller.tabController,
+            // GetBuilder<TransactionController>(builder: (logic) {
+            //   return controller.loadingStateCategory.value ==
+            //           LoadingState.loading
+            //       ? Container()
+            //       : TabBar(
+            //           unselectedLabelColor: MyColor.colorBlackT50,
+            //           indicatorColor: MyColor.colorPrimary,
+            //           labelColor: MyColor.colorPrimary,
+            //
+            //           indicatorSize: TabBarIndicatorSize.label,
+            //           automaticIndicatorColorAdjustment: true,
+            //           isScrollable: true,
+            //           padding: EdgeInsets.symmetric(horizontal: 20),
+            //           physics: NeverScrollableScrollPhysics(),
+            //           // indicator: new BubbleTabIndicator(
+            //           //   indicatorHeight: 25.0,
+            //           //   indicatorColor: MyColor.colorPrimary,
+            //           //   tabBarIndicatorSize: TabBarIndicatorSize.tab,
+            //           // ),
+            //           onTap: (v) {
+            //             controller.controllerPage.jumpToPage(v);
+            //             controller.index(v);
+            //             if (v == 0) controller.idCategory(null);
+            //           },
+            //
+            //           tabs: controller.tabs,
+            //           labelStyle: blackTextFont.copyWith(
+            //               fontSize: 12, fontWeight: FontWeight.bold),
+            //           controller: controller.tabController,
+            //         );
+            // }),
+            Obx(() {
+              return Container(
+                width: double.infinity,
+                height: 35,
+                margin: EdgeInsets.only(left: 10),
+                child: ListView.builder(
+                  itemCount: controller.listCategoryProduct.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (c, i) =>
+                      InkWell(
+                        onTap: () {
+                          controller.onTapCategory(i);
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 15),
+                          margin: EdgeInsets.only(right: 8),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(6),
+                            color: (controller.listCategoryProduct[i]
+                                .isChecked ==
+                                false)
+                                ? Colors.grey
+                                : MyColor.colorPrimary,
+                          ),
+                          child: Text(
+                            controller.listCategoryProduct[i].categoryName
+                                .toString(),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                        ),
+                      ),
+                ),
               );
             }),
             SizedBox(
               height: 10,
             ),
-
-            // Container(
-            //   width: 100,
-            //   height: 40,
-            //   decoration: BoxDecoration(
-            //     borderRadius: BorderRadius.circular(6),
-            //     image: DecorationImage(
-            //       image: ExactAssetImage("assets/foods.jpg"),
-            //       fit: BoxFit.cover,
-            //     ),
-            //   ),
-            //   child: ClipRRect(
-            //     // make sure we apply clip it properly
-            //     child: BackdropFilter(
-            //       filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-            //       child: Container(
-            //         alignment: Alignment.center,
-            //         decoration: BoxDecoration(
-            //           borderRadius: BorderRadius.circular(6),
-            //           color: Colors.black.withOpacity(0.2),
-            //         ),
-            //         child: Text(
-            //           "Beverage",
-            //           maxLines: 2,
-            //           overflow: TextOverflow.ellipsis,
-            //           textAlign: TextAlign.center,
-            //           style: TextStyle(
-            //               fontWeight: FontWeight.bold, color: Colors.white),
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            GetBuilder<TransactionController>(builder: (logic) {
+            Obx(() {
+              print(controller.idCategory);
               return Expanded(
-                child: PageView(
-                  onPageChanged: (v) {
-                    print(v);
-                    if(v==0){
-                      controller.idCategory.value="";
-
-                      print("Ini Kateogri "+controller.idCategory.value);
-                    }else{
-                      var category = controller.listCategoryProduct.where((
-                          p0) =>
-                          p0.categoryName!.toLowerCase().contains(
-                              controller.tabs[v].text!.toLowerCase())).toList();
-                      var idCategory = category.length > 0 ? category[0]
-                          .categoryId : null;
-                      print("disni");
-                      print(idCategory);
-                      controller.idCategory(idCategory);
-                    }
-                    controller.tabController!.index = v;
-                  },
-                  controller: controller.controllerPage,
-                  allowImplicitScrolling: true,
-
-                  children: controller.tabs.map<Widget>((Tab tab) {
-                    if (tab.text == 'semua'.tr) {
-                      controller.idCategory.value="";
-                      print("Ini Kateogri "+controller.idCategory.value);
-                      return ProductTransactionView();
-                    } else if (tab.text == 'paket'.tr) {
-                      return Container();
-                    } else {
-                      var category = controller.listCategoryProduct.where((
-                          p0) =>
-                          p0.categoryName!.toLowerCase().contains(
-                              tab.text.toString().toLowerCase())).toList();
-                      var idCategory = category.length > 0 ? category[0]
-                          .categoryId : null;
-                      print("disni");
-                      if(tab.text!='semua'.tr){
-                        controller.idCategory(idCategory);
-                      }
-                      return ProductTransactionView(idCategory: controller.idCategory.value,);
-                    }
-                  }).toList(),
+                child: controller.idCategory.value == 'all'
+                    ? ProductTransactionView()
+                    : ProductTransactionView(
+                  idCategory: controller.idCategory.value,
                 ),
               );
             }),
