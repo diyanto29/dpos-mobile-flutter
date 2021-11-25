@@ -18,7 +18,7 @@ class CustomerView extends GetWidget<CustomerController> {
 
   @override
   Widget build(BuildContext context) {
-    var cartController = Get.find<CartController>();
+    var conTransaction = Get.find<TransactionController>();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyColor.colorPrimary,
@@ -81,7 +81,7 @@ class CustomerView extends GetWidget<CustomerController> {
                                           padding: const EdgeInsets.all(8.0),
                                           child: ListTile(
                                             onTap: () {
-                                              cartController.addCustomer(customer);
+                                              conTransaction.addCustomer(customer);
                                               Get.back();
                                             },
                                             contentPadding: const EdgeInsets.all(8),
@@ -129,7 +129,7 @@ class CustomerView extends GetWidget<CustomerController> {
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                                     child: ListTile(
                                       onTap: () {
-                                        cartController.addCustomer(customer);
+                                        conTransaction.addCustomer(customer);
                                         Get.back();
                                         // Get.toNamed(Routes.ADD_DISCOUNT,arguments: discount);
                                       },

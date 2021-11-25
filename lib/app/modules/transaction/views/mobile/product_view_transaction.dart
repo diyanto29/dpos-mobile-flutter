@@ -27,8 +27,7 @@ class ProductTransactionView extends StatefulWidget {
 }
 
 class _ProductTransactionViewState extends State<ProductTransactionView> {
-  final cartController =
-       Get.find<CartController>();
+
 
   final controller = Get.isRegistered<ProductController>()
       ? Get.find<ProductController>()
@@ -91,7 +90,7 @@ class _ProductTransactionViewState extends State<ProductTransactionView> {
                         child: InkWell(
                           onTap: () {
                             if (controller.listProduct[i].productInCart) {
-                              cartController.deleteCartFormListProduct(
+                              transactionController.deleteCartFormListProduct(
                                   controller.listProduct[i]);
                             } else {
                               if (controller.listProduct[i].productStokStatus ==
@@ -102,7 +101,7 @@ class _ProductTransactionViewState extends State<ProductTransactionView> {
                                     message: "Stok Produk Kosong",
                                     title: 'produk'.tr);
                               else
-                                cartController
+                                transactionController
                                     .addCart(controller.listProduct[i]);
                             }
                           },
@@ -198,14 +197,14 @@ class _ProductTransactionViewState extends State<ProductTransactionView> {
                                         ],
                                       ),
                                     ),
-                                    ...cartController.listCart.map((element) {
+                                    ...transactionController.listCart.map((element) {
                                       if (controller
                                               .listProduct[i].productInCart &&
                                           element.dataProduct ==
                                               controller.listProduct[i])
                                         return Flexible(
                                           flex: 2,
-                                          child: GetBuilder<CartController>(
+                                          child: GetBuilder<TransactionController>(
                                               builder: (logic) {
                                             return Container(
                                               height: 38,
@@ -225,7 +224,7 @@ class _ProductTransactionViewState extends State<ProductTransactionView> {
                                                         .spaceBetween,
                                                 children: [
                                                   InkWell(
-                                                    onTap: () => cartController
+                                                    onTap: () => transactionController
                                                         .removeQty(element),
                                                     child: Container(
                                                       child: LineIcon.minus(
@@ -249,7 +248,7 @@ class _ProductTransactionViewState extends State<ProductTransactionView> {
                                                     ),
                                                   ),
                                                   InkWell(
-                                                    onTap: () => cartController
+                                                    onTap: () => transactionController
                                                         .addQty(element),
                                                     child: Container(
                                                       child: LineIcon.plus(
@@ -308,7 +307,7 @@ class _ProductTransactionViewState extends State<ProductTransactionView> {
                           onTap: () {
                             if (transactionController
                                 .listSearchProduct[i].productInCart) {
-                              cartController.deleteCartFormListProduct(
+                              transactionController.deleteCartFormListProduct(
                                   transactionController.listSearchProduct[i]);
                             } else {
                               if (transactionController.listSearchProduct[i]
@@ -322,7 +321,7 @@ class _ProductTransactionViewState extends State<ProductTransactionView> {
                                     message: "Stok Produk Kosong",
                                     title: 'produk'.tr);
                               else
-                                cartController.addCart(
+                                transactionController.addCart(
                                     transactionController.listSearchProduct[i]);
                             }
                           },
@@ -420,7 +419,7 @@ class _ProductTransactionViewState extends State<ProductTransactionView> {
                                         ],
                                       ),
                                     ),
-                                    ...cartController.listCart.map((element) {
+                                    ...transactionController.listCart.map((element) {
                                       if (transactionController
                                               .listSearchProduct[i]
                                               .productInCart &&
@@ -429,7 +428,7 @@ class _ProductTransactionViewState extends State<ProductTransactionView> {
                                                   .listSearchProduct[i])
                                         return Flexible(
                                           flex: 2,
-                                          child: GetBuilder<CartController>(
+                                          child: GetBuilder<TransactionController>(
                                               builder: (logic) {
                                             return Container(
                                               height: 38,
@@ -449,7 +448,7 @@ class _ProductTransactionViewState extends State<ProductTransactionView> {
                                                         .spaceBetween,
                                                 children: [
                                                   InkWell(
-                                                    onTap: () => cartController
+                                                    onTap: () => transactionController
                                                         .removeQty(element),
                                                     child: Container(
                                                       child: LineIcon.minus(
@@ -473,7 +472,7 @@ class _ProductTransactionViewState extends State<ProductTransactionView> {
                                                     ),
                                                   ),
                                                   InkWell(
-                                                    onTap: () => cartController
+                                                    onTap: () => transactionController
                                                         .addQty(element),
                                                     child: Container(
                                                       child: LineIcon.plus(

@@ -26,12 +26,12 @@ class CheckOutTableView extends StatefulWidget {
 
 class _CheckOutTableViewState extends State<CheckOutTableView> {
   var controller=Get.find<TransactionController>();
-  var cartController = Get.find<CartController>();
+
   var type,data;
   @override
   void initState() {
     print("ijni cart");
-      print(cartController.listCart.length);
+      print(controller.listCart.length);
      type =Get.arguments != null ? Get.arguments['from'] : "cart";
      data =Get.arguments != null ? Get.arguments['data'] != null ? Get.arguments['data'] as DataTransaction : null :null ;
     super.initState();
@@ -81,7 +81,7 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                             onTap: () async {
                               Get.toNamed(Routes.CUSTOMER_PAGE);
                             },
-                            child: GetBuilder<CartController>(builder: (logic) {
+                            child: GetBuilder<TransactionController>(builder: (logic) {
                               return Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -91,15 +91,15 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                                     decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(10)),
                                     child: Text(
-                                      cartController.customer.value.customerpartnername == null ? 'pelanggan'.tr : cartController.customer.value.customerpartnername!,
+                                      controller.customer.value.customerpartnername == null ? 'pelanggan'.tr : controller.customer.value.customerpartnername!,
                                       style: GoogleFonts.roboto(fontSize: 12.0, color: Colors.white),
                                     ),
                                   ),
                                   Visibility(
-                                    visible: cartController.customer.value.customerpartnername == null ? false : true,
+                                    visible: controller.customer.value.customerpartnername == null ? false : true,
                                     child: InkWell(
                                       onTap: () {
-                                        cartController.removeCustomer();
+                                        controller.removeCustomer();
                                         print("a");
                                       },
                                       child: Container(
@@ -128,7 +128,7 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                 context: context,
                                 removeTop: true,
                                 child: ListView.builder(
-                                    itemCount: cartController.listCart.length,
+                                    itemCount: controller.listCart.length,
                                     shrinkWrap: true,
                                     physics: ClampingScrollPhysics(),
                                     itemBuilder: (c, i) =>
@@ -153,7 +153,7 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: MyColor.colorOrange),
                                                           alignment: Alignment.center,
                                                           child: Text(
-                                                            "${cartController.listCart[i].qty}",
+                                                            "${controller.listCart[i].qty}",
                                                             style: whiteTextTitle.copyWith(fontSize: 10.sp, fontWeight: FontWeight.bold),
                                                           ),
                                                         ),
@@ -166,13 +166,13 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                                               crossAxisAlignment: CrossAxisAlignment.start,
                                                               children: [
                                                                 Text(
-                                                                  "${cartController.listCart[i].dataProduct!.productName}",
+                                                                  "${controller.listCart[i].dataProduct!.productName}",
                                                                   style: blackTextFont.copyWith(fontSize: 12.sp),
                                                                 ),
                                                                 SizedBox(
                                                                   height: 4,
                                                                 ),
-                                                                if (cartController.listCart[i].discount == null)
+                                                                if (controller.listCart[i].discount == null)
                                                                   Text(
                                                                     "Klik untuk tambah diskon",
                                                                     style: blackTextFont.copyWith(fontSize: 10.sp, fontStyle: FontStyle.italic),
@@ -191,7 +191,7 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                                           mainAxisAlignment: MainAxisAlignment.end,
                                                           children: [
                                                             Text(
-                                                              "@ ${formatCurrency.format(cartController.listCart[i].dataProduct!.productPrice)}",
+                                                              "@ ${formatCurrency.format(controller.listCart[i].dataProduct!.productPrice)}",
                                                               style: blackTextFont.copyWith(fontSize: 12.sp),
                                                             ),
 
@@ -201,20 +201,20 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                                         SizedBox(
                                                           height: 5,
                                                         ),
-                                                        if (cartController.listCart[i].discount != null)
+                                                        if (controller.listCart[i].discount != null)
                                                           Row(
                                                             mainAxisAlignment: MainAxisAlignment.end,
                                                             children: [
                                                               Text(
-                                                                "${cartController.listCart[i].discount!.discountType!.toLowerCase() == 'price' ? ' - Rp.' + formatCurrency.format(int.parse(cartController.listCart[i].discount!.discountMaxPriceOff!)) : cartController.listCart[i].discount!
+                                                                "${controller.listCart[i].discount!.discountType!.toLowerCase() == 'price' ? ' - Rp.' + formatCurrency.format(int.parse(controller.listCart[i].discount!.discountMaxPriceOff!)) : controller.listCart[i].discount!
                                                                     .discountPercent + '%'}",
                                                                 style: GoogleFonts.roboto(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12.sp),
                                                               ),
 
                                                             ],
                                                           ),
-                                                        if (cartController.listCart[i].discount != null)
-                                                          if (cartController.listCart[i].discount!.discountType != 'price')
+                                                        if (controller.listCart[i].discount != null)
+                                                          if (controller.listCart[i].discount!.discountType != 'price')
                                                             Padding(
                                                               padding: const EdgeInsets.fromLTRB(8, 2, 8, 10),
                                                               child: Row(
@@ -226,7 +226,7 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                                                     style: blackTextFont.copyWith(fontSize: 11.sp),
                                                                   ),
                                                                   Text(
-                                                                    "- Rp.${formatCurrency.format(int.parse(cartController.listCart[i].discount!.discountMaxPriceOff!))}",
+                                                                    "- Rp.${formatCurrency.format(int.parse(controller.listCart[i].discount!.discountMaxPriceOff!))}",
                                                                     style: GoogleFonts.roboto(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 11.sp),
                                                                   ),
                                                                 ],
@@ -256,7 +256,7 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                           style: GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 12.sp),
                                         ),
                                         Text(
-                                          "Rp.${formatCurrency.format(cartController.totalCart.value)}",
+                                          "Rp.${formatCurrency.format(controller.totalCart.value)}",
                                           style: GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 12.sp),
                                         ),
                                       ],
@@ -275,9 +275,9 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
-                                            cartController.dataDiscount != null
+                                            controller.dataDiscount != null
                                                 ? Text(
-                                              "${cartController.dataDiscount?.discountType!.toLowerCase() == 'price' ? ' - Rp.' + formatCurrency.format(int.parse(cartController.dataDiscount!.discountMaxPriceOff!)) : cartController.dataDiscount?.discountPercent + '%'}",
+                                              "${controller.dataDiscount?.discountType!.toLowerCase() == 'price' ? ' - Rp.' + formatCurrency.format(int.parse(controller.dataDiscount!.discountMaxPriceOff!)) : controller.dataDiscount?.discountPercent + '%'}",
                                               style: GoogleFonts.roboto(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12.sp),
                                             )
                                                 : Icon(
@@ -292,8 +292,8 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                         ),
                                       ],
                                     ),
-                                    cartController.dataDiscount != null
-                                        ? cartController.dataDiscount!.discountType != 'price'
+                                    controller.dataDiscount != null
+                                        ? controller.dataDiscount!.discountType != 'price'
                                         ? Padding(
                                       padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
                                       child: Row(
@@ -302,7 +302,7 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                         children: [
                                           Text("Max Diskon"),
                                           Text(
-                                            "- Rp.${formatCurrency.format(int.parse(cartController.dataDiscount!.discountMaxPriceOff!))}",
+                                            "- Rp.${formatCurrency.format(int.parse(controller.dataDiscount!.discountMaxPriceOff!))}",
                                             style: GoogleFonts.roboto(color: Colors.red, fontWeight: FontWeight.bold),
                                           ),
                                         ],
@@ -330,7 +330,7 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                                       title: 'Masukan Catatan',
                                                       message: 'coba',
                                                       clickYes: () {
-                                                        cartController.storeTransaction();
+                                                        controller.storeTransaction();
                                                       }),
                                               icon: Icon(Icons.save),
                                             ),
@@ -342,7 +342,7 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                         Flexible(
                                           flex: 7,
                                           child: GeneralButton(
-                                            label: "Rp ${formatCurrency.format(cartController.totalShopping.value)}",
+                                            label: "Rp ${formatCurrency.format(controller.totalShopping.value)}",
                                             borderRadius: 10,
                                             fontSize: 16.sp,
                                             onPressed: () {
@@ -387,7 +387,7 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                 height: 5,
                               ),
                               Text(
-                                "Rp ${formatCurrency.format(cartController.totalShopping.value)}",
+                                "Rp ${formatCurrency.format(controller.totalShopping.value)}",
                                 style: blackTextTitle.copyWith(fontSize: 23.sp),
                               ),
                             ],

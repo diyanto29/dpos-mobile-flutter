@@ -43,9 +43,7 @@ class TransactionViewTable extends StatefulWidget {
 class _TransactionViewTableState extends State<TransactionViewTable> {
   final transactionController = Get.find<TransactionController>();
   var controller = Get.put(ProductController());
-  var cartController = Get.isRegistered<CartController>()
-      ? Get.find<CartController>()
-      : Get.put(CartController());
+ 
   var navC = Get.find<NavigationController>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -280,7 +278,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                       onTap: () {
                                         if (controller
                                             .listProduct[i].productInCart) {
-                                          cartController
+                                          transactionController
                                               .deleteCartFormListProduct(
                                                   controller.listProduct[i]);
                                         } else {
@@ -296,7 +294,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                 message: "Stok Produk Kosong",
                                                 title: 'produk'.tr);
                                           else
-                                            cartController.addCart(
+                                            transactionController.addCart(
                                                 controller.listProduct[i]);
                                         }
                                       },
@@ -402,7 +400,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                       TextOverflow.ellipsis,
                                                 ),
                                               )),
-                                          ...cartController.listCart
+                                          ...transactionController.listCart
                                               .map((element) {
                                             if (controller.listProduct[i]
                                                     .productInCart &&
@@ -435,7 +433,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                       children: [
                                                         InkWell(
                                                           onTap: () =>
-                                                              cartController
+                                                              transactionController
                                                                   .removeQty(
                                                                       element),
                                                           child: Container(
@@ -462,7 +460,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                         ),
                                                         InkWell(
                                                           onTap: () =>
-                                                              cartController
+                                                              transactionController
                                                                   .addQty(
                                                                       element),
                                                           child: Container(
@@ -520,7 +518,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                             if (transactionController
                                                 .listSearchProduct[i]
                                                 .productInCart) {
-                                              cartController
+                                              transactionController
                                                   .deleteCartFormListProduct(
                                                       transactionController
                                                           .listSearchProduct[i]);
@@ -540,7 +538,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                         "Stok Produk Kosong",
                                                     title: 'produk'.tr);
                                               else
-                                                cartController.addCart(
+                                                transactionController.addCart(
                                                     transactionController
                                                         .listSearchProduct[i]);
                                             }
@@ -653,7 +651,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                           TextOverflow.ellipsis,
                                                     ),
                                                   )),
-                                              ...cartController.listCart
+                                              ...transactionController.listCart
                                                   .map((element) {
                                                 if (transactionController
                                                         .listSearchProduct[i]
@@ -690,7 +688,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                           children: [
                                                             InkWell(
                                                               onTap: () =>
-                                                                  cartController
+                                                                  transactionController
                                                                       .removeQty(
                                                                           element),
                                                               child: Container(
@@ -719,7 +717,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                             ),
                                                             InkWell(
                                                               onTap: () =>
-                                                                  cartController
+                                                                  transactionController
                                                                       .addQty(
                                                                           element),
                                                               child: Container(
@@ -781,7 +779,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                   onTap: () async {
                                     Get.toNamed(Routes.CUSTOMER_PAGE);
                                   },
-                                  child: GetBuilder<CartController>(
+                                  child: GetBuilder<TransactionController>(
                                       builder: (logic) {
                                     return Row(
                                       mainAxisAlignment:
@@ -798,11 +796,11 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                               borderRadius:
                                                   BorderRadius.circular(10)),
                                           child: Text(
-                                            cartController.customer.value
+                                            transactionController.customer.value
                                                         .customerpartnername ==
                                                     null
                                                 ? 'pelanggan'.tr
-                                                : cartController.customer.value
+                                                : transactionController.customer.value
                                                     .customerpartnername!,
                                             style: GoogleFonts.roboto(
                                                 fontSize: 12.0,
@@ -810,14 +808,14 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                           ),
                                         ),
                                         Visibility(
-                                          visible: cartController.customer.value
+                                          visible: transactionController.customer.value
                                                       .customerpartnername ==
                                                   null
                                               ? false
                                               : true,
                                           child: InkWell(
                                             onTap: () {
-                                              cartController.removeCustomer();
+                                              transactionController.removeCustomer();
                                               print("a");
                                             },
                                             child: Container(
@@ -854,13 +852,13 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                   context: context,
                                   removeTop: true,
                                   child: ListView.builder(
-                                      itemCount: cartController.listCart.length,
+                                      itemCount: transactionController.listCart.length,
                                       shrinkWrap: true,
                                       physics: ClampingScrollPhysics(),
                                       itemBuilder: (c, i) => InkWell(
                                             onTap: () {
                                               addDiscount(
-                                                  cart: cartController
+                                                  cart: transactionController
                                                       .listCart[i],
                                                   allProduct: false);
                                               FocusScopeNode currentFocus =
@@ -914,7 +912,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                                   Alignment
                                                                       .center,
                                                               child: Text(
-                                                                "${cartController.listCart[i].qty}",
+                                                                "${transactionController.listCart[i].qty}",
                                                                 style: whiteTextTitle.copyWith(
                                                                     fontSize:
                                                                         10.sp,
@@ -936,7 +934,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                                       .start,
                                                               children: [
                                                                 Text(
-                                                                  "${cartController.listCart[i].dataProduct!.productName}",
+                                                                  "${transactionController.listCart[i].dataProduct!.productName}",
                                                                   style: blackTextFont
                                                                       .copyWith(
                                                                           fontSize:
@@ -945,7 +943,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                                 SizedBox(
                                                                   height: 4,
                                                                 ),
-                                                                if (cartController
+                                                                if (transactionController
                                                                         .listCart[
                                                                             i]
                                                                         .discount ==
@@ -978,7 +976,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                                       .end,
                                                               children: [
                                                                 Text(
-                                                                  "@ ${formatCurrency.format(cartController.listCart[i].dataProduct!.productPrice)}",
+                                                                  "@ ${formatCurrency.format(transactionController.listCart[i].dataProduct!.productPrice)}",
                                                                   style: blackTextFont
                                                                       .copyWith(
                                                                           fontSize:
@@ -989,9 +987,9 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                                 ),
                                                                 InkWell(
                                                                   onTap: () {
-                                                                    cartController.deleteCart(
+                                                                    transactionController.deleteCart(
                                                                         cartModel:
-                                                                            cartController.listCart[i]);
+                                                                            transactionController.listCart[i]);
                                                                     FocusScopeNode
                                                                         currentFocus =
                                                                         FocusScope.of(
@@ -1020,7 +1018,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                             SizedBox(
                                                               height: 5,
                                                             ),
-                                                            if (cartController
+                                                            if (transactionController
                                                                     .listCart[i]
                                                                     .discount !=
                                                                 null)
@@ -1030,7 +1028,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                                         .end,
                                                                 children: [
                                                                   Text(
-                                                                    "${cartController.listCart[i].discount!.discountType!.toLowerCase() == 'price' ? ' - Rp.' + formatCurrency.format(int.parse(cartController.listCart[i].discount!.discountMaxPriceOff!)) : cartController.listCart[i].discount!.discountPercent + '%'}",
+                                                                    "${transactionController.listCart[i].discount!.discountType!.toLowerCase() == 'price' ? ' - Rp.' + formatCurrency.format(int.parse(transactionController.listCart[i].discount!.discountMaxPriceOff!)) : transactionController.listCart[i].discount!.discountPercent + '%'}",
                                                                     style: GoogleFonts.roboto(
                                                                         color: Colors
                                                                             .red,
@@ -1045,10 +1043,10 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                                           () {
                                                                         setState(
                                                                             () {
-                                                                          cartController.deleteDiscount(
-                                                                              dataDiscount: cartController.listCart[i].discount!,
-                                                                              cartModel: cartController.listCart[i]);
-                                                                          cartController
+                                                                          transactionController.deleteDiscount(
+                                                                              dataDiscount: transactionController.listCart[i].discount!,
+                                                                              cartModel: transactionController.listCart[i]);
+                                                                          transactionController
                                                                               .listCart[i]
                                                                               .discount = null;
                                                                         });
@@ -1064,11 +1062,11 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                                       )),
                                                                 ],
                                                               ),
-                                                            if (cartController
+                                                            if (transactionController
                                                                     .listCart[i]
                                                                     .discount !=
                                                                 null)
-                                                              if (cartController
+                                                              if (transactionController
                                                                       .listCart[
                                                                           i]
                                                                       .discount!
@@ -1097,7 +1095,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                                                 11.sp),
                                                                       ),
                                                                       Text(
-                                                                        "- Rp.${formatCurrency.format(int.parse(cartController.listCart[i].discount!.discountMaxPriceOff!))}",
+                                                                        "- Rp.${formatCurrency.format(int.parse(transactionController.listCart[i].discount!.discountMaxPriceOff!))}",
                                                                         style: GoogleFonts.roboto(
                                                                             color:
                                                                                 Colors.red,
@@ -1137,7 +1135,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                 fontSize: 12.sp),
                                           ),
                                           Text(
-                                            "Rp.${formatCurrency.format(cartController.totalCart.value)}",
+                                            "Rp.${formatCurrency.format(transactionController.totalCart.value)}",
                                             style: GoogleFonts.roboto(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 12.sp),
@@ -1166,10 +1164,10 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
                                               children: [
-                                                cartController.dataDiscount !=
+                                                transactionController.dataDiscount !=
                                                         null
                                                     ? Text(
-                                                        "${cartController.dataDiscount?.discountType!.toLowerCase() == 'price' ? ' - Rp.' + formatCurrency.format(int.parse(cartController.dataDiscount!.discountMaxPriceOff!)) : cartController.dataDiscount?.discountPercent + '%'}",
+                                                        "${transactionController.dataDiscount?.discountType!.toLowerCase() == 'price' ? ' - Rp.' + formatCurrency.format(int.parse(transactionController.dataDiscount!.discountMaxPriceOff!)) : transactionController.dataDiscount?.discountPercent + '%'}",
                                                         style:
                                                             GoogleFonts.roboto(
                                                                 color:
@@ -1189,7 +1187,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                   width: 4,
                                                 ),
                                                 Visibility(
-                                                  visible: cartController
+                                                  visible: transactionController
                                                               .dataDiscount ==
                                                           null
                                                       ? false
@@ -1197,9 +1195,9 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                   child: InkWell(
                                                       onTap: () {
                                                         setState(() {
-                                                          cartController.deleteDiscount(
+                                                          transactionController.deleteDiscount(
                                                               dataDiscount:
-                                                                  cartController
+                                                                  transactionController
                                                                       .dataDiscount!,
                                                               allProduct: true);
                                                         });
@@ -1215,8 +1213,8 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                           ],
                                         ),
                                       ),
-                                      cartController.dataDiscount != null
-                                          ? cartController.dataDiscount!
+                                      transactionController.dataDiscount != null
+                                          ? transactionController.dataDiscount!
                                                       .discountType !=
                                                   'price'
                                               ? Padding(
@@ -1233,7 +1231,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                     children: [
                                                       Text("Max Diskon"),
                                                       Text(
-                                                        "- Rp.${formatCurrency.format(int.parse(cartController.dataDiscount!.discountMaxPriceOff!))}",
+                                                        "- Rp.${formatCurrency.format(int.parse(transactionController.dataDiscount!.discountMaxPriceOff!))}",
                                                         style:
                                                             GoogleFonts.roboto(
                                                                 color:
@@ -1273,7 +1271,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                             'Masukan Catatan',
                                                         message: 'coba',
                                                         clickYes: () {
-                                                          cartController
+                                                          transactionController
                                                               .storeTransaction();
                                                         }),
                                                 icon: Icon(Icons.save),
@@ -1287,7 +1285,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                             flex: 7,
                                             child: GeneralButton(
                                               label:
-                                                  " Rp ${formatCurrency.format(cartController.totalShopping.value)}",
+                                                  " Rp ${formatCurrency.format(transactionController.totalShopping.value)}",
                                               borderRadius: 5,
                                               fontSize: 16.sp,
                                               onPressed: () {
@@ -1295,7 +1293,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                   "from": "cart",
                                                   "data": null
                                                 };
-                                                if (cartController
+                                                if (transactionController
                                                     .listCart.isEmpty) {
                                                   showSnackBar(
                                                       snackBarType:
@@ -1381,7 +1379,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: ListTile(
                                   onTap: () {
-                                    cartController.addDiscount(
+                                    transactionController.addDiscount(
                                         dataDiscount: transactionController
                                             .discountController.listDiscount[i],
                                         allProduct: allProduct,

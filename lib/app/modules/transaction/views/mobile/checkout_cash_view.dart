@@ -23,7 +23,7 @@ class CheckoutCashView extends StatefulWidget {
 
 class _CheckoutCashViewState extends State<CheckoutCashView> {
   var conTransaction = Get.find<TransactionController>();
-  var conCart = Get.find<CartController>();
+
 
   @override
   void initState() {
@@ -155,7 +155,7 @@ class _CheckoutCashViewState extends State<CheckoutCashView> {
                             label: 'Uang Pass',
                             onPressed: () {
                               conTransaction.isPassed.value = !conTransaction.isPassed.value;
-                              conTransaction.getMoneyPassed(conCart.totalShopping.value);
+                              conTransaction.getMoneyPassed(conTransaction.totalShopping.value);
                             },
                             fontSize: 18.sp)),
                   ),
@@ -247,7 +247,7 @@ class _CheckoutCashViewState extends State<CheckoutCashView> {
                             label: 'Uang Pass',
                             onPressed: () {
                               conTransaction.isPassed.value = !conTransaction.isPassed.value;
-                              conTransaction.getMoneyPassed(conCart.totalShopping.value);
+                              conTransaction.getMoneyPassed(conTransaction.totalShopping.value);
                             },
                             fontSize: 18.sp)),
                   ),
@@ -396,7 +396,7 @@ class _CheckoutCashViewState extends State<CheckoutCashView> {
                           label: 'Uang Pass',
                           onPressed: () {
                             conTransaction.isPassed.value = !conTransaction.isPassed.value;
-                            conTransaction.getMoneyPassed(conCart.totalShopping.value);
+                            conTransaction.getMoneyPassed(conTransaction.totalShopping.value);
                           },
                           fontSize: 18.sp)),
                 ),
@@ -581,7 +581,7 @@ class _CheckoutCashViewState extends State<CheckoutCashView> {
                           label: 'Uang Pass',
                           onPressed: () {
                             conTransaction.isPassed.value = !conTransaction.isPassed.value;
-                            conTransaction.getMoneyPassed(conCart.totalShopping.value);
+                            conTransaction.getMoneyPassed(conTransaction.totalShopping.value);
                           },
                           fontSize: 18.sp)),
                 ),

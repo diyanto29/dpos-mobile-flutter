@@ -174,6 +174,9 @@ class _TransactionSuccessViewState extends State<TransactionSuccessView> {
                               controller.interstitialAd.show();
                             });
                           var box = GetStorage();
+                          controller.listCart.clear();
+                          controller.totalShopping(0);
+                          controller.totalCart(0);
                           if (box.read(MyString.ROLE_NAME) == "Pemilik Toko")
                             Get.offAllNamed(Routes.NAVIGATION);
                           else

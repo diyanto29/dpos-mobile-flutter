@@ -15,7 +15,7 @@ import 'package:warmi/app/data/models/report_transaction/report_transaction.dart
 import 'package:warmi/app/data/models/report_transaction/report_transaction_by_category.dart';
 import 'package:warmi/app/data/models/transactions/transaction_model.dart';
 import 'package:warmi/app/modules/history_sales/controllers/history_sales_controller.dart';
-import 'package:warmi/app/modules/transaction/controllers/cart_controller.dart';
+
 import 'package:warmi/app/modules/transaction/controllers/transaction_controller.dart';
 import 'package:warmi/app/modules/wigets/layouts/dialog/dialog_loading.dart';
 import 'package:warmi/app/modules/wigets/layouts/dialog/dialog_snackbar.dart';

@@ -16,7 +16,7 @@ import 'package:warmi/main.dart';
 class CheckoutView extends GetWidget<TransactionController> {
   @override
   Widget build(BuildContext context) {
-    var cartC = Get.find<CartController>();
+    var conTransaction = Get.find<TransactionController>();
     var type=Get.arguments['from'];
     print(type);
     var data=Get.arguments['data']!=null ? Get.arguments['data'] as DataTransaction : null;
@@ -43,7 +43,7 @@ class CheckoutView extends GetWidget<TransactionController> {
               height: 5,
             ),
             Text(
-              "Rp ${formatCurrency.format(cartC.totalShopping.value)}",
+              "Rp ${formatCurrency.format(conTransaction.totalShopping.value)}",
               style: blackTextTitle.copyWith(fontSize: 23.sp),
             ),
             SizedBox(

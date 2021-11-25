@@ -30,7 +30,6 @@ class CardTransactionView extends StatefulWidget {
 
 class _CardTransactionViewState extends State<CardTransactionView> {
   final controller = Get.find<TransactionController>();
-  final cartController = Get.find<CartController>();
   final formatCurrency = new NumberFormat.currency(locale: "id_ID", symbol: "", decimalDigits: 0);
 
   @override
@@ -83,15 +82,15 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                                     decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(10)),
                                     child: Text(
-                                      cartController.customer.value.customerpartnername == null ? 'pelanggan'.tr : cartController.customer.value.customerpartnername!,
+                                      controller.customer.value.customerpartnername == null ? 'pelanggan'.tr : controller.customer.value.customerpartnername!,
                                       style: GoogleFonts.roboto(fontSize: 12.0, color: Colors.white),
                                     ),
                                   ),
                                   Visibility(
-                                    visible: cartController.customer.value.customerpartnername == null ? false : true,
+                                    visible: controller.customer.value.customerpartnername == null ? false : true,
                                     child: InkWell(
                                       onTap: () {
-                                        cartController.removeCustomer();
+                                        controller.removeCustomer();
                                         print("a");
                                       },
                                       child: Container(
@@ -115,7 +114,7 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                       child: Text(
-                        "${DateFormat("EEEE, dd MM yyyy H:mm:ss", "id-ID").format(cartController.dateTransaction.value)}",
+                        "${DateFormat("EEEE, dd MM yyyy H:mm:ss", "id-ID").format(controller.dateTransaction.value)}",
                         style: GoogleFonts.alice(fontStyle: FontStyle.italic),
                       ),
                     ),
@@ -128,7 +127,7 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                       primary: true,
                       children: [
                         ListView.builder(
-                            itemCount: cartController.listCart.length,
+                            itemCount: controller.listCart.length,
                             shrinkWrap: true,
                             physics: ClampingScrollPhysics(),
                             itemBuilder: (c, i) => Card(
@@ -142,7 +141,7 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                                     leading: ClipRRect(
                                       borderRadius: BorderRadius.circular(100),
                                       child: CachedNetworkImage(
-                                        imageUrl: "${cartController.listCart[i].dataProduct!.productPhoto!}",
+                                        imageUrl: "${controller.listCart[i].dataProduct!.productPhoto!}",
                                         fit: BoxFit.cover,
                                         width: 60,
                                         height: 60,
@@ -154,13 +153,13 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                                           fontWeight: FontWeight.w600,
                                           upperCase: true,
                                           numberLetters: 3,
-                                          text: "${cartController.listCart[i].dataProduct!.productName}",
+                                          text: "${controller.listCart[i].dataProduct!.productName}",
                                         ),
                                       ),
                                     ),
                                     title: Text(
                                       // "Sate",
-                                      "${cartController.listCart[i].dataProduct!.productName}",
+                                      "${controller.listCart[i].dataProduct!.productName}",
                                       overflow: TextOverflow.ellipsis,
                                       style: GoogleFonts.roboto(fontWeight: FontWeight.bold),
                                     ),
@@ -178,7 +177,7 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               InkWell(
-                                                onTap: () => cartController.removeQty(cartController.listCart[i]),
+                                                onTap: () => controller.removeQty(controller.listCart[i]),
                                                 child: Container(
                                                   child: LineIcon.minus(
                                                     color: Colors.red,
@@ -190,14 +189,14 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                                                   child: FittedBox(
                                                     child: Text(
                                                       // "${data.listCart[i].qty}",
-                                                      "${cartController.listCart[i].qty}",
+                                                      "${controller.listCart[i].qty}",
                                                       style: GoogleFonts.roboto(fontSize: 16, color: Colors.black),
                                                     ),
                                                   ),
                                                 ),
                                               ),
                                               InkWell(
-                                                onTap: () => cartController.addQty(cartController.listCart[i]),
+                                                onTap: () => controller.addQty(controller.listCart[i]),
                                                 child: Container(
                                                   child: LineIcon.plus(
                                                     color: Colors.green,
@@ -213,9 +212,9 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
-                                        Text("@ ${formatCurrency.format(cartController.listCart[i].dataProduct!.productPrice)}"),
+                                        Text("@ ${formatCurrency.format(controller.listCart[i].dataProduct!.productPrice)}"),
                                         InkWell(
-                                          onTap: () => cartController.deleteCart(cartModel: cartController.listCart[i]),
+                                          onTap: () => controller.deleteCart(cartModel: controller.listCart[i]),
                                           child: Container(
                                             child: Icon(
                                               Icons.delete,
@@ -233,7 +232,7 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                                     ),
                                   ),
                                   InkWell(
-                                    onTap: () => addDiscount(cart: cartController.listCart[i], allProduct: false),
+                                    onTap: () => addDiscount(cart: controller.listCart[i], allProduct: false),
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                       child: Row(
@@ -244,8 +243,8 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.start,
                                             children: [
-                                              cartController.listCart[i].discount != null ?   Text(
-                                                "${cartController.listCart[i].discount!.discountType!.toLowerCase() == 'price' ? ' - Rp.' + formatCurrency.format(int.parse(cartController.listCart[i].discount!.discountMaxPriceOff!)) : cartController
+                                              controller.listCart[i].discount != null ?   Text(
+                                                "${controller.listCart[i].discount!.discountType!.toLowerCase() == 'price' ? ' - Rp.' + formatCurrency.format(int.parse(controller.listCart[i].discount!.discountMaxPriceOff!)) : controller
                                                     .listCart[i].discount!.discountPercent + '%'}",
                                                 style: GoogleFonts.roboto(color: Colors.red, fontWeight: FontWeight.bold),
                                               ): Icon(Icons.arrow_forward_ios_rounded,size: 15,),
@@ -254,12 +253,12 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                                               ),
 
                                               Visibility(
-                                                visible: cartController.listCart[i].discount == null ? false : true,
+                                                visible: controller.listCart[i].discount == null ? false : true,
                                                 child: InkWell(
                                                     onTap: () {
                                                       setState(() {
-                                                        cartController.deleteDiscount(dataDiscount: cartController.listCart[i].discount!, cartModel: cartController.listCart[i]);
-                                                        cartController.listCart[i].discount = null;
+                                                        controller.deleteDiscount(dataDiscount: controller.listCart[i].discount!, cartModel: controller.listCart[i]);
+                                                        controller.listCart[i].discount = null;
                                                       });
                                                     },
                                                     child: Icon(
@@ -274,8 +273,8 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                                       ),
                                     ),
                                   ),
-                                  cartController.listCart[i].discount != null
-                                      ? cartController.listCart[i].discount!.discountType != 'price'
+                                  controller.listCart[i].discount != null
+                                      ? controller.listCart[i].discount!.discountType != 'price'
                                       ? Padding(
                                     padding: const EdgeInsets.fromLTRB(8, 2, 8, 10),
                                     child: Row(
@@ -284,7 +283,7 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                                       children: [
                                         Text("Max Diskon"),
                                         Text(
-                                          "- Rp.${formatCurrency.format(int.parse(cartController.listCart[i].discount!.discountMaxPriceOff!))}",
+                                          "- Rp.${formatCurrency.format(int.parse(controller.listCart[i].discount!.discountMaxPriceOff!))}",
                                           style: GoogleFonts.roboto(color: Colors.red, fontWeight: FontWeight.bold),
                                         ),
                                       ],
@@ -306,7 +305,7 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                                       children: [
                                         Text("Sub Total"),
                                         Text(
-                                          "Rp.${formatCurrency.format(cartController.listCart[i].subTotal)}",
+                                          "Rp.${formatCurrency.format(controller.listCart[i].subTotal)}",
                                           style: GoogleFonts.roboto(fontWeight: FontWeight.bold),
                                         ),
                                       ],
@@ -331,7 +330,7 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                                       style: GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 4.w),
                                     ),
                                     Text(
-                                      "Rp.${formatCurrency.format(cartController.totalCart.value)}",
+                                      "Rp.${formatCurrency.format(controller.totalCart.value)}",
                                       style: GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 4.w),
                                     ),
                                   ],
@@ -352,8 +351,8 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
-                                          cartController.dataDiscount != null ?  Text(
-                                            "${cartController.dataDiscount?.discountType!.toLowerCase() == 'price' ? ' - Rp.' + formatCurrency.format(int.parse(cartController.dataDiscount!.discountMaxPriceOff!)) : cartController.dataDiscount?.discountPercent +
+                                          controller.dataDiscount != null ?  Text(
+                                            "${controller.dataDiscount?.discountType!.toLowerCase() == 'price' ? ' - Rp.' + formatCurrency.format(int.parse(controller.dataDiscount!.discountMaxPriceOff!)) : controller.dataDiscount?.discountPercent +
                                                 '%'}",
                                             style: GoogleFonts.roboto(color: Colors.red, fontWeight: FontWeight.bold),
                                           ) : Icon(Icons.arrow_forward_ios_rounded,size: 15,),
@@ -361,11 +360,11 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                                             width: 4,
                                           ),
                                           Visibility(
-                                            visible: cartController.dataDiscount == null ? false : true,
+                                            visible: controller.dataDiscount == null ? false : true,
                                             child: InkWell(
                                                 onTap: () {
                                                   setState(() {
-                                                    cartController.deleteDiscount(dataDiscount: cartController.dataDiscount!,allProduct: true);
+                                                    controller.deleteDiscount(dataDiscount: controller.dataDiscount!,allProduct: true);
                                                   });
                                                 },
                                                 child: Icon(
@@ -379,8 +378,8 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                                     ],
                                   ),
                                 ),
-                                cartController.dataDiscount != null
-                                    ? cartController.dataDiscount!.discountType != 'price'
+                                controller.dataDiscount != null
+                                    ? controller.dataDiscount!.discountType != 'price'
                                     ? Padding(
                                   padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
                                   child: Row(
@@ -389,7 +388,7 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                                     children: [
                                       Text("Max Diskon"),
                                       Text(
-                                        "- Rp.${formatCurrency.format(int.parse(cartController.dataDiscount!.discountMaxPriceOff!))}",
+                                        "- Rp.${formatCurrency.format(int.parse(controller.dataDiscount!.discountMaxPriceOff!))}",
                                         style: GoogleFonts.roboto(color: Colors.red, fontWeight: FontWeight.bold),
                                       ),
                                     ],
@@ -432,7 +431,7 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                         style: GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 4.w),
                       ),
                       Text(
-                        "Rp.${formatCurrency.format(cartController.totalShopping.value)}",
+                        "Rp.${formatCurrency.format(controller.totalShopping.value)}",
                         style: GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 4.w),
                       ),
                     ],
@@ -445,7 +444,7 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                       child: GeneralButton(
                         label: 'simpan'.tr,
                         onPressed: () => showDialogNoted(title: 'Masukan Catatan',message: 'coba',clickYes: (){
-                          cartController.storeTransaction();
+                          controller.storeTransactionPending();
                         }),
                         width: 45.w,
                         color: MyColor.colorBlue,
@@ -459,7 +458,7 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                             "from" : "cart",
                             "data" : null
                           };
-                          if(cartController.listCart.isEmpty){
+                          if(controller.listCart.isEmpty){
                             showSnackBar(snackBarType: SnackBarType.INFO,message: "Keranjang Masih Kosong",title: 'transaksi'.tr);
                           }else{
                             Get.toNamed(Routes.CHECKOUT_PAGE,arguments: data);
@@ -518,7 +517,7 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: ListTile(
                                   onTap: () {
-                                    cartController.addDiscount(dataDiscount: controller.discountController.listDiscount[i], allProduct: allProduct, cartModel: cart);
+                                    controller.addDiscount(dataDiscount: controller.discountController.listDiscount[i], allProduct: allProduct, cartModel: cart);
                                     Get.back();
                                   },
                                   dense: true,

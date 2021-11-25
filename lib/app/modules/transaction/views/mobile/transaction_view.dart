@@ -32,9 +32,7 @@ class TransactionView extends StatefulWidget {
 class _TransactionViewState extends State<TransactionView> {
   var controller = Get.put(TransactionController());
   var controllerCategory = Get.put(ProductCategoryController());
-  var cartController = Get.isRegistered<CartController>()
-      ? Get.find<CartController>()
-      : Get.put(CartController());
+ 
 
   @override
   void initState() {
@@ -275,7 +273,7 @@ class _TransactionViewState extends State<TransactionView> {
                                 color: MyColor.colorWhite),
                             padding: EdgeInsets.all(10),
                             child: Text(
-                              "${cartController.listCart.length}",
+                              "${controller.listCart.length}",
                               style: blackTextFont.copyWith(
                                   color: MyColor.colorPrimary,
                                   fontWeight: FontWeight.bold),
@@ -286,7 +284,7 @@ class _TransactionViewState extends State<TransactionView> {
                           ),
                           title: Text(
                             "Rp. ${formatCurrency.format(
-                                cartController.totalCart.value)}",
+                                controller.totalCart.value)}",
                             style: GoogleFonts.droidSans(
                                 fontSize: 6.w,
                                 color: MyColor.colorWhite,

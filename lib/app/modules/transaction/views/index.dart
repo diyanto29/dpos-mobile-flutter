@@ -14,7 +14,11 @@ class IndexTransaction extends StatefulWidget {
 }
 
 class _IndexTransactionState extends State<IndexTransaction> {
+  @override
+  void initState() {
 
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
