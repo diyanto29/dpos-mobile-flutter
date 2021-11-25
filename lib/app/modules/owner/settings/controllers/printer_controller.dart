@@ -1183,7 +1183,7 @@ class PrinterController extends GetxController {
       ]);
       bytes += generator.row([
         PosColumn(
-            text: "Kembalian",
+            text: "change".tr,
             width: 6,
             styles: PosStyles(
               align: PosAlign.left,

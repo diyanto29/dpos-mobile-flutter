@@ -48,7 +48,7 @@ class LoginEmployeeController extends GetxController {
           showSnackBar(snackBarType: SnackBarType.ERROR, title: 'Login', message: 'PIN/No Hanphone tidak valid');
           return true;
         } else {
-          showSnackBar(snackBarType: SnackBarType.ERROR, title: 'Login', message: value.message);
+          showSnackBar(snackBarType: SnackBarType.SUCCESS, title: 'Login', message: value.message);
           return true;
         }
       });

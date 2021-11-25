@@ -177,6 +177,8 @@ class Messages extends Translations {
           'alasan': "Alasan dibatalkan",
           "semua_kategori": "Semua Kategori",
           "batal": "Batal",
+          "tunai": "Tunai",
+          "non_tunai": "Non Tunai",
         },
         'en_US': {
           'ket_print': 'Tap For Print',
@@ -352,6 +354,9 @@ class Messages extends Translations {
           'export_metode_pembayaran': 'Export Method Payment + Summary',
           'dibatalkan': 'Dibatalkan',
           "batal": "Cancel",
+          "tunai": "Cash",
+          "non_tunai": "Non Cash",
+
         }
       };
 }

@@ -60,8 +60,8 @@ class TransactionController extends GetxController
   List<Tab> tabs = [];
 
   final List<Tab> tabsCheckout = <Tab>[
-    Tab(text: "Tunai"),
-    Tab(text: "Non Tunai"),
+    Tab(text: 'tunai'.tr.tr),
+    Tab(text: 'non_tunai'.tr),
   ];
   TabController? tabController;
   PageController controllerPage =

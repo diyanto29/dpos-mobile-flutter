@@ -73,9 +73,9 @@ class CheckoutView extends GetWidget<TransactionController> {
                 },
                 controller: controller.controllerPageCheckout,
                 children: controller.tabsCheckout.map<Widget>((Tab tab) {
-                  if (tab.text == "Tunai") {
+                  if (tab.text == 'tunai'.tr.tr) {
                     return CheckoutCashView();
-                  } else if (tab.text == "Non Tunai") {
+                  } else if (tab.text == 'non_tunai'.tr) {
                     return CheckoutCashlessView();
                   } else {
                     return Container();
