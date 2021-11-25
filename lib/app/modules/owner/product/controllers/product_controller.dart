@@ -215,19 +215,7 @@ class ProductController extends GetxController {
   }
 
 
-  void checkProductInCart()async{
-     var cartC=Get.find<CartController>();
-     if(cartC.listCart.length>0){
-       cartC.listCart.forEach((element) {
-         listProduct.forEach((item) {
-           if(element.dataProduct==item){
-             item.productInCart=true;
-             update();
-           }
-         });
-       });
-     }
-  }
+
 
   void scanBarcode() async {
     String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode("#ff6666", 'batal'.tr, true, ScanMode.BARCODE);

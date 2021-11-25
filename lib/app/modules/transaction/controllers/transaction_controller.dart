@@ -97,7 +97,7 @@ class TransactionController extends GetxController
   Future getCategoryProductDataSource() async {
     loadingStateCategory(LoadingState.loading);
     listCategoryProduct
-        .add(CategoryProduct(categoryName: 'semua'.tr, categoryId: 'all'));
+        .add(CategoryProduct(categoryName: 'semua'.tr, categoryId: 'all',isChecked: true));
 
     await CategoryProductRemoteDataSource().getCategoryProduct().then((value) {
       listCategoryProduct.addAll(value.data!);
@@ -128,12 +128,21 @@ class TransactionController extends GetxController
     listCategoryProduct[i].isChecked = true;
     if (listCategoryProduct[i].categoryId == 'all') {
       idCategory.value = 'all';
+
       update();
     } else {
       idCategory.value = listCategoryProduct[i].categoryId!;
+      getSearchProduct(searchC.value.text,idCategory: idCategory.value);
       update();
     }
     listCategoryProduct.refresh();
+  }
+  Widget getPage(){
+    if(idCategory.value=="all" || idCategory.value.isEmpty){
+      return ProductTransactionView();
+    }else{
+      return ProductTransactionView(idCategory: idCategory.value,);
+    }
   }
 
   void setTabName() {
@@ -249,7 +258,7 @@ class TransactionController extends GetxController
 
   void getSearchProduct(String name, {String? idCategory}) async {
     loadingState(LoadingState.loading);
-    // print("Katog "+idCategory!);
+    print("Katog "+idCategory!);
     await ProductRemoteDataSource()
         .getSearchProduct(name: name, idCategory: idCategory)
         .then((value) {
@@ -264,6 +273,7 @@ class TransactionController extends GetxController
   void checkProductInCart() async {
     var cartC = Get.find<CartController>();
     if (cartC.listCart.length > 0) {
+      print("Aa");
       cartC.listCart.forEach((element) {
         listSearchProduct.forEach((item) {
           if (element.dataProduct == item) {
@@ -274,6 +284,8 @@ class TransactionController extends GetxController
         });
       });
       listSearchProduct.refresh();
+    }else{
+      print("b");
     }
   }
 

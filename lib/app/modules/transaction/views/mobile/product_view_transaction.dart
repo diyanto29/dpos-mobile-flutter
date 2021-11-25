@@ -27,9 +27,9 @@ class ProductTransactionView extends StatefulWidget {
 }
 
 class _ProductTransactionViewState extends State<ProductTransactionView> {
-  final cartController = Get.isRegistered<CartController>()
-      ? Get.find<CartController>()
-      : Get.put(CartController());
+  final cartController =
+       Get.find<CartController>();
+
   final controller = Get.isRegistered<ProductController>()
       ? Get.find<ProductController>()
       : Get.put(ProductController());
@@ -37,6 +37,7 @@ class _ProductTransactionViewState extends State<ProductTransactionView> {
 
   @override
   void initState() {
+    print(widget.idCategory);
     if(widget.idCategory!=null){
       transactionController.getSearchProduct(transactionController.searchC.value.text,idCategory: widget.idCategory);
     }else{
@@ -55,7 +56,12 @@ class _ProductTransactionViewState extends State<ProductTransactionView> {
 
   @override
   Widget build(BuildContext context) {
-    controller.checkProductInCart();
+    transactionController.checkProductInCart();
+    // if(widget.idCategory!=null){
+    //   transactionController.getSearchProduct(transactionController.searchC.value.text,idCategory: widget.idCategory);
+    // }else{
+    //
+    // }
     return Obx(() {
       return transactionController.searchC.value.text.isEmpty && widget.idCategory==null
           ? controller.listProduct.length == 0
@@ -278,7 +284,7 @@ class _ProductTransactionViewState extends State<ProductTransactionView> {
                       ),
                     );
                   })
-          : transactionController.listSearchProduct.length == 0
+          : transactionController.loadingState.value==LoadingState.loading ? Center(child: CircularProgressIndicator()): transactionController.listSearchProduct.length == 0
               ? Center(
                   child: Text("Produk Kosong"),
                 )

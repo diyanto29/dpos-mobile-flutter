@@ -56,126 +56,125 @@ class _TransactionViewState extends State<TransactionView> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<TransactionController>(builder: (logic) {
-      return Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: MyColor.colorBackground,
-        appBar: AppBar(
-          backgroundColor: MyColor.colorPrimary,
-          title: Text(
-            'penjualan'.tr,
-          ),
-          automaticallyImplyLeading:
-          controller.auth.value.roleName == "Pemilik Toko" ? false : true,
-          actions: [
-            controller.listTransaction.length == 0
-                ? IconButton(
-              onPressed: () {},
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: MyColor.colorBackground,
+      appBar: AppBar(
+        backgroundColor: MyColor.colorPrimary,
+        title: Text(
+          'penjualan'.tr,
+        ),
+        automaticallyImplyLeading:
+        controller.auth.value.roleName == "Pemilik Toko" ? false : true,
+        actions: [
+          controller.listTransaction.length == 0
+              ? IconButton(
+            onPressed: () {},
+            icon: LineIcon.addToShoppingCart(
+              color: MyColor.colorSilver,
+            ),
+            iconSize: 30,
+          )
+              : Badge(
+            elevation: 1,
+            shape: BadgeShape.circle,
+            animationDuration: Duration(seconds: 3),
+            position: BadgePosition.topEnd(top: 2, end: 7),
+            animationType: BadgeAnimationType.slide,
+            badgeColor: Colors.white,
+            badgeContent: Text("${controller.listTransaction.length}"),
+            child: IconButton(
+              onPressed: () => Get.to(TransactionPending()),
               icon: LineIcon.addToShoppingCart(
                 color: MyColor.colorSilver,
               ),
               iconSize: 30,
-            )
-                : Badge(
-              elevation: 1,
-              shape: BadgeShape.circle,
-              animationDuration: Duration(seconds: 3),
-              position: BadgePosition.topEnd(top: 2, end: 7),
-              animationType: BadgeAnimationType.slide,
-              badgeColor: Colors.white,
-              badgeContent: Text("${controller.listTransaction.length}"),
-              child: IconButton(
-                onPressed: () => Get.to(TransactionPending()),
-                icon: LineIcon.addToShoppingCart(
-                  color: MyColor.colorSilver,
-                ),
-                iconSize: 30,
-              ),
-            )
-          ],
-        ),
-        drawer: controller.auth.value.roleName == "Pemilik Toko"
-            ? null
-            : DrawerCustom(),
-        body: Column(
+            ),
+          )
+        ],
+      ),
+      drawer: controller.auth.value.roleName == "Pemilik Toko"
+          ? null
+          : DrawerCustom(),
+      body: Obx(() {
+        return Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Obx(() {
-              return Row(
-                children: [
-                  Flexible(
-                    flex: 5,
-                    child: Container(
-                      margin: const EdgeInsets.only(
-                          top: 10, bottom: 10, left: 10, right: 10),
-                      child: TextField(
-                        controller: controller.searchC.value,
-                        style: TextStyle(height: 0.9, fontSize: 14),
-                        onSubmitted: (v) {},
-                        onChanged: (v) {
-                          print("asda");
-                          controller.getSearchProduct(v);
-                        },
-                        decoration: InputDecoration(
-                            hintText: 'cari_produk_disini'.tr + '...',
-                            hintStyle: TextStyle(
-                                fontSize: 12, color: Colors.grey[600]),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10)),
-                              borderSide: BorderSide(
-                                  width: 1, color: MyColor.colorBlackT50),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10)),
-                              borderSide: BorderSide(
-                                  width: 1, color: MyColor.colorPrimary),
-                            ),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide:
-                                BorderSide(color: Colors.red, width: 0.1)),
-                            suffixIcon: controller.searchC.value.text.isNotEmpty
-                                ? IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    controller.searchC.value.text = "";
-                                  });
-                                },
-                                icon: Icon(
-                                  Icons.cancel,
-                                  color: Colors.grey[400],
-                                ))
-                                : Icon(
-                              Icons.search,
-                              color: Colors.grey[400],
-                            )),
-                      ),
+            Row(
+              children: [
+                Flexible(
+                  flex: 5,
+                  child: Container(
+                    margin: const EdgeInsets.only(
+                        top: 10, bottom: 10, left: 10, right: 10),
+                    child: TextField(
+                      controller: controller.searchC.value,
+                      style: TextStyle(height: 0.9, fontSize: 14),
+                      onSubmitted: (v) {},
+                      onChanged: (v) {
+                        print("asda");
+                        controller.getSearchProduct(v);
+                      },
+                      decoration: InputDecoration(
+                          hintText: 'cari_produk_disini'.tr + '...',
+                          hintStyle: TextStyle(
+                              fontSize: 12, color: Colors.grey[600]),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(10)),
+                            borderSide: BorderSide(
+                                width: 1, color: MyColor.colorBlackT50),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(10)),
+                            borderSide: BorderSide(
+                                width: 1, color: MyColor.colorPrimary),
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide:
+                              BorderSide(color: Colors.red, width: 0.1)),
+                          suffixIcon: controller.searchC.value.text.isNotEmpty
+                              ? IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  controller.searchC.value.text = "";
+                                });
+                              },
+                              icon: Icon(
+                                Icons.cancel,
+                                color: Colors.grey[400],
+                              ))
+                              : Icon(
+                            Icons.search,
+                            color: Colors.grey[400],
+                          )),
                     ),
                   ),
-                  Flexible(
-                      flex: 1,
-                      child: IconButton(
-                        onPressed: () => controller.scanBarcode(),
-                        icon: LineIcon.barcode(
-                          color: MyColor.colorBlackT50,
-                        ),
-                        iconSize: 30,
-                      )),
-                  Flexible(
-                      flex: 1,
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: LineIcon.fileAlt(
-                          color: MyColor.colorBlackT50,
-                        ),
-                        iconSize: 30,
-                      ))
-                ],
-              );
-            }),
+                ),
+                Flexible(
+                    flex: 1,
+                    child: IconButton(
+                      onPressed: () => controller.scanBarcode(),
+                      icon: LineIcon.barcode(
+                        color: MyColor.colorBlackT50,
+                      ),
+                      iconSize: 30,
+                    )),
+                Flexible(
+                    flex: 1,
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: LineIcon.fileAlt(
+                        color: MyColor.colorBlackT50,
+                      ),
+                      iconSize: 30,
+                    ))
+              ],
+            ),
+
             // GetBuilder<TransactionController>(builder: (logic) {
             //   return controller.loadingStateCategory.value ==
             //           LoadingState.loading
@@ -207,107 +206,100 @@ class _TransactionViewState extends State<TransactionView> {
             //           controller: controller.tabController,
             //         );
             // }),
-            Obx(() {
-              return Container(
-                width: double.infinity,
-                height: 35,
-                margin: EdgeInsets.only(left: 10),
-                child: ListView.builder(
-                  itemCount: controller.listCategoryProduct.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (c, i) =>
-                      InkWell(
-                        onTap: () {
-                          controller.onTapCategory(i);
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 15),
-                          margin: EdgeInsets.only(right: 8),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(6),
-                            color: (controller.listCategoryProduct[i]
-                                .isChecked ==
-                                false)
-                                ? Colors.grey
-                                : MyColor.colorPrimary,
-                          ),
-                          child: Text(
-                            controller.listCategoryProduct[i].categoryName
-                                .toString(),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
+
+            Container(
+              width: double.infinity,
+              height: 35,
+              margin: EdgeInsets.only(left: 10),
+              child: ListView.builder(
+                itemCount: controller.listCategoryProduct.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (c, i) =>
+                    InkWell(
+                      onTap: () {
+                        controller.onTapCategory(i);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        margin: EdgeInsets.only(right: 8),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                          color: (controller.listCategoryProduct[i]
+                              .isChecked ==
+                              false)
+                              ? Colors.grey
+                              : MyColor.colorPrimary,
+                        ),
+                        child: Text(
+                          controller.listCategoryProduct[i].categoryName
+                              .toString(),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
                         ),
                       ),
-                ),
-              );
-            }),
+                    ),
+              ),
+            ),
+
             SizedBox(
               height: 10,
             ),
-            Obx(() {
-              print(controller.idCategory);
-              return Expanded(
-                child: controller.idCategory.value == 'all'
-                    ? ProductTransactionView()
-                    : ProductTransactionView(
-                  idCategory: controller.idCategory.value,
-                ),
-              );
-            }),
-            Obx(() {
-              return Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    height: 9.h,
-                    width: double.infinity,
-                    child: ElevatedButton(
-                        child: ListTile(
-                          leading: Container(
-                            height: 6.h,
-                            width: 10.w,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: MyColor.colorWhite),
-                            padding: EdgeInsets.all(10),
-                            child: Text(
-                              "${cartController.listCart.length}",
-                              style: blackTextFont.copyWith(
-                                  color: MyColor.colorPrimary,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          trailing: LineIcon.arrowCircleRight(
-                            color: MyColor.colorWhite,
-                          ),
-                          title: Text(
-                            "Rp. ${formatCurrency.format(
-                                cartController.totalCart.value)}",
-                            style: GoogleFonts.droidSans(
-                                fontSize: 6.w,
-                                color: MyColor.colorWhite,
+            Expanded(
+                child: controller.getPage()
+            ),
+
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  height: 9.h,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      child: ListTile(
+                        leading: Container(
+                          height: 6.h,
+                          width: 10.w,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: MyColor.colorWhite),
+                          padding: EdgeInsets.all(10),
+                          child: Text(
+                            "${cartController.listCart.length}",
+                            style: blackTextFont.copyWith(
+                                color: MyColor.colorPrimary,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
-                        style: ElevatedButton.styleFrom(
-                            elevation: 1,
-                            primary: MyColor.colorPrimary,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10))),
-                        onPressed: () => Get.toNamed(Routes.CART_TRANSACTION))),
-              );
-            })
+                        trailing: LineIcon.arrowCircleRight(
+                          color: MyColor.colorWhite,
+                        ),
+                        title: Text(
+                          "Rp. ${formatCurrency.format(
+                              cartController.totalCart.value)}",
+                          style: GoogleFonts.droidSans(
+                              fontSize: 6.w,
+                              color: MyColor.colorWhite,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          elevation: 1,
+                          primary: MyColor.colorPrimary,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                      onPressed: () => Get.toNamed(Routes.CART_TRANSACTION))),
+            )
+
           ],
-        ),
-      );
-    });
+        );
+      }),
+    );
   }
 
   Future showBottomSheetOutlet() {

@@ -15,13 +15,25 @@ class IndexTransaction extends StatefulWidget {
 
 class _IndexTransactionState extends State<IndexTransaction> {
 
-  var cartController = Get.isRegistered<CartController>()
-      ? Get.find<CartController>()
-      : Get.put(CartController());
+
   @override
   Widget build(BuildContext context) {
-    return ResponsiveBuilder(desktop: TransactionViewTable(),
-    mobile: TransactionView(),
-    tablet: TransactionViewTable(),);
+    return LayoutBuilder(
+      // If our width is more than 1100 then we consider it a desktop
+      builder: (context, constraints) {
+        print(constraints.maxWidth);
+        if (constraints.maxWidth >= 1100) {
+          return TransactionViewTable();
+        }
+        // If width it less then 1100 and more then 650 we consider it as tablet
+        else if (constraints.maxWidth >= 600) {
+          return TransactionViewTable();
+        }
+        // Or less then that we called it mobile
+        else {
+          return TransactionView();
+        }
+      },
+    );
   }
 }

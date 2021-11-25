@@ -46,7 +46,7 @@ class DrawerCustom extends StatelessWidget {
                 shrinkWrap: true,
                 children: [
                   ListTile(
-                    onTap: () => Get.toNamed(Routes.INDEX_TRANSACTION),
+                    onTap: () => Get.offAllNamed(Routes.INDEX_TRANSACTION),
                     leading: Icon(
                       Icons.shopping_bag_outlined,
                       color: Colors.deepOrange,

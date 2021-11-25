@@ -43,8 +43,10 @@ class CartController extends GetxController {
 
   Future<List<CartModel>> addCart(DataProduct dataProduct) async {
     bool newCart = false;
+
     totalCart(0);
     if (listCart.isNotEmpty) {
+
       for (var item in listCart) {
         var index = listCart.indexOf(item);
         if (item.dataProduct == dataProduct) {
@@ -71,13 +73,27 @@ class CartController extends GetxController {
         });
       }
       productController.listProduct.refresh();
+      if(transactionController.listSearchProduct.isNotEmpty) {
+        print("ada");
+        for (var product in transactionController.listSearchProduct) {
+          listCart.forEach((element) {
+            if (product == element.dataProduct) {
+              product.productInCart = true;
+            }
+          });
+
+        }
+        transactionController.listSearchProduct.refresh();
+      }
 
       listCart.forEach((element) {
         totalCart.value += element.subTotal!;
       });
+
       getSubTotal();
       return listCart;
     } else {
+      print("asas");
       listCart.add(CartModel(dataProduct: dataProduct, qty: 1, subTotal: (1 * dataProduct.productPrice!)));
       for (var product in productController.listProduct) {
         listCart.forEach((element) {
@@ -87,12 +103,14 @@ class CartController extends GetxController {
         });
       }
       productController.listProduct.refresh();
+      productController.listProduct.refresh();
       getSubTotal();
     }
     listCart.forEach((element) {
       totalCart.value += element.subTotal!;
     });
     print("adad");
+    print(listCart.length);
     getSubTotal();
     return listCart;
   }
