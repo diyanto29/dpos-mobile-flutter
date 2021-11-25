@@ -330,7 +330,7 @@ class _CheckOutTableViewState extends State<CheckOutTableView> {
                                                       title: 'Masukan Catatan',
                                                       message: 'coba',
                                                       clickYes: () {
-                                                        controller.storeTransaction();
+                                                        controller.storeTransactionPending();
                                                       }),
                                               icon: Icon(Icons.save),
                                             ),

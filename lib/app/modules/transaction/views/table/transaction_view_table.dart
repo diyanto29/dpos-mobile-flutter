@@ -1272,7 +1272,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                                         message: 'coba',
                                                         clickYes: () {
                                                           transactionController
-                                                              .storeTransaction();
+                                                              .storeTransactionPending();
                                                         }),
                                                 icon: Icon(Icons.save),
                                               ),

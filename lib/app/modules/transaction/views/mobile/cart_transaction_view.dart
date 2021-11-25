@@ -72,7 +72,7 @@ class _CardTransactionViewState extends State<CardTransactionView> {
                             onTap: () async {
                               Get.toNamed(Routes.CUSTOMER_PAGE);
                             },
-                            child: GetBuilder<CartController>(builder: (logic) {
+                            child: GetBuilder<TransactionController>(builder: (logic) {
                               return Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.center,
