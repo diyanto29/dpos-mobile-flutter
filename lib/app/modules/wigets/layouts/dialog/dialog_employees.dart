@@ -81,11 +81,17 @@ class DialogEmployees extends GetWidget<EmployeesController> {
                     descTextInputBox: 'masukkan_alamat'.tr),
                 GeneralButton(
                     label: 'simpan'.tr,
-                    onPressed: () => controller.storeEmployees(
-                        name: controller.nameC.value.text,
-                        pin: controller.pinC.value.text,
-                        phoneNumber: controller.phoneNumberC.value.text,
-                        employeesID: employeesID))
+                    onPressed: () {
+                      controller.storeEmployees(
+                          name: controller.nameC.value.text,
+                          pin: controller.pinC.value.text,
+                          phoneNumber: controller.phoneNumberC.value.text,
+                          employeesID: employeesID);
+                      controller.nameC.value.clear();
+                      controller.pinC.value.clear();
+                      controller.phoneNumberC.value.clear();
+                      controller.addressC.value.clear();
+                    })
               ],
             ),
           );

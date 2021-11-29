@@ -28,7 +28,9 @@ class TypeOrderRemoteDataSource extends BaseDio {
       };
       response = await dio.post("${MyString.addOrUpdateTypeOrder}",
           data: data,
-          options: Options(headers: {"Authorization": "Bearer ${authSessionManager.token}"}));
+          options: Options(headers: {
+            "Authorization": "Bearer ${authSessionManager.token}"
+          }));
       if (response!.data['status']) {
         return true;
       } else {
@@ -43,7 +45,9 @@ class TypeOrderRemoteDataSource extends BaseDio {
   Future<bool> deleteTypeOrder({String? id}) async {
     try {
       response = await dio.post("${MyString.deleteTypeOrder}/$id",
-          options: Options(headers: {"Authorization": "Bearer ${authSessionManager.token}"}));
+          options: Options(headers: {
+            "Authorization": "Bearer ${authSessionManager.token}"
+          }));
       if (response!.data['status']) {
         return true;
       } else {

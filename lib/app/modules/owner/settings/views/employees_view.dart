@@ -26,7 +26,11 @@ class EmployeesView extends GetWidget<EmployeesController> {
             'kelola_karyawan'.tr,
             style: whiteTextTitle,
           ),
-          actions: [IconButton(onPressed: () => showBottomDialogEmployees(), icon: Icon(IconlyBold.plus))],
+          actions: [
+            IconButton(
+                onPressed: () => showBottomDialogEmployees(),
+                icon: Icon(IconlyBold.plus))
+          ],
         ),
         body: Obx(() {
           return Column(
@@ -34,7 +38,8 @@ class EmployeesView extends GetWidget<EmployeesController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                margin: const EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
+                margin: const EdgeInsets.only(
+                    top: 10, bottom: 10, left: 15, right: 15),
                 child: TextField(
                   controller: controller.searchC.value,
                   style: TextStyle(height: 0.9, fontSize: 14),
@@ -43,16 +48,22 @@ class EmployeesView extends GetWidget<EmployeesController> {
                   },
                   decoration: InputDecoration(
                       hintText: 'cari_karyawan'.tr + '...',
-                      hintStyle: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                      hintStyle:
+                          TextStyle(fontSize: 12, color: Colors.grey[600]),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
-                        borderSide: BorderSide(width: 1, color: MyColor.colorBlackT50),
+                        borderSide:
+                            BorderSide(width: 1, color: MyColor.colorBlackT50),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
-                        borderSide: BorderSide(width: 1, color: MyColor.colorPrimary),
+                        borderSide:
+                            BorderSide(width: 1, color: MyColor.colorPrimary),
                       ),
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.red, width: 0.1)),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                              BorderSide(color: Colors.red, width: 0.1)),
                       suffixIcon: Icon(
                         Icons.search,
                         color: Colors.grey[400],
@@ -69,30 +80,42 @@ class EmployeesView extends GetWidget<EmployeesController> {
                           : controller.searchC.value.text.isNotEmpty
                               ? controller.listSearchEmployees.length == 0
                                   ? Center(
-                                      child: Text("Data yang anda Cari Kosong"),
+                                      child: Text('data_kosong'.tr),
                                     )
                                   : ListView.builder(
-                                      itemCount: controller.listSearchEmployees.length,
+                                      itemCount:
+                                          controller.listSearchEmployees.length,
                                       shrinkWrap: true,
-                                      padding: EdgeInsets.symmetric(horizontal: 10),
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 10),
                                       physics: ClampingScrollPhysics(),
                                       itemBuilder: (c, i) {
-                                        var data = controller.listSearchEmployees[i];
+                                        var data =
+                                            controller.listSearchEmployees[i];
                                         return Card(
                                           elevation: 0.1,
-                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
                                           child: ListTile(
                                             onTap: () {
-                                              showBottomDialogEmployees(employeesID: data.employeid, employeeData: data);
+                                              showBottomDialogEmployees(
+                                                  employeesID: data.employeid,
+                                                  employeeData: data);
                                             },
                                             trailing: IconButton(
                                               onPressed: () {
                                                 showDialogQuestion(
                                                     title: 'hapus'.tr,
-                                                    message: 'apakah_anda_yakin'.tr + ' ?',
+                                                    message:
+                                                        'apakah_anda_yakin'.tr +
+                                                            ' ?',
                                                     clickYes: () {
                                                       Get.back();
-                                                      controller.deleteEmployees(data.employeid.toString());
+                                                      controller
+                                                          .deleteEmployees(data
+                                                              .employeid
+                                                              .toString());
                                                     });
                                               },
                                               icon: Icon(
@@ -110,8 +133,10 @@ class EmployeesView extends GetWidget<EmployeesController> {
                                               text: "${data.name}",
                                             ),
                                             title: Column(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   "${data.name}",
@@ -139,19 +164,27 @@ class EmployeesView extends GetWidget<EmployeesController> {
                                     var data = controller.listEmployees[i];
                                     return Card(
                                       elevation: 0.1,
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
                                       child: ListTile(
                                         onTap: () {
-                                          showBottomDialogEmployees(employeesID: data.employeid, employeeData: data);
+                                          showBottomDialogEmployees(
+                                              employeesID: data.employeid,
+                                              employeeData: data);
                                         },
                                         trailing: IconButton(
                                           onPressed: () {
                                             showDialogQuestion(
                                                 title: 'hapus'.tr,
-                                                message: 'apakah_anda_yakin'.tr + ' ?',
+                                                message:
+                                                    'apakah_anda_yakin'.tr +
+                                                        ' ?',
                                                 clickYes: () {
                                                   Get.back();
-                                                  controller.deleteEmployees(data.employeid.toString());
+                                                  controller.deleteEmployees(
+                                                      data.employeid
+                                                          .toString());
                                                 });
                                           },
                                           icon: Icon(
@@ -169,8 +202,10 @@ class EmployeesView extends GetWidget<EmployeesController> {
                                           text: "${data.name}",
                                         ),
                                         title: Column(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               "${data.name}",
@@ -194,7 +229,8 @@ class EmployeesView extends GetWidget<EmployeesController> {
         }));
   }
 
-  Future showBottomDialogEmployees({String? employeesID, EmployeData? employeeData}) {
+  Future showBottomDialogEmployees(
+      {String? employeesID, EmployeData? employeeData}) {
     return Get.bottomSheet(
         DialogEmployees(
           employeesID: employeesID,

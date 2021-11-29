@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -17,7 +16,7 @@ final formatCurrency =
 void main() async {
   LazyBindings().dependencies();
   await GetStorage.init();
-  if(GetPlatform.isAndroid){
+  if (GetPlatform.isAndroid) {
     MobileAds.instance.initialize();
   }
   WidgetsFlutterBinding.ensureInitialized();

@@ -356,7 +356,6 @@ class Messages extends Translations {
           "batal": "Cancel",
           "tunai": "Cash",
           "non_tunai": "Non Cash",
-
         }
       };
 }

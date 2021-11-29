@@ -21,7 +21,7 @@ class SetupBusinessController extends GetxController {
   TextEditingController businessNameC = TextEditingController();
   TextEditingController websiteNameC = TextEditingController();
   TextEditingController contactC = TextEditingController();
-  RxString totalCrew = 'jumlah_karyawab'.tr.obs;
+  RxString totalCrew = 'jumlah_karyawan'.tr.obs;
   RxString totalBranch = 'Jumlah Outlet'.obs;
   Rx<TypeBusiness> typeBusiness = TypeBusiness().obs;
   File? image;
@@ -123,7 +123,7 @@ class SetupBusinessController extends GetxController {
   }
 
   void updateBusinessProfile() async {
-    var box=GetStorage();
+    var box = GetStorage();
     Get.dialog(Container(
         height: 50,
         width: 50,
@@ -132,39 +132,41 @@ class SetupBusinessController extends GetxController {
           color: MyColor.colorPrimary,
         )));
 
-
-    await BusinessProfileDataSource().updateBusinessProfile(
-        businessName: businessNameC.text,
-        typeBusiness: typeBusiness.value,
-        branch: totalBranch.value,
-        contact: contactC.text,
-        crewTotal: totalCrew.value,
-        websiteName: websiteNameC.text,
-        pathLogo: image,
-        fileName: image != null
-            ? image!.path.isEmpty
-                ? image!.path.split('/').last
-                : '...'
-            : "...").then((value) async{
-              if(value){
-                if(image!=null)
-                 {
-                   var dir;
-                   await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS).then((value) {
-                     dir = value;
-                   });
-                   img.Image image2 = img.decodeJpg(image!.readAsBytesSync());
-                   img.Image thumbnail = img.copyResize(image2, width: 150, height: 150);
-                   File('$dir/logo.png').writeAsBytesSync(img.encodePng(thumbnail));
-                   box.write(MyString.BUSINESS_LOGO, '$dir/logo.png');
-                 }
-                Get.back();
-                Get.back();
-                showSnackBar(snackBarType: SnackBarType.SUCCESS,
-                title: 'DPOS',message: 'Berhasil Disimpan');
-              }
+    await BusinessProfileDataSource()
+        .updateBusinessProfile(
+            businessName: businessNameC.text,
+            typeBusiness: typeBusiness.value,
+            branch: totalBranch.value,
+            contact: contactC.text,
+            crewTotal: totalCrew.value,
+            websiteName: websiteNameC.text,
+            pathLogo: image,
+            fileName: image != null
+                ? image!.path.isEmpty
+                    ? image!.path.split('/').last
+                    : '...'
+                : "...")
+        .then((value) async {
+      if (value) {
+        if (image != null) {
+          var dir;
+          await ExternalPath.getExternalStoragePublicDirectory(
+                  ExternalPath.DIRECTORY_DOWNLOADS)
+              .then((value) {
+            dir = value;
+          });
+          img.Image image2 = img.decodeJpg(image!.readAsBytesSync());
+          img.Image thumbnail = img.copyResize(image2, width: 150, height: 150);
+          File('$dir/logo.png').writeAsBytesSync(img.encodePng(thumbnail));
+          box.write(MyString.BUSINESS_LOGO, '$dir/logo.png');
+        }
+        Get.back();
+        Get.back();
+        showSnackBar(
+            snackBarType: SnackBarType.SUCCESS,
+            title: 'DPOS',
+            message: 'Berhasil Disimpan');
+      }
     });
-
-
   }
 }
