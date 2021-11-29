@@ -4,6 +4,7 @@ import 'package:warmi/app/data/models/printer/printer_model.dart';
 import 'package:warmi/app/modules/owner/settings/controllers/printer_controller.dart';
 import 'package:warmi/app/modules/wigets/layouts/dialog/bottom_dialog_detail_printer.dart';
 import 'package:warmi/app/modules/wigets/layouts/dialog/bottom_dialog_printer.dart';
+import 'package:warmi/app/modules/wigets/layouts/dialog/bottom_dialog_printer_usb.dart';
 import 'package:warmi/app/modules/wigets/layouts/general_button.dart';
 import 'package:warmi/core/globals/global_color.dart';
 import 'package:warmi/core/utils/enum.dart';
@@ -68,5 +69,8 @@ class PrinterView extends GetWidget<PrinterController> {
   }
   Future showBottomSheetDetailPrinter({String? name,String? mac,bool edit=true,PrinterData? printerData}) {
     return Get.bottomSheet(BottomDialogDetailPrinter(namePrinter: name,macPrinter: mac,edit: true,printerData: printerData,), isScrollControlled: true, elevation: 3);
+  }
+  Future showBottomSheetPrinterUSB() {
+    return Get.bottomSheet(BottomDialogPrinterUSB(), isScrollControlled: true, elevation: 3);
   }
 }

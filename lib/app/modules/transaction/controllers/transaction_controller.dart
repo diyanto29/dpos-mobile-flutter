@@ -187,34 +187,36 @@ class TransactionController extends GetxController
     var box = GetStorage();
     print("Success Load loadad");
     if (box.read(MyString.STATUS_NAME) == "FREE") {
-      bannerAd = BannerAd(
-          // Change Banner Size According to Ur Need
-          size: AdSize.mediumRectangle,
-          adUnitId: AdmobHelpers.bannerAdUnitId,
-          listener: BannerAdListener(onAdLoaded: (_) {
-            isBannerAdReady = true;
-            print("Success Load Admon");
-            update();
-          }, onAdFailedToLoad: (ad, LoadAdError error) {
-            print("Failed to Load A Banner Ad${error.message}");
-            isBannerAdReady = false;
+     if(GetPlatform.isAndroid){
+       bannerAd = BannerAd(
+         // Change Banner Size According to Ur Need
+           size: AdSize.mediumRectangle,
+           adUnitId: AdmobHelpers.bannerAdUnitId,
+           listener: BannerAdListener(onAdLoaded: (_) {
+             isBannerAdReady = true;
+             print("Success Load Admon");
+             update();
+           }, onAdFailedToLoad: (ad, LoadAdError error) {
+             print("Failed to Load A Banner Ad${error.message}");
+             isBannerAdReady = false;
 
-            ad.dispose();
-            update();
-          }),
-          request: AdRequest())
-        ..load();
-      //Interstitial Ads
-      InterstitialAd.load(
-          adUnitId: AdmobHelpers.interstitialAdUnitId,
-          request: AdRequest(),
-          adLoadCallback: InterstitialAdLoadCallback(onAdLoaded: (ad) {
-            this.interstitialAd = ad;
-            isInterstitialAdReady = true;
-            update();
-          }, onAdFailedToLoad: (LoadAdError error) {
-            print("failed to Load Interstitial Ad ${error.message}");
-          }));
+             ad.dispose();
+             update();
+           }),
+           request: AdRequest())
+         ..load();
+       //Interstitial Ads
+       InterstitialAd.load(
+           adUnitId: AdmobHelpers.interstitialAdUnitId,
+           request: AdRequest(),
+           adLoadCallback: InterstitialAdLoadCallback(onAdLoaded: (ad) {
+             this.interstitialAd = ad;
+             isInterstitialAdReady = true;
+             update();
+           }, onAdFailedToLoad: (LoadAdError error) {
+             print("failed to Load Interstitial Ad ${error.message}");
+           }));
+     }
     }
   }
 
@@ -284,11 +286,11 @@ class TransactionController extends GetxController
           if (element.dataProduct == item) {
             item.productInCart = true;
             listSearchProduct.refresh();
-            update();
+            // update();
           }
         });
       });
-      listSearchProduct.refresh();
+      // listSearchProduct.refresh();
     }else{
       print("b");
     }
@@ -456,7 +458,10 @@ class TransactionController extends GetxController
             detailTransaction = DataTransaction.fromJson(value.data);
 
             Get.toNamed(Routes.TRANSACTION_SUCCESS, arguments: pass);
+            if(GetPlatform.isAndroid)
             printerC.printTicketPurchase(dataTransaction: detailTransaction);
+            else
+            printerC.startPrinterUSB(dataTransaction: detailTransaction);
           } else {
             showSnackBar(
                 snackBarType: SnackBarType.INFO,
@@ -515,7 +520,10 @@ class TransactionController extends GetxController
             element.productInCart = false;
           });
           Get.toNamed(Routes.TRANSACTION_SUCCESS, arguments: pass);
+          if(GetPlatform.isAndroid)
           printerC.printTicketPurchase(dataTransaction: detailTransaction);
+          else
+            printerC.startPrinterUSB(dataTransaction: detailTransaction);
         } else {
           showSnackBar(
               snackBarType: SnackBarType.INFO,
@@ -575,7 +583,10 @@ class TransactionController extends GetxController
               DataTransaction data = DataTransaction.fromJson(value.data);
               detailTransaction = DataTransaction.fromJson(value.data);
               Get.toNamed(Routes.TRANSACTION_SUCCESS, arguments: pass);
+              if(GetPlatform.isAndroid)
               printerC.printTicketPurchase(dataTransaction: data);
+              else
+                printerC.startPrinterUSB(dataTransaction: detailTransaction);
             }
           } else {
             Get.back();
@@ -618,17 +629,23 @@ class TransactionController extends GetxController
           Get.toNamed(Routes.TRANSACTION_SUCCESS, arguments: pass);
           DataTransaction data = DataTransaction.fromJson(value.data);
           detailTransaction = DataTransaction.fromJson(value.data);
+          if(GetPlatform.isAndroid)
           printerC.printTicketPurchase(
             dataTransaction: data,
           );
+          else
+            printerC.startPrinterUSB(dataTransaction: detailTransaction);
         }
       });
     }
   }
 
   void printNow() async {
+    if(GetPlatform.isAndroid)
     printerC.printTicketPurchase(
         dataTransaction: detailTransaction, printCopy: true);
+    else
+      printerC.startPrinterUSB(dataTransaction: detailTransaction,printCopy: true);
   }
 
   ScreenshotController screenshotController = ScreenshotController();

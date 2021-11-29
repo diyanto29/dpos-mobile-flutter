@@ -1,6 +1,6 @@
 ---
 name: warmi
-version: 1.0.0+18
+version: 1.0.0+19
 publish_to: none
 description: A new Flutter project.
 environment:
@@ -22,6 +22,8 @@ dependencies:
   whatsapp_unilink: ^2.0.0
   responsive_sizer: ^3.0.4+4
   google_fonts: ^2.1.0
+  pos_printer_manager: ^0.0.4+1
+  webcontent_converter: ^0.0.6+2
   google_mobile_ads: ^0.13.5
   get_storage: ^2.0.3
   intl: ^0.17.0

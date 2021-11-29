@@ -257,13 +257,13 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                 gridDelegate:
                                     const SliverGridDelegateWithMaxCrossAxisExtent(
                                         maxCrossAxisExtent: 150,
-                                        childAspectRatio: 2 / 2.6,
+                                        childAspectRatio: 2 / 3,
                                         crossAxisSpacing: 10,
                                         mainAxisSpacing: 10),
                                 itemCount: controller.listProduct.length,
                                 shrinkWrap: true,
+                                controller: ScrollController(),
                                 padding: EdgeInsets.symmetric(horizontal: 10),
-                                physics: ClampingScrollPhysics(),
                                 itemBuilder: (c, i) {
                                   return Card(
                                     color:
@@ -493,15 +493,16 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                     gridDelegate:
                                         const SliverGridDelegateWithMaxCrossAxisExtent(
                                             maxCrossAxisExtent: 150,
-                                            childAspectRatio: 2 / 2.4,
+                                            childAspectRatio: 2 / 3,
                                             crossAxisSpacing: 10,
                                             mainAxisSpacing: 10),
                                     itemCount: transactionController
                                         .listSearchProduct.length,
                                     shrinkWrap: true,
+                            controller: ScrollController(),
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 10),
-                                    physics: ClampingScrollPhysics(),
+
                                     itemBuilder: (c, i) {
                                       return Card(
                                         color: transactionController
@@ -855,6 +856,7 @@ class _TransactionViewTableState extends State<TransactionViewTable> {
                                       itemCount: transactionController.listCart.length,
                                       shrinkWrap: true,
                                       physics: ClampingScrollPhysics(),
+                                      controller: ScrollController(),
                                       itemBuilder: (c, i) => InkWell(
                                             onTap: () {
                                               addDiscount(

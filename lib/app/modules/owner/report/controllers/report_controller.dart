@@ -226,7 +226,10 @@ class ReportController extends GetxController {
   }
 
   void printReport({String type="sales"}) async {
-    printerC.printTicketPurchaseReport(reportTransaction.value,startDate: startDate,endDate: endDate,type: type);
+    if(GetPlatform.isAndroid)
+      printerC.printTicketPurchaseReport(reportTransaction.value,startDate: startDate,endDate: endDate,type: type);
+    else
+      printerC.printTicketPurchaseReportUSB(reportTransaction.value,startDate: startDate,endDate: endDate,type: type);
   }
 
   void generateReportPDF({String type="sales"})async{
@@ -385,7 +388,10 @@ class ReportController extends GetxController {
 
 
   void printReportByCategory() async {
-    printerC.printTicketPurchaseReportByCategory(reportTransactionByCategory.value,startDate: startDate,endDate: endDate);
+   if(GetPlatform.isAndroid)
+     printerC.printTicketPurchaseReportByCategory(reportTransactionByCategory.value,startDate: startDate,endDate: endDate);
+   else
+     printerC.printTicketPurchaseReportByCategoryUSB(reportTransactionByCategory.value,startDate: startDate,endDate: endDate);
   }
 
   void generateReportPDFBYCategory()async{

@@ -3,19 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:warmi/app/modules/owner/settings/controllers/printer_controller.dart';
 import 'package:warmi/app/modules/owner/settings/views/printer_blue_list.dart';
-import 'package:warmi/app/modules/owner/settings/views/printer_blue_list_USB.dart';
 import 'package:warmi/core/globals/global_color.dart';
 import 'package:warmi/core/globals/global_string.dart';
 import 'package:warmi/core/utils/thema.dart';
 
-class BottomDialogPrinter extends StatefulWidget {
-  const BottomDialogPrinter({Key? key}) : super(key: key);
+class BottomDialogPrinterUSB extends StatefulWidget {
+  const BottomDialogPrinterUSB({Key? key}) : super(key: key);
 
   @override
-  State<BottomDialogPrinter> createState() => _BottomDialogPrinterState();
+  State<BottomDialogPrinterUSB> createState() => _BottomDialogPrinterUSBState();
 }
 
-class _BottomDialogPrinterState extends State<BottomDialogPrinter> {
+class _BottomDialogPrinterUSBState extends State<BottomDialogPrinterUSB> {
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +58,7 @@ class _BottomDialogPrinterState extends State<BottomDialogPrinter> {
                 ),
                 leading: Image.asset("assets/icons/icons8-bluetooth-2-48.png",height: 40,width: 40,),
                 title: Text("Printer Bluetooth",style: blackTextTitle,),
-                subtitle: Text("Koneksi Menggunakan Printer Bluetooth"),
+                subtitle: Text("Koneksi Menggunakan Printer Bluetoo th"),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -67,7 +66,7 @@ class _BottomDialogPrinterState extends State<BottomDialogPrinter> {
               ),
               ListTile(
                 onTap: (){
-                  Get.to(PrinterBlueListUSB());
+
                 },
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)

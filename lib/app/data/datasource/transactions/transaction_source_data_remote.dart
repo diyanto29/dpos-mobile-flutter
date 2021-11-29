@@ -102,6 +102,7 @@ class TransactionRemoteDataSource extends BaseDio {
         "transaction_pay": transactionPay,
         "transaction_received": transactionReceived,
         "customer_partner_id": customerPartnerID,
+        if(GetPlatform.isWindows)   "platform" : "windows",
         "products": listProduct
       };
       print(jsonEncode(data));
@@ -175,6 +176,7 @@ class TransactionRemoteDataSource extends BaseDio {
         "transaction_id": transactionID,
         "transaction_pay": transactionPay,
         "transaction_received": transactionReceived,
+        if(GetPlatform.isWindows)   "platform" : "windows",
         "transaction_reason_cancel": transactionReasonCancel,
       };
       print(jsonEncode(data));

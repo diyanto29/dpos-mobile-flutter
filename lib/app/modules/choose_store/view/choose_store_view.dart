@@ -23,6 +23,7 @@ class _ChooseStoreViewState extends State<ChooseStoreView> {
   @override
   void initState() {
     // authCashier=Get.arguments;
+    controller.getOutletDataSource();
     super.initState();
   }
 

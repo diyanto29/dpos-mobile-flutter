@@ -32,7 +32,7 @@ class TransactionView extends StatefulWidget {
 class _TransactionViewState extends State<TransactionView> {
   var controller = Get.put(TransactionController());
   var controllerCategory = Get.put(ProductCategoryController());
- 
+
 
   @override
   void initState() {
@@ -112,8 +112,16 @@ class _TransactionViewState extends State<TransactionView> {
                         style: TextStyle(height: 0.9, fontSize: 14),
                         onSubmitted: (v) {},
                         onChanged: (v) {
-                          print("asda");
-                          controller.getSearchProduct(v);
+                          if(controller.idCategory.value=="all")
+                          {
+                            print("Asda");
+                            controller.getSearchProduct(v);
+                          }
+
+                          else
+                          {
+                            controller.getSearchProduct(v,idCategory: controller.idCategory.value);
+                          }
                         },
                         decoration: InputDecoration(
                             hintText: 'cari_produk_disini'.tr + '...',
@@ -245,16 +253,43 @@ class _TransactionViewState extends State<TransactionView> {
             SizedBox(
               height: 10,
             ),
-            Obx(() {
-              print(controller.idCategory);
-              return Expanded(
-                child: controller.idCategory.value == 'all'
-                    ? ProductTransactionView()
-                    : ProductTransactionView(
-                  idCategory: controller.idCategory.value,
-                ),
-              );
-            }),
+            Expanded(
+              child: Obx(() {
+                print(controller.idCategory);
+                if(controller.idCategory.value=="all" && controller.searchC.value.text.isEmpty){
+                  return ProductTransactionView();
+                }
+                if(controller.idCategory.value=="all" && controller.searchC.value.text.isNotEmpty){
+                  return ProductTransactionView(
+                    idCategory: controller.idCategory.value,
+                  );
+                }
+                if(controller.idCategory.value!="all" && controller.searchC.value.text.isNotEmpty){
+                  return ProductTransactionView(
+                    idCategory: controller.idCategory.value,
+                  );
+                }
+                if(controller.searchC.value.text.isEmpty && controller.listSearchProduct.isEmpty){
+                  return ProductTransactionView();
+                }
+                if(controller.listSearchProduct.isNotEmpty){
+                  return ProductTransactionView(
+                    idCategory: controller.idCategory.value,
+                  );
+                }else{
+                  return Center(
+                    child: Text("Produk Kosong"),
+                  );
+                }
+                return Expanded(
+                  child: controller.idCategory.value == 'all'
+                      ? ProductTransactionView()
+                      : ProductTransactionView(
+                    idCategory: controller.idCategory.value,
+                  ),
+                );
+              }),
+            ),
             Obx(() {
               return Align(
                 alignment: Alignment.bottomCenter,
