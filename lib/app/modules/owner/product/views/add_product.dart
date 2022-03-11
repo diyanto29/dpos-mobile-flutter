@@ -322,7 +322,7 @@ class _AddProductViewState extends State<AddProductView> {
                   keyboardType: TextInputType.number,
                   style: GoogleFonts.roboto(),
                   inputFormatters: [
-                    WhitelistingTextInputFormatter.digitsOnly,
+                    FilteringTextInputFormatter.digitsOnly,
                     CurrencyPtBrInputFormatter(maxDigits: 10, currency: "Rp "),
                   ],
                   onChanged: (v) {
@@ -436,7 +436,7 @@ class _AddProductViewState extends State<AddProductView> {
                           keyboardType: TextInputType.number,
                           style: GoogleFonts.roboto(),
                           inputFormatters: [
-                            WhitelistingTextInputFormatter.digitsOnly,
+                            FilteringTextInputFormatter.digitsOnly,
                             CurrencyPtBrInputFormatter(maxDigits: 10, currency: "Rp "),
                           ],
                           onChanged: (v) {

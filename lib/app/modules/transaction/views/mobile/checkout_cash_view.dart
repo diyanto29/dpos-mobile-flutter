@@ -54,7 +54,7 @@ class _CheckoutCashViewState extends State<CheckoutCashView> {
                 keyboardType: TextInputType.number,
                 style: GoogleFonts.roboto(fontSize: 18.sp),
                 inputFormatters: [
-                  WhitelistingTextInputFormatter.digitsOnly,
+                  FilteringTextInputFormatter.digitsOnly,
                   CurrencyPtBrInputFormatter(maxDigits: 10, currency: "Rp "),
                 ],
                 onChanged: (v) {
@@ -268,7 +268,7 @@ class _CheckoutCashViewState extends State<CheckoutCashView> {
                 keyboardType: TextInputType.number,
                 style: GoogleFonts.roboto(fontSize: 18.sp),
                 inputFormatters: [
-                  WhitelistingTextInputFormatter.digitsOnly,
+                  FilteringTextInputFormatter.digitsOnly,
                   CurrencyPtBrInputFormatter(maxDigits: 10, currency: "Rp "),
                 ],
                 onChanged: (v) {
@@ -417,7 +417,7 @@ class _CheckoutCashViewState extends State<CheckoutCashView> {
               keyboardType: TextInputType.number,
               style: GoogleFonts.roboto(fontSize: 18.sp),
               inputFormatters: [
-                WhitelistingTextInputFormatter.digitsOnly,
+                FilteringTextInputFormatter.digitsOnly,
                 CurrencyPtBrInputFormatter(maxDigits: 10, currency: "Rp "),
               ],
               onChanged: (v) {
@@ -480,7 +480,7 @@ class _CheckoutCashViewState extends State<CheckoutCashView> {
               keyboardType: TextInputType.number,
               style: GoogleFonts.roboto(fontSize: 18.sp),
               inputFormatters: [
-                WhitelistingTextInputFormatter.digitsOnly,
+                FilteringTextInputFormatter.digitsOnly,
                 CurrencyPtBrInputFormatter(maxDigits: 10, currency: "Rp "),
               ],
               onChanged: (v) {

@@ -104,7 +104,7 @@ class _AddDiscountViewState extends State<AddDiscountView> {
                           keyboardType: TextInputType.number,
                           style: GoogleFonts.roboto(),
                           inputFormatters: [
-                            WhitelistingTextInputFormatter.digitsOnly,
+                            FilteringTextInputFormatter.digitsOnly,
                             CurrencyPtBrInputFormatter(
                                 maxDigits: 10, currency: "Rp "),
                           ],
@@ -173,7 +173,7 @@ class _AddDiscountViewState extends State<AddDiscountView> {
                       keyboardType: TextInputType.number,
                       style: GoogleFonts.roboto(),
                       inputFormatters: [
-                        WhitelistingTextInputFormatter.digitsOnly,
+                        FilteringTextInputFormatter.digitsOnly,
                         CurrencyPtBrInputFormatter(
                             maxDigits: 10, currency: "Rp "),
                       ],
