@@ -39,11 +39,15 @@ class _ReportBySalesCategoryViewState extends State<ReportBySalesCategoryView> {
   bool isAscending = true;
   int sortType = sortName;
 
-  final GlobalKey<ScaffoldState> _scaffoldKey =
-  new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   void initState() {
-    controller.date = "${DateTime.now().year}-${DateTime.now().month}-01";
+    if (DateTime.now().month < 10) {
+      controller.date = "${DateTime.now().year}-0${DateTime.now().month}-01";
+    } else {
+      controller.date = "${DateTime.now().year}-${DateTime.now().month}-01";
+    }
+
     controller.startDate = DateFormat("yyyy-MM-dd", 'id-iD')
         .format(DateTime.parse(controller.date));
     controller.endDate = DateFormat("yyyy-MM-dd", 'id-iD')
@@ -66,7 +70,6 @@ class _ReportBySalesCategoryViewState extends State<ReportBySalesCategoryView> {
             ? null
             : DrawerCustom(),
         floatingActionButton: Align(
-
           alignment: Alignment.bottomRight,
           child: Column(
             mainAxisSize: MainAxisSize.min,

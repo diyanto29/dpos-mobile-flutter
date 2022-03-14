@@ -103,7 +103,11 @@ class ReportController extends GetxController {
   void init() {
     getOutletDataSource();
     getCategoryProductDataSource();
-     date="${DateTime.now().year}-${DateTime.now().month}-01";
+    if(DateTime.now().month<10){
+     date="${DateTime.now().year}-0${DateTime.now().month }-01";
+    }else{
+     date="${DateTime.now().year}-${DateTime.now().month }-01";
+    }
      startDate=DateFormat("yyyy-MM-dd", 'id-iD').format(DateTime.parse(date));
      endDate=DateFormat("yyyy-MM-dd", 'id-iD').format(DateTime.parse(startDate).add(Duration(days: 30)));
     controllerDate.text = DateFormat("dd MMMM yyyy", 'id-iD').format(DateTime.now()) + " - " + DateFormat("dd MMMM yyyy", 'id-iD').format(DateTime.now().add(Duration(days: 30)));

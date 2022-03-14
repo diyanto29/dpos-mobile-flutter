@@ -1,6 +1,6 @@
 ---
 name: warmi
-version: 1.0.0+19
+version: 2.0.0+20
 publish_to: none
 description: A new Flutter project.
 environment:
